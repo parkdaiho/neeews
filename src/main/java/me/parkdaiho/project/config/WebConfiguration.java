@@ -1,6 +1,9 @@
 package me.parkdaiho.project.config;
 
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
+import me.parkdaiho.project.repository.RefreshTokenRepository;
+import me.parkdaiho.project.config.token.TokenProvider;
 import me.parkdaiho.project.service.user.UserDetailCustomService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +14,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
 @RequiredArgsConstructor
 @Configuration
 public class WebConfiguration {
+
+    private final TokenProvider tokenProvider;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -32,7 +39,37 @@ public class WebConfiguration {
         http.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+
+                .failureUrl("/login?err=unexpected-user")
+
+                .usernameParameter("username")
+                .passwordParameter("password")
+
+                .successHandler(authenticationCustomSuccessHandler());
+
+        http.logout().disable();
+
         return http.build();
+    }
+
+    @Bean
+    public TokenAuthenticationFilter tokenAuthenticationFilter() {
+        return new TokenAuthenticationFilter(tokenProvider);
+    }
+
+    @Bean
+    public OAuth2AuthorizationRequestRepositoryBasedOnCookie oAuth2AuthorizationRequestRepositoryBasedOnCookie() {
+        return new OAuth2AuthorizationRequestRepositoryBasedOnCookie();
+    }
+
+    @Bean
+    public AuthenticationCustomSuccessHandler authenticationCustomSuccessHandler() {
+        return new AuthenticationCustomSuccessHandler(tokenProvider, refreshTokenRepository, oAuth2AuthorizationRequestRepositoryBasedOnCookie());
     }
 
     @Bean

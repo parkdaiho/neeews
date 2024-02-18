@@ -2,8 +2,10 @@ package me.parkdaiho.project.domain.user;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.parkdaiho.project.config.PrincipalDetails;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -21,6 +23,12 @@ public class RefreshToken {
 
     @Column(nullable = false)
     private String refreshToken;
+
+    @Builder
+    public RefreshToken(PrincipalDetails principal, String refreshToken) {
+        this.user = principal.getUser();
+        this.refreshToken = refreshToken;
+    }
 
     public RefreshToken update(String refreshToken) {
         this.refreshToken = refreshToken;
