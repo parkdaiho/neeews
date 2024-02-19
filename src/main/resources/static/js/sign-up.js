@@ -17,9 +17,20 @@ if(signUpBtn) {
         })
             .then(response => {
                 if(response.ok) {
-                    let headers = response.headers;
-                    location.replace(headers.get("Location"));
+                    return response.json();
                 }
+            })
+            .then(result => {
+                let params = new URLSearchParams(result);
+                let url = "/login?" + params.toString();
+                fetch(url, {
+                    method: "POST",
+                })
+                    .then(res => {
+                        if(res.ok) {
+                            location.replace("/");
+                        }
+                    })
             });
     });
 }

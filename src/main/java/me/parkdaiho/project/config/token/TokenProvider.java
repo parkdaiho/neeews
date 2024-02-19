@@ -30,6 +30,7 @@ public class TokenProvider {
                 .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer(jwtProperties.getIssuer())
                 .setIssuedAt(now)
+                .setSubject(user.getNickname())
                 .setExpiration(new Date(now.getTime() + duration.toMillis()))
                 .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
@@ -63,5 +64,13 @@ public class TokenProvider {
                 .parseClaimsJws(token)
                 .getBody()
                 .get("id");
+    }
+
+    public String getUserNickname(String token) {
+        return Jwts.parser()
+                .setSigningKey(jwtProperties.getSecretKey())
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
     }
 }

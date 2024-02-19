@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
 import me.parkdaiho.project.repository.RefreshTokenRepository;
 import me.parkdaiho.project.config.token.TokenProvider;
+import me.parkdaiho.project.repository.UserRepository;
+import me.parkdaiho.project.service.user.OAuth2UserCustomService;
 import me.parkdaiho.project.service.user.UserDetailCustomService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +26,7 @@ public class WebConfiguration {
 
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final UserRepository userRepository;
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -52,9 +55,28 @@ public class WebConfiguration {
 
                 .successHandler(authenticationCustomSuccessHandler());
 
+        http.oauth2Login()
+                .loginPage("/login")
+
+                .authorizationEndpoint()
+                .baseUri("/oauth2/authorization/")
+                .authorizationRequestRepository(oAuth2AuthorizationRequestRepositoryBasedOnCookie())
+                .and()
+
+                .userInfoEndpoint()
+                .userService(oAuth2UserCustomService())
+                .and()
+
+                .successHandler(authenticationCustomSuccessHandler());
+
         http.logout().disable();
 
         return http.build();
+    }
+
+    @Bean
+    public OAuth2UserCustomService oAuth2UserCustomService() {
+        return new OAuth2UserCustomService(userRepository);
     }
 
     @Bean

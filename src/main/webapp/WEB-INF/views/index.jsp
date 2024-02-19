@@ -7,8 +7,9 @@
 <body>
 <h1>index</h1>
 <a href="/login">로그인</a>
-<c:if test="${nickname != null}">
-<a href="/logout">로그아웃</a>
+<c:if test="${userNickname != null}">
+<button type="button" id="logout-btn">${loginUser} 로그아웃</a>
 </c:if>
+<script src="/js/header.js"></script>
 </body>
 </html>

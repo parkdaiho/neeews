@@ -24,7 +24,7 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestRepositoryBasedOnCookie oAuth2AuthorizationRequestRepositoryBasedOnCookie;
 
-    private final static Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
+    private final static Duration REFRESH_TOKEN_DURATION = Duration.ofDays(1);
     private final static String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
     private final static Duration ACCESS_TOKEN_DURATION = Duration.ofHours(1);
     private final static String REDIRECT_PATH = "/";

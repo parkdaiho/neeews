@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.repository.RefreshTokenRepository;
+import org.hibernate.annotations.Cascade;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -13,16 +15,19 @@ import me.parkdaiho.project.config.PrincipalDetails;
 public class RefreshToken {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "user_id", nullable = false)
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
     @MapsId
-    @JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @Column(nullable = false)
     private String refreshToken;
+
+    public RefreshToken(User user) {
+        this.user = user;
+    }
 
     @Builder
     public RefreshToken(PrincipalDetails principal, String refreshToken) {

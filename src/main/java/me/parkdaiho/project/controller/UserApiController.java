@@ -4,9 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.SignUpRequest;
+import me.parkdaiho.project.dto.SignUpResponse;
 import me.parkdaiho.project.service.user.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,11 +23,11 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signUp(@Valid @RequestBody SignUpRequest request) {
-        System.out.println(request.getUsername());
-        User registeredUser = userService.signUp(request);
+    public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody SignUpRequest dto) {
+        userService.signUp(dto);
 
-        return ResponseEntity.created(URI.create("/login")).build();
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new SignUpResponse(dto.getUsername(), dto.getPassword()));
     }
 
     @GetMapping("/logout")
