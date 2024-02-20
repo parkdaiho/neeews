@@ -12,7 +12,7 @@ public abstract class OAuth2UserInfo {
 
     public abstract String getEmail();
 
-    public abstract Provider getProvider();
+    public abstract String getProvider();
 
     public OAuth2UserInfo(Map<String, Object> attributes) {
         this.attributes = attributes;

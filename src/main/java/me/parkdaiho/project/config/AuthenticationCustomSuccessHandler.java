@@ -32,19 +32,19 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        clearAuthenticationAttributes(request, response);
+
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         User user = principal.getUser();
 
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
-        saveRefreshToken(principal, refreshToken);
+        saveRefreshToken(user, refreshToken);
         addRefreshToken(request, response, refreshToken);
 
         String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
-        String targetUrl = getTargetUrl(accessToken);
+        String loginSuccessUrl = loginSuccessUrl(accessToken);
 
-        clearAuthenticationAttributes(request, response);
-
-        getRedirectStrategy().sendRedirect(request, response, targetUrl);
+        getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -52,7 +52,7 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         oAuth2AuthorizationRequestRepositoryBasedOnCookie.removeAuthorizationRequestCookie(request, response);
     }
 
-    private String getTargetUrl(String accessToken) {
+    private String loginSuccessUrl(String accessToken) {
         return UriComponentsBuilder.fromUriString(REDIRECT_PATH)
                 .queryParam("token", accessToken)
                 .build()
@@ -64,11 +64,11 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         CookieUtils.addCookie(response, REFRESH_TOKEN_COOKIE_NAME, refreshToken, (int) REFRESH_TOKEN_DURATION.toSeconds());
     }
 
-    private void saveRefreshToken(PrincipalDetails principal, String newRefreshToken) {
-        RefreshToken refreshToken = refreshTokenRepository.findById(principal.getUserId())
+    private void saveRefreshToken(User user, String newRefreshToken) {
+        RefreshToken refreshToken = refreshTokenRepository.findById(user.getId())
                 .map(entity -> entity.update(newRefreshToken))
                 .orElse(RefreshToken.builder()
-                        .principal(principal)
+                        .user(user)
                         .refreshToken(newRefreshToken)
                         .build());
 

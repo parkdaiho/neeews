@@ -30,8 +30,8 @@ public class RefreshToken {
     }
 
     @Builder
-    public RefreshToken(PrincipalDetails principal, String refreshToken) {
-        this.user = principal.getUser();
+    public RefreshToken(User user, String refreshToken) {
+        this.user = user;
         this.refreshToken = refreshToken;
     }
 

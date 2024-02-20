@@ -3,15 +3,20 @@ package me.parkdaiho.project.service.user;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.AuthenticationCustomSuccessHandler;
 import me.parkdaiho.project.config.token.TokenProvider;
 import me.parkdaiho.project.domain.user.RefreshToken;
 import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.dto.OAuth2SignUpRequest;
 import me.parkdaiho.project.dto.SignUpRequest;
 import me.parkdaiho.project.repository.RefreshTokenRepository;
 import me.parkdaiho.project.repository.UserRepository;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @RequiredArgsConstructor
 @Service
@@ -20,9 +25,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final TokenProvider tokenProvider;
+    private final AuthenticationCustomSuccessHandler loginSuccessHandler;
 
-    public Long signUp(SignUpRequest dto) {
-        return refreshTokenRepository.save(new RefreshToken(dto.toEntity())).getId();
+    public User signUp(User user) {
+        Long savedUserId = refreshTokenRepository.save(new RefreshToken(user)).getId();
+
+        return findById(savedUserId);
     }
 
     public void logout(HttpServletRequest request, HttpServletResponse response) {

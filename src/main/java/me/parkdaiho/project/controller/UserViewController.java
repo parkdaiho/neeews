@@ -30,7 +30,6 @@ public class UserViewController {
 
     @GetMapping("/login")
     public String loginPage() {
-
         return "login";
     }
 

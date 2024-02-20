@@ -32,7 +32,7 @@ public class WebConfiguration {
     public WebSecurityCustomizer configure() {
         return web -> web.ignoring()
                 .requestMatchers(toH2Console())
-                .requestMatchers("/static/js/**", "/static/css/**", "/static/img/**");
+                .requestMatchers("/static/**");
     }
 
     @Bean
@@ -67,7 +67,8 @@ public class WebConfiguration {
                 .userService(oAuth2UserCustomService())
                 .and()
 
-                .successHandler(authenticationCustomSuccessHandler());
+                .successHandler(authenticationCustomSuccessHandler())
+                .failureHandler(authenticationCustomFailureHandler());
 
         http.logout().disable();
 
@@ -92,6 +93,11 @@ public class WebConfiguration {
     @Bean
     public AuthenticationCustomSuccessHandler authenticationCustomSuccessHandler() {
         return new AuthenticationCustomSuccessHandler(tokenProvider, refreshTokenRepository, oAuth2AuthorizationRequestRepositoryBasedOnCookie());
+    }
+
+    @Bean
+    public AuthenticationCustomFailureHandler authenticationCustomFailureHandler() {
+        return new AuthenticationCustomFailureHandler();
     }
 
     @Bean

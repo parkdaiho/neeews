@@ -3,6 +3,9 @@ package me.parkdaiho.project.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.UUID;
 
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -37,15 +40,16 @@ public class User extends BaseEntity {
     @PrePersist
     public void prePersist() {
         this.role = Role.USER;
-        this.provider = Provider.SELF;
+        this.provider = this.provider == null ? Provider.SELF : this.provider;
         this.isEnabled = this.isEnabled == null || this.isEnabled;
     }
 
     @Builder
-    public User(String username, String password, String nickname, String email) {
+    public User(String username, String password, String nickname, String email, Provider provider) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.email = email;
+        this.provider = provider;
     }
 }

@@ -2,6 +2,7 @@ package me.parkdaiho.project.service.user;
 
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfoFactory;
 import me.parkdaiho.project.domain.user.Provider;
@@ -26,7 +27,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
         String email = oAuth2UserInfo.getEmail();
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user: " + email));
+                .orElseThrow(() -> new OAuth2AuthenticationCustomException("errcode", oAuth2UserInfo));
 
         return new PrincipalDetails(user, oAuth2UserInfo);
     }
