@@ -31,6 +31,7 @@ class RefreshTokenTest {
                 .email("test")
                 .build();
 
+
         // when
         RefreshToken refreshToken = refreshTokenRepository.save(new RefreshToken(user));
 
