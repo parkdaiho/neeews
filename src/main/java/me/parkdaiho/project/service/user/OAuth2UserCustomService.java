@@ -7,7 +7,7 @@ import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfoFactory;
 import me.parkdaiho.project.domain.user.Provider;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.repository.UserRepository;
+import me.parkdaiho.project.repository.user.UserRepository;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

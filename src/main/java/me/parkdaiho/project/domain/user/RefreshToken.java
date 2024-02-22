@@ -5,9 +5,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.repository.RefreshTokenRepository;
-import org.hibernate.annotations.Cascade;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

@@ -1,4 +1,4 @@
-package me.parkdaiho.project.repository;
+package me.parkdaiho.project.repository.user;
 
 import me.parkdaiho.project.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

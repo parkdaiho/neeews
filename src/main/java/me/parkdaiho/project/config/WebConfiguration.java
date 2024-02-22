@@ -2,9 +2,9 @@ package me.parkdaiho.project.config;
 
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
-import me.parkdaiho.project.repository.RefreshTokenRepository;
+import me.parkdaiho.project.repository.user.RefreshTokenRepository;
 import me.parkdaiho.project.config.token.TokenProvider;
-import me.parkdaiho.project.repository.UserRepository;
+import me.parkdaiho.project.repository.user.UserRepository;
 import me.parkdaiho.project.service.user.OAuth2UserCustomService;
 import me.parkdaiho.project.service.user.UserDetailCustomService;
 import org.springframework.context.annotation.Bean;

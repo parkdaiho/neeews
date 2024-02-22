@@ -2,10 +2,9 @@ package me.parkdaiho.project.config.token;
 
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.config.token.JwtProperties;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.repository.UserRepository;
+import me.parkdaiho.project.repository.user.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -59,11 +58,11 @@ public class TokenProvider {
     }
 
     public Long getUserId(String token) {
-        return (Long) Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(jwtProperties.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody()
-                .get("id");
+                .get("id", Long.class);
     }
 
     public String getUserNickname(String token) {

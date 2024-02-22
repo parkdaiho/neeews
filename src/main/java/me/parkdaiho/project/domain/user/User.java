@@ -3,6 +3,10 @@ package me.parkdaiho.project.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.article.ArticleComment;
+import me.parkdaiho.project.domain.article.LikeOrBad;
+
+import java.util.List;
 
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,6 +40,12 @@ public class User extends BaseEntity {
 
     @OneToOne(mappedBy = "user")
     private RefreshToken refreshToken;
+
+    @OneToMany(mappedBy = "writer")
+    private List<ArticleComment> articleComment;
+
+    @OneToMany(mappedBy = "user")
+    private List<LikeOrBad> likeOrBad;
 
     @PrePersist
     public void prePersist() {

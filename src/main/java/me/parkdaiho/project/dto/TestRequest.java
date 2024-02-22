@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.article.ArticleImage;
-import me.parkdaiho.project.domain.article.Provider;
 
 @Getter
 @Setter

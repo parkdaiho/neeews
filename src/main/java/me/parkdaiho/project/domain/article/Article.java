@@ -30,8 +30,20 @@ public class Article extends BaseEntity {
     @Column(nullable = false)
     private String publishDate;
 
+    @Column(nullable = false)
+    private Long views;
+
     @OneToMany(mappedBy = "article")
     private List<ArticleImage> articleImages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "article")
+    private List<ArticleComment> articleComments = new ArrayList<>();
+
+    @PrePersist
+    public void prePersist() {
+        this.views = 0L;
+        this.isEnabled = true;
+    }
 
     @Builder
     public Article(String title, String contents, String provider, String publishDate) {
@@ -44,6 +56,13 @@ public class Article extends BaseEntity {
     public Article addImage(ArticleImage image) {
         image.setArticle(this);
         this.articleImages.add(image);
+
+        return this;
+    }
+
+    public Article addComment(ArticleComment comment) {
+        comment.setArticle(this);
+        this.articleComments.add(comment);
 
         return this;
     }

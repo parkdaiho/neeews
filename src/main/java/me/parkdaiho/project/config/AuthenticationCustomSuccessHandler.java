@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
 import me.parkdaiho.project.domain.user.RefreshToken;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.repository.RefreshTokenRepository;
+import me.parkdaiho.project.repository.user.RefreshTokenRepository;
 import me.parkdaiho.project.config.token.TokenProvider;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,5 @@
 const logoutBtn = document.getElementById("logout-btn");
+const token = getKey("token");
 
 if(logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -17,4 +18,12 @@ if(logoutBtn) {
                 }
             })
     });
+}
+
+if(token) {
+    localStorage.setItem("access_token", token);
+}
+
+function getKey(key) {
+    return new URLSearchParams(location.search).get(key);
 }

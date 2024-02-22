@@ -3,7 +3,7 @@ package me.parkdaiho.project.service.user;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.repository.UserRepository;
+import me.parkdaiho.project.repository.user.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -22,7 +22,8 @@ public class ArticleImage {
     private Article article;
 
     @Builder
-    public ArticleImage(String imgUrl) {
+    public ArticleImage(String imgUrl, Article article) {
         this.imgUrl = imgUrl;
+        this.article = article;
     }
 }
