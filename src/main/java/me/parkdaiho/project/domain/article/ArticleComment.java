@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.user.User;
-import org.hibernate.annotations.ManyToAny;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +22,16 @@ public class ArticleComment extends BaseEntity {
     @Column(nullable = false)
     private String contents;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "article_id", nullable = false, updatable = false)
     private Article article;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer", nullable = false, updatable = false)
     private User writer;
 
-    @OneToMany(mappedBy = "comment")
-    private List<LikeOrBad> likeOrBads = new ArrayList<>();
+    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<LikeOrBad> likeOrBadList = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
@@ -48,7 +47,7 @@ public class ArticleComment extends BaseEntity {
 
     public ArticleComment pressLikeOrBad(LikeOrBad likeOrBad) {
         likeOrBad.setComment(this);
-        likeOrBads.add(likeOrBad);
+        likeOrBadList.add(likeOrBad);
 
         return this;
     }

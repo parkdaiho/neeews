@@ -23,7 +23,7 @@ public class CommentViewResponse {
         this.contents = comment.getContents();
         this.createdAt = comment.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
 
-        List<LikeOrBad> likeOrBads = comment.getLikeOrBads();
+        List<LikeOrBad> likeOrBads = comment.getLikeOrBadList();
 
         this.like = likeOrBads.stream()
                 .filter(entity -> entity.getFlag())

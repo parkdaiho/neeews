@@ -50,7 +50,6 @@ public class ArticleService {
         article.addImage(articleImage);
 
         articleRepository.save(article);
-        articleImageRepository.save(articleImage);
 
         return new AddArticleResponse(article, articleImage);
     }
@@ -63,8 +62,6 @@ public class ArticleService {
                 .build();
 
         article.addComment(comment);
-
-        articleCommentRepository.save(comment);
 
         return article.getArticleComments().stream()
                 .map(AddCommentResponse::new)
@@ -81,17 +78,15 @@ public class ArticleService {
         User user = principal.getUser();
 
         LikeOrBad likeOrBad = likeOrBadRepository.findByComment(comment)
-                .orElse(likeOrBadRepository.save(
-                        new LikeOrBad(user)
-                ));
-
-        comment.pressLikeOrBad(likeOrBad);
+                .orElse(new LikeOrBad(user));
 
         if(dto.getFlag()) {
             likeOrBad.updateLike();
         } else {
             likeOrBad.updateBad();
         }
+
+        comment.pressLikeOrBad(likeOrBad);
 
         Long like = (long) likeOrBadRepository.findByCommentAndFlag(comment, true).size();
         Long bad = (long) likeOrBadRepository.findByCommentAndFlag(comment, false).size();

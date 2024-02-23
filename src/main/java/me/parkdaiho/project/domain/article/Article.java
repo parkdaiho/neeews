@@ -33,10 +33,10 @@ public class Article extends BaseEntity {
     @Column(nullable = false)
     private Long views;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ArticleImage> articleImages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ArticleComment> articleComments = new ArrayList<>();
 
     @PrePersist
