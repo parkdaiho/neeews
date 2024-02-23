@@ -4,9 +4,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.dto.OAuth2SignUpRequest;
-import me.parkdaiho.project.dto.SignUpRequest;
-import me.parkdaiho.project.dto.SignUpResponse;
+import me.parkdaiho.project.dto.user.OAuth2SignUpRequest;
+import me.parkdaiho.project.dto.user.SignUpRequest;
+import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController

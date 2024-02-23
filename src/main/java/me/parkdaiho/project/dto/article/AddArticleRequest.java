@@ -1,4 +1,4 @@
-package me.parkdaiho.project.dto;
+package me.parkdaiho.project.dto.article;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,7 @@ import me.parkdaiho.project.domain.article.ArticleImage;
 
 @Getter
 @Setter
-public class TestRequest {
+public class AddArticleRequest {
 
     private String title;
     private String contents;

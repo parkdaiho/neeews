@@ -4,20 +4,17 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.config.AuthenticationCustomSuccessHandler;
 import me.parkdaiho.project.config.token.TokenProvider;
 import me.parkdaiho.project.domain.user.RefreshToken;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.dto.OAuth2SignUpRequest;
-import me.parkdaiho.project.dto.SignUpRequest;
-import me.parkdaiho.project.dto.SignUpResponse;
+import me.parkdaiho.project.dto.user.OAuth2SignUpRequest;
+import me.parkdaiho.project.dto.user.SignUpRequest;
+import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.repository.user.RefreshTokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor

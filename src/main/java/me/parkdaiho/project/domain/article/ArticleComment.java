@@ -31,6 +31,9 @@ public class ArticleComment extends BaseEntity {
     @JoinColumn(name = "writer", nullable = false, updatable = false)
     private User writer;
 
+    @OneToMany(mappedBy = "comment")
+    private List<LikeOrBad> likeOrBads = new ArrayList<>();
+
     @PrePersist
     public void prePersist() {
         this.isEnabled = true;
@@ -41,5 +44,12 @@ public class ArticleComment extends BaseEntity {
         this.contents = contents;
         this.article = article;
         this.writer = writer;
+    }
+
+    public ArticleComment pressLikeOrBad(LikeOrBad likeOrBad) {
+        likeOrBad.setComment(this);
+        likeOrBads.add(likeOrBad);
+
+        return this;
     }
 }

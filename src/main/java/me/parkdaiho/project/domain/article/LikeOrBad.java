@@ -1,12 +1,11 @@
 package me.parkdaiho.project.domain.article;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.user.User;
+
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -18,37 +17,41 @@ public class LikeOrBad extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "comment_id", updatable = false)
-    private ArticleComment articleComment;
+    private ArticleComment comment;
 
     @ManyToOne
     @JoinColumn(name = "user_id", updatable = false)
     private User user;
 
-    private Boolean likeOrBad;
+    private Boolean flag;
+
+    public LikeOrBad(User user) {
+        this.user = user;
+    }
 
     public void updateLike() {
-        if(likeOrBad == null) {
-            likeOrBad = true;
+        if(flag == null) {
+            flag = true;
 
             return;
         }
 
-        if(likeOrBad) {
-            likeOrBad = null;
+        if(flag) {
+            flag = null;
         }
     }
 
     public void updateBad() {
-        if(likeOrBad == null) {
-            likeOrBad = false;
+        if(flag == null) {
+            flag = false;
 
             return;
         }
 
-        if (!likeOrBad){
-            likeOrBad = null;
+        if (!flag){
+            flag = null;
         }
     }
 }

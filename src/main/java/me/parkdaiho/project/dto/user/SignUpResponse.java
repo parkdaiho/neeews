@@ -1,4 +1,4 @@
-package me.parkdaiho.project.dto;
+package me.parkdaiho.project.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
