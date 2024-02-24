@@ -19,7 +19,6 @@ public class AddArticleRequest {
         return Article.builder()
                 .title(title)
                 .contents(contents)
-                .provider(provider)
                 .publishDate(publishDate)
                 .build();
     }

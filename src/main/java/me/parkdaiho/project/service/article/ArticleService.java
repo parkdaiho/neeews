@@ -12,6 +12,10 @@ import me.parkdaiho.project.repository.article.ArticleCommentRepository;
 import me.parkdaiho.project.repository.article.ArticleImageRepository;
 import me.parkdaiho.project.repository.article.ArticleRepository;
 import me.parkdaiho.project.repository.article.LikeOrBadRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -26,6 +30,13 @@ public class ArticleService {
     private final ArticleImageRepository articleImageRepository;
     private final ArticleCommentRepository articleCommentRepository;
     private final LikeOrBadRepository likeOrBadRepository;
+
+    public Page<ArticleListResponse> getArticleList(int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "id"));
+
+        return articleRepository.findAll(pageable)
+                        .map(ArticleListResponse::new);
+    }
 
     public Map<String, Object> getArticleView(Long id) {
         Map<String, Object> articleView = new HashMap<>();
@@ -88,14 +99,26 @@ public class ArticleService {
 
         comment.pressLikeOrBad(likeOrBad);
 
+        Map<String, Long> likeOrBadValue = getLikeOrBadValue(comment);
+
+        return new PressLikeOrBadResponse(comment.getId(), likeOrBadValue.get("like"), likeOrBadValue.get("bad"));
+    }
+
+    private Map<String, Long> getLikeOrBadValue(ArticleComment comment) {
+        Map<String, Long> likeOrBadValue = new HashMap<>();
+
         Long like = (long) likeOrBadRepository.findByCommentAndFlag(comment, true).size();
         Long bad = (long) likeOrBadRepository.findByCommentAndFlag(comment, false).size();
 
-        return new PressLikeOrBadResponse(comment.getId(), like, bad);
+        likeOrBadValue.put("like", like);
+        likeOrBadValue.put("bad", bad);
+
+        return likeOrBadValue;
     }
 
     private ArticleComment findCommentById(Long commentId) {
         return articleCommentRepository.findById(commentId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected ArticleComment: " + commentId));
     }
+
 }

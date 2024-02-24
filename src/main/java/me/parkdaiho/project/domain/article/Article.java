@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain.article;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.user.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +25,16 @@ public class Article extends BaseEntity {
     @Column(nullable = false)
     private String contents;
 
-    @Enumerated(EnumType.STRING)
-    private Provider provider;
-
     @Column(nullable = false)
     private String publishDate;
 
     @Column(nullable = false)
     private Long views;
+
+
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private User writer;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ArticleImage> articleImages = new ArrayList<>();
@@ -46,10 +49,9 @@ public class Article extends BaseEntity {
     }
 
     @Builder
-    public Article(String title, String contents, String provider, String publishDate) {
+    public Article(String title, String contents, String publishDate) {
         this.title = title;
         this.contents = contents;
-        this.provider = Provider.valueOf(provider);
         this.publishDate = publishDate;
     }
 

@@ -11,13 +11,11 @@ public class AddArticleResponse {
 
     private String title;
     private String contents;
-    private String provider;
     private String imgUrl;
 
     public AddArticleResponse(Article article, ArticleImage articleImage) {
         this.title = article.getTitle();
         this.contents = article.getContents();
-        this.provider = article.getProvider().getProvider();
         this.imgUrl = articleImage.getImgUrl();
     }
 }
