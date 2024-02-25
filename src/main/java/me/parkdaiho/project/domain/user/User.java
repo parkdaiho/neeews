@@ -42,10 +42,10 @@ public class User extends BaseEntity {
     private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "writer")
-    private List<ArticleComment> articleComment;
+    private List<ArticleComment> comments;
 
     @OneToMany(mappedBy = "user")
-    private List<LikeOrBad> likeOrBad;
+    private List<LikeOrBad> likeOrBadList;
 
     @PrePersist
     public void prePersist() {

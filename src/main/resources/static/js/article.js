@@ -1,24 +1,23 @@
-const commentBtn = document.getElementById("comment-btn");
+const searchButton = document.getElementById("search-btn");
 
-if(commentBtn) {
-    commentBtn.addEventListener("click", () => {
+if(searchButton) {
+    searchButton.addEventListener("click", () => {
         let body = JSON.stringify({
-            "articleId": document.getElementById("article-id").value,
-            "contents": document.getElementById("contents").value
+            searchParam: document.getElementById("search-param").value,
+            searchSort: document.getElementById("search-sort").value
         });
 
-        fetch("/api/new-comment", {
+        fetch("/articles/search", {
             method: "POST",
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("access_token"),
                 "Content-type": "application/json",
             },
-            body: body
+            body: body,
         })
             .then(response => {
                 if(response.ok) {
-                    alert("등록완료");
+
                 }
             })
-    });
+    })
 }

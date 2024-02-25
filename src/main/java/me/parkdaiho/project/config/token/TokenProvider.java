@@ -3,6 +3,7 @@ package me.parkdaiho.project.config.token;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.repository.user.UserRepository;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -4,20 +4,19 @@ import lombok.Getter;
 import lombok.Setter;
 import me.parkdaiho.project.domain.article.Article;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 @Getter
 @Setter
 public class ArticleViewResponse {
 
     private String title;
     private String contents;
-    private String createdAt;
+    private String originalLink;
+    private String pubDate;
 
     public ArticleViewResponse(Article article) {
         this.title = article.getTitle();
         this.contents = article.getContents();
-        this.createdAt = article.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.originalLink = article.getOriginalLink();
+        this.pubDate = article.getPubDate();
     }
 }

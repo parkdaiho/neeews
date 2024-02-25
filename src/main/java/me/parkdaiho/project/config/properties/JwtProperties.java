@@ -1,4 +1,4 @@
-package me.parkdaiho.project.config.token;
+package me.parkdaiho.project.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;

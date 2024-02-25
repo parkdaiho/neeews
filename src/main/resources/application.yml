@@ -46,3 +46,8 @@ server:
     jsp:
       init-parameters:
         development: true
+
+naver:
+  search:
+    client-id: TrzDaXTuUiYAOi86zd2J
+    client-secret: UfhYGFUS0o

@@ -2,56 +2,32 @@ package me.parkdaiho.project.domain.article;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.user.User;
-
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
+@Table(name = "like_or_bad")
 @Entity
-public class LikeOrBad extends BaseEntity {
+public class LikeOrBad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "comment_id", updatable = false)
-    private ArticleComment comment;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", updatable = false)
     private User user;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "comment_id", updatable = false)
+    private ArticleComment comment;
+
     private Boolean flag;
 
-    public LikeOrBad(User user) {
+    @Builder
+    public LikeOrBad(User user, ArticleComment comment) {
         this.user = user;
-    }
-
-    public void updateLike() {
-        if(flag == null) {
-            flag = true;
-
-            return;
-        }
-
-        if(flag) {
-            flag = null;
-        }
-    }
-
-    public void updateBad() {
-        if(flag == null) {
-            flag = false;
-
-            return;
-        }
-
-        if (!flag){
-            flag = null;
-        }
+        this.comment = comment;
     }
 }

@@ -1,11 +1,13 @@
 package me.parkdaiho.project.domain.article;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.user.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,32 +25,13 @@ public class ArticleComment extends BaseEntity {
     private String contents;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "article_id", nullable = false, updatable = false)
+    @JoinColumn(name = "article_id", updatable = false)
     private Article article;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "writer", nullable = false, updatable = false)
+    @JoinColumn(name = "write_id", updatable = false)
     private User writer;
 
-    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<LikeOrBad> likeOrBadList = new ArrayList<>();
-
-    @PrePersist
-    public void prePersist() {
-        this.isEnabled = true;
-    }
-
-    @Builder
-    public ArticleComment(String contents, Article article, User writer) {
-        this.contents = contents;
-        this.article = article;
-        this.writer = writer;
-    }
-
-    public ArticleComment pressLikeOrBad(LikeOrBad likeOrBad) {
-        likeOrBad.setComment(this);
-        likeOrBadList.add(likeOrBad);
-
-        return this;
-    }
+    @OneToMany(mappedBy = "comment")
+    private List<LikeOrBad> likeOrBadList;
 }
