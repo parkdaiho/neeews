@@ -14,6 +14,7 @@ spring:
     console:
       enabled: true
 
+
   security:
     oauth2:
       client:
@@ -29,6 +30,11 @@ spring:
     view:
       prefix: "/WEB-INF/views/"
       suffix: ".jsp"
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 jwt:
   issuer: eogh7204@gmail.com
