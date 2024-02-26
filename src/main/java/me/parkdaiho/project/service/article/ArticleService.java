@@ -4,12 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.dto.article.ArticleViewRequest;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
-import me.parkdaiho.project.dto.article.SearchArticlesRequest;
-import me.parkdaiho.project.dto.article.SearchArticlesResponse;
 import me.parkdaiho.project.repository.article.ArticleRepository;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -17,11 +13,10 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-    public List<SearchArticlesResponse> searchNews(SearchArticlesRequest dto) {
-        List<SearchArticlesResponse> news = null;
-
-        return news;
-    }
+//    public List<ArticleItem> searchNews(SearchArticlesRequest dto) {
+//        Mono<SE>
+//        return news;
+//    }
 
     public Long findArticle(ArticleViewRequest dto) {
         Article article = null;

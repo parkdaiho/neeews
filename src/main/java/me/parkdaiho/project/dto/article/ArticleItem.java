@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Builder
 @Getter
-public class SearchArticlesResponse {
+public class ArticleItem {
 
     private String title;
     private String description;
