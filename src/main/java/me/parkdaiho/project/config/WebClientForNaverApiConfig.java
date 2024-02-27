@@ -1,7 +1,7 @@
 package me.parkdaiho.project.config;
 
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.config.properties.NaverSearchProperties;
+import me.parkdaiho.project.config.properties.SearchNaverNewsProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -12,15 +12,18 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientForNaverApiConfig {
 
-    private final NaverSearchProperties naverSearchProperties;
+    private final SearchNaverNewsProperties searchNaverNewsProperties;
+
+    private final String NAVER_OPEN_API_BASE_URL = "https://openapi.naver.com";
 
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
+                .baseUrl(NAVER_OPEN_API_BASE_URL)
                 .defaultHeaders(httpHeaders -> {
                     httpHeaders.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-                    httpHeaders.add("X-Naver-Client-Id", naverSearchProperties.getClientId());
-                    httpHeaders.add("X-Naver-Client-Secret", naverSearchProperties.getClientSecret());
+                    httpHeaders.add("X-Naver-Client-Id", searchNaverNewsProperties.getClientId());
+                    httpHeaders.add("X-Naver-Client-Secret", searchNaverNewsProperties.getClientSecret());
                 })
                 .build();
     }

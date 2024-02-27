@@ -4,8 +4,16 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.dto.article.ArticleViewRequest;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
+import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
+import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import me.parkdaiho.project.repository.article.ArticleRepository;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RequiredArgsConstructor
 @Service
@@ -13,49 +21,21 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
 
-//    public List<ArticleItem> searchNews(SearchArticlesRequest dto) {
-//        Mono<SE>
-//        return news;
-//    }
+    public SearchNaverNewsResponse getSearchResult(SearchNaverNewsRequest dto) {
+        RestTemplate restTemplate = new RestTemplate();
 
-    public Long findArticle(ArticleViewRequest dto) {
-        Article article = null;
+        URI uri = UriComponentsBuilder.fromUriString("http://localhost:8080")
+                .path("/api/naver-news")
+                .build().toUri();
 
-        try {
-            article = findByLink(dto.getLink());
-        } catch (IllegalArgumentException e) {
-            article = addArticle(dto);
+        RequestEntity<SearchNaverNewsRequest> request = RequestEntity.post(uri)
+                .body(dto);
+
+        ResponseEntity<SearchNaverNewsResponse> response = restTemplate.exchange(request, SearchNaverNewsResponse.class);
+        if(!response.getStatusCode().is2xxSuccessful()) {
+            throw new IllegalArgumentException("fait to search news");
         }
 
-        return article.getId();
-    }
-
-    public ArticleViewResponse getArticleViewResponse(Long id) {
-        Article article = findById(id);
-
-        return new ArticleViewResponse(article);
-    }
-
-    private Article findById(Long id) {
-        return articleRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected article"));
-    }
-
-    private Article addArticle(ArticleViewRequest dto) {
-        String contents = getContents(dto.getLink());
-
-        Article newArticle = dto.toEntity();
-        newArticle.setContents(contents);
-
-        return articleRepository.save(newArticle);
-    }
-
-    private String getContents(String link) {
-        return "";
-    }
-
-    private Article findByLink(String link) {
-        return articleRepository.findByLink(link)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected article"));
+        return response.getBody();
     }
 }

@@ -1,7 +1,6 @@
 package me.parkdaiho.project.repository.user;
 
-import me.parkdaiho.project.dto.article.ArticleItem;
-import me.parkdaiho.project.dto.article.SearchArticleResponse;
+import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +11,7 @@ import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Mono;
 
+import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
@@ -34,10 +34,10 @@ public class WebClientTest {
                 .queryParams(params)
                 .build();
 
-        Mono<SearchArticleResponse> response = webClient.get()
+        Mono<SearchNaverNewsResponse> response = webClient.get()
                 .uri(baseUrl, params)
                 .retrieve()
-                .bodyToMono(SearchArticleResponse.class);
+                .bodyToMono(SearchNaverNewsResponse.class);
 
         response.doOnSuccess(res -> {
             res.getItems().stream()
@@ -63,8 +63,16 @@ public class WebClientTest {
 
     @Test
     public void urlTest2() {
-        String url = "https://openapi.naver.com/v1/search/news.json";
-        String searchParam = URLEncoder.encode("이강인", StandardCharsets.UTF_8);
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("key", "value");
 
+        URI uri = UriComponentsBuilder
+                .fromUriString("https://openapi.naver.com") // 도메인 문자열을 인자로 받는다.
+                .path("/v1/search/news.json") // 경로에 해당하는 문자열을 인자로 받는다.
+                .queryParams(params) // 파라미터를 인자로 받는다.
+                .build()
+                .toUri();
+
+        System.out.println(uri.toString());
     }
 }

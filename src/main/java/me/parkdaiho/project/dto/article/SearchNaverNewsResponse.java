@@ -7,11 +7,11 @@ import java.util.List;
 
 @Setter
 @Getter
-public class SearchArticleResponse {
+public class SearchNaverNewsResponse {
 
     private String lastBuildDate;
     private int total;
     private int start;
     private int display;
-    private List<ArticleItem> items;
+    private List<NewsItem> items;
 }

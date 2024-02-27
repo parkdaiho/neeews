@@ -10,12 +10,14 @@
 <c:if test="${userNickname != null}">
 <button type="button" id="logout-btn">${loginUser} 로그아웃</button>
 </c:if>
-  <input type="text" id="search-param">
-  <select id="search-sort">
+<form action="/articles" method="get">
+  <input type="text" name="query">
+  <select name="sort">
     <option value="sim" selected>정확도순</option>
     <option value="date">최신순</option>
   </select>
-  <button type="button" id="search-btn">검색</button>
+  <button type="submit">검색</button>
+</form>
 <script src="/js/header.js"></script>
 </body>
 </html>

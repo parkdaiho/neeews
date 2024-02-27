@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 @ConfigurationProperties("naver.search")
-public class NaverSearchProperties {
+public class SearchNaverNewsProperties {
 
     private String clientId;
     private String clientSecret;

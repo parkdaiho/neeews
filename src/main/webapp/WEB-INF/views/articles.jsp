@@ -6,10 +6,14 @@
 </head>
 <body>
 <div>
-  <c:forEach var="article" items="articles">
-    <input type="text" value="${article.title}">
-    <input type="text" value="${article.description}">
-    <input type="text" value="${article.pubDate}">
+  <c:forEach var="item" items="${items}">
+    <div>
+    <input type="text" value="${item.title}">
+      <div>
+        ${item.description}
+      </div>
+    <input type="text" value="${item.pubDate}">
+    </div>
   </c:forEach>
 </div>
 </body>
