@@ -20,24 +20,38 @@ public class Article extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
+    @Lob
+    private String texts;
+
     @Column(nullable = false)
-    private String contents;
+    private String description;
+
+    private String imgLink;
 
     @Column(nullable = false, unique = true)
     private String link;
 
+    @Column(nullable = false, unique = true)
     private String originalLink;
 
     @Column(nullable = false)
     private String pubDate;
 
+    private Boolean isProvided;
+
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ArticleComment> comments;
 
+    @PrePersist
+    public void prePersit() {
+        this.isProvided = !link.equals(originalLink);
+    }
+
     @Builder
-    public Article(String title, String contents, String link, String originalLink, String pubDate) {
+    public Article(String title, String texts, String description, String link, String originalLink, String pubDate) {
         this.title = title;
-        this.contents = contents;
+        this.texts = texts;
+        this.description = description;
         this.link = link;
         this.originalLink = originalLink;
         this.pubDate = pubDate;

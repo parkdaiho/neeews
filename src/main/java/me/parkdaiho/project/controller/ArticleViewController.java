@@ -2,12 +2,15 @@ package me.parkdaiho.project.controller;
 
 import jakarta.annotation.Nullable;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import me.parkdaiho.project.service.article.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,5 +29,14 @@ public class ArticleViewController {
         model.addAttribute("items", response.getItems());
 
         return "articles";
+    }
+
+    @GetMapping("/articles/{id}")
+    public String articleView(@PathVariable Long id, Model model) {
+        ArticleViewResponse article = articleService.getArticleById(id);
+
+        model.addAttribute("article", article);
+
+        return "article";
     }
 }

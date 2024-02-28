@@ -9,15 +9,17 @@ import me.parkdaiho.project.domain.article.Article;
 public class ArticleViewRequest {
 
     private String title;
-    private String link;
+    private String description;
     private String originalLink;
+    private String link;
     private String pubDate;
 
     public Article toEntity() {
         return Article.builder()
                 .title(title)
-                .link(link)
+                .description(description)
                 .originalLink(originalLink)
+                .link(link)
                 .pubDate(pubDate)
                 .build();
     }

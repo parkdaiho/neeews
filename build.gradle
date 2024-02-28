@@ -1,3 +1,5 @@
+import org.w3c.dom.Document
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version('3.0.2') // 스프링부트 플러그인
@@ -27,7 +29,7 @@ dependencies {
     implementation('org.apache.tomcat.embed:tomcat-embed-jasper') // JSP 컨테이너
     implementation('jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0') // jstl
     implementation('org.glassfish.web:jakarta.servlet.jsp.jstl')
-    implementation('org.springframework.boot:spring-boot-starter-webflux') // WebClient
+    implementation('org.jsoup:jsoup:1.7.2') // jsoup
 
     runtimeOnly('com.h2database:h2') // 인메모리 데이터베이스(for test)
 

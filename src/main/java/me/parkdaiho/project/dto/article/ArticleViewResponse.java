@@ -9,14 +9,18 @@ import me.parkdaiho.project.domain.article.Article;
 public class ArticleViewResponse {
 
     private String title;
-    private String contents;
+    private String texts;
+    private String imgLink;
     private String originalLink;
     private String pubDate;
+    private Boolean isProvided;
 
     public ArticleViewResponse(Article article) {
         this.title = article.getTitle();
-        this.contents = article.getContents();
+        this.texts = article.getTexts();
+        this.imgLink = article.getImgLink();
         this.originalLink = article.getOriginalLink();
         this.pubDate = article.getPubDate();
+        this.isProvided = article.getIsProvided();
     }
 }
