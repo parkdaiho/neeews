@@ -21,12 +21,10 @@ public class Article extends BaseEntity {
     private String title;
 
     @Lob
-    private String texts;
+    private String contents;
 
     @Column(nullable = false)
     private String description;
-
-    private String imgLink;
 
     @Column(nullable = false, unique = true)
     private String link;
@@ -45,12 +43,13 @@ public class Article extends BaseEntity {
     @PrePersist
     public void prePersit() {
         this.isProvided = !link.equals(originalLink);
+        this.isEnabled = true;
     }
 
     @Builder
-    public Article(String title, String texts, String description, String link, String originalLink, String pubDate) {
+    public Article(String title, String contents, String description, String link, String originalLink, String pubDate) {
         this.title = title;
-        this.texts = texts;
+        this.contents = contents;
         this.description = description;
         this.link = link;
         this.originalLink = originalLink;

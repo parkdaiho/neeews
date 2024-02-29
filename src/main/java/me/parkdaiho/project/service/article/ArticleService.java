@@ -21,13 +21,13 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.DoubleConsumer;
 
 @RequiredArgsConstructor
 @Service
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final NaverNewsCrawler naverNewsCrawler;
 
     public SearchNaverNewsResponse getSearchResult(SearchNaverNewsRequest dto) {
         RestTemplate restTemplate = new RestTemplate();
@@ -56,29 +56,16 @@ public class ArticleService {
         }
 
         if(!article.getLink().equals(article.getOriginalLink())) {
-            Map<String, String> contents = getContentsByLink(article.getLink());
+            String contents = getContentsByLink(article.getLink());
 
-            article.setImgLink(contents.get("imgLink"));
-            article.setTexts(contents.get("texts"));
+            article.setContents(contents);
         }
 
         return articleRepository.save(article);
     }
 
-    private Map<String, String> getContentsByLink(String link) throws IOException {
-        Map<String, String> contents = new HashMap<>();
-
-        Document document = Jsoup.connect(link)
-                .header(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36")
-                .get();
-        Element imgLink = document.getElementById("img1");
-        Element texts = document.getElementById("dic_area")
-                .removeClass("end_photo_org");
-
-        contents.put("texts", texts.html());
-        contents.put("imgLink", imgLink.attr("src"));
-
-        return contents;
+    private String getContentsByLink(String link) throws IOException {
+        return naverNewsCrawler.getContents(link);
     }
 
     public Long getArticleId(ArticleViewRequest dto) throws IOException {

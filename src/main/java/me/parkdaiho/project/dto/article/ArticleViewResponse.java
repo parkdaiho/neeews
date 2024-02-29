@@ -17,8 +17,7 @@ public class ArticleViewResponse {
 
     public ArticleViewResponse(Article article) {
         this.title = article.getTitle();
-        this.texts = article.getTexts();
-        this.imgLink = article.getImgLink();
+        this.texts = article.getContents();
         this.originalLink = article.getOriginalLink();
         this.pubDate = article.getPubDate();
         this.isProvided = article.getIsProvided();

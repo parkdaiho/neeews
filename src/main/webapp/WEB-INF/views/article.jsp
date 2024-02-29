@@ -12,9 +12,6 @@
   <div>
   <c:choose>
     <c:when test="${article.isProvided}">
-      <c:if test="${article.imgLink != null}">
-        <img src="${article.imgLink}">
-      </c:if>
       ${article.texts}
     </c:when>
     <c:otherwise>
