@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "articles")
@@ -38,7 +39,7 @@ public class Article extends BaseEntity {
     private Boolean isProvided;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ArticleComment> comments;
+    private List<ArticleComment> comments = new ArrayList<>();
 
     @PrePersist
     public void prePersit() {
@@ -54,5 +55,10 @@ public class Article extends BaseEntity {
         this.link = link;
         this.originalLink = originalLink;
         this.pubDate = pubDate;
+    }
+
+    public void addArticleComment(ArticleComment comment) {
+        comment.setArticle(this);
+        comments.add(comment);
     }
 }

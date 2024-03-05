@@ -7,10 +7,6 @@ import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import me.parkdaiho.project.repository.article.ArticleRepository;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,8 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -74,13 +68,13 @@ public class ArticleService {
         return article.getId();
     }
 
-    public ArticleViewResponse getArticleById(Long id) {
+    public ArticleViewResponse getArticleViewById(Long id) {
         Article article = findArticleById(id);
 
         return new ArticleViewResponse(article);
     }
 
-    private Article findArticleById(Long id) {
+    public Article findArticleById(Long id) {
         return articleRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected articleId: " + id));
     }

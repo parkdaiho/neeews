@@ -9,7 +9,7 @@ import me.parkdaiho.project.domain.user.User;
 @Setter
 @Table(name = "like_or_bad")
 @Entity
-public class LikeOrBad {
+public class GoodOrBad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,10 +23,10 @@ public class LikeOrBad {
     @JoinColumn(name = "comment_id", updatable = false)
     private ArticleComment comment;
 
+    // good == true, bad == false
     private Boolean flag;
 
-    @Builder
-    public LikeOrBad(User user, ArticleComment comment) {
+    public GoodOrBad(User user, ArticleComment comment) {
         this.user = user;
         this.comment = comment;
     }
