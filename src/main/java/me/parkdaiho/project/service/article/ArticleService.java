@@ -68,7 +68,7 @@ public class ArticleService {
         return article.getId();
     }
 
-    public ArticleViewResponse getArticleViewById(Long id) {
+    public ArticleViewResponse getArticleView(Long id) {
         Article article = findArticleById(id);
 
         return new ArticleViewResponse(article);

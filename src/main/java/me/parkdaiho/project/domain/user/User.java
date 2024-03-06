@@ -5,6 +5,8 @@ import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.article.ArticleComment;
 import me.parkdaiho.project.domain.article.GoodOrBad;
+import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.board.PostComment;
 
 import java.util.List;
 
@@ -42,10 +44,16 @@ public class User extends BaseEntity {
     private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "writer")
-    private List<ArticleComment> comments;
+    private List<ArticleComment> articleComments;
 
     @OneToMany(mappedBy = "user")
     private List<GoodOrBad> goodOrBadList;
+
+    @OneToMany()
+    private List<Post> posts;
+
+    @OneToMany()
+    private List<PostComment> postComments;
 
     @PrePersist
     public void prePersist() {

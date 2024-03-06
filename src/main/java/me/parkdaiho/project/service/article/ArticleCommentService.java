@@ -8,7 +8,12 @@ import me.parkdaiho.project.domain.article.ArticleComment;
 import me.parkdaiho.project.dto.article.AddArticleCommentRequest;
 import me.parkdaiho.project.dto.article.AddReplyRequest;
 import me.parkdaiho.project.dto.article.ArticleCommentViewResponse;
+import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.repository.article.ArticleCommentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +24,26 @@ public class ArticleCommentService {
 
     private final ArticleService articleService;
     private final ArticleCommentRepository articleCommentRepository;
+
+    private final int COMMENTS_PER_PAGE = 5;
+
+    public Page<ArticleCommentViewResponse> getArticleCommentViewOrderByDate(int page, Long id) {
+        Pageable pageable = PageRequest.of(page, COMMENTS_PER_PAGE, Sort.Direction.DESC);
+
+        Article article = articleService.findArticleById(id);
+
+        return articleCommentRepository.findByArticleOrderByCreatedAt(pageable, article)
+                .map(entity -> new ArticleCommentViewResponse(entity));
+    }
+
+    public Page<ArticleCommentViewResponse> getArticleCommentViewOrderByGood(int page, Long id) {
+        Pageable pageable = PageRequest.of(page, COMMENTS_PER_PAGE);
+
+        Article article = articleService.findArticleById(id);
+
+        return articleCommentRepository.findByArticleOrderByGood(pageable, article)
+                .map(entity -> new ArticleCommentViewResponse(entity));
+    }
 
     @Transactional
     public List<ArticleCommentViewResponse> addArticleComment(AddArticleCommentRequest dto, PrincipalDetails principal) {
