@@ -21,7 +21,7 @@ public class ArticleViewResponse {
     private String originalLink;
     private String pubDate;
     private Boolean isProvided;
-    private Page<ArticleCommentViewResponse> comments;
+    private List<ArticleCommentViewResponse> comments;
 
     public ArticleViewResponse(Article article) {
         this.id = article.getId();

@@ -2,17 +2,13 @@ package me.parkdaiho.project.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.dto.article.AddArticleCommentRequest;
-import me.parkdaiho.project.dto.article.AddReplyRequest;
-import me.parkdaiho.project.dto.article.ArticleCommentViewResponse;
-import me.parkdaiho.project.dto.article.ArticleViewRequest;
+import me.parkdaiho.project.dto.article.*;
 import me.parkdaiho.project.service.article.ArticleCommentService;
 import me.parkdaiho.project.service.article.ArticleService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -44,6 +40,19 @@ public class ArticleApiController {
     public ResponseEntity<List<ArticleCommentViewResponse>> addReply(@RequestBody AddReplyRequest request,
                                                                      @AuthenticationPrincipal PrincipalDetails principal) {
         List<ArticleCommentViewResponse> comments = articleCommentService.addReply(request, principal);
+
+        return ResponseEntity.ok(comments);
+    }
+
+    @GetMapping("/api/article-comment")
+    public ResponseEntity<Page<ArticleCommentViewResponse>> sortComment(@RequestBody GetArticleCommentRequest request) {
+        Page<ArticleCommentViewResponse> comments = null;
+
+        if(request.getSort().equals("good")) {
+            comments = articleCommentService.getArticleCommentViewOrderByGood(request.getPage(), request.getArticleId());
+        } else {
+            comments = articleCommentService.getArticleCommentViewOrderByDate(request.getPage(), request.getArticleId());
+        }
 
         return ResponseEntity.ok(comments);
     }
