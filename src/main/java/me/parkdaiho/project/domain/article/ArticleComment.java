@@ -30,6 +30,10 @@ public class ArticleComment extends BaseEntity {
     @JoinColumn(name = "write_id", updatable = false)
     private User writer;
 
+    private Long good;
+
+    private Long bad;
+
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<GoodOrBad> goodOrBadList = new ArrayList<>();
 

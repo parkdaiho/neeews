@@ -28,25 +28,20 @@ public class ArticleCommentService {
     private final int COMMENTS_PER_PAGE = 5;
 
     public Page<ArticleCommentViewResponse> getDefaultArticleComments(Long id) {
-        Pageable pageable = PageRequest.of(0, COMMENTS_PER_PAGE, Sort.Direction.DESC);
+        Pageable pageable = PageRequest.of(0, COMMENTS_PER_PAGE, Sort.by(Sort.Direction.DESC, "createdAt"));
 
         Article article = articleService.findArticleById(id);
 
-        return articleCommentRepository.findByArticleOrderByCreatedAt(pageable, article)
+        return articleCommentRepository.findByArticle(pageable, article)
                 .map(entity -> new ArticleCommentViewResponse(entity));
     }
 
     public Page<ArticleCommentViewResponse> getArticleCommentView(int page, String sort, Long id) {
-        Pageable pageable = PageRequest.of(page - 1, COMMENTS_PER_PAGE, Sort.Direction.DESC);
+        Pageable pageable = PageRequest.of(page - 1, COMMENTS_PER_PAGE, Sort.by(Sort.Direction.DESC, "createdAt"));
 
         Article article = articleService.findArticleById(id);
 
-        if(sort.equals("good")) {
-            return articleCommentRepository.findByArticleOrderByGood(pageable, article)
-                    .map(entity -> new ArticleCommentViewResponse(entity));
-        }
-
-        return articleCommentRepository.findByArticleOrderByCreatedAt(pageable, article)
+        return articleCommentRepository.findByArticle(pageable, article)
                 .map(entity -> new ArticleCommentViewResponse(entity));
     }
 

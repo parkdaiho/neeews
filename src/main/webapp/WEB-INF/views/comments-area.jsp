@@ -3,14 +3,14 @@
 <html>
 <body>
 <div class="comments-info">
-	<span>총 ${comments.size} 개 </span>
+	<span>총 ${totalElements} 개의 댓글 </span>
 	<c:if test="${sort eq 'date'}">
-		<a href="/article-comments?sort=date" class="on">최신순</a>
-		<a href="/article-comments?sort=good">인기순</a>
+		<button id="sort-by-date" class="on" onclick="getPage(1, 'date')">최신순</button>
+		<button id="sort-by-good" onclick="getPage(1, 'good')">인기순</button>
 	</c:if>
 	<c:if test="${sort eq 'good'}">
-		<a href="/article-comments?sort=date">최신순</a>
-		<a href="/article-comments?sort=good" class="on">인기순</a>
+		<button id="sort-by-date" onclick="getPage(1, 'date')">최신순</button>
+		<button id="sort-by-good" class="on" onclick="getPage(1, 'good')">인기순</button>
 	</c:if>
 </div>
 <div id="comments-view">
@@ -43,14 +43,15 @@
 </div>
 <div id="comments-page">
 	<ul>
-		<li><a href="<c:url value="/article-comments?page=1&sort=${sort}"/>"><<</a></li>
-		<li><a href="<c:url value="/article-comments?page=${previousPage}&sort=${sort}"/>"><</a></li>
+		<li><button id="load-first-page-of-comments" onclick="getPage(1, ${sort})"><<</button></li>
+		<li><button id="load-previous-page-of-comments" onclick="getPage(${previousPage}, ${sort})"><</button></li>
 		<c:forEach var="i" begin="${firstNumOfPageBlock}" end="${lastNumOfPageBlock}" step="1">
-			<li><a href="<c:url value="/article-comments?page=${i}&sort=${sort}"/>">${i}</a></li>
+			<li><button class="page-btn" onclick="getPage(${i}, ${sort})">${i}</button></li>
 		</c:forEach>
-		<li><a href="<c:url value="/article-comments?page=${nextPage}&sort=${sort}"/>">></a></li>
-		<li><a href="<c:url value="/article-comments?page=${totalPages}&sort=${sort}"/>">>></a></li>
+		<li><button id="load-next-page-of-comments" onclick="getPage(${nextPage}, ${sort})">></button></li>
+		<li><button id="load-last-page-of-comments" onclick="getPage(${totalPages}, ${sort})">>></button></li>
 	</ul>
 </div>
+<script src="/js/article-comment.js"></script>
 </body>
 </html>

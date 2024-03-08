@@ -3,7 +3,7 @@ const commentCreateButton = document.getElementById("comment-create-button");
 if(commentCreateButton) {
     commentCreateButton.addEventListener("click", () => {
         let body = JSON.stringify({
-            "articleId" : document.getElementById("article-id").value,
+            "articleId" : articleId,
             "contents" : document.getElementById("comment-create-contents").value,
         });
 

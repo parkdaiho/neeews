@@ -43,17 +43,4 @@ public class ArticleApiController {
 
         return ResponseEntity.ok(comments);
     }
-
-    @GetMapping("/api/article-comment")
-    public ResponseEntity<Page<ArticleCommentViewResponse>> sortComment(@RequestBody GetArticleCommentRequest request) {
-        Page<ArticleCommentViewResponse> comments = null;
-
-        if(request.getSort().equals("good")) {
-            comments = articleCommentService.getArticleCommentViewOrderByGood(request.getPage(), request.getArticleId());
-        } else {
-            comments = articleCommentService.getArticleCommentViewOrderByDate(request.getPage(), request.getArticleId());
-        }
-
-        return ResponseEntity.ok(comments);
-    }
 }

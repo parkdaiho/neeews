@@ -8,6 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ArticleCommentRepository extends JpaRepository<ArticleComment, Long> {
 
-    Page<ArticleComment> findByArticleOrderByCreatedAt(Pageable pageable, Article article);
-    Page<ArticleComment> findByArticleOrderByGood(Pageable pageable, Article article);
+    Page<ArticleComment> findByArticle(Pageable pageable, Article article);
 }

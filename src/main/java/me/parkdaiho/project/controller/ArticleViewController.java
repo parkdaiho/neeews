@@ -50,8 +50,8 @@ public class ArticleViewController {
         return "article";
     }
 
-    @GetMapping("/article-comments")
-    public String articleCommentView(Long id,
+    @GetMapping("/articles/{id}/comments")
+    public String articleCommentView(@PathVariable Long id,
                                      @RequestParam(required = false, defaultValue = "1") int page,
                                      @RequestParam(required = false, defaultValue = "date") String sort,
                                      Model model) {
@@ -76,6 +76,7 @@ public class ArticleViewController {
         int nextPage = comments.hasNext() ? page + 1 : totalPages;
         int previousPage = comments.hasPrevious() ? page - 1 : page;
 
+        model.addAttribute("totalElements", comments.getTotalElements());
         model.addAttribute("articleId", "id");
         model.addAttribute("page", page);
         model.addAttribute("nextPage", nextPage);
