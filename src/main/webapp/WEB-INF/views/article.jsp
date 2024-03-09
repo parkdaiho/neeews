@@ -5,10 +5,6 @@
 	<title>Title</title>
 	<script>
 		let articleId = "${article.id}";
-    let sort = "${sort}";
-    let totalPages = "${totalPages}";
-    let nextPage = "${nextPage}";
-    let previousPage = "${previousPage}";
 	</script>
 </head>
 <body>

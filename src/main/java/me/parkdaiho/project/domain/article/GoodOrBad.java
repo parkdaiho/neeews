@@ -26,8 +26,18 @@ public class GoodOrBad {
     // good == true, bad == false
     private Boolean flag;
 
-    public GoodOrBad(User user, ArticleComment comment) {
+    @Builder
+    public GoodOrBad(User user, ArticleComment comment, Boolean flag) {
         this.user = user;
         this.comment = comment;
+        this.flag = flag;
+    }
+
+    public void setGood() {
+        flag = flag ? null : true;
+    }
+
+    public void setBad() {
+        flag = !flag ? null : false;
     }
 }

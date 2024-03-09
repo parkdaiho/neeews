@@ -46,7 +46,13 @@ public class ArticleComment extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        goodOrBadList.add(new GoodOrBad(writer, this));
+        goodOrBadList.add(GoodOrBad.builder()
+                .user(writer)
+                .comment(this)
+                .build());
+
+        good = 0L;
+        bad = 0L;
     }
 
     @Builder
@@ -64,13 +70,13 @@ public class ArticleComment extends BaseEntity {
 
     public Long getGood() {
         return goodOrBadList.stream()
-                .filter(goodOrBad -> goodOrBad.getFlag() != null && goodOrBad.getFlag() == true)
+                .filter(e -> e.getFlag() != null && e.getFlag() == true)
                 .count();
     }
 
     public Long getBad() {
         return goodOrBadList.stream()
-                .filter(goodOrBad -> goodOrBad.getFlag() != null && goodOrBad.getFlag() == false)
+                .filter(e -> e.getFlag() != null && e.getFlag() != false)
                 .count();
     }
 }

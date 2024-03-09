@@ -15,15 +15,19 @@
 </div>
 <div id="comments-view">
 	<c:forEach var="comment" items="${comments}">
-		<div id="comment${id}">
-			<div id="comment${id}writer">
+		<div>
+			<div>
 					${comment.writer}
 			</div>
-			<div id="comment${id}contents">
+			<div>
 					${comment.contents}
 			</div>
-			<div id="comment${id}createdDate">
+			<div>
 					${comment.createdDate}
+			</div>
+			<div>
+				<button onclick="setGoodOrBad(${id}, ${page}, ${sort}, ${true})">${comment.good}</button>
+				<button onclick="setGoodOrBad(${id}, ${page}, ${sort}, ${false})">${comment.bad}</button>
 			</div>
 		</div>
 		<%--			<c:forEach var="reply" items="${comment.reply}">--%>

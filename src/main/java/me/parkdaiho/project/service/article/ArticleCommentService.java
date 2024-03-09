@@ -5,11 +5,13 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.article.ArticleComment;
+import me.parkdaiho.project.domain.article.GoodOrBad;
+import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.article.AddArticleCommentRequest;
 import me.parkdaiho.project.dto.article.AddReplyRequest;
 import me.parkdaiho.project.dto.article.ArticleCommentViewResponse;
-import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.repository.article.ArticleCommentRepository;
+import me.parkdaiho.project.repository.article.GoodOrBadRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,6 +26,7 @@ public class ArticleCommentService {
 
     private final ArticleService articleService;
     private final ArticleCommentRepository articleCommentRepository;
+    private final GoodOrBadRepository goodOrBadRepository;
 
     private final int COMMENTS_PER_PAGE = 5;
 
@@ -67,12 +70,33 @@ public class ArticleCommentService {
                 .writer(principal.getUser())
                 .build());
 
-        ArticleComment parentComment = findById(dto.getParentCommentId());
+        ArticleComment parentComment = findByParentCommentId(dto.getParentCommentId());
         parentComment.addReply(reply);
 
         Article article = parentComment.getArticle();
 
         return getArticleComments(article);
+    }
+
+    @Transactional
+    public void setGoodOrBad(Long commentId, PrincipalDetails principal, Boolean flag) {
+        ArticleComment comment = findById(commentId);
+        GoodOrBad goodOrBad = findGoodOrBadByCommentAndUser(comment, principal.getUser());
+
+        goodOrBad.setFlag(flag);
+    }
+
+    private GoodOrBad findGoodOrBadByCommentAndUser(ArticleComment comment, User user) {
+        return goodOrBadRepository.findByCommentAndUser(comment, user)
+                .orElse(goodOrBadRepository.save(GoodOrBad.builder()
+                        .comment(comment)
+                        .user(user)
+                        .build()));
+    }
+
+    private ArticleComment findById(Long id) {
+        return articleCommentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected comment"));
     }
 
     private List<ArticleCommentViewResponse> getArticleComments(Article article) {
@@ -81,7 +105,7 @@ public class ArticleCommentService {
                 .toList();
     }
 
-    private ArticleComment findById(Long parentCommentId) {
+    private ArticleComment findByParentCommentId(Long parentCommentId) {
         return articleCommentRepository.findById(parentCommentId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected ArticleComment"));
     }
