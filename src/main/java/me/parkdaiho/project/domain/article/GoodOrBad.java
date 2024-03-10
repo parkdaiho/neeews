@@ -7,7 +7,7 @@ import me.parkdaiho.project.domain.user.User;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@Table(name = "like_or_bad")
+@Table(name = "good_or_bad")
 @Entity
 public class GoodOrBad {
 
@@ -31,13 +31,5 @@ public class GoodOrBad {
         this.user = user;
         this.comment = comment;
         this.flag = flag;
-    }
-
-    public void setGood() {
-        flag = flag ? null : true;
-    }
-
-    public void setBad() {
-        flag = !flag ? null : false;
     }
 }

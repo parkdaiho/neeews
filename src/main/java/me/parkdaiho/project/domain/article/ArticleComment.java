@@ -30,11 +30,7 @@ public class ArticleComment extends BaseEntity {
     @JoinColumn(name = "write_id", updatable = false)
     private User writer;
 
-    private Long good;
-
-    private Long bad;
-
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
     private List<GoodOrBad> goodOrBadList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -50,9 +46,6 @@ public class ArticleComment extends BaseEntity {
                 .user(writer)
                 .comment(this)
                 .build());
-
-        good = 0L;
-        bad = 0L;
     }
 
     @Builder
@@ -76,7 +69,7 @@ public class ArticleComment extends BaseEntity {
 
     public Long getBad() {
         return goodOrBadList.stream()
-                .filter(e -> e.getFlag() != null && e.getFlag() != false)
+                .filter(e -> e.getFlag() != null && e.getFlag() == false)
                 .count();
     }
 }

@@ -26,8 +26,8 @@
 					${comment.createdDate}
 			</div>
 			<div>
-				<button onclick="setGoodOrBad(${id}, ${page}, ${sort}, ${true})">${comment.good}</button>
-				<button onclick="setGoodOrBad(${id}, ${page}, ${sort}, ${false})">${comment.bad}</button>
+				<button onclick="setGoodOrBad(${comment.id}, '${true}', ${page}, '${sort}')">${comment.good}</button>
+				<button onclick="setGoodOrBad(${comment.id}, '${false}', ${page}, '${sort}')">${comment.bad}</button>
 			</div>
 		</div>
 		<%--			<c:forEach var="reply" items="${comment.reply}">--%>
@@ -47,13 +47,13 @@
 </div>
 <div id="comments-page">
 	<ul>
-		<li><button id="load-first-page-of-comments" onclick="getPage(1, ${sort})"><<</button></li>
-		<li><button id="load-previous-page-of-comments" onclick="getPage(${previousPage}, ${sort})"><</button></li>
+		<li><button id="load-first-page-of-comments" onclick="getPage(1, '${sort}')"><<</button></li>
+		<li><button id="load-previous-page-of-comments" onclick="getPage(${previousPage}, '${sort}')"><</button></li>
 		<c:forEach var="i" begin="${firstNumOfPageBlock}" end="${lastNumOfPageBlock}" step="1">
-			<li><button class="page-btn" onclick="getPage(${i}, ${sort})">${i}</button></li>
+			<li><button class="page-btn" onclick="getPage(${i}, '${sort}')">${i}</button></li>
 		</c:forEach>
-		<li><button id="load-next-page-of-comments" onclick="getPage(${nextPage}, ${sort})">></button></li>
-		<li><button id="load-last-page-of-comments" onclick="getPage(${totalPages}, ${sort})">>></button></li>
+		<li><button id="load-next-page-of-comments" onclick="getPage(${nextPage}, '${sort}')">></button></li>
+		<li><button id="load-last-page-of-comments" onclick="getPage(${totalPages}, '${sort}')">>></button></li>
 	</ul>
 </div>
 <script src="/js/article-comment.js"></script>

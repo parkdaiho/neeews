@@ -12,14 +12,23 @@ function getPage(page, sort) {
         });
 }
 
-function setGoodOrBad(commentId, page, sort, flag) {
-    let url = "/api/comments/" + commentId + "?page=" + page + "&sort=" + sort + "&flag=" + flag;
+function setGoodOrBad(commentId, flag, page, sort) {
+    let body = JSON.stringify({
+        "commentId": commentId,
+        "flag": flag,
+    });
 
-    fetch(url)
+    fetch("/api/article-comment/recommendation", {
+        method: "PUT",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access_token"),
+            "Content-type": "application/json",
+        },
+        body: body,
+    })
         .then(response => {
-            return response.text();
-        })
-        .then(result => {
-            commentArea.innerHTML = result;
+            if(response.ok) {
+                getPage(page, sort);
+            }
         });
 }

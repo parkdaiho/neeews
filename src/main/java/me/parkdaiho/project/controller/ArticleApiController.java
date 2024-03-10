@@ -5,7 +5,6 @@ import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.dto.article.*;
 import me.parkdaiho.project.service.article.ArticleCommentService;
 import me.parkdaiho.project.service.article.ArticleService;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +41,13 @@ public class ArticleApiController {
         List<ArticleCommentViewResponse> comments = articleCommentService.addReply(request, principal);
 
         return ResponseEntity.ok(comments);
+    }
+
+    @PutMapping("/api/article-comment/recommendation")
+    public ResponseEntity<Void> setGoodOrBad(@RequestBody SetGoodOrBadRequest request,
+                                             @AuthenticationPrincipal PrincipalDetails principal) {
+        articleCommentService.setGoodOrBad(request, principal);
+
+        return ResponseEntity.ok().build();
     }
 }

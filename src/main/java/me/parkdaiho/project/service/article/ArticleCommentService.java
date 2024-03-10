@@ -10,6 +10,7 @@ import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.article.AddArticleCommentRequest;
 import me.parkdaiho.project.dto.article.AddReplyRequest;
 import me.parkdaiho.project.dto.article.ArticleCommentViewResponse;
+import me.parkdaiho.project.dto.article.SetGoodOrBadRequest;
 import me.parkdaiho.project.repository.article.ArticleCommentRepository;
 import me.parkdaiho.project.repository.article.GoodOrBadRepository;
 import org.springframework.data.domain.Page;
@@ -58,8 +59,6 @@ public class ArticleCommentService {
         Article article = articleService.findArticleById(dto.getArticleId());
         article.addArticleComment(comment);
 
-        System.out.println(comment.getArticle().getId());
-
         return getArticleComments(article);
     }
 
@@ -79,24 +78,34 @@ public class ArticleCommentService {
     }
 
     @Transactional
-    public void setGoodOrBad(Long commentId, PrincipalDetails principal, Boolean flag) {
-        ArticleComment comment = findById(commentId);
+    public void setGoodOrBad(SetGoodOrBadRequest dto, PrincipalDetails principal) {
+        ArticleComment comment = findById(dto.getCommentId());
         GoodOrBad goodOrBad = findGoodOrBadByCommentAndUser(comment, principal.getUser());
 
-        goodOrBad.setFlag(flag);
+        Boolean flag = goodOrBad.getFlag();
+
+        if(flag == null || flag != dto.getFlag()) {
+            goodOrBad.setFlag(dto.getFlag());
+        } else {
+            goodOrBad.setFlag(null);
+        }
     }
 
     private GoodOrBad findGoodOrBadByCommentAndUser(ArticleComment comment, User user) {
         return goodOrBadRepository.findByCommentAndUser(comment, user)
-                .orElse(goodOrBadRepository.save(GoodOrBad.builder()
-                        .comment(comment)
-                        .user(user)
-                        .build()));
+                .orElseGet(
+                        () -> goodOrBadRepository.save(
+                                GoodOrBad.builder()
+                                        .comment(comment)
+                                        .user(user)
+                                        .build()
+                        )
+                );
     }
 
     private ArticleComment findById(Long id) {
         return articleCommentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected comment"));
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected comment: " + id));
     }
 
     private List<ArticleCommentViewResponse> getArticleComments(Article article) {

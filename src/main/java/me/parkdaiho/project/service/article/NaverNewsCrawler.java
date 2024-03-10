@@ -16,7 +16,7 @@ public class NaverNewsCrawler {
                 .header(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36")
                 .get();
 
-        Element contents = document.getElementById("dic_area") != null ? document.getElementById("dic_area") : document.getElementById("newsEndContents");
+        Element contents = contentsElement(document);
 
         if(contents != null) {
             contents.getAllElements().not("br").remove();
@@ -36,48 +36,5 @@ public class NaverNewsCrawler {
 
         contents = document.getElementById("newsEndContents");
         return contents;
-    }
-
-    public Press getPress(String[] originalLinkArr) {
-        String domain = null;
-
-        if(originalLinkArr[1].equals("biz")) {
-            switch (originalLinkArr[2]) {
-                case "sbs":
-                    domain = "SBS_BIZ";
-                    break;
-                case "chosun":
-                    domain = "CHOSUN_BIZ";
-                    break;
-            }
-        }
-
-        if(originalLinkArr[1].equals("weekly")) {
-            switch (originalLinkArr[2]) {
-                case "khan":
-                    domain = "WEEKLY_KHAN";
-                    break;
-                case "donga":
-                    domain = "WEEKLY_DONGA";
-                    break;
-                case "chosun":
-                    domain = "WEEKLY_CHOSUN";
-                    break;
-            }
-        }
-
-        if(originalLinkArr[1].equals("magazine")) {
-            domain = "MAEGAZINE_HANKYUNG";
-        }
-
-        if(originalLinkArr[1].equals("health")) {
-            domain = "HEALTH_CHOSUN";
-        }
-
-        if(domain == null) {
-            domain = originalLinkArr[1];
-        }
-
-        return Press.valueOf(domain.toUpperCase());
     }
 }
