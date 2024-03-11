@@ -10,6 +10,7 @@
 <c:if test="${userNickname != null}">
 <button type="button" id="logout-btn">${loginUser} 로그아웃</button>
 </c:if>
+<a href="/posts">community</a>
 <form action="/articles" method="get">
   <input type="text" name="query">
   <select name="sort">

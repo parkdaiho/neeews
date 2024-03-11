@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain.article;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.GoodOrBad;
 import me.parkdaiho.project.domain.user.User;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class ArticleComment extends BaseEntity {
     @JoinColumn(name = "write_id", updatable = false)
     private User writer;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "articleComment", cascade = CascadeType.ALL)
     private List<GoodOrBad> goodOrBadList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -44,7 +45,7 @@ public class ArticleComment extends BaseEntity {
     public void prePersist() {
         goodOrBadList.add(GoodOrBad.builder()
                 .user(writer)
-                .comment(this)
+                .articleComment(this)
                 .build());
     }
 

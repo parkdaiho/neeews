@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.article.ArticleComment;
-import me.parkdaiho.project.domain.article.GoodOrBad;
+import me.parkdaiho.project.domain.GoodOrBad;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.article.AddArticleCommentRequest;
 import me.parkdaiho.project.dto.article.AddReplyRequest;
@@ -92,11 +92,11 @@ public class ArticleCommentService {
     }
 
     private GoodOrBad findGoodOrBadByCommentAndUser(ArticleComment comment, User user) {
-        return goodOrBadRepository.findByCommentAndUser(comment, user)
+        return goodOrBadRepository.findByArticleCommentAndUser(comment, user)
                 .orElseGet(
                         () -> goodOrBadRepository.save(
                                 GoodOrBad.builder()
-                                        .comment(comment)
+                                        .articleComment(comment)
                                         .user(user)
                                         .build()
                         )

@@ -14,7 +14,6 @@ spring:
     console:
       enabled: true
 
-
   security:
     oauth2:
       client:
@@ -50,4 +49,8 @@ server:
 naver:
   search:
     client-id: TrzDaXTuUiYAOi86zd2J
-    client-secret: UfhYGFUS0o
+    client-secret: hYGFUS0o
+
+file:
+  upload:
+    location: "/Users/parkdaeho/develop/workspace/developing-project/src/main/resources/static/upload"

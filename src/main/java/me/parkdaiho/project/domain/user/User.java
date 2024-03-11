@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.article.ArticleComment;
-import me.parkdaiho.project.domain.article.GoodOrBad;
+import me.parkdaiho.project.domain.GoodOrBad;
 import me.parkdaiho.project.domain.board.Post;
 import me.parkdaiho.project.domain.board.PostComment;
 
@@ -47,12 +47,12 @@ public class User extends BaseEntity {
     private List<ArticleComment> articleComments;
 
     @OneToMany(mappedBy = "user")
-    private List<GoodOrBad> goodOrBadList;
+    private List<GoodOrBad> goodOrBadListForArticleComments;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    @OneToMany()
+    @OneToMany(mappedBy = "user")
     private List<PostComment> postComments;
 
     @PrePersist

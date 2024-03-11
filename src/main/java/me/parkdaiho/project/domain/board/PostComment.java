@@ -6,7 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.GoodOrBad;
 import me.parkdaiho.project.domain.user.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -24,9 +28,13 @@ public class PostComment extends BaseEntity {
     private String contents;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id", nullable = false, updatable = false)
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id", nullable = false, updatable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Post post;
+    @OneToMany(mappedBy = "postComment", cascade = CascadeType.ALL)
+    private List<GoodOrBad> goodOrBadList = new ArrayList<>();
 }

@@ -3,8 +3,10 @@ package me.parkdaiho.project.domain.board;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,22 +27,27 @@ public class Post extends BaseEntity {
     @Column(nullable = false)
     private String contents;
 
-    private String imagePath;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<ImageFile> images = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id", nullable = false, updatable = false)
     private User user;
 
+    private Long views;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<PostComment> comments;
 
     @Builder
-    public Post(String title, String contents, String imagePath, User user) {
+    public Post(String title, String contents, User user) {
         this.title = title;
         this.contents = contents;
-        this.imagePath = imagePath;
         this.user = user;
     }
 
-
+    @PrePersist
+    public void prePersist() {
+        views = 0L;
+    }
 }
