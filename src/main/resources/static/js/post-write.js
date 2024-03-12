@@ -1,5 +1,3 @@
-let cnt = 1;
-
 function addFileInput() {
     const uploadArea = document.getElementById("post-upload-area");
 
@@ -7,7 +5,7 @@ function addFileInput() {
     newFileArea.setAttribute("class", "newFileArea");
 
     let addFileInput = document.createElement("input");
-    addFileInput.setAttribute("id", "file" + cnt++);
+    addFileInput.setAttribute("class", "files");
     addFileInput.setAttribute("type", "file");
 
     let thumbnailArea = document.createElement("div");
@@ -42,4 +40,31 @@ function setThumbnail(event, thumbnailArea) {
     }
 
     imageReader.readAsDataURL(event.target.files[0]);
+}
+
+function writePost() {
+    let formData = new FormData();
+
+    let title = document.getElementById("post-write-title");
+    let contents = document.getElementById("post-write-contents");
+    formData.append("title", title.value);
+    formData.append("contents", contents.value);
+
+    let files = document.getElementsByClassName("files");
+    for(let i = 0; i < files.length; i++) {
+        formData.append("files", files[i][0]);
+    }
+
+    fetch("/api/new-post", {
+        method: "POST",
+        headers: {
+            // "Content-type": "multipart/form-data",
+        },
+        body: formData,
+    })
+        .then(response => {
+            if(response.ok) {
+                alert("글작성완료");
+            }
+        })
 }
