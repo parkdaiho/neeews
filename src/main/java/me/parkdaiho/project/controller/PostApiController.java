@@ -3,25 +3,24 @@ package me.parkdaiho.project.controller;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.dto.board.AddPostRequest;
+import me.parkdaiho.project.service.board.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
+
 @RequiredArgsConstructor
 @RestController
 public class PostApiController {
 
+    private final PostService postService;
+
     @PostMapping("/api/new-post")
-    public ResponseEntity<?> newPost(AddPostRequest request) {
+    public ResponseEntity<Void> newPost(AddPostRequest request, @AuthenticationPrincipal PrincipalDetails principal) {
+        Long savedPostId = postService.getSavedPostId(request, principal);
 
-        System.out.println("title: " + request.getTitle());
-        System.out.println("contents: " + request.getContents());
-
-        for(MultipartFile file : request.getFiles()) {
-            System.out.println(file.getOriginalFilename());
-        }
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(URI.create("/posts/" + savedPostId)).build();
     }
 }

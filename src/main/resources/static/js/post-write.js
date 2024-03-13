@@ -52,14 +52,11 @@ function writePost() {
 
     let files = document.getElementsByClassName("files");
     for(let i = 0; i < files.length; i++) {
-        formData.append("files", files[i][0]);
+        formData.append("files", files[i].files[0]);
     }
 
     fetch("/api/new-post", {
         method: "POST",
-        headers: {
-            // "Content-type": "multipart/form-data",
-        },
         body: formData,
     })
         .then(response => {

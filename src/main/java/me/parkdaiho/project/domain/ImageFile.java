@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.board.Post;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -12,7 +14,7 @@ import me.parkdaiho.project.domain.board.Post;
 @Setter
 @Table(name = "image_files")
 @Entity
-public class ImageFile extends BaseEntity{
+public class ImageFile extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +22,10 @@ public class ImageFile extends BaseEntity{
 
     @Column(nullable = false, unique = true)
     private String fileName;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "article_id", updatable = false)
+    private Article article;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id", updatable = false)

@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain.article;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.ImageFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,9 @@ public class Article extends BaseEntity {
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ArticleComment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ImageFile> images = new ArrayList<>();
+
     @PrePersist
     public void prePersit() {
         this.isProvided = !link.equals(originalLink);
@@ -60,5 +64,12 @@ public class Article extends BaseEntity {
     public void addArticleComment(ArticleComment comment) {
         comment.setArticle(this);
         comments.add(comment);
+    }
+
+    public void addImageFiles(List<ImageFile> images) {
+        for(ImageFile image : images) {
+            image.setArticle(this);
+            this.images.add(image);
+        }
     }
 }

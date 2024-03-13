@@ -50,4 +50,11 @@ public class Post extends BaseEntity {
     public void prePersist() {
         views = 0L;
     }
+
+    public void addImageFiles(List<ImageFile> files) {
+        for(ImageFile file : files) {
+            file.setPost(this);
+            images.add(file);
+        }
+    }
 }
