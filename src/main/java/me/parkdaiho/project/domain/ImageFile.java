@@ -1,12 +1,7 @@
 package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.article.Article;
+import lombok.*;
 import me.parkdaiho.project.domain.board.Post;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,14 +15,20 @@ public class ImageFile extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String fileName;
+    @Column(nullable = false)
+    private String originalName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "article_id", updatable = false)
-    private Article article;
+    @Column(nullable = false)
+    private String savedName;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id", updatable = false)
     private Post post;
+
+    @Builder
+    public ImageFile(String originalName, String savedName, Post post) {
+        this.originalName = originalName;
+        this.savedName = savedName;
+        this.post = post;
+    }
 }

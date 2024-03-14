@@ -57,11 +57,16 @@ function writePost() {
 
     fetch("/api/new-post", {
         method: "POST",
+        headers: {
+            "Authorization": "Bearer " + localStorage.getItem("access_token"),
+        },
         body: formData,
     })
         .then(response => {
             if(response.ok) {
-                alert("글작성완료");
+                let headers = response.headers;
+
+                location.href = headers.get("Location");
             }
-        })
+        });
 }

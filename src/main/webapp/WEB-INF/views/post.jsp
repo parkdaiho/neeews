@@ -6,13 +6,16 @@
 </head>
 <body>
 <div class="post-view-title">
-
+	${post.title}
 </div>
 <div class="post-view-contents">
 	<div class="post-view-images">
-		<img src="#" alt="post-img">
+		<c:forEach var="imageFilePath" items="${post.imageFilePaths}">
+			<c:url var="image" value="${imageFilePath}"></c:url>
+			<img src="${image}">
+		</c:forEach>
 	</div>
-
+	${post.contents}
 </div>
 <div>
 	<textarea id="comment-create-contents">

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 @ConfigurationProperties("file.upload")
-public class ImageFileUploadProperties {
+public class ImageFileProperties {
 
     private String location;
 }
