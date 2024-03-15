@@ -3,7 +3,7 @@ package me.parkdaiho.project.domain.article;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.ImageFile;
+import me.parkdaiho.project.domain.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Article extends BaseEntity {
     private Boolean isProvided;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ArticleComment> comments = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     @PrePersist
     public void prePersit() {
@@ -58,7 +58,7 @@ public class Article extends BaseEntity {
         this.pubDate = pubDate;
     }
 
-    public void addArticleComment(ArticleComment comment) {
+    public void addComment(Comment comment) {
         comment.setArticle(this);
         comments.add(comment);
     }

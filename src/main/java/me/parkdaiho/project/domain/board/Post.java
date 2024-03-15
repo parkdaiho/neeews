@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain.board;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
+import me.parkdaiho.project.domain.Comment;
 import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.user.User;
 
@@ -27,23 +28,23 @@ public class Post extends BaseEntity {
     @Column(nullable = false)
     private String contents;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "writer_id", nullable = false, updatable = false)
+    private User writer;
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<ImageFile> images = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "writer_id", nullable = false, updatable = false)
-    private User user;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Comment> comments = new ArrayList<>();
 
     private Long views;
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<PostComment> comments;
 
     @Builder
     public Post(String title, String contents, User user) {
         this.title = title;
         this.contents = contents;
-        this.user = user;
+        this.writer = user;
     }
 
     @PrePersist
@@ -56,5 +57,10 @@ public class Post extends BaseEntity {
             file.setPost(this);
             images.add(file);
         }
+    }
+
+    public void addComment(Comment comment) {
+        comment.setPost(this);
+        comments.add(comment);
     }
 }

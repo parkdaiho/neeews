@@ -69,15 +69,10 @@ public class ImageFileService {
         }
     }
 
-    public List<String> getPostImageFilePath(List<ImageFile> images) {
-        List<String> filePaths = new ArrayList<>();
+    public List<String> getPostSavedFileName(List<ImageFile> images) {
 
-        for(ImageFile image : images) {
-            String filePath = "/post-image/" + image.getPost().getId() + "/" + image.getSavedName();
-
-            filePaths.add(filePath);
-        }
-
-        return filePaths;
+        return images.stream()
+                .map(image -> image.getSavedName())
+                .toList();
     }
 }

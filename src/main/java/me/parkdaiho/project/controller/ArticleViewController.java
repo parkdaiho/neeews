@@ -1,11 +1,13 @@
 package me.parkdaiho.project.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.dto.article.ArticleCommentViewResponse;
+import me.parkdaiho.project.config.properties.CommentProperties;
+import me.parkdaiho.project.domain.Domain;
+import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
-import me.parkdaiho.project.service.article.ArticleCommentService;
+import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.article.ArticleService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -19,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ArticleViewController {
 
     private final ArticleService articleService;
-    private final ArticleCommentService articleCommentService;
+    private final CommentService commentService;
 
-    private final int PAGES_PER_PAGE_BLOCK = 5;
+    private final CommentProperties commentProperties;
 
     @GetMapping("/articles")
     public String articles(String query, String sort, Model model) {
@@ -40,12 +42,12 @@ public class ArticleViewController {
     public String articleView(@PathVariable Long id,
                               Model model) {
         ArticleViewResponse article = articleService.getArticleView(id);
-        Page<ArticleCommentViewResponse> comments = articleCommentService.getDefaultArticleComments(id);
-
-        getCommentInfoModel(comments, model);
+        Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.ARTICLE);
 
         model.addAttribute("article", article);
         model.addAttribute("sort", "date");
+
+        addCommentInfoToModel(comments, model);
 
         return "article";
     }
@@ -55,20 +57,20 @@ public class ArticleViewController {
                                      @RequestParam(required = false, defaultValue = "1") int page,
                                      @RequestParam(required = false, defaultValue = "date") String sort,
                                      Model model) {
-        Page<ArticleCommentViewResponse> comments = articleCommentService.getArticleCommentView(page, sort, id);
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, sort, id, Domain.ARTICLE);
 
-        getCommentInfoModel(comments, model);
+        addCommentInfoToModel(comments, model);
 
         model.addAttribute("sort", sort);
 
         return "comments-area";
     }
 
-    private void getCommentInfoModel(Page<ArticleCommentViewResponse> comments, Model model) {
+    private void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
         int page = comments.getNumber() + 1;
         int totalPages = comments.getTotalPages();
-        int firstNumOfPageBlock = page / PAGES_PER_PAGE_BLOCK * PAGES_PER_PAGE_BLOCK + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + PAGES_PER_PAGE_BLOCK - 1;
+        int firstNumOfPageBlock = page / commentProperties.getPagesPerBlock() * commentProperties.getPagesPerBlock() + 1;
+        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getPagesPerBlock() - 1;
         if(totalPages < lastNumOfPageBlock) {
             lastNumOfPageBlock = totalPages;
         }
@@ -77,7 +79,6 @@ public class ArticleViewController {
         int previousPage = comments.hasPrevious() ? page - 1 : page;
 
         model.addAttribute("totalElements", comments.getTotalElements());
-        model.addAttribute("articleId", "id");
         model.addAttribute("page", page);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);

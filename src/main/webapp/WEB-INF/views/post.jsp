@@ -10,8 +10,11 @@
 </div>
 <div class="post-view-contents">
 	<div class="post-view-images">
-		<c:forEach var="imageFilePath" items="${post.imageFilePaths}">
-			<c:url var="image" value="${imageFilePath}"></c:url>
+		<c:forEach var="savedFileName" items="${post.savedFileNames}">
+			<c:url var="image" value="/post-image">
+				<c:param name="id" value="${post.id}"></c:param>
+				<c:param name="savedName" value="${savedFileName}"></c:param>
+			</c:url>
 			<img src="${image}">
 		</c:forEach>
 	</div>

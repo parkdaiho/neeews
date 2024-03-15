@@ -49,11 +49,11 @@ public class PostService {
                 .id(post.getId())
                 .title(post.getTitle())
                 .contents(post.getContents())
-                .imageFilePaths(imageFileService.getPostImageFilePath(post.getImages()))
+                .savedFileNames(imageFileService.getPostSavedFileName(post.getImages()))
                 .build();
     }
 
-    private Post findPostById(Long id) {
+    public Post findPostById(Long id) {
         return postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected Post: " + id));
     }

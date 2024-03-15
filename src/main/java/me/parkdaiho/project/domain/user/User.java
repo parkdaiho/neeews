@@ -3,10 +3,9 @@ package me.parkdaiho.project.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.article.ArticleComment;
+import me.parkdaiho.project.domain.Comment;
 import me.parkdaiho.project.domain.GoodOrBad;
 import me.parkdaiho.project.domain.board.Post;
-import me.parkdaiho.project.domain.board.PostComment;
 
 import java.util.List;
 
@@ -44,16 +43,13 @@ public class User extends BaseEntity {
     private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "writer")
-    private List<ArticleComment> articleComments;
+    private List<Comment> comments;
 
     @OneToMany(mappedBy = "user")
-    private List<GoodOrBad> goodOrBadListForArticleComments;
+    private List<GoodOrBad> goodOrBadListForComments;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "writer")
     private List<Post> posts;
-
-    @OneToMany(mappedBy = "user")
-    private List<PostComment> postComments;
 
     @PrePersist
     public void prePersist() {

@@ -54,3 +54,7 @@ naver:
 file:
   upload:
     location: "/Users/parkdaeho/develop/workspace/developing-project/src/main/resources/static/upload"
+
+comment:
+  page:
+    pages-per-block: 5

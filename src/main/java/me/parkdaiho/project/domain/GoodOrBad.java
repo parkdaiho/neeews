@@ -2,9 +2,6 @@ package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.article.ArticleComment;
-import me.parkdaiho.project.domain.board.PostComment;
 import me.parkdaiho.project.domain.user.User;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,8 +20,8 @@ public class GoodOrBad extends BaseEntity {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "article_comment_id", updatable = false)
-    private ArticleComment articleComment;
+    @JoinColumn(name = "comment_id", updatable = false)
+    private Comment comment;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_comment_id", updatable = false)
@@ -34,9 +31,9 @@ public class GoodOrBad extends BaseEntity {
     private Boolean flag;
 
     @Builder
-    public GoodOrBad(User user, ArticleComment articleComment, PostComment postComment, Boolean flag) {
+    public GoodOrBad(User user, Comment comment, PostComment postComment, Boolean flag) {
         this.user = user;
-        this.articleComment = articleComment;
+        this.comment = comment;
         this.postComment = postComment;
         this.flag = flag;
     }

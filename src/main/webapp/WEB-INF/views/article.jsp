@@ -23,12 +23,6 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<div>
-    <textarea id="comment-create-contents">
-
-    </textarea>
-		<button id="comment-create-button">댓글작성</button>
-	</div>
 	<div id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>
 	</div>

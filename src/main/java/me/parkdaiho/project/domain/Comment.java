@@ -1,9 +1,9 @@
-package me.parkdaiho.project.domain.article;
+package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.GoodOrBad;
+import me.parkdaiho.project.domain.article.Article;
+import me.parkdaiho.project.domain.board.Post;
 import me.parkdaiho.project.domain.user.User;
 
 import java.util.ArrayList;
@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@Table(name = "article_comments")
+@Table(name = "comments")
 @Entity
-public class ArticleComment extends BaseEntity {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,38 +24,42 @@ public class ArticleComment extends BaseEntity {
     private String contents;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "article_id", nullable = true)
+    @JoinColumn(name = "article_id")
     private Article article;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "write_id", updatable = false)
+    @JoinColumn(name = "post_id")
+    private Post post;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "writer_id", updatable = false)
     private User writer;
 
-    @OneToMany(mappedBy = "articleComment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<GoodOrBad> goodOrBadList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_comment_id", updatable = false, nullable = true)
-    private ArticleComment parentComment;
+    private Comment parentComment;
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
-    private List<ArticleComment> reply = new ArrayList<>();
+    private List<Comment> reply = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
         goodOrBadList.add(GoodOrBad.builder()
                 .user(writer)
-                .articleComment(this)
+                .comment(this)
                 .build());
     }
 
     @Builder
-    public ArticleComment(String contents, User writer) {
+    public Comment(String contents, User writer) {
         this.contents = contents;
         this.writer = writer;
     }
 
-    public ArticleComment addReply(ArticleComment reply) {
+    public Comment addReply(Comment reply) {
         reply.setParentComment(this);
         this.reply.add(reply);
 
