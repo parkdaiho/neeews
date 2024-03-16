@@ -2,12 +2,21 @@ package me.parkdaiho.project.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 public enum Domain {
-    USER("user"), ARTICLE("article"), POST("post");
+    USER("users"), ARTICLE("articles"), POST("posts");
 
-    private final String domain;
+    public static Domain getDomainByDomainPl(String domainPl) {
+        for(Domain domain : Domain.values()) {
+            if(domainPl.equals(domain.getDomainPl())) {
+                return domain;
+            }
+        }
+
+        throw new IllegalArgumentException("Unexpected domainPl: " + domainPl);
+    }
+
+    private final String domainPl;
 }

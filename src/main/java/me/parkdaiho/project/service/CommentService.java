@@ -3,6 +3,7 @@ package me.parkdaiho.project.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.properties.CommentProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.Comment;
@@ -12,7 +13,7 @@ import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
-import me.parkdaiho.project.dto.article.SetGoodOrBadRequest;
+import me.parkdaiho.project.dto.comment.SetGoodOrBadRequest;
 import me.parkdaiho.project.repository.CommentRepository;
 import me.parkdaiho.project.repository.GoodOrBadRepository;
 import me.parkdaiho.project.service.article.ArticleService;
@@ -23,27 +24,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @RequiredArgsConstructor
 @Service
 public class CommentService {
 
     private final CommentRepository commentRepository;
-
     private final ArticleService articleService;
     private final PostService postService;
-
     private final GoodOrBadRepository goodOrBadRepository;
 
-    private final int COMMENTS_PER_PAGE = 5;
+    private final CommentProperties commentProperties;
 
     public Page<CommentViewResponse> getDefaultComments(Long id, Domain domain) {
         return getCommentView(1, "createdAt", id, domain);
     }
 
     public Page<CommentViewResponse> getCommentView(int page, String sort, Long id, Domain domain) {
-        Pageable pageable = PageRequest.of(page - 1, COMMENTS_PER_PAGE, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Pageable pageable = PageRequest.of(page - 1, commentProperties.getCommentsPerPages(), Sort.by(Sort.Direction.DESC, "createdAt"));
 
         Page<Comment> comments = null;
         switch (domain) {
@@ -56,7 +53,7 @@ public class CommentService {
                 comments = commentRepository.findByPost(pageable, post);
             }
             default -> {
-                throw new IllegalArgumentException("Unexpected domain: " + domain.getDomain());
+                throw new IllegalArgumentException("Unexpected domain: " + domain.name());
             }
         }
 
@@ -79,25 +76,20 @@ public class CommentService {
                 Post post = postService.findPostById(dto.getId());
                 post.addComment(comment);
             }
-            default -> {
-                throw new IllegalArgumentException("Unexpected domain: " + domain.getDomain());
-            }
+
+            default -> throw new IllegalArgumentException("Unexpected domain: " + domain.name());
         }
     }
 
     @Transactional
-    public List<CommentViewResponse> addReply(AddReplyRequest dto, PrincipalDetails principal) {
+    public void addReply(AddReplyRequest dto, PrincipalDetails principal) {
         Comment reply = commentRepository.save(Comment.builder()
                 .contents(dto.getContents())
                 .writer(principal.getUser())
                 .build());
 
-        Comment parentComment = findByParentCommentId(dto.getParentCommentId());
+        Comment parentComment = findById(dto.getParentCommentId());
         parentComment.addReply(reply);
-
-        Article article = parentComment.getArticle();
-
-        return getArticleComments(article);
     }
 
     @Transactional
@@ -115,7 +107,7 @@ public class CommentService {
     }
 
     private GoodOrBad findGoodOrBadByCommentAndUser(Comment comment, User user) {
-        return goodOrBadRepository.findByArticleCommentAndUser(comment, user)
+        return goodOrBadRepository.findByCommentAndUser(comment, user)
                 .orElseGet(
                         () -> goodOrBadRepository.save(
                                 GoodOrBad.builder()
@@ -129,16 +121,5 @@ public class CommentService {
     private Comment findById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected comment: " + id));
-    }
-
-    private List<CommentViewResponse> getArticleComments(Article article) {
-        return article.getComments().stream()
-                .map(entity -> new CommentViewResponse(entity))
-                .toList();
-    }
-
-    private Comment findByParentCommentId(Long parentCommentId) {
-        return commentRepository.findById(parentCommentId)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected Comment"));
     }
 }

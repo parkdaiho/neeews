@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @Component
-@ConfigurationProperties("comment.page")
+@ConfigurationProperties("comment")
 public class CommentProperties {
 
-    private Integer pagesPerBlock;
+    private Integer commentPagesPerBlock;
+    private Integer commentsPerPages;
 }

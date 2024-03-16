@@ -25,6 +25,6 @@
 		</div>
 	</c:forEach>
 </div>
-<script src="/js/article.js"></script>
+<script src="/js/articles.js"></script>
 </body>
 </html>

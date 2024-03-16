@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface GoodOrBadRepository extends JpaRepository<GoodOrBad, Long> {
 
-    Optional<GoodOrBad> findByArticleCommentAndUser(Comment comment, User user);
+    Optional<GoodOrBad> findByCommentAndUser(Comment comment, User user);
 }

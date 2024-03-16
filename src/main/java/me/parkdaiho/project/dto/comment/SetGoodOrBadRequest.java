@@ -1,4 +1,4 @@
-package me.parkdaiho.project.dto.article;
+package me.parkdaiho.project.dto.comment;
 
 import lombok.Getter;
 import lombok.Setter;

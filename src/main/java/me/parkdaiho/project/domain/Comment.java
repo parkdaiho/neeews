@@ -39,7 +39,7 @@ public class Comment extends BaseEntity {
     private List<GoodOrBad> goodOrBadList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_comment_id", updatable = false, nullable = true)
+    @JoinColumn(name = "parent_comment_id", updatable = false)
     private Comment parentComment;
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
@@ -59,11 +59,9 @@ public class Comment extends BaseEntity {
         this.writer = writer;
     }
 
-    public Comment addReply(Comment reply) {
+    public void addReply(Comment reply) {
         reply.setParentComment(this);
         this.reply.add(reply);
-
-        return this;
     }
 
     public Long getGood() {

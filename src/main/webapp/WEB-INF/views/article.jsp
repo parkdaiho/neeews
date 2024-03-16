@@ -4,7 +4,8 @@
 <head>
 	<title>Title</title>
 	<script>
-		let articleId = "${article.id}";
+		const id = ${article.id};
+		const domain = "${domain}";
 	</script>
 </head>
 <body>
@@ -27,6 +28,5 @@
 		<jsp:include page="comments-area.jsp"></jsp:include>
 	</div>
 </div>
-<script src="/js/articleView.js"></script>
 </body>
 </html>

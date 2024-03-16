@@ -8,5 +8,6 @@ import lombok.Setter;
 public class AddCommentRequest {
 
     private Long id;
+    private String domain;
     private String contents;
 }

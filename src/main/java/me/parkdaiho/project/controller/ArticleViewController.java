@@ -45,6 +45,7 @@ public class ArticleViewController {
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.ARTICLE);
 
         model.addAttribute("article", article);
+        model.addAttribute("domain", Domain.ARTICLE.getDomainPl());
         model.addAttribute("sort", "date");
 
         addCommentInfoToModel(comments, model);
@@ -59,9 +60,9 @@ public class ArticleViewController {
                                      Model model) {
         Page<CommentViewResponse> comments = commentService.getCommentView(page, sort, id, Domain.ARTICLE);
 
-        addCommentInfoToModel(comments, model);
-
         model.addAttribute("sort", sort);
+
+        addCommentInfoToModel(comments, model);
 
         return "comments-area";
     }
@@ -69,8 +70,8 @@ public class ArticleViewController {
     private void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
         int page = comments.getNumber() + 1;
         int totalPages = comments.getTotalPages();
-        int firstNumOfPageBlock = page / commentProperties.getPagesPerBlock() * commentProperties.getPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getPagesPerBlock() - 1;
+        int firstNumOfPageBlock = page / commentProperties.getCommentPagesPerBlock() * commentProperties.getCommentPagesPerBlock() + 1;
+        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getCommentPagesPerBlock() - 1;
         if(totalPages < lastNumOfPageBlock) {
             lastNumOfPageBlock = totalPages;
         }

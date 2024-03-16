@@ -49,12 +49,12 @@ server:
 naver:
   search:
     client-id: TrzDaXTuUiYAOi86zd2J
-    client-secret: hYGFUS0o
+    client-secret: UfhYGFUS0o
 
 file:
   upload:
     location: "/Users/parkdaeho/develop/workspace/developing-project/src/main/resources/static/upload"
 
 comment:
-  page:
-    pages-per-block: 5
+  comments-per-pages: 5
+  comment-pages-per-block: 5

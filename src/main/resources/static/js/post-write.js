@@ -43,10 +43,10 @@ function setThumbnail(event, thumbnailArea) {
 }
 
 function writePost() {
-    let formData = new FormData();
-
     let title = document.getElementById("post-write-title");
     let contents = document.getElementById("post-write-contents");
+
+    let formData = new FormData();
     formData.append("title", title.value);
     formData.append("contents", contents.value);
 

@@ -21,7 +21,6 @@ import java.util.List;
 public class ArticleApiController {
 
     private final ArticleService articleService;
-    private final CommentService commentService;
 
     @PostMapping("/api/article")
     public ResponseEntity<Void> getArticle(@RequestBody ArticleViewRequest dto) throws IOException {

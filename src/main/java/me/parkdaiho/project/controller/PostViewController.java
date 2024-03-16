@@ -39,6 +39,7 @@ public class PostViewController {
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.POST);
 
         model.addAttribute("post", post);
+        model.addAttribute("domain", Domain.POST.getDomainPl());
         model.addAttribute("sort", "date");
 
         addCommentInfoToModel(comments, model);
@@ -48,14 +49,14 @@ public class PostViewController {
 
     @GetMapping("/posts/{id}/comments")
     public String postCommentView(@PathVariable Long id,
-                                     @RequestParam(required = false, defaultValue = "1") int page,
-                                     @RequestParam(required = false, defaultValue = "date") String sort,
-                                     Model model) {
+                                  @RequestParam(required = false, defaultValue = "1") int page,
+                                  @RequestParam(required = false, defaultValue = "date") String sort,
+                                  Model model) {
         Page<CommentViewResponse> comments = commentService.getCommentView(page, sort, id, Domain.POST);
 
-        addCommentInfoToModel(comments, model);
-
         model.addAttribute("sort", sort);
+
+        addCommentInfoToModel(comments, model);
 
         return "comments-area";
     }
@@ -63,9 +64,9 @@ public class PostViewController {
     private void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
         int page = comments.getNumber() + 1;
         int totalPages = comments.getTotalPages();
-        int firstNumOfPageBlock = page / commentProperties.getPagesPerBlock() * commentProperties.getPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getPagesPerBlock() - 1;
-        if(totalPages < lastNumOfPageBlock) {
+        int firstNumOfPageBlock = page / commentProperties.getCommentPagesPerBlock() * commentProperties.getCommentPagesPerBlock() + 1;
+        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getCommentPagesPerBlock() - 1;
+        if (totalPages < lastNumOfPageBlock) {
             lastNumOfPageBlock = totalPages;
         }
 

@@ -3,6 +3,10 @@
 <html>
 <head>
 	<title>Title</title>
+	<script>
+		const id = ${post.id};
+		const domain = "${domain}";
+	</script>
 </head>
 <body>
 <div class="post-view-title">
@@ -19,12 +23,6 @@
 		</c:forEach>
 	</div>
 	${post.contents}
-</div>
-<div>
-	<textarea id="comment-create-contents">
-
-	</textarea>
-	<button id="comment-create-button">댓글작성</button>
 </div>
 <div id="comments-area">
 	<jsp:include page="comments-area.jsp"></jsp:include>

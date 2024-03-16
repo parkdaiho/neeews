@@ -18,7 +18,7 @@ public class CommentViewResponse {
     private String createdDate;
     private Long good;
     private Long bad;
-    private List<CommentViewResponse> reply = new ArrayList<>();
+    private List<CommentViewResponse> reply;
 
     public CommentViewResponse(Comment comment) {
         this.id = comment.getId();
