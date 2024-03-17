@@ -11,7 +11,7 @@
 <button type="button" id="logout-btn">${loginUser} 로그아웃</button>
 </c:if>
 <a href="/posts">community</a>
-<form action="/articles" method="get">
+<form action="/articles" method="post">
   <input type="text" name="query">
   <select name="sort">
     <option value="sim" selected>정확도순</option>

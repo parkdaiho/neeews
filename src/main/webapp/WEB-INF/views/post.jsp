@@ -24,8 +24,13 @@
 	</div>
 	${post.contents}
 </div>
+<div class="button-area">
+	<button onclick="goToModifyPage();">MODIFY</button>
+	<button>DELETE</button>
+</div>
 <div id="comments-area">
 	<jsp:include page="comments-area.jsp"></jsp:include>
 </div>
+<script src="/js/post-view.js"></script>
 </body>
 </html>

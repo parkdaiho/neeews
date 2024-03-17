@@ -10,13 +10,20 @@
 </div>
 <div class="comments-info">
 	<span>총 ${totalElements} 개의 댓글 </span>
-	<c:if test="${sort eq 'date'}">
-		<button id="sort-by-date" class="on" onclick="getCommentPage(1, 'date')">최신순</button>
-		<button id="sort-by-good" onclick="getCommentPage(1, 'good')">인기순</button>
+	<c:if test="${sort eq 'earliest'}">
+		<button id="sort-by-good" onclick="getCommentPage(1, 'earliest')">등록순</button>
+		<button id="sort-by-date" onclick="getCommentPage(1, 'latest')">최신순</button>
+		<button id="sort-by-good" onclick="getCommentPage(1, 'popularity')">인기순</button>
 	</c:if>
-	<c:if test="${sort eq 'good'}">
-		<button id="sort-by-date" onclick="getCommentPage(1, 'date')">최신순</button>
-		<button id="sort-by-good" class="on" onclick="getCommentPage(1, 'good')">인기순</button>
+	<c:if test="${sort eq 'latest'}">
+		<button id="sort-by-good" onclick="getCommentPage(1, 'earliest')">등록순</button>
+		<button id="sort-by-date" onclick="getCommentPage(1, 'latest')">최신순</button>
+		<button id="sort-by-good" onclick="getCommentPage(1, 'popularity')">인기순</button>
+	</c:if>
+	<c:if test="${sort eq 'popularity'}">
+		<button id="sort-by-good" class="on" onclick="getCommentPage(1, 'earliest')">등록순</button>
+		<button id="sort-by-date" onclick="getCommentPage(1, 'latest')">최신순</button>
+		<button id="sort-by-good" onclick="getCommentPage(1, 'popularity')">인기순</button>
 	</c:if>
 </div>
 <div id="comments-view">

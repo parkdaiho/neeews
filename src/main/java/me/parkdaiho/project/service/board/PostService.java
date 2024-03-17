@@ -6,6 +6,7 @@ import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.board.Post;
 import me.parkdaiho.project.dto.board.AddPostRequest;
+import me.parkdaiho.project.dto.board.ModifyViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
 import me.parkdaiho.project.repository.board.PostRepository;
 import me.parkdaiho.project.service.ImageFileService;
@@ -56,5 +57,9 @@ public class PostService {
     public Post findPostById(Long id) {
         return postRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected Post: " + id));
+    }
+
+    public ModifyViewResponse getModifyViewResponse(Long id) {
+        return new ModifyViewResponse(findPostById(id));
     }
 }

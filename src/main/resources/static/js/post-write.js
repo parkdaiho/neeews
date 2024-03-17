@@ -43,14 +43,32 @@ function setThumbnail(event, thumbnailArea) {
 }
 
 function writePost() {
+    deleteEmptyFileInput();
+
+    requestPost("/api/new-post");
+}
+
+function modifyPost() {
+    deleteEmptyFileInput();
+
+    let files = document.getElementsByClassName("files");
+    if(files.length !== 0) {
+        if(!confirm("파일을 추가하면 기존의 파일이 제거됩니다. 수정하시겠습니까?")) return;
+    }
+
+    requestPost();
+}
+
+function requestPost(url) {
     let title = document.getElementById("post-write-title");
     let contents = document.getElementById("post-write-contents");
+    let files = document.getElementsByClassName("files");
 
     let formData = new FormData();
+
     formData.append("title", title.value);
     formData.append("contents", contents.value);
 
-    let files = document.getElementsByClassName("files");
     for(let i = 0; i < files.length; i++) {
         formData.append("files", files[i].files[0]);
     }
@@ -69,4 +87,13 @@ function writePost() {
                 location.href = headers.get("Location");
             }
         });
+}
+
+function deleteEmptyFileInput() {
+    let files = document.getElementsByClassName("files");
+
+    for(let i = 0; i < files.length; i++) {
+        let file = files[i];
+        if(file.files[0] === null) file.remove();
+    }
 }

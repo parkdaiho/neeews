@@ -1,6 +1,7 @@
 package me.parkdaiho.project.service;
 
 import jakarta.transaction.Transactional;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.CommentProperties;
@@ -23,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 @RequiredArgsConstructor
 @Service
@@ -36,11 +38,11 @@ public class CommentService {
     private final CommentProperties commentProperties;
 
     public Page<CommentViewResponse> getDefaultComments(Long id, Domain domain) {
-        return getCommentView(1, "createdAt", id, domain);
+        return getCommentView(1, me.parkdaiho.project.domain.Sort.LATEST, id, domain);
     }
 
-    public Page<CommentViewResponse> getCommentView(int page, String sort, Long id, Domain domain) {
-        Pageable pageable = PageRequest.of(page - 1, commentProperties.getCommentsPerPages(), Sort.by(Sort.Direction.DESC, "createdAt"));
+    public Page<CommentViewResponse> getCommentView(int page, me.parkdaiho.project.domain.Sort sort, Long id, Domain domain) {
+        Pageable pageable = getPageable(page, sort);
 
         Page<Comment> comments = null;
         switch (domain) {
@@ -58,6 +60,28 @@ public class CommentService {
         }
 
         return comments.map(comment -> new CommentViewResponse(comment));
+    }
+
+    public void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
+        int page = comments.getNumber() + 1;
+        int totalPages = comments.getTotalPages();
+        int firstNumOfPageBlock = page / commentProperties.getCommentPagesPerBlock() * commentProperties.getCommentPagesPerBlock() + 1;
+        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getCommentPagesPerBlock() - 1;
+        if (totalPages < lastNumOfPageBlock) {
+            lastNumOfPageBlock = totalPages;
+        }
+
+        int nextPage = comments.hasNext() ? page + 1 : totalPages;
+        int previousPage = comments.hasPrevious() ? page - 1 : page;
+
+        model.addAttribute("totalElements", comments.getTotalElements());
+        model.addAttribute("page", page);
+        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("previousPage", previousPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
+        model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
+        model.addAttribute("comments", comments.getContent());
     }
 
     @Transactional
@@ -99,11 +123,13 @@ public class CommentService {
 
         Boolean flag = goodOrBad.getFlag();
 
-        if(flag == null || flag != dto.getFlag()) {
+        if (flag == null || flag != dto.getFlag()) {
             goodOrBad.setFlag(dto.getFlag());
         } else {
             goodOrBad.setFlag(null);
         }
+
+        synchronizeGoodOrBad(comment);
     }
 
     private GoodOrBad findGoodOrBadByCommentAndUser(Comment comment, User user) {
@@ -118,8 +144,31 @@ public class CommentService {
                 );
     }
 
+    private void synchronizeGoodOrBad(Comment comment) {
+        long good = comment.getGoodOrBadList().stream()
+                .filter(entity -> entity.getFlag() != null && entity.getFlag() == true)
+                .count();
+
+        long bad = comment.getGoodOrBadList().stream()
+                .filter(entity -> entity.getFlag() != null && entity.getFlag() == false)
+                .count();
+
+        comment.setGood(good);
+        comment.setBad(bad);
+    }
+
     private Comment findById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected comment: " + id));
+    }
+
+    private Pageable getPageable(int page, me.parkdaiho.project.domain.Sort sort) {
+        Sort pageableSort = null;
+        switch (sort) {
+            case LATEST, POPULARITY -> pageableSort = Sort.by(Sort.Direction.DESC, sort.getProperty());
+            case EARLIEST -> pageableSort = Sort.by(Sort.Direction.ASC, sort.getProperty());
+        }
+
+        return PageRequest.of(page - 1, commentProperties.getCommentsPerPages(), pageableSort);
     }
 }

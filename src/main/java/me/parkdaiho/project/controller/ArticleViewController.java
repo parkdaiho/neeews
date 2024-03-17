@@ -3,6 +3,7 @@ package me.parkdaiho.project.controller;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.CommentProperties;
 import me.parkdaiho.project.domain.Domain;
+import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
@@ -25,13 +27,9 @@ public class ArticleViewController {
 
     private final CommentProperties commentProperties;
 
-    @GetMapping("/articles")
-    public String articles(String query, String sort, Model model) {
-        SearchNaverNewsRequest dto = new SearchNaverNewsRequest();
-        dto.setQuery(query);
-        dto.setSort(sort);
-
-        SearchNaverNewsResponse response = articleService.getSearchResult(dto);
+    @PostMapping("/articles")
+    public String articles(SearchNaverNewsRequest request, Model model) {
+        SearchNaverNewsResponse response = articleService.getSearchResult(request);
 
         model.addAttribute("items", response.getItems());
 
@@ -46,47 +44,25 @@ public class ArticleViewController {
 
         model.addAttribute("article", article);
         model.addAttribute("domain", Domain.ARTICLE.getDomainPl());
-        model.addAttribute("sort", "date");
+        model.addAttribute("sort", Sort.LATEST.getValue());
 
-        addCommentInfoToModel(comments, model);
+        commentService.addCommentInfoToModel(comments, model);
 
         return "article";
     }
 
     @GetMapping("/articles/{id}/comments")
     public String articleCommentView(@PathVariable Long id,
-                                     @RequestParam(required = false, defaultValue = "1") int page,
-                                     @RequestParam(required = false, defaultValue = "date") String sort,
+                                     int page, String sort,
                                      Model model) {
-        Page<CommentViewResponse> comments = commentService.getCommentView(page, sort, id, Domain.ARTICLE);
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, Sort.valueOf(sort.toUpperCase()), id, Domain.ARTICLE);
 
         model.addAttribute("sort", sort);
 
-        addCommentInfoToModel(comments, model);
+        commentService.addCommentInfoToModel(comments, model);
 
         return "comments-area";
     }
 
-    private void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
-        int page = comments.getNumber() + 1;
-        int totalPages = comments.getTotalPages();
-        int firstNumOfPageBlock = page / commentProperties.getCommentPagesPerBlock() * commentProperties.getCommentPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getCommentPagesPerBlock() - 1;
-        if(totalPages < lastNumOfPageBlock) {
-            lastNumOfPageBlock = totalPages;
-        }
-
-        int nextPage = comments.hasNext() ? page + 1 : totalPages;
-        int previousPage = comments.hasPrevious() ? page - 1 : page;
-
-        model.addAttribute("totalElements", comments.getTotalElements());
-        model.addAttribute("page", page);
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("previousPage", previousPage);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
-        model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
-        model.addAttribute("comments", comments.getContent());
-    }
 }
 

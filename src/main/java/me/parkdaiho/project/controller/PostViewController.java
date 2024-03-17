@@ -3,6 +3,8 @@ package me.parkdaiho.project.controller;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.CommentProperties;
 import me.parkdaiho.project.domain.Domain;
+import me.parkdaiho.project.domain.Sort;
+import me.parkdaiho.project.dto.board.ModifyViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.service.CommentService;
@@ -21,8 +23,6 @@ public class PostViewController {
     private final PostService postService;
     private final CommentService commentService;
 
-    private final CommentProperties commentProperties;
-
     @GetMapping("/posts")
     public String posts() {
         return "posts";
@@ -40,46 +40,32 @@ public class PostViewController {
 
         model.addAttribute("post", post);
         model.addAttribute("domain", Domain.POST.getDomainPl());
-        model.addAttribute("sort", "date");
+        model.addAttribute("sort", Sort.LATEST.getValue());
 
-        addCommentInfoToModel(comments, model);
+        commentService.addCommentInfoToModel(comments, model);
 
         return "post";
     }
 
     @GetMapping("/posts/{id}/comments")
     public String postCommentView(@PathVariable Long id,
-                                  @RequestParam(required = false, defaultValue = "1") int page,
-                                  @RequestParam(required = false, defaultValue = "date") String sort,
+                                  @RequestParam int page, @RequestParam String sort,
                                   Model model) {
-        Page<CommentViewResponse> comments = commentService.getCommentView(page, sort, id, Domain.POST);
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, Sort.valueOf(sort.toUpperCase()), id, Domain.POST);
 
         model.addAttribute("sort", sort);
 
-        addCommentInfoToModel(comments, model);
+        commentService.addCommentInfoToModel(comments, model);
 
         return "comments-area";
     }
 
-    private void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
-        int page = comments.getNumber() + 1;
-        int totalPages = comments.getTotalPages();
-        int firstNumOfPageBlock = page / commentProperties.getCommentPagesPerBlock() * commentProperties.getCommentPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getCommentPagesPerBlock() - 1;
-        if (totalPages < lastNumOfPageBlock) {
-            lastNumOfPageBlock = totalPages;
-        }
+    @GetMapping("/modify-post")
+    public String modifyPage(Long id, Model model) {
+        ModifyViewResponse post = postService.getModifyViewResponse(id);
 
-        int nextPage = comments.hasNext() ? page + 1 : totalPages;
-        int previousPage = comments.hasPrevious() ? page - 1 : page;
+        model.addAttribute("post", post);
 
-        model.addAttribute("totalElements", comments.getTotalElements());
-        model.addAttribute("page", page);
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("previousPage", previousPage);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
-        model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
-        model.addAttribute("comments", comments.getContent());
+        return "post-write";
     }
 }

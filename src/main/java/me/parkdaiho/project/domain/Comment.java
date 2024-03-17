@@ -35,11 +35,15 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "writer_id", updatable = false)
     private User writer;
 
+    private Long good;
+
+    private Long bad;
+
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private List<GoodOrBad> goodOrBadList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_comment_id", updatable = false)
+    @JoinColumn(name = "parent_comment_id")
     private Comment parentComment;
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
@@ -51,6 +55,9 @@ public class Comment extends BaseEntity {
                 .user(writer)
                 .comment(this)
                 .build());
+
+        this.good = 0L;
+        this.bad = 0L;
     }
 
     @Builder
