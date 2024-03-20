@@ -60,7 +60,7 @@ public class PostViewController {
         return "comments-area";
     }
 
-    @GetMapping("/modify-post")
+    @GetMapping("/post")
     public String modifyPage(Long id, Model model) {
         ModifyViewResponse post = postService.getModifyViewResponse(id);
 

@@ -26,7 +26,7 @@
 </div>
 <div class="button-area">
 	<button onclick="goToModifyPage();">MODIFY</button>
-	<button>DELETE</button>
+	<button onclick="deletePost();">DELETE</button>
 </div>
 <div id="comments-area">
 	<jsp:include page="comments-area.jsp"></jsp:include>

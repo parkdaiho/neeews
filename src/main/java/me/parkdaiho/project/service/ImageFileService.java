@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,6 +67,15 @@ public class ImageFileService {
 
             File srcFile = new File(imageFileProperties.getLocation() + "/temp/" + imageName);
             srcFile.delete();
+        }
+    }
+
+    public void removeSavedFile(Long id, List<ImageFile> images) {
+        for (ImageFile image : images) {
+            String savedName = image.getSavedName();
+
+            File savedFile = new File(imageFileProperties.getLocation() + "/posts/" + id + "/" + savedName);
+            savedFile.delete();
         }
     }
 

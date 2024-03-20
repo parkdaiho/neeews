@@ -43,9 +43,9 @@ function setThumbnail(event, thumbnailArea) {
 }
 
 function writePost() {
-    deleteEmptyFileInput();
+    // deleteEmptyFileInput();
 
-    requestPost("/api/new-post");
+    requestPost("POST");
 }
 
 function modifyPost() {
@@ -56,10 +56,12 @@ function modifyPost() {
         if(!confirm("파일을 추가하면 기존의 파일이 제거됩니다. 수정하시겠습니까?")) return;
     }
 
-    requestPost();
+    let url = "/api/post";
+
+    requestPost("PUT");
 }
 
-function requestPost(url) {
+function requestPost(url, method) {
     let title = document.getElementById("post-write-title");
     let contents = document.getElementById("post-write-contents");
     let files = document.getElementsByClassName("files");
@@ -73,8 +75,8 @@ function requestPost(url) {
         formData.append("files", files[i].files[0]);
     }
 
-    fetch("/api/new-post", {
-        method: "POST",
+    fetch("/api/post", {
+        method: method,
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("access_token"),
         },

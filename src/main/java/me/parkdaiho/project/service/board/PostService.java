@@ -5,15 +5,18 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.board.AddPostRequest;
 import me.parkdaiho.project.dto.board.ModifyViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
 import me.parkdaiho.project.repository.board.PostRepository;
 import me.parkdaiho.project.service.ImageFileService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -61,5 +64,17 @@ public class PostService {
 
     public ModifyViewResponse getModifyViewResponse(Long id) {
         return new ModifyViewResponse(findPostById(id));
+    }
+
+    @Transactional
+    public void deletePost(Long id, PrincipalDetails principal) {
+        Post post = findPostById(id);
+
+        if(post.getWriter().getId() != principal.getUserId()) throw new IllegalArgumentException("fail authorization");
+
+        postRepository.delete(post);
+
+        List<ImageFile> images = post.getImages();
+        imageFileService.removeSavedFile(id, images);
     }
 }

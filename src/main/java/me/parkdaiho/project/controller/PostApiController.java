@@ -21,10 +21,21 @@ public class PostApiController {
 
     private final PostService postService;
 
-    @PostMapping("/api/new-post")
+    @PostMapping("/api/post")
     public ResponseEntity<Void> newPost(AddPostRequest request, @AuthenticationPrincipal PrincipalDetails principal) throws IOException {
         Long savedPostId = postService.getSavedPostId(request, principal);
 
         return ResponseEntity.created(URI.create("/posts/" + savedPostId)).build();
+    }
+
+    @DeleteMapping("/api/posts/{id}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principal) {
+        if(principal == null) throw new IllegalArgumentException("Unexpected access");
+
+        postService.deletePost(id, principal);
+
+        return ResponseEntity.ok()
+                .header("Location", "/posts")
+                .build();
     }
 }
