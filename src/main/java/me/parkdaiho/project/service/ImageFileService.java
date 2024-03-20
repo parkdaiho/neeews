@@ -1,5 +1,6 @@
 package me.parkdaiho.project.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.ImageFileProperties;
 import me.parkdaiho.project.domain.ImageFile;
@@ -80,9 +81,14 @@ public class ImageFileService {
     }
 
     public List<String> getPostSavedFileName(List<ImageFile> images) {
-
         return images.stream()
                 .map(image -> image.getSavedName())
                 .toList();
+    }
+
+    public List<ImageFile> modifyImages(Long id, List<ImageFile> existingImages, List<MultipartFile> newImages) throws IOException {
+        removeSavedFile(id, existingImages);
+
+        return uploadImageFiles(newImages);
     }
 }

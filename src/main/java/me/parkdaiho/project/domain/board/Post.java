@@ -6,6 +6,7 @@ import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.Comment;
 import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.dto.board.ModifyPostRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,5 +63,12 @@ public class Post extends BaseEntity {
     public void addComment(Comment comment) {
         comment.setPost(this);
         comments.add(comment);
+    }
+
+    public Post modifyPost(ModifyPostRequest request) {
+        this.title = request.getTitle();
+        this.contents = request.getContents();
+
+        return this;
     }
 }

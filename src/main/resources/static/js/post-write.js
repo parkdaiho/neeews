@@ -43,7 +43,7 @@ function setThumbnail(event, thumbnailArea) {
 }
 
 function writePost() {
-    // deleteEmptyFileInput();
+    deleteEmptyFileInput();
 
     requestPost("POST");
 }
@@ -61,7 +61,7 @@ function modifyPost() {
     requestPost("PUT");
 }
 
-function requestPost(url, method) {
+function requestPost(method) {
     let title = document.getElementById("post-write-title");
     let contents = document.getElementById("post-write-contents");
     let files = document.getElementsByClassName("files");
@@ -87,15 +87,20 @@ function requestPost(url, method) {
                 let headers = response.headers;
 
                 location.href = headers.get("Location");
+            } else{
+
             }
         });
 }
 
 function deleteEmptyFileInput() {
     let files = document.getElementsByClassName("files");
+    let filesArr = Array.from(files);
 
-    for(let i = 0; i < files.length; i++) {
-        let file = files[i];
-        if(file.files[0] === null) file.remove();
+    for(let i = 0; i < filesArr.length; i++) {
+        let file = filesArr[i];
+        if(file.files[0] == null) {
+            file.parentElement.remove();
+        }
     }
 }

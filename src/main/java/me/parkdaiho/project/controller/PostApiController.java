@@ -3,16 +3,13 @@ package me.parkdaiho.project.controller;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.dto.board.AddPostRequest;
+import me.parkdaiho.project.dto.board.ModifyPostRequest;
 import me.parkdaiho.project.service.board.PostService;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 
 @RequiredArgsConstructor
@@ -36,6 +33,18 @@ public class PostApiController {
 
         return ResponseEntity.ok()
                 .header("Location", "/posts")
+                .build();
+    }
+
+    @PutMapping("/api/posts/{id}")
+    public ResponseEntity<Void> modifyPost(@PathVariable Long id, @RequestBody ModifyPostRequest request,
+                                           @AuthenticationPrincipal PrincipalDetails principal) throws IOException {
+        if(principal == null) throw new IllegalArgumentException("Unexpected access");
+
+        Long modifiedPostId = postService.getModifiedPostId(id, request, principal);
+
+        return ResponseEntity.ok()
+                .header("Location", "/posts/" + modifiedPostId)
                 .build();
     }
 }
