@@ -1,12 +1,16 @@
 package me.parkdaiho.project.service.article;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.dto.article.ArticleViewRequest;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import me.parkdaiho.project.repository.article.ArticleRepository;
+import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -68,8 +72,10 @@ public class ArticleService {
         return article.getId();
     }
 
-    public ArticleViewResponse getArticleView(Long id) {
+    public ArticleViewResponse getArticleView(Long id, HttpServletRequest request, HttpServletResponse response) {
         Article article = findArticleById(id);
+
+        if(!CookieUtils.checkView(request, response, Domain.ARTICLE, id)) article.addViews();
 
         return new ArticleViewResponse(article);
     }

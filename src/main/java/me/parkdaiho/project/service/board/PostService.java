@@ -1,8 +1,11 @@
 package me.parkdaiho.project.service.board;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.board.Post;
 import me.parkdaiho.project.dto.board.AddPostRequest;
@@ -11,6 +14,7 @@ import me.parkdaiho.project.dto.board.ModifyViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
 import me.parkdaiho.project.repository.board.PostRepository;
 import me.parkdaiho.project.service.ImageFileService;
+import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,8 +52,10 @@ public class PostService {
         }
     }
 
-    public PostViewResponse getPostViewResponse(Long id) {
+    public PostViewResponse getPostViewResponse(Long id, HttpServletRequest request, HttpServletResponse response) {
         Post post = findPostById(id);
+
+        if(!CookieUtils.checkView(request, response, Domain.POST, id)) post.addViews();
 
         return PostViewResponse.builder()
                 .id(post.getId())
@@ -85,8 +91,7 @@ public class PostService {
 
         if (request.getFiles() == null) return post.getId();
 
-        List<ImageFile> existingImages = post.getImages();
-        List<ImageFile> newImages = imageFileService.modifyImages(post, existingImages, request.getFiles());
+        List<ImageFile> newImages = imageFileService.modifyImages(post, request.getFiles());
 
         addImagesToPost(post, newImages);
 

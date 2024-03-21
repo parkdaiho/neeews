@@ -1,5 +1,7 @@
 package me.parkdaiho.project.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Sort;
@@ -33,8 +35,10 @@ public class PostViewController {
     }
 
     @GetMapping("/posts/{id}")
-    public String postView(@PathVariable Long id, Model model) {
-        PostViewResponse post = postService.getPostViewResponse(id);
+    public String postView(@PathVariable Long id,
+                           HttpServletRequest request, HttpServletResponse response,
+                           Model model) {
+        PostViewResponse post = postService.getPostViewResponse(id, request, response);
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.POST);
 
         model.addAttribute("post", post);

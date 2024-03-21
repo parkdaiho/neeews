@@ -90,8 +90,10 @@ public class ImageFileService {
                 .toList();
     }
 
-    public List<ImageFile> modifyImages(Post post, List<ImageFile> existingImages, List<MultipartFile> newImages) throws IOException {
-        removeSavedFile(post, existingImages);
+    public List<ImageFile> modifyImages(Post post, List<MultipartFile> newImages) throws IOException {
+        List<ImageFile> existingImages = post.getImages();
+
+        removeSavedFile(post, post.getImages());
 
         post.initImages();
         imageFileRepository.deleteAll(existingImages);

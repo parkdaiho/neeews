@@ -1,5 +1,7 @@
 package me.parkdaiho.project.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.CommentProperties;
 import me.parkdaiho.project.domain.Domain;
@@ -25,8 +27,6 @@ public class ArticleViewController {
     private final ArticleService articleService;
     private final CommentService commentService;
 
-    private final CommentProperties commentProperties;
-
     @PostMapping("/articles")
     public String articles(SearchNaverNewsRequest request, Model model) {
         SearchNaverNewsResponse response = articleService.getSearchResult(request);
@@ -38,8 +38,9 @@ public class ArticleViewController {
 
     @GetMapping("/articles/{id}")
     public String articleView(@PathVariable Long id,
+                              HttpServletRequest request, HttpServletResponse response,
                               Model model) {
-        ArticleViewResponse article = articleService.getArticleView(id);
+        ArticleViewResponse article = articleService.getArticleView(id, request, response);
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.ARTICLE);
 
         model.addAttribute("article", article);

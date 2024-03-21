@@ -3,9 +3,13 @@ package me.parkdaiho.project.util;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import me.parkdaiho.project.domain.Domain;
 import org.springframework.util.SerializationUtils;
 
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
+import java.util.Objects;
 
 public class CookieUtils {
 
@@ -45,5 +49,29 @@ public class CookieUtils {
                         Base64.getUrlDecoder().decode(value)
                 )
         );
+    }
+
+    public static boolean checkView(HttpServletRequest request, HttpServletResponse response,
+                                    Domain domain, Long id) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies == null) return false;
+
+        List<Long> viewedList = null;
+        for(Cookie cookie : cookies) {
+            if(cookie.getName().equals(domain.getDomainPl())) {
+                viewedList = deserialize(cookie.getValue(), List.class);
+            }
+        }
+
+        if(viewedList == null) viewedList = new ArrayList<>();
+
+        for(Long viewedId : viewedList) {
+            if(Objects.equals(viewedId, id)) return true;
+        }
+
+        viewedList.add(id);
+        addCookie(response, domain.getDomainPl(), serialize(viewedList), 60 * 60 * 2);
+
+        return false;
     }
 }

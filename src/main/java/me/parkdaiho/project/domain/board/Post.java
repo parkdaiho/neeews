@@ -75,4 +75,8 @@ public class Post extends BaseEntity {
     public void initImages() {
         this.images = new ArrayList<>();
     }
+
+    public void addViews() {
+        this.views++;
+    }
 }

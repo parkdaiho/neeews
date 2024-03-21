@@ -37,6 +37,8 @@ public class Article extends BaseEntity {
     @Column(nullable = false)
     private String pubDate;
 
+    private Long views;
+
     private Boolean isProvided;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -45,6 +47,7 @@ public class Article extends BaseEntity {
     @PrePersist
     public void prePersit() {
         this.isProvided = !link.equals(originalLink);
+        this.views = 0L;
         this.isEnabled = true;
     }
 
@@ -61,5 +64,9 @@ public class Article extends BaseEntity {
     public void addComment(Comment comment) {
         comment.setArticle(this);
         comments.add(comment);
+    }
+
+    public void addViews() {
+        this.views++;
     }
 }
