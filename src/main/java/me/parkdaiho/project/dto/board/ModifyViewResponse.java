@@ -8,10 +8,12 @@ import me.parkdaiho.project.domain.board.Post;
 @Setter
 public class ModifyViewResponse {
 
+    private Long id;
     private String title;
     private String contents;
 
     public ModifyViewResponse(Post post) {
+        this.id = post.getId();
         this.title = post.getTitle();
         this.contents = post.getContents();
     }

@@ -71,4 +71,8 @@ public class Post extends BaseEntity {
 
         return this;
     }
+
+    public void initImages() {
+        this.images = new ArrayList<>();
+    }
 }

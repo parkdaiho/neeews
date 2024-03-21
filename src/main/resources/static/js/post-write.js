@@ -45,10 +45,12 @@ function setThumbnail(event, thumbnailArea) {
 function writePost() {
     deleteEmptyFileInput();
 
-    requestPost("POST");
+    let url = "/api/post";
+
+    requestPost(url, "POST");
 }
 
-function modifyPost() {
+function modifyPost(id) {
     deleteEmptyFileInput();
 
     let files = document.getElementsByClassName("files");
@@ -56,12 +58,12 @@ function modifyPost() {
         if(!confirm("파일을 추가하면 기존의 파일이 제거됩니다. 수정하시겠습니까?")) return;
     }
 
-    let url = "/api/post";
+    let url = "/api/posts/" + id;
 
-    requestPost("PUT");
+    requestPost(url, "PUT");
 }
 
-function requestPost(method) {
+function requestPost(url, method) {
     let title = document.getElementById("post-write-title");
     let contents = document.getElementById("post-write-contents");
     let files = document.getElementsByClassName("files");
@@ -75,7 +77,7 @@ function requestPost(method) {
         formData.append("files", files[i].files[0]);
     }
 
-    fetch("/api/post", {
+    fetch(url, {
         method: method,
         headers: {
             "Authorization": "Bearer " + localStorage.getItem("access_token"),

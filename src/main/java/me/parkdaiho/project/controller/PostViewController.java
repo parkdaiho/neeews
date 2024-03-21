@@ -1,7 +1,6 @@
 package me.parkdaiho.project.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.config.properties.CommentProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.board.ModifyViewResponse;
@@ -49,7 +48,7 @@ public class PostViewController {
 
     @GetMapping("/posts/{id}/comments")
     public String postCommentView(@PathVariable Long id,
-                                  @RequestParam int page, @RequestParam String sort,
+                                  int page, String sort,
                                   Model model) {
         Page<CommentViewResponse> comments = commentService.getCommentView(page, Sort.valueOf(sort.toUpperCase()), id, Domain.POST);
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -29,24 +30,21 @@ public class PostService {
         Post post = dto.toEntity(principal.getUser());
         List<ImageFile> images = imageFileService.uploadImageFiles(dto.getFiles());
 
-        if(images == null) return postRepository.save(post).getId();
+        if (images == null) return postRepository.save(post).getId();
 
         addImagesToPost(post, images);
 
         return post.getId();
     }
 
-    public void addImagesToPost(Post post, List<ImageFile> images) throws IOException {
+    public void addImagesToPost(Post post, List<ImageFile> images) {
         try {
             post.addImageFiles(images);
 
             Long savedPostId = postRepository.save(post).getId();
             imageFileService.moveFileToPostDirectory(images, savedPostId);
-
         } catch (Exception e) {
             imageFileService.removeSourceFile(images);
-
-            throw e;
         }
     }
 
@@ -70,8 +68,6 @@ public class PostService {
         return new ModifyViewResponse(findPostById(id));
     }
 
-
-
     @Transactional
     public void deletePost(Long id, PrincipalDetails principal) {
         Post post = checkAuthority(id, principal);
@@ -79,7 +75,7 @@ public class PostService {
         postRepository.delete(post);
 
         List<ImageFile> images = post.getImages();
-        imageFileService.removeSavedFile(id, images);
+        imageFileService.removeSavedFile(post, images);
     }
 
     @Transactional
@@ -87,10 +83,10 @@ public class PostService {
         Post post = checkAuthority(id, principal);
         post.modifyPost(request);
 
-        if(request.getFiles() == null) return post.getId();
+        if (request.getFiles() == null) return post.getId();
 
         List<ImageFile> existingImages = post.getImages();
-        List<ImageFile> newImages = imageFileService.modifyImages(id, existingImages, request.getFiles());
+        List<ImageFile> newImages = imageFileService.modifyImages(post, existingImages, request.getFiles());
 
         addImagesToPost(post, newImages);
 
@@ -100,7 +96,7 @@ public class PostService {
     public Post checkAuthority(Long id, PrincipalDetails principal) {
         Post post = findPostById(id);
 
-        if(post.getWriter().getId() != principal.getUserId()) throw new IllegalArgumentException("No authority");
+        if (post.getWriter().getId() != principal.getUserId()) throw new IllegalArgumentException("No authority");
 
         return post;
     }

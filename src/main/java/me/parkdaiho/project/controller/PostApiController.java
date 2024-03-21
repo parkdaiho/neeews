@@ -37,7 +37,7 @@ public class PostApiController {
     }
 
     @PutMapping("/api/posts/{id}")
-    public ResponseEntity<Void> modifyPost(@PathVariable Long id, @RequestBody ModifyPostRequest request,
+    public ResponseEntity<Void> modifyPost(@PathVariable Long id, ModifyPostRequest request,
                                            @AuthenticationPrincipal PrincipalDetails principal) throws IOException {
         if(principal == null) throw new IllegalArgumentException("Unexpected access");
 

@@ -19,7 +19,7 @@
 	</div>
 	<c:choose>
 		<c:when test="${post != null}">
-			<button onclick="modifyPost();">MODIFY</button>
+			<button onclick="modifyPost(${post.id});">MODIFY</button>
 		</c:when>
 		<c:otherwise>
 			<button onclick="writePost();">WRITE</button>

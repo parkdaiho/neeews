@@ -1,5 +1,5 @@
 function goToModifyPage() {
-    location.href = "/posts/" + id;
+    location.href = "/post?id=" + id;
 }
 
 function deletePost() {
