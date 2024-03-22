@@ -55,6 +55,9 @@ file:
   upload:
     location: "/Users/parkdaeho/develop/workspace/developing-project/src/main/resources/static/upload"
 
-comment:
-  comments-per-pages: 5
+pagination :
+  posts-per-page: 20
+  post-pages-per-block: 10
+  comments-per-page: 5
   comment-pages-per-block: 5
+  index-views: 10

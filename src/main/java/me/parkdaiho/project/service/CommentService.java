@@ -1,10 +1,9 @@
 package me.parkdaiho.project.service;
 
 import jakarta.transaction.Transactional;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.config.properties.CommentProperties;
+import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.Comment;
@@ -35,7 +34,7 @@ public class CommentService {
     private final PostService postService;
     private final GoodOrBadRepository goodOrBadRepository;
 
-    private final CommentProperties commentProperties;
+    private final PaginationProperties paginationProperties;
 
     public Page<CommentViewResponse> getDefaultComments(Long id, Domain domain) {
         return getCommentView(1, me.parkdaiho.project.domain.Sort.LATEST, id, domain);
@@ -54,9 +53,8 @@ public class CommentService {
                 Post post = postService.findPostById(id);
                 comments = commentRepository.findByPost(pageable, post);
             }
-            default -> {
-                throw new IllegalArgumentException("Unexpected domain: " + domain.name());
-            }
+
+            default -> throw new IllegalArgumentException("Unexpected domain: " + domain.name());
         }
 
         return comments.map(comment -> new CommentViewResponse(comment));
@@ -65,8 +63,8 @@ public class CommentService {
     public void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
         int page = comments.getNumber() + 1;
         int totalPages = comments.getTotalPages();
-        int firstNumOfPageBlock = page / commentProperties.getCommentPagesPerBlock() * commentProperties.getCommentPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + commentProperties.getCommentPagesPerBlock() - 1;
+        int firstNumOfPageBlock = page / paginationProperties.getCommentPagesPerBlock() * paginationProperties.getCommentPagesPerBlock() + 1;
+        int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getCommentPagesPerBlock() - 1;
         if (totalPages < lastNumOfPageBlock) {
             lastNumOfPageBlock = totalPages;
         }
@@ -167,8 +165,10 @@ public class CommentService {
         switch (sort) {
             case LATEST, POPULARITY -> pageableSort = Sort.by(Sort.Direction.DESC, sort.getProperty());
             case EARLIEST -> pageableSort = Sort.by(Sort.Direction.ASC, sort.getProperty());
+
+            default -> throw new IllegalArgumentException("Unexpected sort:" + sort.getValue());
         }
 
-        return PageRequest.of(page - 1, commentProperties.getCommentsPerPages(), pageableSort);
+        return PageRequest.of(page - 1, paginationProperties.getCommentsPerPage(), pageableSort);
     }
 }

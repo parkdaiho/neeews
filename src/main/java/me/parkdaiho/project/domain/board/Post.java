@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.Comment;
+import me.parkdaiho.project.domain.GoodOrBad;
 import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.board.ModifyPostRequest;
@@ -41,6 +42,13 @@ public class Post extends BaseEntity {
 
     private Long views;
 
+    private Long good;
+
+    private Long bad;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<GoodOrBad> goodOrBadList = new ArrayList<>();
+
     @Builder
     public Post(String title, String contents, User user) {
         this.title = title;
@@ -51,6 +59,8 @@ public class Post extends BaseEntity {
     @PrePersist
     public void prePersist() {
         views = 0L;
+        good = 0L;
+        bad = 0L;
     }
 
     public void addImageFiles(List<ImageFile> files) {

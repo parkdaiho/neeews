@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum Sort {
     LATEST("latest", "createdAt"), EARLIEST("earliest", "createdAt"),
-    POPULARITY("popularity", "good");
+    POPULARITY("popularity", "good"), VIEWS("views", "views");
 
     private final String value;
     private final String property;

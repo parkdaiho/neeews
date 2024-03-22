@@ -3,7 +3,6 @@ package me.parkdaiho.project.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.config.properties.CommentProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
@@ -18,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller

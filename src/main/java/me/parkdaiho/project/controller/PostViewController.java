@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.board.ModifyViewResponse;
+import me.parkdaiho.project.dto.board.PostListViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.service.CommentService;
@@ -25,7 +26,15 @@ public class PostViewController {
     private final CommentService commentService;
 
     @GetMapping("/posts")
-    public String posts() {
+    public String posts(@RequestParam(required = false, defaultValue = "1") int page,
+                        @RequestParam(required = false) String sort,
+                        Model model) {
+        if(sort == null) sort = Sort.LATEST.getValue();
+
+        Page<PostListViewResponse> posts = postService.getPostListViewResponse(page, Sort.valueOf(sort));
+
+        postService.addPostsInfoToModel(posts, model);
+
         return "posts";
     }
 

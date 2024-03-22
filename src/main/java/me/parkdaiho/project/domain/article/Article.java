@@ -39,6 +39,10 @@ public class Article extends BaseEntity {
 
     private Long views;
 
+    private Long good;
+
+    private Long bad;
+
     private Boolean isProvided;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
