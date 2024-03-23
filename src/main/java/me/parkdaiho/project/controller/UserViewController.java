@@ -20,10 +20,6 @@ public class UserViewController {
 
     @GetMapping("/")
     public String indexPage(HttpServletRequest request, Model model) {
-        String userNickname = userService.findUserNicknameByRefreshToken(request);
-        if(userNickname != null) {
-            model.addAttribute("userNickname", userNickname);
-        }
 
         return "index";
     }

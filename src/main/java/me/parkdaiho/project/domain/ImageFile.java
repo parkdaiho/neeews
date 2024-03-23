@@ -2,7 +2,6 @@ package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.board.Post;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

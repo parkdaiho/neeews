@@ -1,9 +1,7 @@
-package me.parkdaiho.project.domain.article;
+package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Article extends BaseEntity {
+public class Article extends BaseEntity implements Polling {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +37,7 @@ public class Article extends BaseEntity {
 
     private Long views;
 
-    private Long good;
+    private Long like;
 
     private Long bad;
 

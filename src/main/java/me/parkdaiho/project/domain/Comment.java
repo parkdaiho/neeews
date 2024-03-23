@@ -2,8 +2,6 @@ package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.article.Article;
-import me.parkdaiho.project.domain.board.Post;
 import me.parkdaiho.project.domain.user.User;
 
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ import java.util.List;
 @Setter
 @Table(name = "comments")
 @Entity
-public class Comment extends BaseEntity {
+public class Comment extends BaseEntity implements Polling {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +38,7 @@ public class Comment extends BaseEntity {
     private Long bad;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<GoodOrBad> goodOrBadList = new ArrayList<>();
+    private List<Poll> pollList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_comment_id")
@@ -51,7 +49,7 @@ public class Comment extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        goodOrBadList.add(GoodOrBad.builder()
+        pollList.add(Poll.builder()
                 .user(writer)
                 .comment(this)
                 .build());
@@ -72,13 +70,13 @@ public class Comment extends BaseEntity {
     }
 
     public Long getGood() {
-        return goodOrBadList.stream()
+        return pollList.stream()
                 .filter(e -> e.getFlag() != null && e.getFlag() == true)
                 .count();
     }
 
     public Long getBad() {
-        return goodOrBadList.stream()
+        return pollList.stream()
                 .filter(e -> e.getFlag() != null && e.getFlag() == false)
                 .count();
     }

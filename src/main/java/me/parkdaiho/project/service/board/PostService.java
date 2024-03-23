@@ -9,7 +9,7 @@ import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.Sort;
-import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.Post;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.board.*;
 import me.parkdaiho.project.repository.board.PostRepository;

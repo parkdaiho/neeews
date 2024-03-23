@@ -1,11 +1,7 @@
-package me.parkdaiho.project.domain.board;
+package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.Comment;
-import me.parkdaiho.project.domain.GoodOrBad;
-import me.parkdaiho.project.domain.ImageFile;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.board.ModifyPostRequest;
 
@@ -17,7 +13,7 @@ import java.util.List;
 @Setter
 @Table(name = "posts")
 @Entity
-public class Post extends BaseEntity {
+public class Post extends BaseEntity implements Polling {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +43,7 @@ public class Post extends BaseEntity {
     private Long bad;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<GoodOrBad> goodOrBadList = new ArrayList<>();
+    private List<Poll> pollList = new ArrayList<>();
 
     @Builder
     public Post(String title, String contents, User user) {

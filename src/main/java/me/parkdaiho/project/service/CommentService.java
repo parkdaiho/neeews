@@ -5,17 +5,17 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Domain;
-import me.parkdaiho.project.domain.article.Article;
+import me.parkdaiho.project.domain.Article;
 import me.parkdaiho.project.domain.Comment;
-import me.parkdaiho.project.domain.GoodOrBad;
-import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.Poll;
+import me.parkdaiho.project.domain.Post;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.comment.SetGoodOrBadRequest;
 import me.parkdaiho.project.repository.CommentRepository;
-import me.parkdaiho.project.repository.GoodOrBadRepository;
+import me.parkdaiho.project.repository.PollRepository;
 import me.parkdaiho.project.service.article.ArticleService;
 import me.parkdaiho.project.service.board.PostService;
 import org.springframework.data.domain.Page;
@@ -32,7 +32,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ArticleService articleService;
     private final PostService postService;
-    private final GoodOrBadRepository goodOrBadRepository;
+    private final PollRepository pollRepository;
 
     private final PaginationProperties paginationProperties;
 
@@ -117,24 +117,24 @@ public class CommentService {
     @Transactional
     public void setGoodOrBad(SetGoodOrBadRequest dto, PrincipalDetails principal) {
         Comment comment = findById(dto.getCommentId());
-        GoodOrBad goodOrBad = findGoodOrBadByCommentAndUser(comment, principal.getUser());
+        Poll poll = findGoodOrBadByCommentAndUser(comment, principal.getUser());
 
-        Boolean flag = goodOrBad.getFlag();
+        Boolean flag = poll.getFlag();
 
         if (flag == null || flag != dto.getFlag()) {
-            goodOrBad.setFlag(dto.getFlag());
+            poll.setFlag(dto.getFlag());
         } else {
-            goodOrBad.setFlag(null);
+            poll.setFlag(null);
         }
 
         synchronizeGoodOrBad(comment);
     }
 
-    private GoodOrBad findGoodOrBadByCommentAndUser(Comment comment, User user) {
-        return goodOrBadRepository.findByCommentAndUser(comment, user)
+    private Poll findGoodOrBadByCommentAndUser(Comment comment, User user) {
+        return pollRepository.findByCommentAndUser(comment, user)
                 .orElseGet(
-                        () -> goodOrBadRepository.save(
-                                GoodOrBad.builder()
+                        () -> pollRepository.save(
+                                Poll.builder()
                                         .comment(comment)
                                         .user(user)
                                         .build()
@@ -143,11 +143,11 @@ public class CommentService {
     }
 
     private void synchronizeGoodOrBad(Comment comment) {
-        long good = comment.getGoodOrBadList().stream()
+        long good = comment.getPollList().stream()
                 .filter(entity -> entity.getFlag() != null && entity.getFlag() == true)
                 .count();
 
-        long bad = comment.getGoodOrBadList().stream()
+        long bad = comment.getPollList().stream()
                 .filter(entity -> entity.getFlag() != null && entity.getFlag() == false)
                 .count();
 

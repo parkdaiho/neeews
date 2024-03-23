@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.BaseEntity;
 import me.parkdaiho.project.domain.Comment;
-import me.parkdaiho.project.domain.GoodOrBad;
-import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.Poll;
+import me.parkdaiho.project.domain.Post;
 
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class User extends BaseEntity {
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "user")
-    private List<GoodOrBad> goodOrBadListForComments;
+    private List<Poll> pollListForComments;
 
     @OneToMany(mappedBy = "writer")
     private List<Post> posts;

@@ -2,16 +2,14 @@ package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.article.Article;
-import me.parkdaiho.project.domain.board.Post;
 import me.parkdaiho.project.domain.user.User;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@Table(name = "good_or_bad")
+@Table(name = "vote")
 @Entity
-public class GoodOrBad extends BaseEntity {
+public class Poll extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,13 +31,14 @@ public class GoodOrBad extends BaseEntity {
     @JoinColumn(name = "post_id", updatable = false)
     private Post post;
 
-    // good == true, bad == false
+    // like == true, bad == false
     private Boolean flag;
 
     @Builder
-    public GoodOrBad(User user, Comment comment, Boolean flag) {
+    public Poll(User user, Comment comment, Article article, Post post) {
         this.user = user;
         this.comment = comment;
-        this.flag = flag;
+        this.article = article;
+        this.post = post;
     }
 }

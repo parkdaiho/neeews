@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Sort;
-import me.parkdaiho.project.domain.article.Article;
+import me.parkdaiho.project.domain.Article;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.article.*;
 import me.parkdaiho.project.repository.article.ArticleRepository;
@@ -102,7 +102,7 @@ public class ArticleService {
                 return articles.stream()
                         .map(entity -> IndexViewResponse.builder()
                                 .title(entity.getTitle())
-                                .figure(entity.getGood())
+                                .figure(entity.getLike())
                                 .build()).toList();
             }
             case VIEWS -> {

@@ -2,7 +2,7 @@ package me.parkdaiho.project.dto.board;
 
 import lombok.Getter;
 import lombok.Setter;
-import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.Post;
 
 @Getter
 @Setter

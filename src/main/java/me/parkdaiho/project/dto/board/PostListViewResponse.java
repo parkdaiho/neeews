@@ -1,7 +1,7 @@
 package me.parkdaiho.project.dto.board;
 
 import lombok.Getter;
-import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.Post;
 
 import java.time.format.DateTimeFormatter;
 

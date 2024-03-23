@@ -1,22 +1,19 @@
 package me.parkdaiho.project.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.ImageFileProperties;
 import me.parkdaiho.project.domain.ImageFile;
-import me.parkdaiho.project.domain.board.Post;
+import me.parkdaiho.project.domain.Post;
 import me.parkdaiho.project.repository.ImageFileRepository;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service

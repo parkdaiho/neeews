@@ -1,4 +1,4 @@
-package me.parkdaiho.project.service.article;
+package me.parkdaiho.project.domain;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
