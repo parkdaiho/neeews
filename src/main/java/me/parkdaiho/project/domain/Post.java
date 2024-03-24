@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Table(name = "posts")
 @Entity
-public class Post extends BaseEntity implements Polling {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,12 +38,12 @@ public class Post extends BaseEntity implements Polling {
 
     private Long views;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private List<Poll> pollList = new ArrayList<>();
+
     private Long good;
 
     private Long bad;
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Poll> pollList = new ArrayList<>();
 
     @Builder
     public Post(String title, String contents, User user) {
@@ -55,8 +55,9 @@ public class Post extends BaseEntity implements Polling {
     @PrePersist
     public void prePersist() {
         views = 0L;
-        good = 0L;
-        bad = 0L;
+
+        setGood(0L);
+        setBad(0L);
     }
 
     public void addImageFiles(List<ImageFile> files) {
@@ -84,5 +85,10 @@ public class Post extends BaseEntity implements Polling {
 
     public void addViews() {
         this.views++;
+    }
+
+    public void syncWithPollList(Long good, Long bad) {
+        this.good = good;
+        this.bad = bad;
     }
 }

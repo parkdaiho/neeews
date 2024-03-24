@@ -10,7 +10,7 @@ import me.parkdaiho.project.dto.board.PostListViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.service.CommentService;
-import me.parkdaiho.project.service.board.PostService;
+import me.parkdaiho.project.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

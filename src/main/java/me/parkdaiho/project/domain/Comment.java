@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @Table(name = "comments")
 @Entity
-public class Comment extends BaseEntity implements Polling {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,12 +33,12 @@ public class Comment extends BaseEntity implements Polling {
     @JoinColumn(name = "writer_id", updatable = false)
     private User writer;
 
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Poll> pollList = new ArrayList<>();
+
     private Long good;
 
     private Long bad;
-
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<Poll> pollList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_comment_id")
@@ -54,14 +54,14 @@ public class Comment extends BaseEntity implements Polling {
                 .comment(this)
                 .build());
 
-        this.good = 0L;
-        this.bad = 0L;
     }
 
     @Builder
     public Comment(String contents, User writer) {
         this.contents = contents;
         this.writer = writer;
+        this.good = 0L;
+        this.bad = 0L;
     }
 
     public void addReply(Comment reply) {
@@ -69,15 +69,8 @@ public class Comment extends BaseEntity implements Polling {
         this.reply.add(reply);
     }
 
-    public Long getGood() {
-        return pollList.stream()
-                .filter(e -> e.getFlag() != null && e.getFlag() == true)
-                .count();
-    }
-
-    public Long getBad() {
-        return pollList.stream()
-                .filter(e -> e.getFlag() != null && e.getFlag() == false)
-                .count();
+    public void syncWithPollList(Long good, Long bad) {
+        this.good = good;
+        this.bad = bad;
     }
 }

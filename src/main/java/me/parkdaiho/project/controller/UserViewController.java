@@ -18,12 +18,6 @@ public class UserViewController {
 
     private final UserService userService;
 
-    @GetMapping("/")
-    public String indexPage(HttpServletRequest request, Model model) {
-
-        return "index";
-    }
-
     @GetMapping("/login")
     public String loginPage() {
         return "login";

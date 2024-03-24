@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Article extends BaseEntity implements Polling {
+public class Article extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,7 @@ public class Article extends BaseEntity implements Polling {
 
     private Long views;
 
-    private Long like;
+    private Long good;
 
     private Long bad;
 
@@ -46,10 +46,15 @@ public class Article extends BaseEntity implements Polling {
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Poll> pollList = new ArrayList<>();
+
     @PrePersist
-    public void prePersit() {
+    public void prePersist() {
         this.isProvided = !link.equals(originalLink);
         this.views = 0L;
+        this.good = 0L;
+        this.bad = 0L;
         this.isEnabled = true;
     }
 
@@ -70,5 +75,10 @@ public class Article extends BaseEntity implements Polling {
 
     public void addViews() {
         this.views++;
+    }
+
+    public void syncWithPollList(Long good, Long bad) {
+        this.good = good;
+        this.bad = bad;
     }
 }

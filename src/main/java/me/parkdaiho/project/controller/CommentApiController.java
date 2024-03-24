@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
-import me.parkdaiho.project.dto.comment.SetGoodOrBadRequest;
+import me.parkdaiho.project.dto.PollRequest;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.service.CommentService;
 import org.springframework.http.ResponseEntity;
@@ -28,14 +28,6 @@ public class CommentApiController {
         commentService.addComment(request, principal, domain);
 
         return ResponseEntity.created(URI.create("/" + domain.getDomainPl() + "/" + request.getId())).build();
-    }
-
-    @PutMapping("/api/comment")
-    public ResponseEntity<Void> setGoodOrBad(@RequestBody SetGoodOrBadRequest request,
-                                             @AuthenticationPrincipal PrincipalDetails principal) {
-        commentService.setGoodOrBad(request, principal);
-
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/api/reply")

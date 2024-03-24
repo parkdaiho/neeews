@@ -4,20 +4,14 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.PaginationProperties;
-import me.parkdaiho.project.domain.Domain;
-import me.parkdaiho.project.domain.Article;
-import me.parkdaiho.project.domain.Comment;
-import me.parkdaiho.project.domain.Poll;
-import me.parkdaiho.project.domain.Post;
+import me.parkdaiho.project.domain.*;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
-import me.parkdaiho.project.dto.comment.SetGoodOrBadRequest;
 import me.parkdaiho.project.repository.CommentRepository;
 import me.parkdaiho.project.repository.PollRepository;
 import me.parkdaiho.project.service.article.ArticleService;
-import me.parkdaiho.project.service.board.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,22 +36,24 @@ public class CommentService {
 
     public Page<CommentViewResponse> getCommentView(int page, me.parkdaiho.project.domain.Sort sort, Long id, Domain domain) {
         Pageable pageable = getPageable(page, sort);
+        Page<Comment> comments = getCommentsById(id, domain, pageable);
 
-        Page<Comment> comments = null;
+        return comments.map(comment -> new CommentViewResponse(comment));
+    }
+
+    private Page<Comment> getCommentsById(Long id, Domain domain, Pageable pageable) {
         switch (domain) {
             case ARTICLE -> {
                 Article article = articleService.findArticleById(id);
-                comments = commentRepository.findByArticle(pageable, article);
+                return commentRepository.findByArticle(pageable, article);
             }
             case POST -> {
                 Post post = postService.findPostById(id);
-                comments = commentRepository.findByPost(pageable, post);
+                return commentRepository.findByPost(pageable, post);
             }
 
             default -> throw new IllegalArgumentException("Unexpected domain: " + domain.name());
         }
-
-        return comments.map(comment -> new CommentViewResponse(comment));
     }
 
     public void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
@@ -110,24 +106,8 @@ public class CommentService {
                 .writer(principal.getUser())
                 .build());
 
-        Comment parentComment = findById(dto.getParentCommentId());
+        Comment parentComment = findCommentById(dto.getParentCommentId());
         parentComment.addReply(reply);
-    }
-
-    @Transactional
-    public void setGoodOrBad(SetGoodOrBadRequest dto, PrincipalDetails principal) {
-        Comment comment = findById(dto.getCommentId());
-        Poll poll = findGoodOrBadByCommentAndUser(comment, principal.getUser());
-
-        Boolean flag = poll.getFlag();
-
-        if (flag == null || flag != dto.getFlag()) {
-            poll.setFlag(dto.getFlag());
-        } else {
-            poll.setFlag(null);
-        }
-
-        synchronizeGoodOrBad(comment);
     }
 
     private Poll findGoodOrBadByCommentAndUser(Comment comment, User user) {
@@ -142,20 +122,7 @@ public class CommentService {
                 );
     }
 
-    private void synchronizeGoodOrBad(Comment comment) {
-        long good = comment.getPollList().stream()
-                .filter(entity -> entity.getFlag() != null && entity.getFlag() == true)
-                .count();
-
-        long bad = comment.getPollList().stream()
-                .filter(entity -> entity.getFlag() != null && entity.getFlag() == false)
-                .count();
-
-        comment.setGood(good);
-        comment.setBad(bad);
-    }
-
-    private Comment findById(Long id) {
+    public Comment findCommentById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected comment: " + id));
     }

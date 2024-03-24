@@ -4,12 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.service.article.ArticleService;
-import me.parkdaiho.project.service.board.PostService;
+import me.parkdaiho.project.service.PostService;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller

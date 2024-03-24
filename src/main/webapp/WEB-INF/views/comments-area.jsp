@@ -37,8 +37,8 @@
 					${comment.contents}
 			</div>
 			<div>
-				<button onclick="setGoodOrBad(${comment.id}, '${true}', ${page}, '${sort}')">👍${comment.good}</button>
-				<button onclick="setGoodOrBad(${comment.id}, '${false}', ${page}, '${sort}')">👎${comment.bad}</button>
+				<button onclick="commentPoll(${comment.id}, '${true}', ${page}, '${sort}')">👍${comment.good}</button>
+				<button onclick="commentPoll(${comment.id}, '${false}', ${page}, '${sort}')">👎${comment.bad}</button>
 			</div>
 		</div>
 		<div class="reply-area" id="reply-area-${comment.id}" style="display: none;">
@@ -82,5 +82,6 @@
 	</ul>
 </div>
 <script src="/js/comment.js"></script>
+<script src="/js/poll.js"></script>
 </body>
 </html>

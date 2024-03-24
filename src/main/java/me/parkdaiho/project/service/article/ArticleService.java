@@ -10,7 +10,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.Article;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.article.*;
-import me.parkdaiho.project.repository.article.ArticleRepository;
+import me.parkdaiho.project.repository.ArticleRepository;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -102,7 +102,7 @@ public class ArticleService {
                 return articles.stream()
                         .map(entity -> IndexViewResponse.builder()
                                 .title(entity.getTitle())
-                                .figure(entity.getLike())
+                                .figure(entity.getGood())
                                 .build()).toList();
             }
             case VIEWS -> {

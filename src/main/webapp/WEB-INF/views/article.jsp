@@ -28,5 +28,6 @@
 		<jsp:include page="comments-area.jsp"></jsp:include>
 	</div>
 </div>
+<script src="/js/apiRequest.js"></script>
 </body>
 </html>

@@ -35,7 +35,7 @@ function apiRequest(url, method, headers, body, success, fail) {
                     })
                     .then(result => {
                         localStorage.setItem("access_token", result.accessToken);
-                        apiRequest(method, url, body, success, fail);
+                        apiRequest(url, method, headers, body, success, fail);
                     })
             } else {
                 return fail();

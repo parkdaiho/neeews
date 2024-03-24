@@ -7,7 +7,7 @@ import me.parkdaiho.project.domain.user.User;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
-@Table(name = "vote")
+@Table(name = "poll")
 @Entity
 public class Poll extends BaseEntity {
 
@@ -31,7 +31,7 @@ public class Poll extends BaseEntity {
     @JoinColumn(name = "post_id", updatable = false)
     private Post post;
 
-    // like == true, bad == false
+    // like == true, dislike == false
     private Boolean flag;
 
     @Builder

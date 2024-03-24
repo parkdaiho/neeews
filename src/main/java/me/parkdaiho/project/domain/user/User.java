@@ -46,7 +46,7 @@ public class User extends BaseEntity {
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "user")
-    private List<Poll> pollListForComments;
+    private List<Poll> pollList;
 
     @OneToMany(mappedBy = "writer")
     private List<Post> posts;

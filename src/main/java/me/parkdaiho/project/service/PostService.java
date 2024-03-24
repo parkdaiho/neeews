@@ -1,4 +1,4 @@
-package me.parkdaiho.project.service.board;
+package me.parkdaiho.project.service;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,8 +12,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.Post;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.board.*;
-import me.parkdaiho.project.repository.board.PostRepository;
-import me.parkdaiho.project.service.ImageFileService;
+import me.parkdaiho.project.repository.PostRepository;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

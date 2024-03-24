@@ -35,27 +35,6 @@ function getCommentPage(page, sort) {
         });
 }
 
-function setGoodOrBad(commentId, flag, page, sort) {
-    let body = JSON.stringify({
-        "commentId": commentId,
-        "flag": flag,
-    });
-
-    fetch("/api/comment", {
-        method: "PUT",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access_token"),
-            "Content-type": "application/json",
-        },
-        body: body,
-    })
-        .then(response => {
-            if(response.ok) {
-                getCommentPage(page, sort);
-            }
-        });
-}
-
 function addReply(parentCommentId, page, sort) {
     let body = JSON.stringify({
         "parentCommentId": parentCommentId,

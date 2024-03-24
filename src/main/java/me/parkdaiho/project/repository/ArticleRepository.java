@@ -1,4 +1,4 @@
-package me.parkdaiho.project.repository.article;
+package me.parkdaiho.project.repository;
 
 import me.parkdaiho.project.domain.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
