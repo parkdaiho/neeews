@@ -34,7 +34,7 @@ public class PollService {
             case POST -> pollInPost(id, flag, user);
             case COMMENT -> pollInComment(id, flag, user);
 
-            default -> throw new IllegalArgumentException("Unsuppored domain: " + domain.name());
+            default -> throw new IllegalArgumentException("Unsupported domain: " + domain.name());
         }
     }
 
@@ -90,22 +90,22 @@ public class PollService {
 
     private Poll findByCommentAndUser(Comment comment, User user) {
         return pollRepository.findByCommentAndUser(comment, user)
-                .orElseGet(() -> Poll.builder()
+                .orElseGet(() -> pollRepository.save(Poll.builder()
                         .comment(comment)
-                        .user(user).build());
+                        .user(user).build()));
     }
 
     private Poll findByPostAndUser(Post post, User user) {
         return pollRepository.findByPostAndUser(post, user)
-                .orElseGet(() -> Poll.builder()
+                .orElseGet(() -> pollRepository.save(Poll.builder()
                         .post(post)
-                        .user(user).build());
+                        .user(user).build()));
     }
 
     private Poll findByArticleAndUser(Article article, User user) {
         return pollRepository.findByArticleAndUser(article, user)
-                .orElseGet(() -> Poll.builder()
+                .orElseGet(() -> pollRepository.save(Poll.builder()
                         .article(article)
-                        .user(user).build());
+                        .user(user).build()));
     }
 }

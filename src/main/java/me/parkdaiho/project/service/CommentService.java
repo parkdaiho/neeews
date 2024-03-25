@@ -110,18 +110,6 @@ public class CommentService {
         parentComment.addReply(reply);
     }
 
-    private Poll findGoodOrBadByCommentAndUser(Comment comment, User user) {
-        return pollRepository.findByCommentAndUser(comment, user)
-                .orElseGet(
-                        () -> pollRepository.save(
-                                Poll.builder()
-                                        .comment(comment)
-                                        .user(user)
-                                        .build()
-                        )
-                );
-    }
-
     public Comment findCommentById(Long id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected comment: " + id));

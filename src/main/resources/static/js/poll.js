@@ -8,7 +8,7 @@ function commentPoll(id, flag, page, sort) {
         alert("poll fail");
     }
 
-    pollRequest(id, flag, success, fail);
+    pollRequest(id, flag, "comments", success, fail);
 }
 
 function poll(id, flag) {
@@ -21,10 +21,10 @@ function poll(id, flag) {
         alert("poll fail")
     }
 
-    pollRequest(id, flag, success, fail);
+    pollRequest(id, flag, domain, success, fail);
 }
 
-function pollRequest(id, flag, success, fail) {
+function pollRequest(id, flag, domain, success, fail) {
     let url = "/api/poll";
     let headers = {
         "Authorization": "Bearer " + localStorage.getItem("access_token"),
