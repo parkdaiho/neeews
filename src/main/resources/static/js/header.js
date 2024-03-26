@@ -5,18 +5,13 @@ if(logoutBtn) {
     logoutBtn.addEventListener("click", () => {
         localStorage.removeItem("access_token");
 
-        fetch("/logout", {
-            method: "GET",
-            headers: {
-                "Content-type": "application/json",
-            }
-        })
-            .then(response => {
-                if(response.ok) {
-                    let headers = response.headers;
-                    location.replace(headers.get("Location"));
-                }
-            })
+        let form = document.createElement("form");
+        form.setAttribute("method", "POST");
+        form.setAttribute("action", "/logout");
+
+        document.body.appendChild(form);
+
+        form.submit();
     });
 }
 

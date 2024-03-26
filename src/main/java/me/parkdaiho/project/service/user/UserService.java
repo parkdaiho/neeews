@@ -40,10 +40,6 @@ public class UserService {
         return new SignUpResponse(username, password);
     }
 
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
-        CookieUtils.deleteCookie(request, response, "refresh_token");
-    }
-
     public User findById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user_id: " + id));

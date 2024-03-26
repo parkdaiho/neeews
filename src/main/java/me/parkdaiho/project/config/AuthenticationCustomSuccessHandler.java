@@ -41,7 +41,6 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
 
         String accessToken = tokenProvider.generateToken(user, jwtProperties.getAccessTokenDuration());
         String loginSuccessUrl = loginSuccessUrl(accessToken);
-        System.out.println(loginSuccessUrl);
 
         getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
     }

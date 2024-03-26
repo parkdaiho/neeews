@@ -73,7 +73,10 @@ public class WebConfiguration {
                 .successHandler(authenticationCustomSuccessHandler())
                 .failureHandler(authenticationCustomFailureHandler());
 
-        http.logout().disable();
+        http.logout()
+                .logoutUrl("/logout")
+                .deleteCookies(jwtProperties.getRefreshTokenCookieName())
+                .logoutSuccessUrl("/?logout");
 
         return http.build();
     }

@@ -54,14 +54,15 @@ public class Comment extends BaseEntity {
                 .comment(this)
                 .build());
 
+        this.good = 0L;
+        this.bad = 0L;
+        this.isEnabled = true;
     }
 
     @Builder
     public Comment(String contents, User writer) {
         this.contents = contents;
         this.writer = writer;
-        this.good = 0L;
-        this.bad = 0L;
     }
 
     public void addReply(Comment reply) {

@@ -23,20 +23,12 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/sign-up")
-    public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody SignUpRequest dto) {
-        return ResponseEntity.ok(userService.signUp(dto));
+    public ResponseEntity<SignUpResponse> signUp(@Valid @RequestBody SignUpRequest request) {
+        return ResponseEntity.ok(userService.signUp(request));
     }
 
     @PostMapping("/oauth2/sign-up")
-    public ResponseEntity<SignUpResponse> oAuth2SignUp(@Valid @RequestBody OAuth2SignUpRequest dto) {
-        return ResponseEntity.ok(userService.signUp(dto));
+    public ResponseEntity<SignUpResponse> oAuth2SignUp(@Valid @RequestBody OAuth2SignUpRequest request) {
+        return ResponseEntity.ok(userService.signUp(request));
     }
-
-    @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request, HttpServletResponse response) {
-        userService.logout(request, response);
-
-        return ResponseEntity.created(URI.create("/")).build();
-    }
-
 }

@@ -27,7 +27,7 @@ public class OAuth2UserCustomService extends DefaultOAuth2UserService {
 
         String email = oAuth2UserInfo.getEmail();
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new OAuth2AuthenticationCustomException("errcode", oAuth2UserInfo));
+                .orElseThrow(() -> new OAuth2AuthenticationCustomException("error", oAuth2UserInfo));
 
         return new PrincipalDetails(user, oAuth2UserInfo);
     }

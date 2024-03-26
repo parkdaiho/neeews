@@ -54,10 +54,10 @@ public class Post extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        views = 0L;
-
-        setGood(0L);
-        setBad(0L);
+        this.views = 0L;
+        this.good = 0L;
+        this.bad = 0L;
+        this.isEnabled = true;
     }
 
     public void addImageFiles(List<ImageFile> files) {
