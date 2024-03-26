@@ -31,7 +31,7 @@ public class PostViewController {
                         Model model) {
         if(sort == null) sort = Sort.LATEST.getValue();
 
-        Page<PostListViewResponse> posts = postService.getPostListViewResponse(page, Sort.valueOf(sort));
+        Page<PostListViewResponse> posts = postService.getPostListViewResponse(page, Sort.valueOf(sort.toUpperCase()));
 
         postService.addPostsInfoToModel(posts, model);
 

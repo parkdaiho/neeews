@@ -16,6 +16,7 @@ function deletePost() {
                 let headers = response.headers;
 
                 location.href = headers.get("Location");
+                alert("게시물이 삭제되었습니다.");
             }
         });
 }

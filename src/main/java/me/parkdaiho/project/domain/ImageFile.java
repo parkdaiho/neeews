@@ -24,6 +24,11 @@ public class ImageFile extends BaseEntity {
     @JoinColumn(name = "post_id", updatable = false)
     private Post post;
 
+    @PrePersist
+    public void prePersist() {
+        this.isEnabled = true;
+    }
+
     @Builder
     public ImageFile(String originalName, String savedName, Post post) {
         this.originalName = originalName;
