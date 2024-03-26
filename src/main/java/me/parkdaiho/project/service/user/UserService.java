@@ -46,24 +46,12 @@ public class UserService {
 
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user_id: " + id));
     }
 
     public String findUserNicknameByRefreshToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if(cookies == null) {
-            return null;
-        }
-
-        String refreshToken = null;
-        for(Cookie cookie : cookies) {
-            if(cookie.getName().equals("refresh_token")) {
-                if(tokenProvider.validToken(cookie.getValue())) {
-                    refreshToken = cookie.getValue();
-                    break;
-                }
-            }
-        }
+        Cookie refreshTokenCookie = CookieUtils.getCookieByName(request, "refresh_token");
+        String refreshToken = refreshTokenCookie != null ? refreshTokenCookie.getValue() : null;
 
         if(refreshToken == null) {
             return  null;

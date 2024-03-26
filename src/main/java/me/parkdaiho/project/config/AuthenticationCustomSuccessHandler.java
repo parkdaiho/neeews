@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
+import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.domain.user.RefreshToken;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.repository.user.RefreshTokenRepository;
@@ -15,7 +16,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
-import java.time.Duration;
 
 @RequiredArgsConstructor
 public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
@@ -24,9 +24,7 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestRepositoryBasedOnCookie oAuth2AuthorizationRequestRepositoryBasedOnCookie;
 
-    private final static Duration REFRESH_TOKEN_DURATION = Duration.ofDays(1);
-    private final static String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
-    private final static Duration ACCESS_TOKEN_DURATION = Duration.ofHours(1);
+    private final JwtProperties jwtProperties;
     private final static String REDIRECT_PATH = "/";
 
     @Override
@@ -37,11 +35,11 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         User user = principal.getUser();
 
-        String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
+        String refreshToken = tokenProvider.generateToken(user, jwtProperties.getRefreshTokenDuration());
         saveRefreshToken(user, refreshToken);
         addRefreshToken(request, response, refreshToken);
 
-        String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
+        String accessToken = tokenProvider.generateToken(user, jwtProperties.getAccessTokenDuration());
         String loginSuccessUrl = loginSuccessUrl(accessToken);
         System.out.println(loginSuccessUrl);
 
@@ -61,17 +59,15 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     }
 
     private void addRefreshToken(HttpServletRequest request, HttpServletResponse response, String refreshToken) {
-        CookieUtils.deleteCookie(request, response, REFRESH_TOKEN_COOKIE_NAME);
-        CookieUtils.addCookie(response, REFRESH_TOKEN_COOKIE_NAME, refreshToken, (int) REFRESH_TOKEN_DURATION.toSeconds());
+        CookieUtils.deleteCookie(request, response, jwtProperties.getRefreshTokenCookieName());
+        CookieUtils.addCookie(response, jwtProperties.getRefreshTokenCookieName(),
+                refreshToken, (int) jwtProperties.getRefreshTokenDuration().toSeconds());
     }
 
     private void saveRefreshToken(User user, String newRefreshToken) {
         RefreshToken refreshToken = refreshTokenRepository.findById(user.getId())
                 .map(entity -> entity.update(newRefreshToken))
-                .orElse(RefreshToken.builder()
-                        .user(user)
-                        .refreshToken(newRefreshToken)
-                        .build());
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user: " + user.getNickname()));
 
         refreshTokenRepository.save(refreshToken);
     }

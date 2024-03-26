@@ -26,7 +26,6 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ArticleService articleService;
     private final PostService postService;
-    private final PollRepository pollRepository;
 
     private final PaginationProperties paginationProperties;
 

@@ -39,7 +39,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Provider provider;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "writer")

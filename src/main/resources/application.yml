@@ -38,6 +38,11 @@ spring:
 jwt:
   issuer: eogh7204@gmail.com
   secret-key: token-secret-key
+  refresh-token-cookie-name: refresh_token
+  refresh-token-duration-of-days: 1
+  access-token-duration-of-hours: 1
+  authorization-header-name: "Authorization"
+  authorization-token-prefix: "Bearer "
 
 # jsp 변경 시 바로 적용
 server:

@@ -22,20 +22,12 @@ public class CookieUtils {
     }
 
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
-        Cookie[] cookies = request.getCookies();
-        if(cookies == null) {
-            return;
-        }
+        Cookie cookie = getCookieByName(request, name);
+        if(cookie == null) return;
 
-        for(Cookie cookie : cookies) {
-            if(cookie.getName().equals(name)) {
-                cookie.setValue("");
-                cookie.setMaxAge(0);
-
-                response.addCookie(cookie);
-                return;
-            }
-        }
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 
     public static String serialize(Object obj) {
@@ -53,15 +45,8 @@ public class CookieUtils {
 
     public static boolean checkView(HttpServletRequest request, HttpServletResponse response,
                                     Domain domain, Long id) {
-        Cookie[] cookies = request.getCookies();
-        if(cookies == null) return false;
-
-        List<Long> viewedList = null;
-        for(Cookie cookie : cookies) {
-            if(cookie.getName().equals(domain.getDomainPl())) {
-                viewedList = deserialize(cookie.getValue(), List.class);
-            }
-        }
+        Cookie listCookie = getCookieByName(request, domain.getDomainPl());
+        List<Long> viewedList = listCookie != null ? deserialize(listCookie.getValue(), List.class) : null;
 
         if(viewedList == null) viewedList = new ArrayList<>();
 
@@ -73,5 +58,18 @@ public class CookieUtils {
         addCookie(response, domain.getDomainPl(), serialize(viewedList), 60 * 60 * 2);
 
         return false;
+    }
+
+    public static Cookie getCookieByName(HttpServletRequest request, String name) {
+        Cookie[] cookies = request.getCookies();
+        if(cookies == null) return null;
+
+        for(Cookie cookie : cookies) {
+            if(cookie.getName().equals(name)) {
+                return cookie;
+            }
+        }
+
+        return null;
     }
 }

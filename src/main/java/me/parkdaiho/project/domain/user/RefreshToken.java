@@ -15,12 +15,12 @@ public class RefreshToken {
     @Column(name = "user_id", nullable = false)
     private Long id;
 
-    @MapsId
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     private String refreshToken;
+
+    @MapsId
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public RefreshToken(User user) {
         this.user = user;
