@@ -43,15 +43,13 @@ function signUpRequest(url, body) {
         })
         .then(result => {
             let params = new URLSearchParams(result);
-            let url = "/login?" + params.toString();
+            let url = "/login?" + params;
 
-            fetch(url, {
-                method: "POST",
-            })
-                .then(res => {
-                    if(res.ok) {
-                        location.replace("/");
-                    }
-                });
+            let form = document.createElement("form");
+            form.setAttribute("method", "POST");
+            form.setAttribute("action", url);
+
+            document.body.appendChild(form);
+            form.submit();
         });
 }
