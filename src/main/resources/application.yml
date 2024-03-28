@@ -36,11 +36,16 @@ spring:
       port: 6379
 
 jwt:
+  oauth2-authorization-request-cookie-name: "oauth2_user_request"
+  oauth2-authorization-request-duration-of-seconds: 180
+
   issuer: eogh7204@gmail.com
   secret-key: token-secret-key
+
   refresh-token-cookie-name: refresh_token
   refresh-token-duration-of-days: 1
   access-token-duration-of-hours: 1
+
   authorization-header-name: "Authorization"
   authorization-token-prefix: "Bearer "
 

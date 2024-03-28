@@ -66,7 +66,12 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     private void saveRefreshToken(User user, String newRefreshToken) {
         RefreshToken refreshToken = refreshTokenRepository.findById(user.getId())
                 .map(entity -> entity.update(newRefreshToken))
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user: " + user.getNickname()));
+                .orElseGet(() -> refreshTokenRepository.save(
+                        RefreshToken.builder()
+                                .user(user)
+                                .refreshToken(newRefreshToken)
+                                .build())
+                );
 
         refreshTokenRepository.save(refreshToken);
     }

@@ -3,6 +3,8 @@ package me.parkdaiho.project.config.oauth2;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
@@ -10,16 +12,16 @@ import org.springframework.web.util.WebUtils;
 
 import java.time.Duration;
 
+@RequiredArgsConstructor
 public class OAuth2AuthorizationRequestRepositoryBasedOnCookie
         implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 
-    private final String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_user_request";
-    private final int OAUTH2_AUTHORIZATION_REQUEST_COOKIE_DURATION = 180;
+    private final JwtProperties jwtProperties;
 
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
         System.out.println("loadAuthorizationRequest");
-        Cookie cookie = WebUtils.getCookie(request, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+        Cookie cookie = WebUtils.getCookie(request, jwtProperties.getOauth2AuthorizationRequestCookieName());
 
         return CookieUtils.deserialize(cookie.getValue(), OAuth2AuthorizationRequest.class);
     }
@@ -34,8 +36,8 @@ public class OAuth2AuthorizationRequestRepositoryBasedOnCookie
             return;
         }
 
-        CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
-                CookieUtils.serialize(authorizationRequest), OAUTH2_AUTHORIZATION_REQUEST_COOKIE_DURATION);
+        CookieUtils.addCookie(response, jwtProperties.getOauth2AuthorizationRequestCookieName(),
+                CookieUtils.serialize(authorizationRequest), jwtProperties.getOauth2AuthorizationRequestDurationOfSeconds());
     }
 
     @Override
@@ -45,6 +47,6 @@ public class OAuth2AuthorizationRequestRepositoryBasedOnCookie
     }
 
     public void removeAuthorizationRequestCookie(HttpServletRequest request, HttpServletResponse response) {
-        CookieUtils.deleteCookie(request, response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME);
+        CookieUtils.deleteCookie(request, response, jwtProperties.getOauth2AuthorizationRequestCookieName());
     }
 }

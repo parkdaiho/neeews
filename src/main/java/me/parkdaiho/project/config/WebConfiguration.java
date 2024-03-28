@@ -51,12 +51,11 @@ public class WebConfiguration {
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
 
-                .failureUrl("/login?err=unexpected-user")
-
                 .usernameParameter("username")
                 .passwordParameter("password")
 
-                .successHandler(authenticationCustomSuccessHandler());
+                .successHandler(authenticationCustomSuccessHandler())
+                .failureHandler(authenticationCustomFailureHandler());
 
         http.oauth2Login()
                 .loginPage("/login")
@@ -93,7 +92,7 @@ public class WebConfiguration {
 
     @Bean
     public OAuth2AuthorizationRequestRepositoryBasedOnCookie oAuth2AuthorizationRequestRepositoryBasedOnCookie() {
-        return new OAuth2AuthorizationRequestRepositoryBasedOnCookie();
+        return new OAuth2AuthorizationRequestRepositoryBasedOnCookie(jwtProperties);
     }
 
     @Bean

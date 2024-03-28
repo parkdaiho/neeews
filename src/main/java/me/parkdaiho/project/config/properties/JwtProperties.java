@@ -13,6 +13,9 @@ import java.time.Duration;
 @ConfigurationProperties("jwt")
 public class JwtProperties {
 
+    private String oauth2AuthorizationRequestCookieName;
+    private int oauth2AuthorizationRequestDurationOfSeconds;
+
     private String issuer;
     private String secretKey;
 

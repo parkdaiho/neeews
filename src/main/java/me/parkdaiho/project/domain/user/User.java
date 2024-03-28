@@ -2,10 +2,7 @@ package me.parkdaiho.project.domain.user;
 
 import jakarta.persistence.*;
 import lombok.*;
-import me.parkdaiho.project.domain.BaseEntity;
-import me.parkdaiho.project.domain.Comment;
-import me.parkdaiho.project.domain.Poll;
-import me.parkdaiho.project.domain.Post;
+import me.parkdaiho.project.domain.*;
 
 import java.util.List;
 
@@ -39,7 +36,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private Provider provider;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private RefreshToken refreshToken;
 
     @OneToMany(mappedBy = "writer")
@@ -50,6 +47,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "writer")
     private List<Post> posts;
+
+    @OneToMany(mappedBy = "writer")
+    private List<Notice> noticeList;
 
     @PrePersist
     public void prePersist() {
