@@ -55,4 +55,9 @@ public class UserService {
 
         return tokenProvider.getUserNickname(refreshToken);
     }
+
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected username: " + username));
+    }
 }

@@ -8,6 +8,7 @@ import me.parkdaiho.project.config.token.TokenProvider;
 import me.parkdaiho.project.repository.user.UserRepository;
 import me.parkdaiho.project.service.user.OAuth2UserCustomService;
 import me.parkdaiho.project.service.user.UserDetailCustomService;
+import me.parkdaiho.project.service.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,7 @@ public class WebConfiguration {
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
+    private final UserService userService;
 
     private final JwtProperties jwtProperties;
 
@@ -102,7 +104,7 @@ public class WebConfiguration {
 
     @Bean
     public AuthenticationCustomFailureHandler authenticationCustomFailureHandler() {
-        return new AuthenticationCustomFailureHandler();
+        return new AuthenticationCustomFailureHandler(userService, authenticationCustomSuccessHandler());
     }
 
     @Bean

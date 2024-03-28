@@ -35,14 +35,20 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         User user = principal.getUser();
 
+        String loginSuccessUrl = getLoginSuccessUrl(request, response, user);
+
+        getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
+    }
+
+    public String getLoginSuccessUrl(HttpServletRequest request, HttpServletResponse response,
+                                  User user) throws IOException {
         String refreshToken = tokenProvider.generateToken(user, jwtProperties.getRefreshTokenDuration());
         saveRefreshToken(user, refreshToken);
         addRefreshToken(request, response, refreshToken);
 
         String accessToken = tokenProvider.generateToken(user, jwtProperties.getAccessTokenDuration());
-        String loginSuccessUrl = loginSuccessUrl(accessToken);
 
-        getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
+        return loginSuccessUrl(accessToken);
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
@@ -66,12 +72,10 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     private void saveRefreshToken(User user, String newRefreshToken) {
         RefreshToken refreshToken = refreshTokenRepository.findById(user.getId())
                 .map(entity -> entity.update(newRefreshToken))
-                .orElseGet(() -> refreshTokenRepository.save(
-                        RefreshToken.builder()
-                                .user(user)
-                                .refreshToken(newRefreshToken)
-                                .build())
-                );
+                .orElseGet(() -> RefreshToken.builder()
+                        .user(user)
+                        .refreshToken(newRefreshToken)
+                        .build());
 
         refreshTokenRepository.save(refreshToken);
     }
