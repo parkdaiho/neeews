@@ -10,9 +10,9 @@
 		<input type="text" id="post-write-title" value="${post.title}">
 	</div>
 	<div class="post-write-contents">
-		<textarea id="post-write-contents">
+		<div id="post-write-contents" contenteditable="true">
 			${post.contents}
-		</textarea>
+		</div>
 	</div>
 	<div id="post-upload-area">
 		<button id="add-file-btn" onclick="addFileInput()">파일 추가</button>

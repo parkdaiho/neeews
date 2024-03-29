@@ -22,7 +22,9 @@
 			<img src="${image}">
 		</c:forEach>
 	</div>
-	${post.contents}
+	<div class="post-view-textarea">
+		${post.contents}
+	</div>
 </div>
 <div class="button-area">
 	<button onclick="goToModifyPage();">MODIFY</button>

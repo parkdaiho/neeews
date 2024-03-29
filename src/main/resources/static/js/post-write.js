@@ -54,8 +54,8 @@ function modifyPost(id) {
     deleteEmptyFileInput();
 
     let files = document.getElementsByClassName("files");
-    if(files.length !== 0) {
-        if(!confirm("파일을 추가하면 기존의 파일이 제거됩니다. 수정하시겠습니까?")) return;
+    if (files.length !== 0) {
+        if (!confirm("파일을 추가하면 기존의 파일이 제거됩니다. 수정하시겠습니까?")) return;
     }
 
     let url = "/api/posts/" + id;
@@ -71,9 +71,11 @@ function requestPost(url, method) {
     let formData = new FormData();
 
     formData.append("title", title.value);
-    formData.append("contents", contents.value);
+    formData.append("contents", contents.innerHTML
+        .replaceAll("<div>", "<br>")
+        .replaceAll("</div>", ""));
 
-    for(let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i].files[0]);
     }
 
@@ -85,11 +87,11 @@ function requestPost(url, method) {
         body: formData,
     })
         .then(response => {
-            if(response.ok) {
+            if (response.ok) {
                 let headers = response.headers;
 
                 location.href = headers.get("Location");
-            } else{
+            } else {
 
             }
         });
@@ -99,9 +101,9 @@ function deleteEmptyFileInput() {
     let files = document.getElementsByClassName("files");
     let filesArr = Array.from(files);
 
-    for(let i = 0; i < filesArr.length; i++) {
+    for (let i = 0; i < filesArr.length; i++) {
         let file = filesArr[i];
-        if(file.files[0] == null) {
+        if (file.files[0] == null) {
             file.parentElement.remove();
         }
     }
