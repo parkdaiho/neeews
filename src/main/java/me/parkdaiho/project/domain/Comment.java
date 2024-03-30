@@ -30,6 +30,15 @@ public class Comment extends BaseEntity {
     private Post post;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "noitce_id")
+    private Notice notice;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "parent_comment_id")
+    private Comment parentComment;
+
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id", updatable = false)
     private User writer;
 
@@ -39,10 +48,6 @@ public class Comment extends BaseEntity {
     private Long good;
 
     private Long bad;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "parent_comment_id")
-    private Comment parentComment;
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
     private List<Comment> reply = new ArrayList<>();

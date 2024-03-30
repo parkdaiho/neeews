@@ -1,7 +1,7 @@
 package me.parkdaiho.project.service.article;
 
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.config.properties.SearchNaverNewsProperties;
+import me.parkdaiho.project.config.properties.NaverSearchProperties;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +19,7 @@ import java.nio.charset.StandardCharsets;
 @Service
 public class SearchNaverNewsServiceImpl implements SearchNaverNewsService{
 
-    private final SearchNaverNewsProperties properties;
+    private final NaverSearchProperties naverSearchProperties;
 
     @Override
     public SearchNaverNewsResponse searchNaverNews(SearchNaverNewsRequest dto) {
@@ -30,16 +30,16 @@ public class SearchNaverNewsServiceImpl implements SearchNaverNewsService{
         params.add("sort", dto.getSort());
 
         URI uri = UriComponentsBuilder
-                .fromUriString(BASE_URL)
-                .path(PATH)
+                .fromUriString(naverSearchProperties.getBaseUrl())
+                .path(naverSearchProperties.getNewsSearchPath())
                 .queryParams(params)
                 .encode(StandardCharsets.UTF_8)
                 .build()
                 .toUri();
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Naver-Client-Id", properties.getClientId());
-        headers.add("X-Naver-Client-Secret", properties.getClientSecret());
+        headers.add(naverSearchProperties.getClientIdHeaderName(), naverSearchProperties.getClientId());
+        headers.add(naverSearchProperties.getClientSecretHeaderName(), naverSearchProperties.getClientSecret());
 
         RequestEntity<Void> request = RequestEntity
                 .get(uri)

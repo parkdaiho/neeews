@@ -15,12 +15,12 @@ import java.io.UnsupportedEncodingException;
 @RestController
 public class SearchNaverNewsApiController {
 
-    private final SearchNaverNewsService service;
+    private final SearchNaverNewsService searchNaverNewsService;
 
     @PostMapping("/api/naver-news")
     public ResponseEntity<SearchNaverNewsResponse> searchNews(@RequestBody SearchNaverNewsRequest dto)
             throws UnsupportedEncodingException {
-        SearchNaverNewsResponse response = service.searchNaverNews(dto);
+        SearchNaverNewsResponse response = searchNaverNewsService.searchNaverNews(dto);
 
         return ResponseEntity.ok(response);
     }

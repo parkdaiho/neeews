@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import me.parkdaiho.project.domain.user.User;
 
+import java.util.List;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
@@ -25,5 +27,17 @@ public class Notice extends BaseEntity {
     private String contents;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "writer_id", nullable = false, updatable = false)
     private User writer;
+
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
+    private Boolean isFixed;
+
+    @PrePersist
+    public void prePersist() {
+        this.isFixed = false;
+        this.isEnabled = true;
+    }
 }
