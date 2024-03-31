@@ -27,7 +27,7 @@ public class ArticleViewController {
 
     @PostMapping("/articles")
     public String articles(SearchNaverNewsRequest request, Model model) {
-        SearchNaverNewsResponse response = articleService.getSearchResult(request);
+        SearchNaverNewsResponse response = articleService.getSearchNewsResult(request);
 
         model.addAttribute("items", response.getItems());
 

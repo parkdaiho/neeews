@@ -34,11 +34,11 @@ public class ArticleService {
 
     private final PaginationProperties paginationProperties;
 
-    public SearchNaverNewsResponse getSearchResult(SearchNaverNewsRequest dto) {
+    public SearchNaverNewsResponse getSearchNewsResult(SearchNaverNewsRequest dto) {
         RestTemplate restTemplate = new RestTemplate();
 
         URI uri = UriComponentsBuilder.fromUriString("http://localhost:8080")
-                .path("/api/naver-news")
+                .path("/api/naver-news") // SearchNaverNewsApiController
                 .build().toUri();
 
         RequestEntity<SearchNaverNewsRequest> request = RequestEntity.post(uri)

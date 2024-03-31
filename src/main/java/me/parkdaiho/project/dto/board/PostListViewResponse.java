@@ -1,6 +1,8 @@
 package me.parkdaiho.project.dto.board;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import me.parkdaiho.project.domain.Post;
 
 import java.time.format.DateTimeFormatter;
@@ -8,15 +10,21 @@ import java.time.format.DateTimeFormatter;
 @Getter
 public class PostListViewResponse {
 
-    private Long seq;
+    private Long id;
     private String title;
     private String writer;
     private String createdAt;
+    private String message;
 
     public PostListViewResponse(Post post) {
-        this.seq = post.getId();
+        this.id = post.getId();
         this.title = post.getTitle();
         this.writer = post.getWriter().getNickname();
         this.createdAt = post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-mm"));
+    }
+
+    public PostListViewResponse(Post post, String message) {
+        this(post);
+        this.message = message;
     }
 }

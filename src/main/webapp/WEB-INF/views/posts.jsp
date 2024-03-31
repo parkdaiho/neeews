@@ -20,14 +20,16 @@
 			<li class="post-list-writer">글쓴이</li>
 			<li class="post-list-created-date">작성날짜</li>
 		</ul>
+		<c:forEach var="post" items="${posts}">
 		<div class="post-in-list">
 			<ul>
-				<li class="post-seq">1</li>
-				<li class="post-title">제목이요</li>
-				<li class="post-writer">송상두</li>
-				<li class="post-created-date">2024-03-03</li>
+				<li class="post-seq">${post.id}</li>
+				<li class="post-title">${post.title}</li>
+				<li class="post-writer">${post.writer}</li>
+				<li class="post-created-date">${post.createdAt}</li>
 			</ul>
 		</div>
+		</c:forEach>
 		<div class="post-list-write">
 			<a href="/new-post">WRITE</a>
 		</div>

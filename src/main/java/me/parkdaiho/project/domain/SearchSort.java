@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public enum Sort {
+public enum SearchSort {
 
-    LATEST("latest", "createdAt"), EARLIEST("earliest", "createdAt"),
-    POPULARITY("popularity", "good"), VIEWS("views", "views");
+    TITLE("title", "title"), CONTENTS("contents", "contents"),
+    WRITER("writer", "writer");
 
     private final String value;
     private final String property;

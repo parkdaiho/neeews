@@ -5,14 +5,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.properties.MessageProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
-import me.parkdaiho.project.domain.Domain;
-import me.parkdaiho.project.domain.ImageFile;
-import me.parkdaiho.project.domain.Sort;
-import me.parkdaiho.project.domain.Post;
+import me.parkdaiho.project.domain.*;
+import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.board.*;
 import me.parkdaiho.project.repository.PostRepository;
+import me.parkdaiho.project.service.user.UserService;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +29,10 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final ImageFileService imageFileService;
+    private final UserService userService;
 
     private final PaginationProperties paginationProperties;
+    private final MessageProperties messageProperties;
 
     @Transactional
     public Long getSavedPostId(AddPostRequest dto, PrincipalDetails principal) throws IOException {
@@ -110,12 +112,43 @@ public class PostService {
         return post;
     }
 
-    public Page<PostListViewResponse> getPostListViewResponse(int page, Sort sort) {
-        Pageable pageable = getPageable(page, paginationProperties.getPostsPerPage(), sort);
+    public Page<PostListViewResponse> getPostListViewResponse(SearchPostRequest request) {
+        Sort sort = Sort.valueOf(request.getSort().toUpperCase());
+        Pageable pageable = getPageable(request.getPage(), paginationProperties.getPostsPerPage(), sort);
 
-        Page<Post> posts = postRepository.findAll(pageable);
+        String query = request.getQuery();
+        SearchSort searchSort = request.getSearchSort() == null ? null : SearchSort.valueOf(request.getSearchSort().toUpperCase());
+        if(searchSort == null || query == null) {
+            return postRepository.findAll(pageable)
+                    .map(entity -> new PostListViewResponse(entity));
+        }
 
-        return posts.map(entity -> new PostListViewResponse(entity));
+        return getPostListViewResponseBySearch(searchSort, query, pageable);
+    }
+
+    private Page<PostListViewResponse> getPostListViewResponseBySearch(SearchSort searchSort, String query, Pageable pageable) {
+        Page<Post> posts;
+        String message = null;
+        switch (searchSort) {
+            case TITLE -> posts = postRepository.findByTitleContaining(query, pageable);
+            case CONTENTS -> posts = postRepository.findByContentsContaining(query, pageable);
+            case WRITER -> {
+                try {
+                    User writer = userService.findByNickname(query);
+                    posts = postRepository.findByWriter(writer, pageable);
+                } catch (Exception e) {
+                    posts = postRepository.findAll(pageable);
+                    message = messageProperties.getNotFoundNickname();
+                }
+            }
+
+            default -> throw new IllegalArgumentException("Unexpected SearchSort: " + searchSort.getProperty());
+        }
+
+        if(message == null && !posts.hasContent()) message = messageProperties.getNotFoundPosts();
+
+        final String finalMessage = message;
+        return posts.map(entity -> new PostListViewResponse(entity, finalMessage));
     }
 
     private Pageable getPageable(int size, int page, Sort sort) {
@@ -148,6 +181,7 @@ public class PostService {
         model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);
+        model.addAttribute("posts", posts.getContent());
     }
 
     public List<IndexViewResponse> getPostsForIndex(Sort sort) {

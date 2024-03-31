@@ -60,4 +60,9 @@ public class UserService {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected username: " + username));
     }
+
+    public User findByNickname(String nickname) {
+        return userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected nickname: " + nickname));
+    }
 }

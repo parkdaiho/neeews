@@ -75,3 +75,7 @@ pagination :
   comments-per-page: 5
   comment-pages-per-block: 5
   index-views: 10
+
+message:
+  not-found-posts: "There are no posts."
+  not-found-nickname: "There is no user with that nickname."

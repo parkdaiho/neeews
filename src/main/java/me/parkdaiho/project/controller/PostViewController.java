@@ -8,6 +8,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.board.ModifyViewResponse;
 import me.parkdaiho.project.dto.board.PostListViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
+import me.parkdaiho.project.dto.board.SearchPostRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -26,12 +26,11 @@ public class PostViewController {
     private final CommentService commentService;
 
     @GetMapping("/posts")
-    public String posts(@RequestParam(required = false, defaultValue = "1") int page,
-                        @RequestParam(required = false) String sort,
-                        Model model) {
-        if(sort == null) sort = Sort.LATEST.getValue();
+    public String posts(SearchPostRequest request, Model model) {
+        if (request.getPage() == null) request.setPage(1);
+        if (request.getSort() == null) request.setSort(Sort.LATEST.getValue());
 
-        Page<PostListViewResponse> posts = postService.getPostListViewResponse(page, Sort.valueOf(sort.toUpperCase()));
+        Page<PostListViewResponse> posts = postService.getPostListViewResponse(request);
 
         postService.addPostsInfoToModel(posts, model);
 

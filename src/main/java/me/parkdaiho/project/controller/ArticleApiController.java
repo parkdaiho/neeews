@@ -28,5 +28,4 @@ public class ArticleApiController {
 
         return ResponseEntity.created(URI.create("/articles/" + articleId)).build();
     }
-
 }

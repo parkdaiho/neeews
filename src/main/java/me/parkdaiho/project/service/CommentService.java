@@ -5,17 +5,14 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
-import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.repository.CommentRepository;
-import me.parkdaiho.project.repository.PollRepository;
 import me.parkdaiho.project.service.article.ArticleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -30,10 +27,10 @@ public class CommentService {
     private final PaginationProperties paginationProperties;
 
     public Page<CommentViewResponse> getDefaultComments(Long id, Domain domain) {
-        return getCommentView(1, me.parkdaiho.project.domain.Sort.LATEST, id, domain);
+        return getCommentView(1, Sort.LATEST, id, domain);
     }
 
-    public Page<CommentViewResponse> getCommentView(int page, me.parkdaiho.project.domain.Sort sort, Long id, Domain domain) {
+    public Page<CommentViewResponse> getCommentView(int page, Sort sort, Long id, Domain domain) {
         Pageable pageable = getPageable(page, sort);
         Page<Comment> comments = getCommentsById(id, domain, pageable);
 
@@ -114,11 +111,11 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected comment: " + id));
     }
 
-    private Pageable getPageable(int page, me.parkdaiho.project.domain.Sort sort) {
-        Sort pageableSort = null;
+    private Pageable getPageable(int page, Sort sort) {
+        org.springframework.data.domain.Sort pageableSort = null;
         switch (sort) {
-            case LATEST, POPULARITY -> pageableSort = Sort.by(Sort.Direction.DESC, sort.getProperty());
-            case EARLIEST -> pageableSort = Sort.by(Sort.Direction.ASC, sort.getProperty());
+            case LATEST, POPULARITY -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, sort.getProperty());
+            case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.ASC, sort.getProperty());
 
             default -> throw new IllegalArgumentException("Unexpected sort:" + sort.getValue());
         }
