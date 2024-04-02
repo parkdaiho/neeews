@@ -27,11 +27,11 @@ public class CommentService {
     private final PaginationProperties paginationProperties;
 
     public Page<CommentViewResponse> getDefaultComments(Long id, Domain domain) {
-        return getCommentView(1, Sort.LATEST, id, domain);
+        return getCommentView(1, Order.LATEST, id, domain);
     }
 
-    public Page<CommentViewResponse> getCommentView(int page, Sort sort, Long id, Domain domain) {
-        Pageable pageable = getPageable(page, sort);
+    public Page<CommentViewResponse> getCommentView(int page, Order order, Long id, Domain domain) {
+        Pageable pageable = getPageable(page, order);
         Page<Comment> comments = getCommentsById(id, domain, pageable);
 
         return comments.map(comment -> new CommentViewResponse(comment));
@@ -111,13 +111,13 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected comment: " + id));
     }
 
-    private Pageable getPageable(int page, Sort sort) {
+    private Pageable getPageable(int page, Order order) {
         org.springframework.data.domain.Sort pageableSort = null;
-        switch (sort) {
-            case LATEST, POPULARITY -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, sort.getProperty());
-            case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.ASC, sort.getProperty());
+        switch (order) {
+            case LATEST, POPULARITY -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, order.getProperty());
+            case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());
 
-            default -> throw new IllegalArgumentException("Unexpected sort:" + sort.getValue());
+            default -> throw new IllegalArgumentException("Unexpected order:" + order.getValue());
         }
 
         return PageRequest.of(page - 1, paginationProperties.getCommentsPerPage(), pageableSort);

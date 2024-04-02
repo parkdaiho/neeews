@@ -2,7 +2,7 @@ package me.parkdaiho.project.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.domain.Sort;
+import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.service.article.ArticleService;
 import me.parkdaiho.project.service.PostService;
 import me.parkdaiho.project.service.user.UserService;
@@ -25,10 +25,10 @@ public class IndexViewController {
             model.addAttribute("userNickname", userNickname);
         }
 
-        Sort sort = Sort.POPULARITY;
+        Order order = Order.POPULARITY;
 
-        model.addAttribute("articles", articleService.getArticlesForIndex(sort));
-        model.addAttribute("posts", postService.getPostsForIndex(sort));
+        model.addAttribute("articles", articleService.getArticlesForIndex(order));
+        model.addAttribute("posts", postService.getPostsForIndex(order));
 
         return "index";
     }

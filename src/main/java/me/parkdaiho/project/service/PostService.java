@@ -113,23 +113,23 @@ public class PostService {
     }
 
     public Page<PostListViewResponse> getPostListViewResponse(SearchPostRequest request) {
-        Sort sort = Sort.valueOf(request.getSort().toUpperCase());
-        Pageable pageable = getPageable(request.getPage(), paginationProperties.getPostsPerPage(), sort);
+        Order order = Order.valueOf(request.getSort().toUpperCase());
+        Pageable pageable = getPageable(request.getPage(), paginationProperties.getPostsPerPage(), order);
 
         String query = request.getQuery();
-        SearchSort searchSort = request.getSearchSort() == null ? null : SearchSort.valueOf(request.getSearchSort().toUpperCase());
-        if(searchSort == null || query == null) {
+        Sort sort = request.getSearchSort() == null ? null : Sort.valueOf(request.getSearchSort().toUpperCase());
+        if(sort == null || query == null) {
             return postRepository.findAll(pageable)
                     .map(entity -> new PostListViewResponse(entity));
         }
 
-        return getPostListViewResponseBySearch(searchSort, query, pageable);
+        return getPostListViewResponseBySearch(sort, query, pageable);
     }
 
-    private Page<PostListViewResponse> getPostListViewResponseBySearch(SearchSort searchSort, String query, Pageable pageable) {
+    private Page<PostListViewResponse> getPostListViewResponseBySearch(Sort sort, String query, Pageable pageable) {
         Page<Post> posts;
         String message = null;
-        switch (searchSort) {
+        switch (sort) {
             case TITLE -> posts = postRepository.findByTitleContaining(query, pageable);
             case CONTENTS -> posts = postRepository.findByContentsContaining(query, pageable);
             case WRITER -> {
@@ -142,7 +142,7 @@ public class PostService {
                 }
             }
 
-            default -> throw new IllegalArgumentException("Unexpected SearchSort: " + searchSort.getProperty());
+            default -> throw new IllegalArgumentException("Unexpected Sort: " + sort.getProperty());
         }
 
         if(message == null && !posts.hasContent()) message = messageProperties.getNotFoundPosts();
@@ -151,15 +151,15 @@ public class PostService {
         return posts.map(entity -> new PostListViewResponse(entity, finalMessage));
     }
 
-    private Pageable getPageable(int size, int page, Sort sort) {
+    private Pageable getPageable(int page, int size, Order order) {
         org.springframework.data.domain.Sort pageableSort = null;
-        switch (sort) {
+        switch (order) {
             case LATEST, POPULARITY, VIEWS -> pageableSort = org.springframework.data.domain.Sort.by(
-                    org.springframework.data.domain.Sort.Direction.DESC, sort.getProperty());
+                    org.springframework.data.domain.Sort.Direction.DESC, order.getProperty());
             case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(
-                    org.springframework.data.domain.Sort.Direction.ASC, sort.getProperty());
+                    org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());
 
-            default -> throw new IllegalArgumentException("Unexpected sort:" + sort.getValue());
+            default -> throw new IllegalArgumentException("Unexpected order:" + order.getValue());
         }
 
         return PageRequest.of(page - 1, size, pageableSort);
@@ -184,11 +184,11 @@ public class PostService {
         model.addAttribute("posts", posts.getContent());
     }
 
-    public List<IndexViewResponse> getPostsForIndex(Sort sort) {
-        Pageable pageable = getPageable(paginationProperties.getIndexViews(), 1, sort);
+    public List<IndexViewResponse> getPostsForIndex(Order order) {
+        Pageable pageable = getPageable(1, paginationProperties.getIndexViews(), order);
         Page<Post> posts = postRepository.findAll(pageable);
 
-        switch (sort) {
+        switch (order) {
             case POPULARITY -> {
                 return posts.stream()
                         .map(entity -> IndexViewResponse.builder()
@@ -204,7 +204,7 @@ public class PostService {
                                 .build()).toList();
             }
 
-            default -> throw new IllegalArgumentException("Unexpected sort: " + sort.getValue());
+            default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());
         }
     }
 }

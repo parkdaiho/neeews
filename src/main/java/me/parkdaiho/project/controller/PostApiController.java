@@ -27,7 +27,7 @@ public class PostApiController {
     }
 
     @GetMapping("/api/posts")
-    public ResponseEntity<List<PostListViewResponse>> searchPosts(@RequestBody SearchPostRequest request) {
+    public ResponseEntity<List<PostListViewResponse>> searchPosts(@RequestBody(required = false) SearchPostRequest request) {
         List<PostListViewResponse> posts = postService.getPostListViewResponse(request).getContent();
         return ResponseEntity.ok().body(posts);
     }

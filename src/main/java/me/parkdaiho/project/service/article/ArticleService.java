@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Domain;
-import me.parkdaiho.project.domain.Sort;
+import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.domain.Article;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.article.*;
@@ -93,11 +93,11 @@ public class ArticleService {
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected articleId: " + id));
     }
 
-    public List<IndexViewResponse> getArticlesForIndex(Sort sort) {
-        Pageable pageable = getPageable(paginationProperties.getIndexViews(), 1, sort);
+    public List<IndexViewResponse> getArticlesForIndex(Order order) {
+        Pageable pageable = getPageable(paginationProperties.getIndexViews(), 1, order);
         Page<Article> articles = articleRepository.findAll(pageable);
 
-        switch (sort) {
+        switch (order) {
             case POPULARITY -> {
                 return articles.stream()
                         .map(entity -> IndexViewResponse.builder()
@@ -113,19 +113,19 @@ public class ArticleService {
                                 .build()).toList();
             }
 
-            default -> throw new IllegalArgumentException("Unexpected sort: " + sort.getValue());
+            default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());
         }
     }
 
-    private Pageable getPageable(int size, int page, Sort sort) {
+    private Pageable getPageable(int size, int page, Order order) {
         org.springframework.data.domain.Sort pageableSort = null;
-        switch (sort) {
+        switch (order) {
             case LATEST, POPULARITY, VIEWS -> pageableSort = org.springframework.data.domain.Sort.by(
-                    org.springframework.data.domain.Sort.Direction.DESC, sort.getProperty());
+                    org.springframework.data.domain.Sort.Direction.DESC, order.getProperty());
             case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(
-                    org.springframework.data.domain.Sort.Direction.ASC, sort.getProperty());
+                    org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());
 
-            default -> throw new IllegalArgumentException("Unexpected sort:" + sort.getValue());
+            default -> throw new IllegalArgumentException("Unexpected order:" + order.getValue());
         }
 
         return PageRequest.of(page - 1, size, pageableSort);

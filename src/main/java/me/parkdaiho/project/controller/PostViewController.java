@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
-import me.parkdaiho.project.domain.Sort;
+import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.dto.board.ModifyViewResponse;
 import me.parkdaiho.project.dto.board.PostListViewResponse;
 import me.parkdaiho.project.dto.board.PostViewResponse;
@@ -28,7 +28,7 @@ public class PostViewController {
     @GetMapping("/posts")
     public String posts(SearchPostRequest request, Model model) {
         if (request.getPage() == null) request.setPage(1);
-        if (request.getSort() == null) request.setSort(Sort.LATEST.getValue());
+        if (request.getSort() == null) request.setSort(Order.LATEST.getValue());
 
         Page<PostListViewResponse> posts = postService.getPostListViewResponse(request);
 
@@ -51,7 +51,7 @@ public class PostViewController {
 
         model.addAttribute("post", post);
         model.addAttribute("domain", Domain.POST.getDomainPl());
-        model.addAttribute("sort", Sort.LATEST.getValue());
+        model.addAttribute("sort", Order.LATEST.getValue());
 
         commentService.addCommentInfoToModel(comments, model);
 
@@ -62,7 +62,7 @@ public class PostViewController {
     public String postCommentView(@PathVariable Long id,
                                   int page, String sort,
                                   Model model) {
-        Page<CommentViewResponse> comments = commentService.getCommentView(page, Sort.valueOf(sort.toUpperCase()), id, Domain.POST);
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(sort.toUpperCase()), id, Domain.POST);
 
         model.addAttribute("sort", sort);
 

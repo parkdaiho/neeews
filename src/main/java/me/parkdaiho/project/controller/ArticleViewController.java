@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
-import me.parkdaiho.project.domain.Sort;
+import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
@@ -43,7 +43,7 @@ public class ArticleViewController {
 
         model.addAttribute("article", article);
         model.addAttribute("domain", Domain.ARTICLE.getDomainPl());
-        model.addAttribute("sort", Sort.LATEST.getValue());
+        model.addAttribute("sort", Order.LATEST.getValue());
 
         commentService.addCommentInfoToModel(comments, model);
 
@@ -54,7 +54,7 @@ public class ArticleViewController {
     public String articleCommentView(@PathVariable Long id,
                                      int page, String sort,
                                      Model model) {
-        Page<CommentViewResponse> comments = commentService.getCommentView(page, Sort.valueOf(sort.toUpperCase()), id, Domain.ARTICLE);
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(sort.toUpperCase()), id, Domain.ARTICLE);
 
         model.addAttribute("sort", sort);
 

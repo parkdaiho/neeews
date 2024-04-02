@@ -13,7 +13,7 @@
 <a href="/posts">community</a>
 <form action="/articles" method="post">
   <input type="text" name="query">
-  <select name="sort">
+  <select name="order">
     <option value="sim" selected>정확도순</option>
     <option value="date">최신순</option>
   </select>
