@@ -26,12 +26,6 @@ public class PostApiController {
         return ResponseEntity.created(URI.create("/posts/" + savedPostId)).build();
     }
 
-    @GetMapping("/api/posts")
-    public ResponseEntity<List<PostListViewResponse>> searchPosts(@RequestBody(required = false) SearchPostRequest request) {
-        List<PostListViewResponse> posts = postService.getPostListViewResponse(request).getContent();
-        return ResponseEntity.ok().body(posts);
-    }
-
     @DeleteMapping("/api/posts/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails principal) {
         if(principal == null) throw new IllegalArgumentException("Unexpected access");

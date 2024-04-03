@@ -18,7 +18,6 @@ public class ArticleViewResponse {
     private String originalLink;
     private String pubDate;
     private Boolean isProvided;
-    private List<CommentViewResponse> comments;
 
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
@@ -27,8 +26,5 @@ public class ArticleViewResponse {
         this.originalLink = article.getOriginalLink();
         this.pubDate = article.getPubDate();
         this.isProvided = article.getIsProvided();
-//        this.comments = article.getComments().stream()
-//                .map(entity -> new CommentViewResponse(entity))
-//                .toList();
     }
 }

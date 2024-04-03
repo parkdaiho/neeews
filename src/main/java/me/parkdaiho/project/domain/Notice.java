@@ -35,6 +35,8 @@ public class Notice extends BaseEntity {
 
     private Boolean isFixed;
 
+    private Long views;
+
     @PrePersist
     public void prePersist() {
         this.isFixed = false;

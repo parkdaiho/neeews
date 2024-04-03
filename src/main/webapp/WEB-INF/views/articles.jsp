@@ -1,30 +1,67 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<html lang="ko">
 <head>
-	<title>Title</title>
+	<meta charset="UTF-8">
+	<title>ARTICLES</title>
+	<link rel="stylesheet" href="/css/css.css">
 </head>
 <body>
-<div>
-	<c:forEach var="item" items="${items}" varStatus="status">
-		<div class="item" style="border: 1px solid black" onclick="showArticle(${status.index});">
-			<input type="hidden" id="item_link_${status.index}" value="${item.link}">
-			<input type="hidden" id="item_originalLink_${status.index}" value="${item.originallink}">
-			<div class="item_title" id="item_title_${status.index}">
-					${item.title}
-			</div>
-			<div class="item_description" id="item_description_${status.index}">
-					${item.description}
-			</div>
-			<div class="item_pubDate" id="item_pubDate_${status.index}">
-					${item.pubDate}
-			</div>
-			<div>
-				<a href="${item.link}">링크</a>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
+<main>
+	<section class="page-info-area">
+		<h1>ARTICLES</h1>
+		<p>Read the articles people interested in!</p>
+	</section>
+	<section class="article-search-areaa">
+		<jsp:include page="article-search-area.jsp"></jsp:include>
+	</section>
+	<section class="articles-area">
+		<div class="article-list-area">
+			<h2>MOST POPULAR ARTICLES</h2>
+			<div class="article-list">
+				<div class="article-in-list">
+					<div class="article-rank">
+						1
+					</div>
+					<div class="article-title">
+						TITLE
+					</div>
+					<div class="article-description">
+						DESCRIPTION
+					</div>
+					<div class="article-pubdate">
+						2024.03.27
+					</div>
+				</div>
+				...
 			</div>
 		</div>
-	</c:forEach>
-</div>
-<script src="/js/articles.js"></script>
+		<div class="article-list-area">
+			<h2>MOST VIEWED ARTICLES</h2>
+			<div class="article-list">
+				<div class="article-in-list">
+					<div class="article-rank">
+						1
+					</div>
+					<div class="article-title">
+						TITLE
+					</div>
+					<div class="article-description">
+						DESCRIPTION
+					</div>
+					<div class="article-pubdate">
+						2024.03.27
+					</div>
+				</div>
+				...
+			</div>
+		</div>
+	</section>
+</main>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

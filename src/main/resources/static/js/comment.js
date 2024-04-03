@@ -23,8 +23,8 @@ function addComment() {
         });
 }
 
-function getCommentPage(page, sort) {
-    let url = "/" + domain + "/" + id + "/comments?page=" + page + "&sort=" + sort;
+function getCommentPage(page, order) {
+    let url = "/" + domain + "/" + id + "/comments?page=" + page + "&order=" + order;
 
     fetch(url)
         .then(response => {
@@ -35,7 +35,7 @@ function getCommentPage(page, sort) {
         });
 }
 
-function addReply(parentCommentId, page, sort) {
+function addReply(parentCommentId, page, order) {
     let body = JSON.stringify({
         "parentCommentId": parentCommentId,
         "contents": document.getElementById("reply-contents-" + parentCommentId).value,
@@ -51,7 +51,7 @@ function addReply(parentCommentId, page, sort) {
     })
         .then(response => {
             if(response.ok) {
-                getCommentPage(page, sort)
+                getCommentPage(page, order)
             }
         });
 }

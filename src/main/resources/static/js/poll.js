@@ -1,7 +1,7 @@
-function commentPoll(id, flag, page, sort) {
+function commentPoll(id, flag, page, order) {
     function success() {
         alert("poll success");
-        getCommentPage(page, sort);
+        getCommentPage(page, order);
     }
 
     function fail() {

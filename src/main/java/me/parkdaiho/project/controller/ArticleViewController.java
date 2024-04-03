@@ -52,11 +52,11 @@ public class ArticleViewController {
 
     @GetMapping("/articles/{id}/comments")
     public String articleCommentView(@PathVariable Long id,
-                                     int page, String sort,
+                                     int page, String order,
                                      Model model) {
-        Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(sort.toUpperCase()), id, Domain.ARTICLE);
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(order.toUpperCase()), id, Domain.ARTICLE);
 
-        model.addAttribute("sort", sort);
+        model.addAttribute("sort", order);
 
         commentService.addCommentInfoToModel(comments, model);
 

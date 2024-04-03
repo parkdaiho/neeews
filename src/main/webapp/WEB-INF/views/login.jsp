@@ -1,18 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<html lang="ko">
 <head>
-  <title>Title</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/css.css">
+	<title>LOGIN</title>
 </head>
 <body>
-<h1>로그인</h1>
-<form action="/login" method="post">
-  <ul>
-    <li><input type="text" name="username" placeholder="USERNAME"></li>
-    <li><input type="password" name="password" placeholder="PASSWORD"></li>
-  </ul>
-  <button type="submit">로그인</button>
-  <a href="/oauth2/authorization/google">구글로 로그인</a>
-  <button type="button" onclick="location.href='/sign-up'">회원가입</button>
-</form>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
+<main>
+	<section class="page-info-area">
+		<h1>LOGIN</h1>
+		<p>Login and do various activities!</p>
+	</section>
+	<section class="login-area">
+		<form action="/login" method="post">
+			<div class="login-username">
+				<input type="text" name="username">
+			</div>
+			<div class="login-password">
+				<input type="password" name="password">
+			</div>
+			<div class="login-btn">
+				<button type="submit">LOGIN</button>
+				<button>RESET</button>
+			</div>
+		</form>
+		<div class="login-oauth2">
+			<a href=""><img src="#"></a>
+		</div>
+	</section>
+</main>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

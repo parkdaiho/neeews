@@ -1,28 +1,42 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<html lang="ko">
 <head>
-  <title>Title</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/css.css">
+	<title>SIGN-UP</title>
 </head>
 <body>
-<h1>회원가입</h1>
-<form action="/sign-up" method="post">
-  <c:choose>
-    <c:when test="${oauth2UserInfo != null}">
-      <input type="text" id="nickname" placeholder="NICKNAME">
-      <input type="text" id="email" placeholder="EMAIL" value="${oauth2UserInfo.email}" disabled>
-      <input type="hidden" id="provider" value="${oauth2UserInfo.provider}">
-      <button type="button" id="oauth2_sign_up_btn">가입하기</button>
-    </c:when>
-    <c:otherwise>
-      <input type="text" id="username" placeholder="USERNAME">
-      <input type="password" id="password" placeholder="PASSWORD">
-      <input type="text" id="nickname" placeholder="NICKNAME">
-      <input type="text" id="email" placeholder="EMAIL">
-      <button type="button" id="sign_up_btn">가입하기</button>
-    </c:otherwise>
-  </c:choose>
-</form>
-<script src="/js/sign-up.js"></script>
+<header>
+	<jsp:include page="header.jsp"></jsp:include>
+</header>
+<main>
+	<section class="page-info-area">
+		<h1>SIGN-UP</h1>
+		<p>Please become a member of our site!</p>
+	</section>
+	<section class="sign-up-area">
+		<form action="/sign-up" method="post">
+			<div class="sign-up-username">
+				<input type="text" name="username">
+			</div>
+			<div class="sign-up-password">
+				<input type="password" name="password">
+			</div>
+			<div class="sign-up-nickname">
+				<input type="text" name="nickname">
+			</div>
+			<div class="sign-up-email">
+				<input type="email" name="email">
+			</div>
+			<div class="sign-up-btn">
+				<button type="submit">SIGN-UP</button>
+				<button>BACK</button>
+			</div>
+		</form>
+	</section>
+</main>
+<footer>
+	<jsp:include page="footer.jsp"></jsp:include>
+</footer>
 </body>
 </html>

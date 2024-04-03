@@ -181,7 +181,7 @@ public class PostService {
         model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);
-        model.addAttribute("posts", posts.getContent());
+        model.addAttribute("items", posts.getContent());
     }
 
     public List<IndexViewResponse> getPostsForIndex(Order order) {

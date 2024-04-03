@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/css.css">
-	<title>ARTICLE</title>
+	<title>NOTICE</title>
 </head>
 <body>
 <header>
@@ -11,29 +11,29 @@
 </header>
 <main>
 	<section class="page-info-area">
-		<h1>ARTICLES</h1>
-		<p>FIND ARTICLES AND READ IT!</p>
+		<h1>NOTICE</h1>
+		<p>Read notice and give me your opinion!</p>
 	</section>
-	<section class="article-search-area">
-		<jsp:include page="article-search-area.jsp"></jsp:include>
+	<section class="notice-search-area">
+
 	</section>
-	<section class="article-area">
-		<div class="article-info">
-			<div class="article-title">
+	<section class="notice-area">
+		<div class="notice-info">
+			<div class="notice-title">
 				TITLE
 			</div>
-			<div class="article-pubdate">
-				2024.03.27
+			<div class="notice-created-at">
+				2024-03-29 18:00:00
 			</div>
-			<div class="article-views">
-				999
+			<div class="notice-modified-at">
+				2024-03-29 18:00:00
 			</div>
 		</div>
-		<div class="article-contents">
-			<div class="article-contents-images">
+		<div class="notice-contents">
+			<div class="notice-contents-images">
 
 			</div>
-			<div class="article-contents-textarea">
+			<div class="notice-contents-textarea">
 				CONTENTS
 			</div>
 		</div>

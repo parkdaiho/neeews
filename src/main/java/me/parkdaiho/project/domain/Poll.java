@@ -34,6 +34,11 @@ public class Poll extends BaseEntity {
     // like == true, dislike == false
     private Boolean flag;
 
+    @PrePersist
+    public void prePersist() {
+        this.isEnabled = true;
+    }
+
     @Builder
     public Poll(User user, Comment comment, Article article, Post post) {
         this.user = user;
