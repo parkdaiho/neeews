@@ -10,5 +10,6 @@ import lombok.Getter;
 public class IndexViewResponse {
 
     private String title;
+    private String link;
     private Long figure;
 }

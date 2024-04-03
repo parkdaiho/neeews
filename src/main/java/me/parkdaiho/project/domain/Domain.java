@@ -6,7 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Domain {
-    USER("users"), ARTICLE("articles"), POST("posts"), COMMENT("comments");
+    USER("user", "users"), ARTICLE("article", "articles"),
+    POST("post", "posts"), COMMENT("comment", "comments");
 
     public static Domain getDomainByDomainPl(String domainPl) {
         for(Domain domain : Domain.values()) {
@@ -18,5 +19,6 @@ public enum Domain {
         throw new IllegalArgumentException("Unexpected domainPl: " + domainPl);
     }
 
+    private final String domain;
     private final String domainPl;
 }

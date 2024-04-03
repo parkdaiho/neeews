@@ -193,6 +193,7 @@ public class PostService {
                 return posts.stream()
                         .map(entity -> IndexViewResponse.builder()
                                 .title(entity.getTitle())
+                                .link("/" + Domain.POST.getDomainPl() + "/" + entity.getId())
                                 .figure(entity.getGood())
                                 .build()).toList();
             }
@@ -200,6 +201,7 @@ public class PostService {
                 return posts.stream()
                         .map(entity -> IndexViewResponse.builder()
                                 .title(entity.getTitle())
+                                .link("/" + Domain.POST.getDomainPl() + "/" + entity.getId())
                                 .figure(entity.getViews())
                                 .build()).toList();
             }

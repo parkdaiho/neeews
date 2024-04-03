@@ -102,6 +102,7 @@ public class ArticleService {
                 return articles.stream()
                         .map(entity -> IndexViewResponse.builder()
                                 .title(entity.getTitle())
+                                .link("/" + Domain.ARTICLE.getDomainPl() + "/" + entity.getId())
                                 .figure(entity.getGood())
                                 .build()).toList();
             }
@@ -109,6 +110,7 @@ public class ArticleService {
                 return articles.stream()
                         .map(entity -> IndexViewResponse.builder()
                                 .title(entity.getTitle())
+                                .link("/" + Domain.ARTICLE.getDomainPl() + "/" + entity.getId())
                                 .figure(entity.getViews())
                                 .build()).toList();
             }
