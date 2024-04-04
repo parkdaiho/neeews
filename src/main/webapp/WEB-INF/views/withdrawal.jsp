@@ -10,7 +10,7 @@
 	<input type="hidden" name="_method" value="DELETE">
 	<div class="withdrawal-area">
 		<div class="withdrawal-password">
-			<input type="password">
+			PASSWORD : <input type="password">
 		</div>
 		<div class="withdrawal-btn">
 			<button type="submit">WITHDRAWAL</button>

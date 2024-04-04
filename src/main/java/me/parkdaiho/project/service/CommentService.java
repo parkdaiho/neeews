@@ -64,8 +64,8 @@ public class CommentService {
         int nextPage = comments.hasNext() ? page + 1 : totalPages;
         int previousPage = comments.hasPrevious() ? page - 1 : page;
 
-        model.addAttribute("totalElements", comments.getTotalElements());
         model.addAttribute("page", page);
+        model.addAttribute("totalElements", comments.getTotalElements());
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);
         model.addAttribute("totalPages", totalPages);

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("pagination")
 public class PaginationProperties {
 
+    private Integer usersPerPage;
+    private Integer userPagesPerBlock;
     private Integer postsPerPage;
     private Integer postPagesPerBlock;
     private Integer commentsPerPage;

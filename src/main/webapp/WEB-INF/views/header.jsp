@@ -21,8 +21,8 @@
 	<div class="right-area">
 		<ul>
 			<c:choose>
-				<c:when test="${username != null}">
-					<li><span>${username}</span> 님, 환영합니다.</li>
+				<c:when test="${nickname != null}">
+					<li><span>${nickname}</span> 님, 환영합니다.</li>
 					<li><a href="/my-page">MY-PAGE</a></li>
 					<li><a href="javascript:return false;" onclick="logout();">LOGOUT</a></li>
 				</c:when>
@@ -33,5 +33,9 @@
 			</c:choose>
 		</ul>
 	</div>
+
+<script src="/js/header.js"></script>
+<script src="/js/application.js"></script>
+
 </body>
 </html>

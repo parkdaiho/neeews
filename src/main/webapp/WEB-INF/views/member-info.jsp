@@ -10,18 +10,18 @@
 	<input type="hidden" name="_method" value="PUT">
 	<div class="member-info-area">
 		<div class="member-info-username">
-			<input type="text" readonly>
+			USERNAME : <input type="text" value="${username}" readonly>
 		</div>
 		<div class="member-info-password">
-			<input type="password">
-			<input type="password">
+			PASSWORD : <input type="password">
+			CONFIRM-PASSWORD : <input type="password">
 		</div>
 		<div class="member-info-nickname">
-			<input type="text">
+			NICKNAME : <input type="text" value="${nickname}">
 			<button>CHECK</button>
 		</div>
 		<div class="member-info-email">
-			<input type="email" readonly>
+			EMAIL : <input type="email" value="${email}" readonly>
 		</div>
 	</div>
 	<div class="member-info-btn">

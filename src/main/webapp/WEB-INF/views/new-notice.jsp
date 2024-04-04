@@ -8,10 +8,10 @@
 <body>
 <div class="new-notice-area">
 	<div class="new-notice-title">
-		<input type="text">
+		TITLE : <input type="text" id="notice-title">
 	</div>
-	<div class="new-notice-contents" contenteditable="true">
-
+	<div class="new-notice-contents">
+		contents : <div contenteditable="true" id="notice-contents"></div>
 	</div>
 </div>
 <div class="new-notice-btn">

@@ -30,8 +30,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
             Authentication authentication = tokenProvider.getAuthentication(accessToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            String username = tokenProvider.getUserNickname(accessToken);
-            request.setAttribute("username", username);
+            String nickname = tokenProvider.getUserNickname(accessToken);
+            request.setAttribute("nickname", nickname);
         }
 
         filterChain.doFilter(request, response);
