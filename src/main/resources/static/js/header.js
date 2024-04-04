@@ -1,18 +1,15 @@
-const logoutBtn = document.getElementById("logout-btn");
 const token = getKey("token");
 
-if(logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("access_token");
+function logout() {
+    localStorage.removeItem("access_token");
 
-        let form = document.createElement("form");
-        form.setAttribute("method", "POST");
-        form.setAttribute("action", "/logout");
+    let form = document.createElement("form");
+    form.setAttribute("method", "POST");
+    form.setAttribute("action", "/logout");
 
-        document.body.appendChild(form);
+    document.body.appendChild(form);
 
-        form.submit();
-    });
+    form.submit();
 }
 
 if(token) {

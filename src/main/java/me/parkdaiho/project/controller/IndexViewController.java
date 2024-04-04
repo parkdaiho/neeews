@@ -7,6 +7,7 @@ import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.service.article.ArticleService;
 import me.parkdaiho.project.service.PostService;
+import me.parkdaiho.project.service.user.TokenService;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,19 +19,15 @@ import java.util.List;
 @Controller
 public class IndexViewController {
 
-    private final UserService userService;
     private final ArticleService articleService;
     private final PostService postService;
+    private final TokenService tokenService;
 
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model) {
-        String userNickname = userService.findUserNicknameByRefreshToken(request);
-        if(userNickname != null) {
-            model.addAttribute("userNickname", userNickname);
-        }
-
         Order order = Order.POPULARITY;
 
+        tokenService.addHeaderAttribute(request, model);
         model.addAttribute("articles", articleService.getArticlesForIndex(order));
         model.addAttribute("posts", postService.getPostsForIndex(order));
 

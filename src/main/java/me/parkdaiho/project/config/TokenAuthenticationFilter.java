@@ -9,6 +9,7 @@ import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.config.token.TokenProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
@@ -17,7 +18,6 @@ import java.io.IOException;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
-
     private final JwtProperties jwtProperties;
 
     @Override
@@ -29,6 +29,9 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if(tokenProvider.validToken(accessToken)) {
             Authentication authentication = tokenProvider.getAuthentication(accessToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            String username = tokenProvider.getUserNickname(accessToken);
+            request.setAttribute("username", username);
         }
 
         filterChain.doFilter(request, response);
