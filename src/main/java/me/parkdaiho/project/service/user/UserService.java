@@ -1,32 +1,22 @@
 package me.parkdaiho.project.service.user;
 
-import ch.qos.logback.core.model.ImplicitModel;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.PaginationProperties;
-import me.parkdaiho.project.config.token.TokenProvider;
-import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.RefreshToken;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.dto.user.OAuth2SignUpRequest;
 import me.parkdaiho.project.dto.user.SignUpRequest;
 import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.dto.user.UserInfoResponse;
 import me.parkdaiho.project.repository.user.RefreshTokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
-import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -41,15 +31,6 @@ public class UserService {
         refreshTokenRepository.save(new RefreshToken(dto.toEntity()));
 
         return new SignUpResponse(dto.getUsername(), dto.getPassword());
-    }
-
-    public SignUpResponse signUp(OAuth2SignUpRequest dto) {
-        String username = UUID.randomUUID().toString();
-        String password = UUID.randomUUID().toString();
-
-        refreshTokenRepository.save(new RefreshToken(dto.toEntity(username, password)));
-
-        return new SignUpResponse(username, password);
     }
 
     public User findById(Long id) {
@@ -90,7 +71,7 @@ public class UserService {
                     .map(entity -> new UserInfoResponse(entity));
         }
 
-        return userRepository.findByNicknameOrUsernameContaining(query, pageable)
+        return userRepository.findByNicknameContaining(query, pageable)
                 .map(entity -> new UserInfoResponse(entity));
     }
 

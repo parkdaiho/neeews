@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html lang="ko">
 <head>
 	<meta charset="UTF-8">
@@ -17,16 +18,28 @@
 	<section class="sign-up-area">
 		<form action="/sign-up" method="post">
 			<div class="sign-up-username">
-				<input type="text" name="username">
+				USERNAME : <input type="text" name="username">
+				<button>CHECK</button>
 			</div>
 			<div class="sign-up-password">
-				<input type="password" name="password">
+				PASSWORD : <input type="password" name="password">
+				CONFIRM-PASSWORD : <input type="password" name="password" onchange="">
 			</div>
 			<div class="sign-up-nickname">
-				<input type="text" name="nickname">
+				NICKNAME : <input type="text" name="nickname">
+				<button>CHECK</button>
 			</div>
 			<div class="sign-up-email">
-				<input type="email" name="email">
+				<c:choose>
+					<c:when test="${email != null}">
+						EMAIL : <input type="email" name="email" value="${email}" readonly>
+						<input type="hidden" name="provider" value="${provider}">
+					</c:when>
+					<c:otherwise>
+						EMAIL : <input type="email" name="email">
+						<button>CHECK</button>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="sign-up-btn">
 				<button type="submit">SIGN-UP</button>

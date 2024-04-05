@@ -17,10 +17,10 @@
 	<section class="login-area">
 		<form action="/login" method="post">
 			<div class="login-username">
-				<input type="text" name="username">
+				USERNAME : <input type="text" name="username">
 			</div>
 			<div class="login-password">
-				<input type="password" name="password">
+				PASSWORD : <input type="password" name="password">
 			</div>
 			<div class="login-btn">
 				<button type="submit">LOGIN</button>
@@ -28,7 +28,10 @@
 			</div>
 		</form>
 		<div class="login-oauth2">
-			<a href=""><img src="#"></a>
+			<a href="/oauth2/authorization/google"><img src="/img/oauth2-google.png"></a>
+		</div>
+		<div class="login-sign-up">
+			<a href="/sign-up">If you're not a member yet, please sign up!</a>
 		</div>
 	</section>
 </main>

@@ -1,9 +1,12 @@
 package me.parkdaiho.project.config;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
+import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.service.user.UserService;
@@ -24,16 +27,31 @@ public class AuthenticationCustomFailureHandler extends SimpleUrlAuthenticationF
         String redirectUrl = null;
 
         if(username == null) {
-            redirectUrl = "/login?error=oauth2-authorization-fail";
+            redirectUrl = getOAuth2SignUpRedirectUrl(request, (OAuth2AuthenticationCustomException) exception);
         } else {
             User user = userService.findByUsername(username);
-            if(user.getRole().equals(Role.ADMIN)) {
-                redirectUrl = authenticationCustomSuccessHandler.getLoginSuccessUrl(request, response, user);
-            } else {
-                redirectUrl = "/login?error=unexpected-user";
-            }
+            redirectUrl = getRedirectUrl(request, response, user);
         }
 
-        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(redirectUrl);
+        dispatcher.forward(request, response);
+    }
+
+    private String getRedirectUrl(HttpServletRequest request, HttpServletResponse response,
+                                  User user) throws IOException {
+        if(user.getRole().equals(Role.ADMIN)) {
+            return authenticationCustomSuccessHandler.getLoginSuccessUrl(request, response, user);
+        } else {
+            return "/login?error=unexpected-user";
+        }
+    }
+
+    private String getOAuth2SignUpRedirectUrl(HttpServletRequest request, OAuth2AuthenticationCustomException exception) {
+        OAuth2UserInfo oAuth2UserInfo = exception.getoAuth2UserInfo();
+
+        request.setAttribute("email", oAuth2UserInfo.getEmail());
+        request.setAttribute("provider", oAuth2UserInfo.getProvider());
+
+        return "/sign-up";
     }
 }

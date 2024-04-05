@@ -21,10 +21,13 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private final JwtProperties jwtProperties;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain)
             throws ServletException, IOException {
         String authorization = request.getHeader(jwtProperties.getAuthorizationHeaderName());
         String accessToken = getAccessToken(authorization);
+
+        System.out.println(accessToken);
 
         if(tokenProvider.validToken(accessToken)) {
             Authentication authentication = tokenProvider.getAuthentication(accessToken);
