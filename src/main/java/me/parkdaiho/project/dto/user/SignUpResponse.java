@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class SavedUser {
+public class SignUpResponse {
 
     private String username;
     private String password;
