@@ -5,12 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
-import me.parkdaiho.project.config.properties.JwtProperties;
-import me.parkdaiho.project.domain.user.RefreshToken;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.repository.user.RefreshTokenRepository;
-import me.parkdaiho.project.config.token.TokenProvider;
-import me.parkdaiho.project.util.CookieUtils;
+import me.parkdaiho.project.service.user.TokenService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -20,11 +16,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private final TokenProvider tokenProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final OAuth2AuthorizationRequestRepositoryBasedOnCookie oAuth2AuthorizationRequestRepositoryBasedOnCookie;
+    private final TokenService tokenService;
 
-    private final JwtProperties jwtProperties;
     private final static String REDIRECT_PATH = "/";
 
     @Override
@@ -41,12 +35,11 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     }
 
     public String getLoginSuccessUrl(HttpServletRequest request, HttpServletResponse response,
-                                  User user) throws IOException {
-        String refreshToken = tokenProvider.generateToken(user, jwtProperties.getRefreshTokenDuration());
-        saveRefreshToken(user, refreshToken);
-        addRefreshToken(request, response, refreshToken);
+                                  User user) {
+        String savedRefreshToken = tokenService.saveRefreshToken(user);
+        tokenService.addRefreshTokenToCookie(request, response, savedRefreshToken);
 
-        String accessToken = tokenProvider.generateToken(user, jwtProperties.getAccessTokenDuration());
+        String accessToken = tokenService.getAccessToken(user);
 
         return loginSuccessUrl(accessToken);
     }
@@ -61,22 +54,5 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
                 .queryParam("token", accessToken)
                 .build()
                 .toUriString();
-    }
-
-    private void addRefreshToken(HttpServletRequest request, HttpServletResponse response, String refreshToken) {
-        CookieUtils.deleteCookie(request, response, jwtProperties.getRefreshTokenCookieName());
-        CookieUtils.addCookie(response, jwtProperties.getRefreshTokenCookieName(),
-                refreshToken, (int) jwtProperties.getRefreshTokenDuration().toSeconds());
-    }
-
-    private void saveRefreshToken(User user, String newRefreshToken) {
-        RefreshToken refreshToken = refreshTokenRepository.findById(user.getId())
-                .map(entity -> entity.update(newRefreshToken))
-                .orElseGet(() -> RefreshToken.builder()
-                        .user(user)
-                        .refreshToken(newRefreshToken)
-                        .build());
-
-        refreshTokenRepository.save(refreshToken);
     }
 }

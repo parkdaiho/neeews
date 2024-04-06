@@ -20,7 +20,6 @@ import java.util.Date;
 @Service
 public class TokenProvider {
 
-    private final UserRepository userRepository;
     private final JwtProperties jwtProperties;
 
     public String generateToken(User user, Duration duration) {
@@ -35,42 +34,5 @@ public class TokenProvider {
                 .claim("id", user.getId())
                 .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecretKey())
                 .compact();
-    }
-
-    public boolean validToken(String token) {
-        try {
-            Jwts.parser()
-                    .setSigningKey(jwtProperties.getSecretKey())
-                    .parseClaimsJws(token);
-
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public Authentication getAuthentication(String token) {
-        User user = userRepository.findById(getUserId(token))
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
-
-        Collection<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole().getAuthority()));
-
-        return new UsernamePasswordAuthenticationToken(new PrincipalDetails(user), token, authorities);
-    }
-
-    public Long getUserId(String token) {
-        return Jwts.parser()
-                .setSigningKey(jwtProperties.getSecretKey())
-                .parseClaimsJws(token)
-                .getBody()
-                .get("id", Long.class);
-    }
-
-    public String getUserNickname(String token) {
-        return Jwts.parser()
-                .setSigningKey(jwtProperties.getSecretKey())
-                .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
     }
 }

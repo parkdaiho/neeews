@@ -7,6 +7,7 @@ import me.parkdaiho.project.repository.user.RefreshTokenRepository;
 import me.parkdaiho.project.config.token.TokenProvider;
 import me.parkdaiho.project.repository.user.UserRepository;
 import me.parkdaiho.project.service.user.OAuth2UserCustomService;
+import me.parkdaiho.project.service.user.TokenService;
 import me.parkdaiho.project.service.user.UserDetailCustomService;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,7 @@ public class WebConfiguration {
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
     private final UserService userService;
+    private final TokenService tokenService;
 
     private final JwtProperties jwtProperties;
 
@@ -89,7 +91,7 @@ public class WebConfiguration {
 
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
-        return new TokenAuthenticationFilter(tokenProvider, jwtProperties);
+        return new TokenAuthenticationFilter(tokenService);
     }
 
     @Bean
@@ -99,7 +101,7 @@ public class WebConfiguration {
 
     @Bean
     public AuthenticationCustomSuccessHandler authenticationCustomSuccessHandler() {
-        return new AuthenticationCustomSuccessHandler(tokenProvider, refreshTokenRepository, oAuth2AuthorizationRequestRepositoryBasedOnCookie(), jwtProperties);
+        return new AuthenticationCustomSuccessHandler(oAuth2AuthorizationRequestRepositoryBasedOnCookie(), tokenService);
     }
 
     @Bean
