@@ -12,33 +12,33 @@ function apiRequest(url, method, headers, body, success, fail) {
         body: body,
     })
         .then(response => {
-            if(response.ok) {
+            if (response.ok) {
                 success();
-            }
-
-            const refreshToken = getCookie("refresh_token");
-            if(response.status === 401 && refreshToken) {
-                fetch("/api/token", {
-                    method: Method.POST,
-                    headers: {
-                        "Authorization": "Bearer " + localStorage.getItem("access_token"),
-                        "Content-type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        "refreshToken": refreshToken,
-                    }),
-                })
-                    .then(response => {
-                        if(response.ok) {
-                            return response.json();
-                        }
-                    })
-                    .then(result => {
-                        localStorage.setItem("access_token", result.accessToken);
-                        apiRequest(url, method, headers, body, success, fail);
-                    })
             } else {
-                return fail();
+                const refreshToken = getCookie("refresh_token");
+                if (response.status === 401 && refreshToken) {
+                    fetch("/api/token", {
+                        method: Method.POST,
+                        headers: {
+                            "Authorization": "Bearer " + localStorage.getItem("access_token"),
+                            "Content-type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            "refreshToken": refreshToken,
+                        }),
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                        })
+                        .then(result => {
+                            localStorage.setItem("access_token", result.accessToken);
+                            apiRequest(url, method, headers, body, success, fail);
+                        })
+                } else {
+                    return fail();
+                }
             }
         });
 }
