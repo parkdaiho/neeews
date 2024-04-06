@@ -22,16 +22,31 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
         String accessToken = tokenService.getAccessTokenByRequest(request);
-
-        if(accessToken != null) {
-            Authentication authentication = tokenService.getAuthenticationByAccessToken(accessToken);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            String nickname = tokenService.getNicknameByAccessToken(accessToken);
-            request.setAttribute("nickname", nickname);
+        if (accessToken != null) {
+            setAuthentication(request, accessToken);
         }
+
+        String refreshToken = tokenService.getRefreshTokenByRequest(request);
+        if (accessToken == null && refreshToken != null) {
+            doFilterInternal(request, response, filterChain, refreshToken);
+        } else {
+            filterChain.doFilter(request, response);
+        }
+    }
+
+    private void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain,
+                                  String refreshToken) throws ServletException, IOException {
+        String accessToken = tokenService.getAccessTokenByRefreshToken(refreshToken);
+        setAuthentication(request, accessToken);
 
         filterChain.doFilter(request, response);
     }
 
+    private void setAuthentication(HttpServletRequest request, String accessToken) {
+        Authentication authentication = tokenService.getAuthenticationByAccessToken(accessToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String nickname = tokenService.getNicknameByAccessToken(accessToken);
+        request.setAttribute("nickname", nickname);
+    }
 }

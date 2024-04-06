@@ -1,6 +1,7 @@
 package me.parkdaiho.project.service.user;
 
 import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -117,5 +118,12 @@ public class TokenService {
                 .parseClaimsJws(token)
                 .getBody()
                 .get("id", Long.class);
+    }
+
+    public String getRefreshTokenByRequest(HttpServletRequest request) {
+        Cookie refreshTokenCookie = CookieUtils.getCookieByName(request, jwtProperties.getRefreshTokenCookieName());
+        if(refreshTokenCookie == null) return null;
+
+        return refreshTokenCookie.getValue();
     }
 }

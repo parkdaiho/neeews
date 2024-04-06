@@ -55,33 +55,9 @@ function apiRequest(url, method, body, headers, success, fail) {
     })
         .then(response => {
             if (response.ok) {
-                success();
-            } else {
-                let refreshToken = getCookie("refresh_token");
-                if (response.status === 401 && refreshToken) {
-                    getAccessTokenByRefreshToken(refreshToken);
-                    apiRequest(url, method, body, headers, success, fail);
-                }
-            }
-        });
-}
-
-function getAccessTokenByRefreshToken(refreshToken) {
-    fetch("/api/token", {
-        method: Method.POST,
-        headers: getHeaders(true),
-        body: JSON.stringify({
-            "refreshToken": refreshToken,
-        })
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
+                return success();
             } else {
                 return fail();
             }
-        })
-        .then(result => {
-            localStorage.setItem("access_token", result);
         });
 }
