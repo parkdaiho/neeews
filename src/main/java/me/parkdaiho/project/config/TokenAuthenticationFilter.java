@@ -37,6 +37,8 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     private void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain,
                                   String refreshToken) throws ServletException, IOException {
         String accessToken = tokenService.getAccessTokenByRefreshToken(refreshToken);
+        request.setAttribute("token", accessToken);
+
         setAuthentication(request, accessToken);
 
         filterChain.doFilter(request, response);

@@ -15,7 +15,7 @@
 		<p>Login and do various activities!</p>
 	</section>
 	<section class="login-area">
-		<form action="/login" method="post">
+		<form action="/login" method="POST">
 			<div class="login-username">
 				USERNAME : <input type="text" name="username">
 			</div>

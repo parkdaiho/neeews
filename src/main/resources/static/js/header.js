@@ -1,3 +1,9 @@
+function storeAccessToken(token) {
+    if(token) {
+        localStorage.setItem("access_token", token);
+    }
+}
+
 function logout() {
     localStorage.removeItem("access_token");
 

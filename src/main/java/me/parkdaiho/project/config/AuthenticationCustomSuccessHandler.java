@@ -41,18 +41,14 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
 
         String accessToken = tokenService.getAccessToken(user);
 
-        return loginSuccessUrl(accessToken);
+        return UriComponentsBuilder.fromUriString(REDIRECT_PATH)
+                .queryParam("token", accessToken)
+                .build()
+                .toUriString();
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
         oAuth2AuthorizationRequestRepositoryBasedOnCookie.removeAuthorizationRequestCookie(request, response);
-    }
-
-    private String loginSuccessUrl(String accessToken) {
-        return UriComponentsBuilder.fromUriString(REDIRECT_PATH)
-                .queryParam("token", accessToken)
-                .build()
-                .toUriString();
     }
 }

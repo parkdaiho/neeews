@@ -6,7 +6,7 @@
 	<title>Index</title>
 	<link rel="stylesheet" href="/css/css.css">
 </head>
-<body>
+<body onload="storeAccessToken('${token}');">
 	<div class="logo">
 		<a href="/">LOGO</a>
 	</div>

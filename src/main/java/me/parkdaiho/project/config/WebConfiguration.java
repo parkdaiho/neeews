@@ -27,9 +27,6 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @Configuration
 public class WebConfiguration {
 
-    private final TokenProvider tokenProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
-    private final UserRepository userRepository;
     private final UserService userService;
     private final TokenService tokenService;
 
@@ -86,7 +83,7 @@ public class WebConfiguration {
 
     @Bean
     public OAuth2UserCustomService oAuth2UserCustomService() {
-        return new OAuth2UserCustomService(userRepository);
+        return new OAuth2UserCustomService(userService);
     }
 
     @Bean

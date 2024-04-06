@@ -2,6 +2,8 @@ package me.parkdaiho.project.service.user;
 
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
+import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.RefreshToken;
@@ -17,8 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import java.io.IOException;
 
 @RequiredArgsConstructor
 @Service
@@ -102,5 +102,10 @@ public class UserService {
         model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);
         model.addAttribute("users", users.getContent());
+    }
+
+    public User getOAuth2UserByEmail(String email, OAuth2UserInfo oAuth2UserInfo) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new OAuth2AuthenticationCustomException("error", oAuth2UserInfo));
     }
 }
