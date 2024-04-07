@@ -10,7 +10,6 @@ import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.service.user.UserService;
-import org.springframework.cglib.proxy.Dispatcher;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
@@ -26,25 +25,27 @@ public class AuthenticationCustomFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         String username = request.getParameter("username") == null ? null : request.getParameter("username");
 
-        if(username == null) {
+        if (username == null) {
             oAuth2SignUpRedirect(request, response, (OAuth2AuthenticationCustomException) exception);
         } else {
-            User user = userService.findByUsername(username);
-            formLoginRedirect(request, response, user);
+            formLoginFailRedirect(request, response, username);
         }
+
     }
 
-    private void formLoginRedirect(HttpServletRequest request, HttpServletResponse response,
-                                  User user) throws IOException {
+    private void formLoginFailRedirect(HttpServletRequest request, HttpServletResponse response,
+                                       String username) throws IOException {
         String redirectUrl = null;
-
-        if(user.getRole().equals(Role.ADMIN)) {
-            redirectUrl = authenticationCustomSuccessHandler.getLoginSuccessUrl(request, response, user);
-        } else {
+        try {
+            User user = userService.findByUsername(username);
+            if (user.getRole().equals(Role.ADMIN)) {
+                redirectUrl = authenticationCustomSuccessHandler.getLoginSuccessUrl(request, response, user);
+            }
+        } catch (Exception e) {
             redirectUrl = "/login?error=unexpected-user";
+        } finally {
+            getRedirectStrategy().sendRedirect(request, response, redirectUrl);
         }
-
-        getRedirectStrategy().sendRedirect(request, response, redirectUrl);
     }
 
     private void oAuth2SignUpRedirect(HttpServletRequest request, HttpServletResponse response,

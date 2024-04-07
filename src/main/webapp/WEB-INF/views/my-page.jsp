@@ -26,10 +26,10 @@
 		<ul>
 			<li><a href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
 			<li><a href="javascript:return false;" onclick="getWithdrawalPage();">WITHDRAWAL</a></li>
-			<li><a href="javascript:return false;" onclick="getMembershipPage();">MEMBERSHIP</a></li>
+			<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', null);">MEMBERSHIP</a></li>
 		</ul>
 	</div>
-	<section class="my-page-area">
+	<section class="my-page-area" id="my-page-area">
 		<form action="/user">
 			<input type="hidden" name="_method" value="PUT">
 			<div class="member-info-area">
@@ -60,6 +60,7 @@
 </footer>
 
 <script src="/js/my-page.js"></script>
+<script src="/js/membership.js"></script>
 
 </body>
 </html>

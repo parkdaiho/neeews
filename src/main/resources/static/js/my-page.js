@@ -12,8 +12,8 @@ function getWithdrawalPage() {
     getPageInMyPage(url, "WITHDRAWAL");
 }
 
-function getMembershipPage() {
-    let url = "/membership";
+function getMembershipPage(page, sort, query) {
+    let url = "/membership?page=" + page + "&sort=" + sort + "&query=" + query;
 
     getPageInMyPage(url, "MEMBERSHIP");
 }
@@ -22,9 +22,16 @@ function getPageInMyPage(url, pageName) {
     fetch(url)
         .then(response => {
             if(response.ok) {
-                area.innerHTML = response.text();
+                return response.text();
             } else {
                 alert("Loading " + pageName + " page failed.");
             }
-        });
+        })
+        .then(result => {
+            area.innerHTML = result;
+        })
+}
+
+function getPage(page, sort, query) {
+    getMembershipPage(page, sort, query);
 }

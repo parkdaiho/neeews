@@ -32,7 +32,6 @@ public class UserViewController {
     public String myPage(@AuthenticationPrincipal PrincipalDetails principal,
                          Model model) {
         model.addAttribute("isUser", userService.isUser(principal));
-
         userService.addAttributesForMyPage(principal, model);
 
         return "my-page";
@@ -49,7 +48,6 @@ public class UserViewController {
     @GetMapping("/withdrawal")
     public String withdrawalPage(@AuthenticationPrincipal PrincipalDetails principal,
                                  Model model) {
-        userService.addAttributesForMyPage(principal, model);
 
         return "withdrawal";
     }
@@ -61,9 +59,7 @@ public class UserViewController {
                                  Model model) {
         if(sort == null) sort = Sort.ALL.getValue();
 
-        Page<UserInfoResponse> users = userService.getUsers(page, sort, query);
-
-        userService.addAttributesForMembership(users, model);
+        userService.addAttributesForMembership(page, sort, query, model);
 
         return "membership";
     }

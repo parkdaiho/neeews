@@ -84,8 +84,10 @@ public class UserService {
                 org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, sortEnum.getProperty()));
     }
 
-    public void addAttributesForMembership(Page<UserInfoResponse> users, Model model) {
-        int page = users.getNumber() + 1;
+    public void addAttributesForMembership(int page, String sort, String query,
+                                           Model model) {
+        Page<UserInfoResponse> users = getUsers(page, sort, query);
+
         int totalPages = users.getTotalPages();
         int pageBlockNum = page / paginationProperties.getUserPagesPerBlock();
         int firstNumOfPageBlock = pageBlockNum * paginationProperties.getUserPagesPerBlock() + 1;
@@ -93,14 +95,16 @@ public class UserService {
         if(lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
         int nextPage = users.hasNext() ? page + 1 : page;
         int previousPage = users.hasPrevious() ? page - 1 : page;
+        String path = "/membership?sort=" + sort + "&query=" + query + "&page=";
 
         model.addAttribute("page", page);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements", users.getTotalElements());
         model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
         model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
-        model.addAttribute("nextPage", nextPage);
+        model.addAttribute("nextPage",  nextPage);
         model.addAttribute("previousPage", previousPage);
+        model.addAttribute("path", path);
         model.addAttribute("users", users.getContent());
     }
 
