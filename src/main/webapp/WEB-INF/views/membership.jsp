@@ -96,7 +96,7 @@
 							<select disabled>
 						</c:when>
 						<c:otherwise>
-							<select onchange="setRole(this.value)">
+							<select id="user-role-${user.id}" onchange="changeRole(${user.id}, '${user.role}', this.value);">
 						</c:otherwise>
 					</c:choose>
 						<c:choose>

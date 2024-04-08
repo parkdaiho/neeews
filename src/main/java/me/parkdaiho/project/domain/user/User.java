@@ -66,4 +66,8 @@ public class User extends BaseEntity {
         this.email = email;
         this.provider = provider;
     }
+
+    public void changeRole(String role) {
+        this.role = Role.valueOf(role.toUpperCase());
+    }
 }

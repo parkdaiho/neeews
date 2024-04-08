@@ -13,6 +13,43 @@ function setSortSelected(sort) {
     }
 }
 
+function changeRole(id, role, newRole) {
+    let message = "Are you sure change role " + role + " -> " + newRole + "?";
+    let answer = confirm(message);
+
+    let body = JSON. stringify({
+        id: id,
+        newRole: newRole,
+    });
+
+    function success() {
+        alert('success');
+    }
+
+    function fail() {
+        alert('fail');
+    }
+
+    if(answer) {
+        apiRequest('/api/membership', Method.POST, body, getHeaders(true), success, fail);
+    } else {
+       setRole(id, role);
+    }
+}
+
+function setRole(id, role) {
+    let selectEl = document.getElementById("user-role-" + id);
+    let options = selectEl.children;
+
+    if(role === 'admin') {
+        options[0].selected = true;
+    } else if(role === 'manager') {
+        options[1].selected = true;
+    } else {
+        options[2].selected = true;
+    }
+}
+
 function getUsersBySort(sort) {
     let area = document.getElementById("my-page-area");
 

@@ -1,6 +1,7 @@
 package me.parkdaiho.project.service.user;
 
 import com.nimbusds.openid.connect.sdk.claims.UserInfo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
@@ -10,6 +11,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.RefreshToken;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.dto.ChangeRoleRequest;
 import me.parkdaiho.project.dto.user.SignUpRequest;
 import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.dto.user.UserInfoResponse;
@@ -152,5 +154,22 @@ public class UserService {
     public User getOAuth2UserByEmail(String email, OAuth2UserInfo oAuth2UserInfo) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new OAuth2AuthenticationCustomException("error", oAuth2UserInfo));
+    }
+
+    @Transactional
+    public void changeRole(ChangeRoleRequest request, PrincipalDetails principal) {
+        checkAdmin(principal);
+
+        User user = findById(request.getId());
+        user.changeRole(request.getNewRole());
+    }
+
+    private void checkAdmin(PrincipalDetails principal) {
+        User user = principal.getUser();
+        Role role = user.getRole();
+
+        if(!role.equals(Role.ADMIN)) {
+            throw new IllegalArgumentException("No Authority");
+        }
     }
 }
