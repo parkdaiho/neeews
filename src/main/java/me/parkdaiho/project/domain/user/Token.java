@@ -6,10 +6,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.sql.ConnectionBuilder;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class RefreshToken {
+public class Token {
 
     @Id
     @Column(name = "user_id", nullable = false)
@@ -17,23 +19,32 @@ public class RefreshToken {
 
     private String refreshToken;
 
+    private String accessToken;
+
     @MapsId
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public RefreshToken(User user) {
+    public Token(User user) {
         this.user = user;
     }
 
     @Builder
-    public RefreshToken(User user, String refreshToken) {
+    public Token(User user, String refreshToken, String accessToken) {
         this.user = user;
         this.refreshToken = refreshToken;
+        this.accessToken = accessToken;
     }
 
-    public RefreshToken update(String refreshToken) {
+    public Token updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+
+        return this;
+    }
+
+    public Token updateAccessToken(String accessToken) {
+        this.accessToken = accessToken;
 
         return this;
     }

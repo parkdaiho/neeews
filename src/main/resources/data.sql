@@ -8,7 +8,7 @@ VALUES
 
 INSERT
 INTO
-    REFRESH_TOKEN
+    TOKEN
 (user_id)
 VALUES
     (1);
@@ -23,7 +23,7 @@ VALUES
 
 INSERT
 INTO
-    REFRESH_TOKEN
+    TOKEN
 (user_id)
 VALUES
     (2);
@@ -38,7 +38,7 @@ VALUES
 
 INSERT
 INTO
-    REFRESH_TOKEN
+    TOKEN
 (user_id)
 VALUES
     (3);
@@ -52,7 +52,7 @@ VALUES
 
 INSERT
 INTO
-    REFRESH_TOKEN
+    TOKEN
 (user_id)
 VALUES
     (4);
@@ -66,7 +66,7 @@ VALUES
 
 INSERT
 INTO
-    REFRESH_TOKEN
+    TOKEN
 (user_id)
 VALUES
     (5);

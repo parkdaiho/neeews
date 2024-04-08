@@ -1,6 +1,5 @@
 package me.parkdaiho.project.service.user;
 
-import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
@@ -8,14 +7,14 @@ import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Sort;
-import me.parkdaiho.project.domain.user.RefreshToken;
+import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.ChangeRoleRequest;
 import me.parkdaiho.project.dto.user.SignUpRequest;
 import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.dto.user.UserInfoResponse;
-import me.parkdaiho.project.repository.user.RefreshTokenRepository;
+import me.parkdaiho.project.repository.user.TokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,12 +27,12 @@ import org.springframework.ui.Model;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final RefreshTokenRepository refreshTokenRepository;
+    private final TokenRepository tokenRepository;
 
     private final PaginationProperties paginationProperties;
 
     public SignUpResponse signUp(SignUpRequest dto) {
-        refreshTokenRepository.save(new RefreshToken(dto.toEntity()));
+        tokenRepository.save(new Token(dto.toEntity()));
 
         return new SignUpResponse(dto.getUsername(), dto.getPassword());
     }

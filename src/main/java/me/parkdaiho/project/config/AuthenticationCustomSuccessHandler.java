@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
+import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.service.user.TokenService;
 import org.springframework.security.core.Authentication;
@@ -29,23 +30,28 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
         User user = principal.getUser();
 
-        String loginSuccessUrl = getLoginSuccessUrl(request, response, user);
+        Token token = issueToken(request, response, user);
+
+        String loginSuccessUrl = getLoginSuccessUrl(token.getAccessToken());
 
         getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
     }
 
-    public String getLoginSuccessUrl(HttpServletRequest request, HttpServletResponse response,
-                                  User user) {
-        String savedRefreshToken = tokenService.saveRefreshToken(user);
-        tokenService.addRefreshTokenToCookie(request, response, savedRefreshToken);
+    public Token issueToken(HttpServletRequest request, HttpServletResponse response,
+                              User user) {
+        Token issuedToken = tokenService.saveToken(user);
+        tokenService.addRefreshTokenToCookie(request, response, issuedToken.getRefreshToken());
 
-        String accessToken = tokenService.getAccessToken(user);
+        return issuedToken;
+    }
 
+    public String getLoginSuccessUrl(String accessToken) {
         return UriComponentsBuilder.fromUriString(REDIRECT_PATH)
                 .queryParam("token", accessToken)
                 .build()
                 .toUriString();
     }
+
 
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);

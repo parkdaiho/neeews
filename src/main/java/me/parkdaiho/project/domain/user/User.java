@@ -37,7 +37,7 @@ public class User extends BaseEntity {
     private Provider provider;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private RefreshToken refreshToken;
+    private Token token;
 
     @OneToMany(mappedBy = "writer")
     private List<Comment> comments;
