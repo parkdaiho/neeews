@@ -1,7 +1,7 @@
 const area = document.getElementById("my-page-area");
 
 function getMemberInfoPage() {
-    let url = "/information";
+    let url = "/user-information";
 
     getPageInMyPage(url, "MEMBER-INFO");
 }

@@ -124,6 +124,8 @@ public class UserService {
     public void addAttributesForMembership(int page, String sort, String searchSort, String query,
                                            PrincipalDetails principal,
                                            Model model) {
+        if(principal.getRole().getIsUser()) throw new IllegalArgumentException("No Authority");
+
         Page<UserInfoResponse> users = getUsers(page, sort, searchSort, query);
 
         int totalPages = users.getTotalPages();
@@ -138,6 +140,7 @@ public class UserService {
 
         model.addAttribute("page", page);
         model.addAttribute("sort", sort);
+        model.addAttribute("query", query);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements", users.getTotalElements());
         model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
@@ -146,9 +149,7 @@ public class UserService {
         model.addAttribute("previousPage", previousPage);
         model.addAttribute("path", path);
         model.addAttribute("users", users.getContent());
-
-        User user = principal.getUser();
-        model.addAttribute("isAdmin", user.getRole() == Role.ADMIN ? true : false);
+        model.addAttribute("isAdmin", principal.getRole() == Role.ADMIN);
     }
 
     public User getOAuth2UserByEmail(String email, OAuth2UserInfo oAuth2UserInfo) {

@@ -14,13 +14,14 @@
 		</div>
 	</div>
 	<div class="user-search-area">
-		<form action="/users" method="post">
-			<div class="user-search-box">
-				<input type="text" placeholder="Search username">
-			</div>
-			<button type="submit">SEARCH</button>
-			<button type="reset">RESET</button>
-		</form>
+		<div class="user-search-box">
+			<select id="search-sort">
+				<option value="username">USERNAME</option>
+				<option value="nickname">NICKNAME</option>
+			</select>
+			<input type="text" id="query" placeholder="Search user" value="${query}">
+		</div>
+		<button onclick="searchUser();">SEARCH</button>
 	</div>
 	<div class="membership-users-sort">
 		<select id="membership-users-sort-select" onchange="getUsersBySort(this.value);">

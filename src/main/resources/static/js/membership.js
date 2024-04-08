@@ -41,9 +41,9 @@ function setRole(id, role) {
     let selectEl = document.getElementById("user-role-" + id);
     let options = selectEl.children;
 
-    if(role === 'admin') {
+    if(role === Role.ADMIN) {
         options[0].selected = true;
-    } else if(role === 'manager') {
+    } else if(role === Role.MANAGER) {
         options[1].selected = true;
     } else {
         options[2].selected = true;
@@ -68,4 +68,30 @@ function getUsersBySort(sort) {
         .then(result => {
             area.innerHTML = result;
         });
+}
+
+function searchUser() {
+    let sort = document.getElementById("membership-users-sort-select").value;
+    let searchSort = document.getElementById("search-sort").value;
+    let query = document.getElementById("query").value;
+    let params = new URLSearchParams({
+        "sort": sort,
+        "searchSort": searchSort,
+        "query": query
+    });
+
+    let url = "/membership?" + new URLSearchParams(params);
+
+    fetch(url, {
+        method: Method.GET,
+        headers: getHeaders(false),
+    })
+        .then(response => {
+            if(response.ok) {
+                return response.text();
+            }
+        })
+        .then(result => {
+            area.innerHTML = result;
+        })
 }

@@ -3,6 +3,7 @@ package me.parkdaiho.project.controller;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Sort;
+import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.dto.user.UserInfoResponse;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.data.domain.Page;
@@ -37,7 +38,7 @@ public class UserViewController {
         return "my-page";
     }
 
-    @GetMapping("/information")
+    @GetMapping("/user-information")
     public String informationPage(@AuthenticationPrincipal PrincipalDetails principal,
                                   Model model) {
         userService.addAttributesForMyPage(principal, model);

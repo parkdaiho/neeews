@@ -2,6 +2,7 @@ package me.parkdaiho.project.config;
 
 import lombok.Getter;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
+import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -76,5 +77,8 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     public Long getUserId() {
         return this.user.getId();
+    }
+    public Role getRole() {
+        return this.user.getRole();
     }
 }

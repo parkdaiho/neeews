@@ -30,7 +30,7 @@
 		</ul>
 	</div>
 	<section class="my-page-area" id="my-page-area">
-		<jsp:include page="/membership"></jsp:include>
+		<jsp:include page="/user-information"></jsp:include>
 	</section>
 </main>
 <footer>
