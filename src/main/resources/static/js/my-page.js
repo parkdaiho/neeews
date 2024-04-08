@@ -12,14 +12,17 @@ function getWithdrawalPage() {
     getPageInMyPage(url, "WITHDRAWAL");
 }
 
-function getMembershipPage(page, sort, query) {
-    let url = "/membership?page=" + page + "&sort=" + sort + "&query=" + query;
+function getMembershipPage() {
+    let url = "/membership"
 
     getPageInMyPage(url, "MEMBERSHIP");
 }
 
 function getPageInMyPage(url, pageName) {
-    fetch(url)
+    fetch(url, {
+        method: Method.GET,
+        headers: getHeaders(false),
+    })
         .then(response => {
             if(response.ok) {
                 return response.text();
@@ -33,5 +36,4 @@ function getPageInMyPage(url, pageName) {
 }
 
 function getPage(page, sort, query) {
-    getMembershipPage(page, sort, query);
 }

@@ -46,20 +46,20 @@ public class UserViewController {
     }
 
     @GetMapping("/withdrawal")
-    public String withdrawalPage(@AuthenticationPrincipal PrincipalDetails principal,
-                                 Model model) {
-
+    public String withdrawalPage() {
         return "withdrawal";
     }
 
     @GetMapping("/membership")
     public String memberShipPage(@RequestParam(required = false, defaultValue = "1") int page,
                                  @RequestParam(required = false) String sort,
+                                 @RequestParam(required = false) String searchSort,
                                  @RequestParam(required = false) String query,
+                                 @AuthenticationPrincipal PrincipalDetails principal,
                                  Model model) {
         if(sort == null) sort = Sort.ALL.getValue();
 
-        userService.addAttributesForMembership(page, sort, query, model);
+        userService.addAttributesForMembership(page, sort, searchSort, query, principal, model);
 
         return "membership";
     }

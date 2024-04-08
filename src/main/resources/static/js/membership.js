@@ -13,13 +13,22 @@ function setSortSelected(sort) {
     }
 }
 
-function setSelected(role) {
-    let options = this.childNodes;
-    if (role === Role.ADMIN) {
-        this.selected(options[0]);
-    } else if (role === Role.MANAGER) {
-        this.selected(options[1]);
-    } else {
-        this.selected(options[2]);
-    }
+function getUsersBySort(sort) {
+    let area = document.getElementById("my-page-area");
+
+    let url = "/membership&sort=" + sort;
+    fetch(url, {
+        method: Method.GET,
+        headers: getHeaders(false),
+    })
+        .then(response => {
+            if(response.ok) {
+                return response.text();
+            } else {
+                alert("Load pages fail.");
+            }
+        })
+        .then(result => {
+            area.innerHTML = result;
+        });
 }

@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="/css/css.css">
 	<title>MEMBERSHIP</title>
 </head>
-<body onload="setSortSelected(Role.ADMIN)">
+<body>
 <div class="membership-area">
 	<div class="membership-info">
 		<div class="membership-total-users">
@@ -22,15 +22,37 @@
 			<button type="reset">RESET</button>
 		</form>
 	</div>
+	<div class="membership-users-sort">
+		<select id="membership-users-sort-select" onchange="getUsersBySort(this.value);">
+			<c:choose>
+				<c:when test="${sort == 'admin'}">
+					<option value="ALL">ALL</option>
+					<option value="ADMIN" selected>ADMINISTRATOR</option>
+					<option value="MANAGER">MANAGER</option>
+					<option value="USER">USER</option>
+				</c:when>
+				<c:when test="${sort == 'manager'}">
+					<option value="ALL">ALL</option>
+					<option value="ADMIN">ADMINISTRATOR</option>
+					<option value="MANAGER" selected>MANAGER</option>
+					<option value="USER">USER</option>
+				</c:when>
+				<c:when test="${sort == 'user'}">
+					<option value="ALL">ALL</option>
+					<option value="ADMIN">ADMINISTRATOR</option>
+					<option value="MANAGER">MANAGER</option>
+					<option value="USER" selected>USER</option>
+				</c:when>
+				<c:otherwise>
+					<option value="ALL" selected>ALL</option>
+					<option value="ADMIN">ADMINISTRATOR</option>
+					<option value="MANAGER">MANAGER</option>
+					<option value="USER">USER</option>
+				</c:otherwise>
+			</c:choose>
+		</select>
+	</div>
 	<div class="membership-users-area">
-		<div class="membership-users-sort">
-			<select id="membership-users-sort-select"  onchange="getUsersBySort(this.value);">
-				<option value="ALL">ALL</option>
-				<option value="ADMIN">ADMINISTRATOR</option>
-				<option value="MANAGER">MANAGER</option>
-				<option value="USER">USER</option>
-			</select>
-		</div>
 		<div class="users-top">
 			<div class="user-id">
 				NUM
@@ -51,8 +73,8 @@
 				ROLE
 			</div>
 		</div>
+		<c:forEach var="user" items="${users}">
 		<div class="user-in-users">
-			<c:forEach var="user" items="${users}">
 				<div class="user-id">
 						${user.id}
 				</div>
@@ -69,18 +91,38 @@
 						${user.modifiedAt}
 				</div>
 				<div class="user-role">
-					<select onload="setSelected('${user.role}')">
-						<option value="ADMIN">ADMIN</option>
-						<option value="MANAGER">MANAGER</option>
-						<option value="USER">USER</option>
+					<c:choose>
+						<c:when test="${!isAdmin}">
+							<select disabled>
+						</c:when>
+						<c:otherwise>
+							<select onchange="setRole(this.value)">
+						</c:otherwise>
+					</c:choose>
+						<c:choose>
+							<c:when test="${user.role == 'ADMIN'}">
+								<option value="ADMIN" selected>ADMIN</option>
+								<option value="MANAGER">MANAGER</option>
+								<option value="USER">USER</option>
+							</c:when>
+							<c:when test="${user.role == 'MANAGER'}">
+								<option value="ADMIN">ADMIN</option>
+								<option value="MANAGER" selected>MANAGER</option>
+								<option value="USER">USER</option>
+							</c:when>
+							<c:otherwise>
+								<option value="ADMIN">ADMIN</option>
+								<option value="MANAGER">MANAGER</option>
+								<option value="USER" selected>USER</option>
+							</c:otherwise>
+						</c:choose>
 					</select>
 				</div>
 				<div class="user-btn">
-					<button>MODIFY</button>
 					<button>WITHDRAW</button>
 				</div>
-			</c:forEach>
 		</div>
+		</c:forEach>
 	</div>
 	<c:if test="${totalElements != 0}">
 		<%@ include file="board-pagination.jsp" %>

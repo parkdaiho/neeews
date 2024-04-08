@@ -1,5 +1,6 @@
 package me.parkdaiho.project.service.user;
 
+import com.nimbusds.openid.connect.sdk.claims.UserInfo;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
@@ -65,39 +66,76 @@ public class UserService {
         model.addAttribute("email", user.getEmail());
     }
 
-    public Page<UserInfoResponse> getUsers(int page, String sort, String query) {
-        Pageable pageable = getPageable(page, sort);
+    public Page<UserInfoResponse> getUsers(int page, String sort, String searchSort, String query) {
+        Pageable pageable = PageRequest.of(page - 1, paginationProperties.getUsersPerPage());
 
-        if (query == null) {
+        Sort sortEnum = Sort.valueOf(sort.toUpperCase());
+        switch (sortEnum) {
+            case ALL -> {
+                return getAllUsers(query, searchSort, pageable);
+            }
+            case ADMIN -> {
+                return getUsersByRoleAndQuery(Role.ADMIN, query, searchSort, pageable);
+            }
+            case MANAGER -> {
+                return getUsersByRoleAndQuery(Role.MANAGER, query, searchSort, pageable);
+            }
+            case User -> {
+                return getUsersByRoleAndQuery(Role.USER, query, searchSort, pageable);
+            }
+
+            default -> throw new IllegalArgumentException("Unexected sort : " + sort);
+        }
+    }
+
+    private Page<UserInfoResponse> getUsersByRoleAndQuery(Role role, String query, String searchSort, Pageable pageable) {
+        Sort searchSortEnum = Sort.valueOf(searchSort.toUpperCase());
+        Page<User> users;
+        switch (searchSortEnum) {
+            case USERNAME -> users = userRepository.findByRoleAndUsernameContaining(role, query, pageable);
+            case NICKNAME -> users = userRepository.findByRoleAndNicknameContaining(role, query, pageable);
+
+            default -> throw new IllegalArgumentException("Unexpected search-sort: " + searchSort);
+        }
+
+        return users.map(entity -> new UserInfoResponse(entity));
+    }
+
+    private Page<UserInfoResponse> getAllUsers(String query, String searchSort, Pageable pageable) {
+        if(query == null) {
             return userRepository.findAll(pageable)
                     .map(entity -> new UserInfoResponse(entity));
         }
 
-        return userRepository.findByNicknameContaining(query, pageable)
-                .map(entity -> new UserInfoResponse(entity));
+        Sort searchSortEnum = Sort.valueOf(searchSort.toUpperCase());
+        Page<User> users;
+        switch (searchSortEnum) {
+            case USERNAME -> users = userRepository.findByUsernameContaining(query, pageable);
+            case NICKNAME -> users = userRepository.findByNicknameContaining(query, pageable);
+
+            default -> throw new IllegalArgumentException("Unexpected search-sort: " + searchSort);
+        }
+
+        return users.map(entity -> new UserInfoResponse(entity));
     }
 
-    private Pageable getPageable(int page, String sort) {
-        Sort sortEnum = Sort.valueOf(sort.toUpperCase());
-
-        return PageRequest.of(page, paginationProperties.getUsersPerPage(),
-                org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, sortEnum.getProperty()));
-    }
-
-    public void addAttributesForMembership(int page, String sort, String query,
+    public void addAttributesForMembership(int page, String sort, String searchSort, String query,
+                                           PrincipalDetails principal,
                                            Model model) {
-        Page<UserInfoResponse> users = getUsers(page, sort, query);
+        Page<UserInfoResponse> users = getUsers(page, sort, searchSort, query);
 
         int totalPages = users.getTotalPages();
         int pageBlockNum = page / paginationProperties.getUserPagesPerBlock();
         int firstNumOfPageBlock = pageBlockNum * paginationProperties.getUserPagesPerBlock() + 1;
         int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getUserPagesPerBlock() - 1;
         if(lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
+
         int nextPage = users.hasNext() ? page + 1 : page;
         int previousPage = users.hasPrevious() ? page - 1 : page;
         String path = "/membership?sort=" + sort + "&query=" + query + "&page=";
 
         model.addAttribute("page", page);
+        model.addAttribute("sort", sort);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements", users.getTotalElements());
         model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
@@ -106,6 +144,9 @@ public class UserService {
         model.addAttribute("previousPage", previousPage);
         model.addAttribute("path", path);
         model.addAttribute("users", users.getContent());
+
+        User user = principal.getUser();
+        model.addAttribute("isAdmin", user.getRole() == Role.ADMIN ? true : false);
     }
 
     public User getOAuth2UserByEmail(String email, OAuth2UserInfo oAuth2UserInfo) {
