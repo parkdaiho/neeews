@@ -95,3 +95,9 @@ function searchUser() {
             area.innerHTML = result;
         })
 }
+
+function getPages(page, sort, query) {
+    let searchSort = document.getElementById("search-sort").value
+
+    getMembershipPage(page, sort, searchSort, query);
+}

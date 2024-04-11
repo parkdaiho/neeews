@@ -12,8 +12,9 @@ function getWithdrawalPage() {
     getPageInMyPage(url, "WITHDRAWAL");
 }
 
-function getMembershipPage() {
-    let url = "/membership"
+function getMembershipPage(page, sort, searchSort, query) {
+    if(query == null) query = "";
+    let url = "/membership?page=" + page + "&sort=" + sort + "&searchSort=" + searchSort + "&query=" + query;
 
     getPageInMyPage(url, "MEMBERSHIP");
 }
@@ -33,7 +34,4 @@ function getPageInMyPage(url, pageName) {
         .then(result => {
             area.innerHTML = result;
         })
-}
-
-function getPage(page, sort, query) {
 }

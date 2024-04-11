@@ -126,7 +126,7 @@
 		</c:forEach>
 	</div>
 	<c:if test="${totalElements != 0}">
-		<%@ include file="board-pagination.jsp" %>
+		<jsp:include page="board-pagination.jsp"></jsp:include>
 	</c:if>
 </div>
 </body>

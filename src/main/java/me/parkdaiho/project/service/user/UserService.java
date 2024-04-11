@@ -103,7 +103,7 @@ public class UserService {
     }
 
     private Page<UserInfoResponse> getAllUsers(String query, String searchSort, Pageable pageable) {
-        if(query == null) {
+        if(query.equals("null") || query.isEmpty()) {
             return userRepository.findAll(pageable)
                     .map(entity -> new UserInfoResponse(entity));
         }
@@ -135,7 +135,6 @@ public class UserService {
 
         int nextPage = users.hasNext() ? page + 1 : page;
         int previousPage = users.hasPrevious() ? page - 1 : page;
-        String path = "/membership?sort=" + sort + "&query=" + query + "&page=";
 
         model.addAttribute("page", page);
         model.addAttribute("sort", sort);
@@ -146,7 +145,6 @@ public class UserService {
         model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
         model.addAttribute("nextPage",  nextPage);
         model.addAttribute("previousPage", previousPage);
-        model.addAttribute("path", path);
         model.addAttribute("users", users.getContent());
         model.addAttribute("isAdmin", principal.getRole() == Role.ADMIN);
     }
