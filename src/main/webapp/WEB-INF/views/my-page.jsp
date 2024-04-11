@@ -39,6 +39,7 @@
 
 <script src="/js/my-page.js"></script>
 <script src="/js/membership.js"></script>
+<script src="/js/member-info.js"></script>
 
 </body>
 </html>

@@ -3,6 +3,8 @@ package me.parkdaiho.project.controller;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.dto.ChangeRoleRequest;
+import me.parkdaiho.project.dto.NicknameDupCheckRequest;
+import me.parkdaiho.project.dto.NicknameDupCheckResponse;
 import me.parkdaiho.project.dto.user.SignUpRequest;
 import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.service.user.UserService;
@@ -29,5 +31,11 @@ public class UserApiController {
         userService.changeRole(request, principal);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/nickname")
+    public ResponseEntity<NicknameDupCheckResponse> dupCheck(@RequestBody NicknameDupCheckRequest request,
+                                                             @AuthenticationPrincipal PrincipalDetails principal) {
+        return ResponseEntity.ok(userService.dupCheck(request, principal));
     }
 }

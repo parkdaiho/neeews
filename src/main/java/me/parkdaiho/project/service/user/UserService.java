@@ -11,6 +11,8 @@ import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.ChangeRoleRequest;
+import me.parkdaiho.project.dto.NicknameDupCheckRequest;
+import me.parkdaiho.project.dto.NicknameDupCheckResponse;
 import me.parkdaiho.project.dto.user.SignUpRequest;
 import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.dto.user.UserInfoResponse;
@@ -21,6 +23,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -168,6 +172,16 @@ public class UserService {
 
         if(!role.equals(Role.ADMIN)) {
             throw new IllegalArgumentException("No Authority");
+        }
+    }
+
+    public NicknameDupCheckResponse dupCheck(NicknameDupCheckRequest request, PrincipalDetails principal) {
+        try {
+            User user = findByNickname(request.getNickname());
+            if(user.getId().equals(principal.getUserId())) return new NicknameDupCheckResponse(false, true);
+            return new NicknameDupCheckResponse(false, false);
+        } catch (Exception e) {
+            return new NicknameDupCheckResponse(true, false);
         }
     }
 }
