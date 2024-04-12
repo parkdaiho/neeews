@@ -1,20 +1,21 @@
 const area = document.getElementById("my-page-area");
 
 function getMemberInfoPage() {
-    let url = "/user-information";
+    let url = "/my-page/information";
 
     getPageInMyPage(url, "MEMBER-INFO");
 }
 
 function getWithdrawalPage() {
-    let url = "/withdrawal";
+    let url = "/my-page/withdrawal";
 
     getPageInMyPage(url, "WITHDRAWAL");
 }
 
 function getMembershipPage(page, sort, searchSort, query) {
-    if(query == null) query = "";
-    let url = "/membership?page=" + page + "&sort=" + sort + "&searchSort=" + searchSort + "&query=" + query;
+    if (query == null) query = "";
+    let url = "/my-page/membership?page="
+        + page + "&sort=" + sort + "&searchSort=" + searchSort + "&query=" + query;
 
     getPageInMyPage(url, "MEMBERSHIP");
 }
@@ -25,7 +26,7 @@ function getPageInMyPage(url, pageName) {
         headers: getHeaders(false),
     })
         .then(response => {
-            if(response.ok) {
+            if (response.ok) {
                 return response.text();
             } else {
                 alert("Loading " + pageName + " page failed.");

@@ -11,6 +11,7 @@ import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.ChangeRoleRequest;
+import me.parkdaiho.project.dto.ModifyMemberInfoRequest;
 import me.parkdaiho.project.dto.NicknameDupCheckRequest;
 import me.parkdaiho.project.dto.NicknameDupCheckResponse;
 import me.parkdaiho.project.dto.user.SignUpRequest;
@@ -66,6 +67,7 @@ public class UserService {
     public void addAttributesForMyPage(PrincipalDetails principal, Model model) {
         User user = principal.getUser();
 
+        model.addAttribute("id", user.getId());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("nickname", user.getNickname());
         model.addAttribute("email", user.getEmail());
@@ -183,5 +185,19 @@ public class UserService {
         } catch (Exception e) {
             return new NicknameDupCheckResponse(true, false);
         }
+    }
+
+    @Transactional
+    public void modifyUser(ModifyMemberInfoRequest request, PrincipalDetails principal) {
+        User user = findById(request.getUserId());
+        checkAuthority(user, principal);
+
+        user.update(request.getPassword(), request.getNickname());
+    }
+
+    private void checkAuthority(User user, PrincipalDetails principal) {
+        if(principal.getUserId().equals(user.getId()) || principal.getRole() != Role.USER) return;
+
+        throw new IllegalArgumentException("No Authority");
     }
 }

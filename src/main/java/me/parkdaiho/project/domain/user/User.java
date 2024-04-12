@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 
@@ -69,5 +70,12 @@ public class User extends BaseEntity {
 
     public void changeRole(String role) {
         this.role = Role.valueOf(role.toUpperCase());
+    }
+
+    public void update(String password, String nickname) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        this.password = passwordEncoder.encode(password);
+        this.nickname = nickname;
     }
 }

@@ -62,5 +62,29 @@ function checkFlag() {
         alert("Please, check nickname duplication");
         return false;
     }
+
+    return true;
 }
 
+function modifyUser(userId) {
+    if(!checkFlag()) return;
+
+    let password = document.getElementById("password").value;
+    let nickname = document.getElementById("nickname").value;
+    let body = JSON.stringify({
+        "userId": userId,
+        "password": password,
+        "nickname": nickname,
+    });
+
+    function success() {
+        alert("정보를 수정했습니다.");
+        location.reload();
+    }
+
+    function fail() {
+        alert("정보 수정에 실패했습니다.");
+    }
+
+    apiRequest("/api/information", Method.PUT, body, getHeaders(true), success, fail);
+}

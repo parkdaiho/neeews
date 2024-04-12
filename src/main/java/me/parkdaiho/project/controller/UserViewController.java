@@ -39,7 +39,7 @@ public class UserViewController {
         return "my-page";
     }
 
-    @GetMapping("/user-information")
+    @GetMapping("/my-page/information")
     public String informationPage(@AuthenticationPrincipal PrincipalDetails principal,
                                   Model model) {
         userService.addAttributesForMyPage(principal, model);
@@ -47,12 +47,12 @@ public class UserViewController {
         return "member-info";
     }
 
-    @GetMapping("/withdrawal")
+    @GetMapping("/my-page/withdrawal")
     public String withdrawalPage() {
         return "withdrawal";
     }
 
-    @GetMapping("/membership")
+    @GetMapping("/my-page/membership")
     public String memberShipPage(@RequestParam(required = false, defaultValue = "1") int page,
                                  @RequestParam(required = false) String sort,
                                  @RequestParam(required = false) String searchSort,

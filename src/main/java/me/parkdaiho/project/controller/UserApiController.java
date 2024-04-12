@@ -3,6 +3,7 @@ package me.parkdaiho.project.controller;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.dto.ChangeRoleRequest;
+import me.parkdaiho.project.dto.ModifyMemberInfoRequest;
 import me.parkdaiho.project.dto.NicknameDupCheckRequest;
 import me.parkdaiho.project.dto.NicknameDupCheckResponse;
 import me.parkdaiho.project.dto.user.SignUpRequest;
@@ -11,6 +12,7 @@ import me.parkdaiho.project.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +39,12 @@ public class UserApiController {
     public ResponseEntity<NicknameDupCheckResponse> dupCheck(@RequestBody NicknameDupCheckRequest request,
                                                              @AuthenticationPrincipal PrincipalDetails principal) {
         return ResponseEntity.ok(userService.dupCheck(request, principal));
+    }
+
+    @PutMapping("/api/information")
+    public ResponseEntity<Void> modifyMemberInfo(@RequestBody ModifyMemberInfoRequest request,
+                                                 @AuthenticationPrincipal PrincipalDetails principal) {
+        userService.modifyUser(request, principal);
+        return ResponseEntity.ok().build();
     }
 }
