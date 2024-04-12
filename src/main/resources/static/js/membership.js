@@ -53,7 +53,7 @@ function setRole(id, role) {
 function getUsersBySort(sort) {
     let area = document.getElementById("my-page-area");
 
-    let url = "/membership&sort=" + sort;
+    let url = "/my-page/membership?sort=" + sort;
     fetch(url, {
         method: Method.GET,
         headers: getHeaders(false),

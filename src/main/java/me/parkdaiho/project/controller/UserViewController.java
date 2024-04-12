@@ -64,6 +64,7 @@ public class UserViewController {
                                  Model model) {
         if(sort == null) sort = Sort.ALL.getValue();
 
+        System.out.println(sort);
         userService.addAttributesForMembership(page, sort, searchSort, query, principal, model);
 
         return "membership";

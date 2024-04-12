@@ -75,11 +75,14 @@ public class UserService {
 
     public Page<UserInfoResponse> getUsers(int page, String sort, String searchSort, String query) {
         Pageable pageable = PageRequest.of(page - 1, paginationProperties.getUsersPerPage());
-
         Sort sortEnum = Sort.valueOf(sort.toUpperCase());
+        if(query == null || query.isEmpty()) {
+            return getUsersBySort(sortEnum, pageable);
+        }
+
         switch (sortEnum) {
             case ALL -> {
-                return getAllUsers(query, searchSort, pageable);
+                return getAllUsersByQuery(query, searchSort, pageable);
             }
             case ADMIN -> {
                 return getUsersByRoleAndQuery(Role.ADMIN, query, searchSort, pageable);
@@ -87,7 +90,7 @@ public class UserService {
             case MANAGER -> {
                 return getUsersByRoleAndQuery(Role.MANAGER, query, searchSort, pageable);
             }
-            case User -> {
+            case USER -> {
                 return getUsersByRoleAndQuery(Role.USER, query, searchSort, pageable);
             }
 
@@ -95,8 +98,24 @@ public class UserService {
         }
     }
 
+    private Page<UserInfoResponse> getUsersBySort(Sort sort, Pageable pageable) {
+        Page<User> users;
+        switch (sort) {
+            case ALL -> users = userRepository.findAll(pageable);
+            case ADMIN, MANAGER, USER -> {
+                Role role = Role.valueOf(sort.getProperty());
+                users = userRepository.findByRole(role, pageable);
+            }
+
+            default -> throw new IllegalArgumentException("Unexpected sort: " + sort);
+        }
+
+        return users.map(entity -> new UserInfoResponse(entity));
+    }
+
     private Page<UserInfoResponse> getUsersByRoleAndQuery(Role role, String query, String searchSort, Pageable pageable) {
         Sort searchSortEnum = Sort.valueOf(searchSort.toUpperCase());
+
         Page<User> users;
         switch (searchSortEnum) {
             case USERNAME -> users = userRepository.findByRoleAndUsernameContaining(role, query, pageable);
@@ -108,12 +127,7 @@ public class UserService {
         return users.map(entity -> new UserInfoResponse(entity));
     }
 
-    private Page<UserInfoResponse> getAllUsers(String query, String searchSort, Pageable pageable) {
-        if (query.equals("null") || query.isEmpty()) {
-            return userRepository.findAll(pageable)
-                    .map(entity -> new UserInfoResponse(entity));
-        }
-
+    private Page<UserInfoResponse> getAllUsersByQuery(String query, String searchSort, Pageable pageable) {
         Sort searchSortEnum = Sort.valueOf(searchSort.toUpperCase());
         Page<User> users;
         switch (searchSortEnum) {

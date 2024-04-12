@@ -12,7 +12,7 @@ public enum Sort {
     WRITER("writer", "writer"),
     // membership
     ALL("all", "id"),
-    ADMIN("admin", "ADMIN"), MANAGER("manager", "MANAGER"), User("user", "USER"),
+    ADMIN("admin", "ADMIN"), MANAGER("manager", "MANAGER"), USER("user", "USER"),
     USERNAME("username", "username"), NICKNAME("nickname", "nickname");
 
     private final String value;
