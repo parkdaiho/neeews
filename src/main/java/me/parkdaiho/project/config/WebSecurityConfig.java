@@ -22,7 +22,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 
 @RequiredArgsConstructor
 @Configuration
-public class WebConfiguration {
+public class WebSecurityConfig {
 
     private final UserService userService;
     private final TokenService tokenService;
@@ -72,7 +72,7 @@ public class WebConfiguration {
 
         http.logout()
                 .logoutUrl("/logout")
-                .deleteCookies(jwtProperties.getRefreshTokenCookieName())
+                .addLogoutHandler(logoutCustomHandler())
                 .logoutSuccessUrl("/?logout");
 
         return http.build();
@@ -109,6 +109,11 @@ public class WebConfiguration {
                 .userDetailsService(userDetailCustomService)
                 .passwordEncoder(passwordEncoder())
                 .and().build();
+    }
+
+    @Bean
+    public LogoutCustomHandler logoutCustomHandler() {
+        return new LogoutCustomHandler(jwtProperties);
     }
 
     @Bean
