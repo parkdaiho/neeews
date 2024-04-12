@@ -52,7 +52,6 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
                 .toUriString();
     }
 
-
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
         oAuth2AuthorizationRequestRepositoryBasedOnCookie.removeAuthorizationRequestCookie(request, response);

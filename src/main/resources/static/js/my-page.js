@@ -6,8 +6,8 @@ function getMemberInfoPage() {
     getPageInMyPage(url, "MEMBER-INFO");
 }
 
-function getWithdrawalPage() {
-    let url = "/my-page/withdrawal";
+function getWithdrawalPage(userid) {
+    let url = "/my-page/withdrawal/" + userid;
 
     getPageInMyPage(url, "WITHDRAWAL");
 }

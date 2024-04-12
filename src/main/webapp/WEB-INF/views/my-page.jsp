@@ -25,7 +25,7 @@
 	<div class="my-page-menu">
 		<ul>
 			<li><a href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
-			<li><a href="javascript:return false;" onclick="getWithdrawalPage();">WITHDRAWAL</a></li>
+			<li><a href="javascript:return false;" onclick="getWithdrawalPage(${id});">WITHDRAWAL</a></li>
 			<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', null);">MEMBERSHIP</a></li>
 		</ul>
 	</div>
@@ -40,6 +40,7 @@
 <script src="/js/my-page.js"></script>
 <script src="/js/membership.js"></script>
 <script src="/js/member-info.js"></script>
+<script src="/js/withdrawal.js"></script>
 
 </body>
 </html>

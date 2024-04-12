@@ -40,13 +40,13 @@ public class User extends BaseEntity {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Token token;
 
-    @OneToMany(mappedBy = "writer")
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Poll> pollList;
 
-    @OneToMany(mappedBy = "writer")
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.ALL)
     private List<Post> posts;
 
     @OneToMany(mappedBy = "writer")
@@ -77,5 +77,27 @@ public class User extends BaseEntity {
 
         this.password = passwordEncoder.encode(password);
         this.nickname = nickname;
+    }
+
+    public User checkPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+        if (passwordEncoder.matches(this.password, passwordEncoder.encode(password))) {
+            throw new IllegalArgumentException("Check password");
+        }
+
+        return this;
+    }
+
+    public void delete() {
+        this.username = "withdrawn-member";
+        this.password = "withdrawn-member";
+        this.nickname = "withdrawn-member";
+        this.email = "withdrawn-member";
+        this.provider = Provider.WITHDRAWN;
+
+        this.token.deleteToken();
+
+        this.isEnabled = false;
     }
 }

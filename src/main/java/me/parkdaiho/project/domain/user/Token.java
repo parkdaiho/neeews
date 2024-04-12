@@ -1,15 +1,13 @@
 package me.parkdaiho.project.domain.user;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.ConnectionBuilder;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 @Entity
 public class Token {
 
@@ -45,6 +43,13 @@ public class Token {
 
     public Token updateAccessToken(String accessToken) {
         this.accessToken = accessToken;
+
+        return this;
+    }
+
+    public Token deleteToken() {
+        this.accessToken = "";
+        this.refreshToken = "";
 
         return this;
     }

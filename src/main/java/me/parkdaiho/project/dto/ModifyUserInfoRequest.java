@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ModifyMemberInfoRequest {
+public class ModifyUserInfoRequest {
 
     private Long userId;
     private String password;

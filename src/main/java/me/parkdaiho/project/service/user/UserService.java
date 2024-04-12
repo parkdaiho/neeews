@@ -1,31 +1,30 @@
 package me.parkdaiho.project.service.user;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
+import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.dto.ChangeRoleRequest;
-import me.parkdaiho.project.dto.ModifyMemberInfoRequest;
-import me.parkdaiho.project.dto.NicknameDupCheckRequest;
-import me.parkdaiho.project.dto.NicknameDupCheckResponse;
+import me.parkdaiho.project.dto.*;
 import me.parkdaiho.project.dto.user.SignUpRequest;
 import me.parkdaiho.project.dto.user.SignUpResponse;
 import me.parkdaiho.project.dto.user.UserInfoResponse;
 import me.parkdaiho.project.repository.user.TokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
+import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -35,6 +34,7 @@ public class UserService {
     private final TokenRepository tokenRepository;
 
     private final PaginationProperties paginationProperties;
+    private final JwtProperties jwtProperties;
 
     public SignUpResponse signUp(SignUpRequest dto) {
         tokenRepository.save(new Token(dto.toEntity()));
@@ -109,7 +109,7 @@ public class UserService {
     }
 
     private Page<UserInfoResponse> getAllUsers(String query, String searchSort, Pageable pageable) {
-        if(query.equals("null") || query.isEmpty()) {
+        if (query.equals("null") || query.isEmpty()) {
             return userRepository.findAll(pageable)
                     .map(entity -> new UserInfoResponse(entity));
         }
@@ -129,7 +129,7 @@ public class UserService {
     public void addAttributesForMembership(int page, String sort, String searchSort, String query,
                                            PrincipalDetails principal,
                                            Model model) {
-        if(principal.getRole().getIsUser()) throw new IllegalArgumentException("No Authority");
+        if (principal.getRole().getIsUser()) throw new IllegalArgumentException("No Authority");
 
         Page<UserInfoResponse> users = getUsers(page, sort, searchSort, query);
 
@@ -137,7 +137,7 @@ public class UserService {
         int pageBlockNum = page / paginationProperties.getUserPagesPerBlock();
         int firstNumOfPageBlock = pageBlockNum * paginationProperties.getUserPagesPerBlock() + 1;
         int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getUserPagesPerBlock() - 1;
-        if(lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
+        if (lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
 
         int nextPage = users.hasNext() ? page + 1 : page;
         int previousPage = users.hasPrevious() ? page - 1 : page;
@@ -149,7 +149,7 @@ public class UserService {
         model.addAttribute("totalElements", users.getTotalElements());
         model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
         model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
-        model.addAttribute("nextPage",  nextPage);
+        model.addAttribute("nextPage", nextPage);
         model.addAttribute("previousPage", previousPage);
         model.addAttribute("users", users.getContent());
         model.addAttribute("isAdmin", principal.getRole() == Role.ADMIN);
@@ -172,15 +172,15 @@ public class UserService {
         User user = principal.getUser();
         Role role = user.getRole();
 
-        if(!role.equals(Role.ADMIN)) {
+        if (!role.equals(Role.ADMIN)) {
             throw new IllegalArgumentException("No Authority");
         }
     }
 
-    public NicknameDupCheckResponse dupCheck(NicknameDupCheckRequest request, PrincipalDetails principal) {
+    public NicknameDupCheckResponse nicknameDupCheckInMyPage(NicknameDupCheckRequest request, PrincipalDetails principal) {
         try {
             User user = findByNickname(request.getNickname());
-            if(user.getId().equals(principal.getUserId())) return new NicknameDupCheckResponse(false, true);
+            if (user.getId().equals(principal.getUserId())) return new NicknameDupCheckResponse(false, true);
             return new NicknameDupCheckResponse(false, false);
         } catch (Exception e) {
             return new NicknameDupCheckResponse(true, false);
@@ -188,15 +188,27 @@ public class UserService {
     }
 
     @Transactional
-    public void modifyUser(ModifyMemberInfoRequest request, PrincipalDetails principal) {
+    public void modifyUser(ModifyUserInfoRequest request, PrincipalDetails principal) {
         User user = findById(request.getUserId());
         checkAuthority(user, principal);
 
         user.update(request.getPassword(), request.getNickname());
     }
 
+    @Transactional
+    public void deleteUser(HttpServletRequest request, HttpServletResponse response,
+                           WithdrawalRequest dto, PrincipalDetails principal) {
+        User user = findById(dto.getUserId());
+        checkAuthority(user, principal);
+
+        user.checkPassword(dto.getPassword())
+                .delete();
+
+        CookieUtils.deleteCookie(request, response, jwtProperties.getRefreshTokenCookieName());
+    }
+
     private void checkAuthority(User user, PrincipalDetails principal) {
-        if(principal.getUserId().equals(user.getId()) || principal.getRole() != Role.USER) return;
+        if (principal.getUserId().equals(user.getId()) || principal.getRole() != Role.USER) return;
 
         throw new IllegalArgumentException("No Authority");
     }

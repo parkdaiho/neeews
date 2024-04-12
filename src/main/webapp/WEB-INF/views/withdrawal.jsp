@@ -6,16 +6,13 @@
 	<title>WITHDRAWAL</title>
 </head>
 <body>
-<form action="/user">
-	<input type="hidden" name="_method" value="DELETE">
-	<div class="withdrawal-area">
-		<div class="withdrawal-password">
-			PASSWORD : <input type="password">
-		</div>
-		<div class="withdrawal-btn">
-			<button type="submit">WITHDRAWAL</button>
-		</div>
+<div class="withdrawal-area">
+	<div class="withdrawal-password">
+		PASSWORD : <input type="password" id="password">
 	</div>
-</form>
+	<div class="withdrawal-btn">
+		<button type="button" onclick="withdrawal(${id});">WITHDRAWAL</button>
+	</div>
+</div>
 </body>
 </html>
