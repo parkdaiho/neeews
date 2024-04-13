@@ -11,9 +11,9 @@ public enum Sort {
     TITLE("title", "title"), CONTENTS("contents", "contents"),
     WRITER("writer", "writer"),
     // membership
-    ALL("all", "id"),
+    ALL("all", "ALL"),
     ADMIN("admin", "ADMIN"), MANAGER("manager", "MANAGER"), USER("user", "USER"),
-    USERNAME("username", "username"), NICKNAME("nickname", "nickname");
+    USERNAME("username", "USERNAME"), NICKNAME("nickname", "NICKNAME");
 
     private final String value;
     private final String property;

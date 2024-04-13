@@ -80,7 +80,7 @@ function searchUser() {
         "query": query
     });
 
-    let url = "/membership?" + new URLSearchParams(params);
+    let url = "/my-page/membership?" + new URLSearchParams(params);
 
     fetch(url, {
         method: Method.GET,

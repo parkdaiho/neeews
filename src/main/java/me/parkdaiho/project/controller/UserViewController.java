@@ -62,9 +62,11 @@ public class UserViewController {
                                  @RequestParam(required = false) String query,
                                  @AuthenticationPrincipal PrincipalDetails principal,
                                  Model model) {
-        if(sort == null) sort = Sort.ALL.getValue();
+        if(sort == null) sort = Sort.ALL.getProperty();
 
         System.out.println(sort);
+        System.out.println(searchSort);
+        System.out.println(query);
         userService.addAttributesForMembership(page, sort, searchSort, query, principal, model);
 
         return "membership";

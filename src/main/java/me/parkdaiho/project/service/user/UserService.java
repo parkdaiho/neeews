@@ -128,7 +128,8 @@ public class UserService {
     }
 
     private Page<UserInfoResponse> getAllUsersByQuery(String query, String searchSort, Pageable pageable) {
-        Sort searchSortEnum = Sort.valueOf(searchSort.toUpperCase());
+        System.out.println(query);
+        Sort searchSortEnum = Sort.valueOf(searchSort);
         Page<User> users;
         switch (searchSortEnum) {
             case USERNAME -> users = userRepository.findByUsernameContaining(query, pageable);
@@ -136,7 +137,7 @@ public class UserService {
 
             default -> throw new IllegalArgumentException("Unexpected search-sort: " + searchSort);
         }
-
+        System.out.println("success");
         return users.map(entity -> new UserInfoResponse(entity));
     }
 
@@ -158,6 +159,7 @@ public class UserService {
 
         model.addAttribute("page", page);
         model.addAttribute("sort", sort);
+        model.addAttribute("searchSort", searchSort);
         model.addAttribute("query", query);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("totalElements", users.getTotalElements());

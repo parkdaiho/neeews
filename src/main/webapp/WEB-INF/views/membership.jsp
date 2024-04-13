@@ -16,8 +16,8 @@
 	<div class="user-search-area">
 		<div class="user-search-box">
 			<select id="search-sort">
-				<option value="username">USERNAME</option>
-				<option value="nickname">NICKNAME</option>
+				<option value="USERNAME">USERNAME</option>
+				<option value="NICKNAME">NICKNAME</option>
 			</select>
 			<input type="text" id="query" placeholder="Search user" value="${query}">
 		</div>
@@ -26,19 +26,19 @@
 	<div class="membership-users-sort">
 		<select id="membership-users-sort-select" onchange="getUsersBySort(this.value);">
 			<c:choose>
-				<c:when test="${sort == 'admin'}">
+				<c:when test="${sort == 'ADMIN'}">
 					<option value="ALL">ALL</option>
 					<option value="ADMIN" selected>ADMINISTRATOR</option>
 					<option value="MANAGER">MANAGER</option>
 					<option value="USER">USER</option>
 				</c:when>
-				<c:when test="${sort == 'manager'}">
+				<c:when test="${sort == 'MANAGER'}">
 					<option value="ALL">ALL</option>
 					<option value="ADMIN">ADMINISTRATOR</option>
 					<option value="MANAGER" selected>MANAGER</option>
 					<option value="USER">USER</option>
 				</c:when>
-				<c:when test="${sort == 'user'}">
+				<c:when test="${sort == 'USER'}">
 					<option value="ALL">ALL</option>
 					<option value="ADMIN">ADMINISTRATOR</option>
 					<option value="MANAGER">MANAGER</option>

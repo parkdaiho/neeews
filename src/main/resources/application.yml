@@ -70,7 +70,7 @@ file:
     location: "/Users/parkdaeho/develop/workspace/developing-project/src/main/resources/static/upload"
 
 pagination :
-  users-per-page: 20
+  users-per-page: 1
   user-pages-per-block: 10
   posts-per-page: 20
   post-pages-per-block: 10
