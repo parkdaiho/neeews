@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 public enum Provider {
 
-    GOOGLE("GOOGLE"), SELF("SELF"), WITHDRAWN("withdrawn");
+    GOOGLE("GOOGLE"), SELF("SELF");
 
     private final String provider;
 }

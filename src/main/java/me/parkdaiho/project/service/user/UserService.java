@@ -93,8 +93,11 @@ public class UserService {
             case USER -> {
                 return getUsersByRoleAndQuery(Role.USER, query, searchSort, pageable);
             }
+            case WITHDRAWN -> {
+                return getUsersByRoleAndQuery(Role.WITHDRAWN, query, searchSort, pageable);
+            }
 
-            default -> throw new IllegalArgumentException("Unexected sort : " + sort);
+            default -> throw new IllegalArgumentException("Unexpected sort : " + sort);
         }
     }
 
@@ -102,7 +105,7 @@ public class UserService {
         Page<User> users;
         switch (sort) {
             case ALL -> users = userRepository.findAll(pageable);
-            case ADMIN, MANAGER, USER -> {
+            case ADMIN, MANAGER, USER, WITHDRAWN -> {
                 Role role = Role.valueOf(sort.getProperty());
                 users = userRepository.findByRole(role, pageable);
             }
@@ -128,7 +131,6 @@ public class UserService {
     }
 
     private Page<UserInfoResponse> getAllUsersByQuery(String query, String searchSort, Pageable pageable) {
-        System.out.println(query);
         Sort searchSortEnum = Sort.valueOf(searchSort);
         Page<User> users;
         switch (searchSortEnum) {
@@ -137,7 +139,7 @@ public class UserService {
 
             default -> throw new IllegalArgumentException("Unexpected search-sort: " + searchSort);
         }
-        System.out.println("success");
+
         return users.map(entity -> new UserInfoResponse(entity));
     }
 
@@ -218,7 +220,7 @@ public class UserService {
         checkAuthority(user, principal);
 
         user.checkPassword(dto.getPassword())
-                .delete();
+                .makeWithdrawnMember();
 
         CookieUtils.deleteCookie(request, response, jwtProperties.getRefreshTokenCookieName());
     }
@@ -227,5 +229,13 @@ public class UserService {
         if (principal.getUserId().equals(user.getId()) || principal.getRole() != Role.USER) return;
 
         throw new IllegalArgumentException("No Authority");
+    }
+
+    @Transactional
+    public void deleteUser(WithdrawalRequest request, PrincipalDetails principal) {
+        User user = findById(request.getUserId());
+        checkAuthority(user, principal);
+
+        user.makeWithdrawnMember();
     }
 }

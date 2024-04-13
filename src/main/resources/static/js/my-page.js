@@ -14,6 +14,7 @@ function getWithdrawalPage(userid) {
 
 function getMembershipPage(page, sort, searchSort, query) {
     if (query == null) query = "";
+
     let url = "/my-page/membership?page="
         + page + "&sort=" + sort + "&searchSort=" + searchSort + "&query=" + query;
 

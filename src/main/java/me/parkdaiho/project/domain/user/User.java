@@ -6,6 +6,7 @@ import me.parkdaiho.project.domain.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.UUID;
 
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -89,15 +90,17 @@ public class User extends BaseEntity {
         return this;
     }
 
-    public void delete() {
-        this.username = "withdrawn-member";
-        this.password = "withdrawn-member";
-        this.nickname = "withdrawn-member";
-        this.email = "withdrawn-member";
-        this.provider = Provider.WITHDRAWN;
+    public void makeWithdrawnMember() {
+        this.password = invalidationField(this.password);
+        this.email = invalidationField(this.email);
+        this.role = Role.WITHDRAWN;
 
         this.token.deleteToken();
 
         this.isEnabled = false;
+    }
+
+    private String invalidationField(String field) {
+        return "withdrawn-member(" + field + ")";
     }
 }

@@ -31,24 +31,35 @@
 					<option value="ADMIN" selected>ADMINISTRATOR</option>
 					<option value="MANAGER">MANAGER</option>
 					<option value="USER">USER</option>
+					<option value="WITHDRAWN">WITHDRAWN</option>
 				</c:when>
 				<c:when test="${sort == 'MANAGER'}">
 					<option value="ALL">ALL</option>
 					<option value="ADMIN">ADMINISTRATOR</option>
 					<option value="MANAGER" selected>MANAGER</option>
 					<option value="USER">USER</option>
+					<option value="WITHDRAWN">WITHDRAWN</option>
 				</c:when>
 				<c:when test="${sort == 'USER'}">
 					<option value="ALL">ALL</option>
 					<option value="ADMIN">ADMINISTRATOR</option>
 					<option value="MANAGER">MANAGER</option>
 					<option value="USER" selected>USER</option>
+					<option value="WITHDRAWN">WITHDRAWN</option>
+				</c:when>
+				<c:when test="${sort == 'WITHDRAWN'}">
+					<option value="ALL">ALL</option>
+					<option value="ADMIN">ADMINISTRATOR</option>
+					<option value="MANAGER">MANAGER</option>
+					<option value="USER">USER</option>
+					<option value="WITHDRAWN" selected>WITHDRAWN</option>
 				</c:when>
 				<c:otherwise>
 					<option value="ALL" selected>ALL</option>
 					<option value="ADMIN">ADMINISTRATOR</option>
 					<option value="MANAGER">MANAGER</option>
 					<option value="USER">USER</option>
+					<option value="WITHDRAWN">WITHDRAWN</option>
 				</c:otherwise>
 			</c:choose>
 		</select>
@@ -60,6 +71,9 @@
 			</div>
 			<div class="user-username">
 				USERNAME
+			</div>
+			<div class="user-nickname">
+				NICKNAME
 			</div>
 			<div class="user-email">
 				EMAIL
@@ -75,12 +89,15 @@
 			</div>
 		</div>
 		<c:forEach var="user" items="${users}">
-		<div class="user-in-users">
+			<div class="user-in-users">
 				<div class="user-id">
 						${user.id}
 				</div>
 				<div class="user-username">
 						${user.username}
+				</div>
+				<div class="user-nickname">
+						${user.nickname}
 				</div>
 				<div class="user-email">
 						${user.email}
@@ -93,36 +110,38 @@
 				</div>
 				<div class="user-role">
 					<c:choose>
-						<c:when test="${!isAdmin}">
-							<select disabled>
+					<c:when test="${!isAdmin}">
+					<select disabled>
 						</c:when>
 						<c:otherwise>
-							<select id="user-role-${user.id}" onchange="changeRole(${user.id}, '${user.role}', this.value);">
-						</c:otherwise>
-					</c:choose>
-						<c:choose>
-							<c:when test="${user.role == 'ADMIN'}">
-								<option value="ADMIN" selected>ADMIN</option>
-								<option value="MANAGER">MANAGER</option>
-								<option value="USER">USER</option>
-							</c:when>
-							<c:when test="${user.role == 'MANAGER'}">
-								<option value="ADMIN">ADMIN</option>
-								<option value="MANAGER" selected>MANAGER</option>
-								<option value="USER">USER</option>
-							</c:when>
-							<c:otherwise>
-								<option value="ADMIN">ADMIN</option>
-								<option value="MANAGER">MANAGER</option>
-								<option value="USER" selected>USER</option>
+						<select id="user-role-${user.id}" onchange="changeRole(${user.id}, '${user.role}', this.value);">
 							</c:otherwise>
-						</c:choose>
-					</select>
+							</c:choose>
+							<c:choose>
+								<c:when test="${user.role == 'ADMIN'}">
+									<option value="ADMIN" selected>ADMIN</option>
+									<option value="MANAGER">MANAGER</option>
+									<option value="USER">USER</option>
+								</c:when>
+								<c:when test="${user.role == 'MANAGER'}">
+									<option value="ADMIN">ADMIN</option>
+									<option value="MANAGER" selected>MANAGER</option>
+									<option value="USER">USER</option>
+								</c:when>
+								<c:otherwise>
+									<option value="ADMIN">ADMIN</option>
+									<option value="MANAGER">MANAGER</option>
+									<option value="USER" selected>USER</option>
+								</c:otherwise>
+							</c:choose>
+						</select>
 				</div>
+				<c:if test="${user.isEnabled}">
 				<div class="user-btn">
-					<button>WITHDRAW</button>
+					<button type="button" onclick="withdraw(${user.id}, ${page}, '${sort}', '${query}')">WITHDRAW</button>
 				</div>
-		</div>
+				</c:if>
+			</div>
 		</c:forEach>
 	</div>
 	<c:if test="${totalElements != 0}">

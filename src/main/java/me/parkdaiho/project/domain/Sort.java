@@ -11,7 +11,7 @@ public enum Sort {
     TITLE("title", "title"), CONTENTS("contents", "contents"),
     WRITER("writer", "writer"),
     // membership
-    ALL("all", "ALL"),
+    ALL("all", "ALL"), WITHDRAWN("withdrawn", "WITHDRAWN"),
     ADMIN("admin", "ADMIN"), MANAGER("manager", "MANAGER"), USER("user", "USER"),
     USERNAME("username", "USERNAME"), NICKNAME("nickname", "NICKNAME");
 

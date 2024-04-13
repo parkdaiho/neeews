@@ -101,3 +101,23 @@ function getPages(page, sort, query) {
 
     getMembershipPage(page, sort, searchSort, query);
 }
+
+function withdraw(userId, page, sort, query) {
+    let flag = confirm("Are you sure you want to withdraw this member?");
+    if(!flag) return;
+
+    let body = JSON.stringify({
+        "userId": userId,
+    });
+
+    function success() {
+        alert("success.");
+        getPages(page, sort, query);
+    }
+
+    function fail() {
+        alert("fail");
+    }
+
+    apiRequest("/api/membership", Method.DELETE, body, getHeaders(true), success, fail);
+}

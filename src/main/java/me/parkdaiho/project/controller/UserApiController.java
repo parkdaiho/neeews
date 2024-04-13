@@ -31,6 +31,14 @@ public class UserApiController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/api/membership")
+    public ResponseEntity<Void> withdrawUser(@RequestBody WithdrawalRequest request,
+                                             @AuthenticationPrincipal PrincipalDetails principal) {
+        userService.deleteUser(request, principal);
+
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/api/nickname")
     public ResponseEntity<NicknameDupCheckResponse> dupCheck(@RequestBody NicknameDupCheckRequest request,
                                                              @AuthenticationPrincipal PrincipalDetails principal) {

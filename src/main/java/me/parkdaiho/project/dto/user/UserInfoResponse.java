@@ -3,6 +3,7 @@ package me.parkdaiho.project.dto.user;
 import lombok.Getter;
 import lombok.Setter;
 import me.parkdaiho.project.domain.user.User;
+import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 
 import java.time.format.DateTimeFormatter;
 
@@ -17,6 +18,7 @@ public class UserInfoResponse {
     private String createdAt;
     private String modifiedAt;
     private String role;
+    private Boolean isEnabled;
 
     public UserInfoResponse(User user) {
         this.id = user.getId();
@@ -26,5 +28,6 @@ public class UserInfoResponse {
         this.createdAt = user.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
         this.modifiedAt= user.getModifiedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
         this.role = user.getRole().getAuthority();
+        this.isEnabled = user.getIsEnabled();
     }
 }
