@@ -8,4 +8,5 @@ public class SearchNaverNewsRequest {
 
     private String query;
     private String sort;
+    private int page;
 }

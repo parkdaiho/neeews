@@ -138,14 +138,16 @@ public class ArticleService {
         int page = response.getStart() / response.getDisplay() + 1;
         int totalPages = response.getTotal() / response.getDisplay() + 1;
         int pageBlock = page / response.getDisplay();
-        int startNumOfPageBlock = pageBlock * response.getDisplay() + 1;
-        int lastNumOfPageBLock = startNumOfPageBlock + response.getDisplay() - 1;
+        int startNumOfPageBlock = pageBlock * paginationProperties.getNewsPagesPerBlock() + 1;
+        int lastNumOfPageBLock = startNumOfPageBlock + paginationProperties.getNewsPagesPerBlock() - 1;
         if(lastNumOfPageBLock > totalPages) lastNumOfPageBLock = totalPages;
+
         int nextPage = page == totalPages ? page : page + 1;
         int previousPage = page == 1 ? page : page - 1;
 
         model.addAttribute(paginationProperties.getPageName(), page);
         model.addAttribute(paginationProperties.getTotalPagesName(), totalPages);
+        model.addAttribute(paginationProperties.getTotalElementsName(), response.getTotal());
         model.addAttribute(paginationProperties.getStartNumOfPageBlockName(), startNumOfPageBlock);
         model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBLock);
         model.addAttribute(paginationProperties.getNextPageName(), nextPage);

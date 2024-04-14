@@ -37,7 +37,7 @@
 				</div>
 			</div>
 			<c:forEach var="item" items="${items}" varStatus="index">
-				<div class="searched-article" onclick="showArticle(${index})">
+				<div class="searched-article" onclick="showArticle(${index});">
 					<input type="hidden" value="${item.originallink}" id="item_originalLink_${index}">
 					<input type="hidden" value="${item.link}" id="item_link_${index}">
 					<div class="article-title" id="item_title_${index}">
@@ -61,7 +61,7 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>
 
-<script src="/js/ariticles.js"></script>
+<script src="/js/articles.js"></script>
 
 </body>
 </html>

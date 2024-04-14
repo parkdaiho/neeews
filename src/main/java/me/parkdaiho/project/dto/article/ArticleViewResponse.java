@@ -13,7 +13,7 @@ public class ArticleViewResponse {
 
     private Long id;
     private String title;
-    private String texts;
+    private String text;
     private String imgLink;
     private String originalLink;
     private String pubDate;
@@ -22,7 +22,7 @@ public class ArticleViewResponse {
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
-        this.texts = article.getContents();
+        this.text = article.getContents();
         this.originalLink = article.getOriginalLink();
         this.pubDate = article.getPubDate();
         this.isProvided = article.getIsProvided();

@@ -20,21 +20,21 @@
 	<section class="article-area">
 		<div class="article-info">
 			<div class="article-title">
-				TITLE
+				${title}
 			</div>
-			<div class="article-pubdate">
-				2024.03.27
+			<div class="article-pubDate">
+				${pubDate}
 			</div>
 			<div class="article-views">
-				999
+				${views}
 			</div>
 		</div>
 		<div class="article-contents">
 			<div class="article-contents-images">
-
+				이미지가 없습니다.
 			</div>
 			<div class="article-contents-textarea">
-				CONTENTS
+				${text}
 			</div>
 		</div>
 	</section>

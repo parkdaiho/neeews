@@ -64,7 +64,7 @@ naver:
     client-secret-header-name: X-Naver-Client-Secret
     client-id: TrzDaXTuUiYAOi86zd2J
     client-secret: UfhYGFUS0o
-    display: 100
+    display: 20
 
 file:
   upload:
@@ -78,6 +78,9 @@ pagination :
   comments-per-page: 5
   comment-pages-per-block: 5
   index-views: 10
+  news-items-per-page: 10
+  news-pages-per-block: 10
+
   page-name: "page"
   total-pages-name: "totalPages"
   total-elements-name: "totalElements"
