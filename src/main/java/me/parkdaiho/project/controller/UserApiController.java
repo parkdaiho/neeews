@@ -4,9 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.dto.*;
-import me.parkdaiho.project.dto.user.SignUpRequest;
-import me.parkdaiho.project.dto.user.SignUpResponse;
+import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,7 +30,7 @@ public class UserApiController {
     }
 
     @DeleteMapping("/api/membership")
-    public ResponseEntity<Void> withdrawUser(@RequestBody WithdrawalRequest request,
+    public ResponseEntity<Void> withdrawUser(@RequestBody WithdrawalMemberRequest request,
                                              @AuthenticationPrincipal PrincipalDetails principal) {
         userService.deleteUser(request, principal);
 
@@ -54,7 +52,7 @@ public class UserApiController {
 
     @DeleteMapping("/api/withdrawal")
     public ResponseEntity<Void> deleteUser(HttpServletRequest request, HttpServletResponse response,
-                                           @RequestBody WithdrawalRequest dto,
+                                           @RequestBody WithdrawalMemberRequest dto,
                                            @AuthenticationPrincipal PrincipalDetails principal) {
         userService.deleteUser(request, response, dto, principal);
 

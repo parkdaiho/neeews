@@ -8,11 +8,6 @@
 </head>
 <body>
 <div class="membership-area">
-	<div class="membership-info">
-		<div class="membership-total-users">
-			TOTAL ${totalElements} USERS
-		</div>
-	</div>
 	<div class="user-search-area">
 		<div class="user-search-box">
 			<select id="search-sort">
@@ -23,46 +18,51 @@
 		</div>
 		<button onclick="searchUser();">SEARCH</button>
 	</div>
-	<div class="membership-users-sort">
-		<select id="membership-users-sort-select" onchange="getUsersBySort(this.value);">
-			<c:choose>
-				<c:when test="${sort == 'ADMIN'}">
-					<option value="ALL">ALL</option>
-					<option value="ADMIN" selected>ADMINISTRATOR</option>
-					<option value="MANAGER">MANAGER</option>
-					<option value="USER">USER</option>
-					<option value="WITHDRAWN">WITHDRAWN</option>
-				</c:when>
-				<c:when test="${sort == 'MANAGER'}">
-					<option value="ALL">ALL</option>
-					<option value="ADMIN">ADMINISTRATOR</option>
-					<option value="MANAGER" selected>MANAGER</option>
-					<option value="USER">USER</option>
-					<option value="WITHDRAWN">WITHDRAWN</option>
-				</c:when>
-				<c:when test="${sort == 'USER'}">
-					<option value="ALL">ALL</option>
-					<option value="ADMIN">ADMINISTRATOR</option>
-					<option value="MANAGER">MANAGER</option>
-					<option value="USER" selected>USER</option>
-					<option value="WITHDRAWN">WITHDRAWN</option>
-				</c:when>
-				<c:when test="${sort == 'WITHDRAWN'}">
-					<option value="ALL">ALL</option>
-					<option value="ADMIN">ADMINISTRATOR</option>
-					<option value="MANAGER">MANAGER</option>
-					<option value="USER">USER</option>
-					<option value="WITHDRAWN" selected>WITHDRAWN</option>
-				</c:when>
-				<c:otherwise>
-					<option value="ALL" selected>ALL</option>
-					<option value="ADMIN">ADMINISTRATOR</option>
-					<option value="MANAGER">MANAGER</option>
-					<option value="USER">USER</option>
-					<option value="WITHDRAWN">WITHDRAWN</option>
-				</c:otherwise>
-			</c:choose>
-		</select>
+	<div class="membership-info">
+		<div class="membership-total-users">
+			TOTAL ${totalElements} USERS
+		</div>
+		<div class="membership-users-sort">
+			<select id="membership-users-sort-select" onchange="getUsersBySort(this.value);">
+				<c:choose>
+					<c:when test="${sort == 'ADMIN'}">
+						<option value="ALL">ALL</option>
+						<option value="ADMIN" selected>ADMINISTRATOR</option>
+						<option value="MANAGER">MANAGER</option>
+						<option value="USER">USER</option>
+						<option value="WITHDRAWN">WITHDRAWN</option>
+					</c:when>
+					<c:when test="${sort == 'MANAGER'}">
+						<option value="ALL">ALL</option>
+						<option value="ADMIN">ADMINISTRATOR</option>
+						<option value="MANAGER" selected>MANAGER</option>
+						<option value="USER">USER</option>
+						<option value="WITHDRAWN">WITHDRAWN</option>
+					</c:when>
+					<c:when test="${sort == 'USER'}">
+						<option value="ALL">ALL</option>
+						<option value="ADMIN">ADMINISTRATOR</option>
+						<option value="MANAGER">MANAGER</option>
+						<option value="USER" selected>USER</option>
+						<option value="WITHDRAWN">WITHDRAWN</option>
+					</c:when>
+					<c:when test="${sort == 'WITHDRAWN'}">
+						<option value="ALL">ALL</option>
+						<option value="ADMIN">ADMINISTRATOR</option>
+						<option value="MANAGER">MANAGER</option>
+						<option value="USER">USER</option>
+						<option value="WITHDRAWN" selected>WITHDRAWN</option>
+					</c:when>
+					<c:otherwise>
+						<option value="ALL" selected>ALL</option>
+						<option value="ADMIN">ADMINISTRATOR</option>
+						<option value="MANAGER">MANAGER</option>
+						<option value="USER">USER</option>
+						<option value="WITHDRAWN">WITHDRAWN</option>
+					</c:otherwise>
+				</c:choose>
+			</select>
+		</div>
 	</div>
 	<div class="membership-users-area">
 		<div class="users-top">

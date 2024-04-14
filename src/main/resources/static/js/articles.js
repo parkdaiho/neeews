@@ -1,3 +1,7 @@
+function getPages(page, sort, query) {
+
+}
+
 function showArticle(index) {
     let body = JSON.stringify({
         "title": document.getElementById("item_title_" + index).innerHTML,

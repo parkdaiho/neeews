@@ -18,4 +18,5 @@ public class NaverSearchProperties {
     private String clientSecretHeaderName;
     private String clientId;
     private String clientSecret;
+    private String display;
 }

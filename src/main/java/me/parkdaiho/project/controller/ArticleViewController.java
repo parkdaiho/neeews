@@ -29,9 +29,9 @@ public class ArticleViewController {
     public String articles(SearchNaverNewsRequest request, Model model) {
         SearchNaverNewsResponse response = articleService.getSearchNewsResult(request);
 
-        model.addAttribute("items", response.getItems());
+        articleService.addSearchedNewsResponseToModel(response, model);
 
-        return "articles";
+        return "searched-articles";
     }
 
     @GetMapping("/articles/{id}")

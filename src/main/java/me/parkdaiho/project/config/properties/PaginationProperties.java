@@ -13,9 +13,20 @@ public class PaginationProperties {
 
     private Integer usersPerPage;
     private Integer userPagesPerBlock;
+
     private Integer postsPerPage;
     private Integer postPagesPerBlock;
+
     private Integer commentsPerPage;
     private Integer commentPagesPerBlock;
+
     private Integer indexViews;
+
+    private String pageName;
+    private String totalPagesName;
+    private String totalElementsName;
+    private String startNumOfPageBlockName;
+    private String lastNumOfPageBlockName;
+    private String nextPageName;
+    private String previousPageName;
 }

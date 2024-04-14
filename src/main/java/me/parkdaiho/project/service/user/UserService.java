@@ -13,10 +13,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.dto.*;
-import me.parkdaiho.project.dto.user.SignUpRequest;
-import me.parkdaiho.project.dto.user.SignUpResponse;
-import me.parkdaiho.project.dto.user.UserInfoResponse;
+import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.repository.user.TokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
 import me.parkdaiho.project.util.CookieUtils;
@@ -152,23 +149,23 @@ public class UserService {
 
         int totalPages = users.getTotalPages();
         int pageBlockNum = page / paginationProperties.getUserPagesPerBlock();
-        int firstNumOfPageBlock = pageBlockNum * paginationProperties.getUserPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getUserPagesPerBlock() - 1;
+        int startNumOfPageBlock = pageBlockNum * paginationProperties.getUserPagesPerBlock() + 1;
+        int lastNumOfPageBlock = startNumOfPageBlock + paginationProperties.getUserPagesPerBlock() - 1;
         if (lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
 
         int nextPage = users.hasNext() ? page + 1 : page;
         int previousPage = users.hasPrevious() ? page - 1 : page;
 
-        model.addAttribute("page", page);
+        model.addAttribute(paginationProperties.getPageName(), page);
         model.addAttribute("sort", sort);
         model.addAttribute("searchSort", searchSort);
         model.addAttribute("query", query);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalElements", users.getTotalElements());
-        model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
-        model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("previousPage", previousPage);
+        model.addAttribute(paginationProperties.getTotalPagesName(), totalPages);
+        model.addAttribute(paginationProperties.getTotalElementsName(), users.getTotalElements());
+        model.addAttribute(paginationProperties.getStartNumOfPageBlockName(), startNumOfPageBlock);
+        model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBlock);
+        model.addAttribute(paginationProperties.getNextPageName(), nextPage);
+        model.addAttribute(paginationProperties.getPreviousPageName(), previousPage);
         model.addAttribute("users", users.getContent());
         model.addAttribute("isAdmin", principal.getRole() == Role.ADMIN);
     }
@@ -215,7 +212,7 @@ public class UserService {
 
     @Transactional
     public void deleteUser(HttpServletRequest request, HttpServletResponse response,
-                           WithdrawalRequest dto, PrincipalDetails principal) {
+                           WithdrawalMemberRequest dto, PrincipalDetails principal) {
         User user = findById(dto.getUserId());
         checkAuthority(user, principal);
 
@@ -232,7 +229,7 @@ public class UserService {
     }
 
     @Transactional
-    public void deleteUser(WithdrawalRequest request, PrincipalDetails principal) {
+    public void deleteUser(WithdrawalMemberRequest request, PrincipalDetails principal) {
         User user = findById(request.getUserId());
         checkAuthority(user, principal);
 

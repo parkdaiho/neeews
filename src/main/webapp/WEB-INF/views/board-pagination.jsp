@@ -11,7 +11,7 @@
 		<ul>
 			<li><a href="javascript: return fail;" onclick="getPages(1, '${sort}', '${query}');"><<</a></li>
 			<li><a href="javascript: return fail;" onclick="getPages(${previousPage}, '${sort}', '${query}');"><</a></li>
-			<c:forEach var="i" begin="${firstNumOfPageBlock}" end="${lastNumOfPageBlock}" step="1">
+			<c:forEach var="i" begin="${startNumOfPageBlock}" end="${lastNumOfPageBlock}" step="1">
 			<li><a href="javascript: return fail;" onclick="getPages(${i}, '${sort}', '${query}');">${i}</a></li>
 			</c:forEach>
 			<li><a href="javascript: return fail;" onclick="getPages(${nextPage}, '${sort}', '${query}');">></a></li>
