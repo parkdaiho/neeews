@@ -3,9 +3,6 @@ package me.parkdaiho.project.dto.article;
 import lombok.Getter;
 import lombok.Setter;
 import me.parkdaiho.project.domain.Article;
-import me.parkdaiho.project.dto.comment.CommentViewResponse;
-
-import java.util.List;
 
 @Getter
 @Setter
@@ -14,17 +11,22 @@ public class ArticleViewResponse {
     private Long id;
     private String title;
     private String text;
-    private String imgLink;
+    private String imgSrc;
     private String originalLink;
     private String pubDate;
     private Boolean isProvided;
+    private Long views;
+    private String link;
 
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
         this.title = article.getTitle();
-        this.text = article.getContents();
+        this.text = article.getText();
         this.originalLink = article.getOriginalLink();
         this.pubDate = article.getPubDate();
+        this.views = article.getViews();
         this.isProvided = article.getIsProvided();
+        this.link = article.getLink();
+        this.imgSrc = article.getImgSrc();
     }
 }

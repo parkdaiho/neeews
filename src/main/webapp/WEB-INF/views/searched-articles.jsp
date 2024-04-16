@@ -20,7 +20,7 @@
 	</section>
 	<div class="searched-articles-info">
 		<div class="searched-articles-total-users">
-			TOTAL ${totalElements} ARTICLES
+			WE PROVIDE UP TO 1000 ARTICLES OUT OF TOTAL OF ${totalElements} ARTICLES ACCORDING TO ACCURACY, LATEST ORDER.
 		</div>
 	</div>
 	<div class="searched-articles-area">
@@ -36,17 +36,17 @@
 					PUBDATE
 				</div>
 			</div>
-			<c:forEach var="item" items="${items}" varStatus="index">
-				<div class="searched-article" onclick="showArticle(${index});">
-					<input type="hidden" value="${item.originallink}" id="item_originalLink_${index}">
-					<input type="hidden" value="${item.link}" id="item_link_${index}">
-					<div class="article-title" id="item_title_${index}">
+			<c:forEach var="item" items="${items}" varStatus="status">
+				<div class="searched-article" onclick="showArticle(${status.index});">
+					<input type="hidden" value="${item.originallink}" id="item_originalLink_${status.index}">
+					<input type="hidden" value="${item.link}" id="item_link_${status.index}">
+					<div class="article-title" id="item_title_${status.index}">
 						${item.title}
 					</div>
-					<div class="article-description" id="item_description_${index}">
+					<div class="article-description" id="item_description_${status.index}">
 							${item.description}
 					</div>
-					<div class="article-pubdate" id="item_pubDate_${index}">
+					<div class="article-pubdate" id="item_pubDate_${status.index}">
 							${item.pubDate}
 					</div>
 				</div>

@@ -61,7 +61,7 @@ public class PostService {
     public PostViewResponse getPostViewResponse(Long id, HttpServletRequest request, HttpServletResponse response) {
         Post post = findPostById(id);
 
-        if(!CookieUtils.checkView(request, response, Domain.POST, id)) post.addViews();
+        if(!CookieUtils.checkViewed(request, response, Domain.POST, id)) post.addViews();
 
         return PostViewResponse.builder()
                 .id(post.getId())

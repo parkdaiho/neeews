@@ -23,7 +23,7 @@ public class CookieUtils {
 
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
         Cookie cookie = getCookieByName(request, name);
-        if(cookie == null) return;
+        if (cookie == null) return;
 
         cookie.setPath("/");
         cookie.setMaxAge(0);
@@ -43,15 +43,15 @@ public class CookieUtils {
         );
     }
 
-    public static boolean checkView(HttpServletRequest request, HttpServletResponse response,
-                                    Domain domain, Long id) {
+    public static boolean checkViewed(HttpServletRequest request, HttpServletResponse response,
+                                      Domain domain, Long id) {
         Cookie listCookie = getCookieByName(request, domain.getDomainPl());
         List<Long> viewedList = listCookie != null ? deserialize(listCookie.getValue(), List.class) : null;
 
-        if(viewedList == null) viewedList = new ArrayList<>();
+        if (viewedList == null) viewedList = new ArrayList<>();
 
-        for(Long viewedId : viewedList) {
-            if(Objects.equals(viewedId, id)) return true;
+        for (Long viewedId : viewedList) {
+            if (Objects.equals(viewedId, id)) return true;
         }
 
         viewedList.add(id);
@@ -62,10 +62,10 @@ public class CookieUtils {
 
     public static Cookie getCookieByName(HttpServletRequest request, String name) {
         Cookie[] cookies = request.getCookies();
-        if(cookies == null) return null;
+        if (cookies == null) return null;
 
-        for(Cookie cookie : cookies) {
-            if(cookie.getName().equals(name)) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(name)) {
                 return cookie;
             }
         }

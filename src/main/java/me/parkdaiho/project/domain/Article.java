@@ -21,7 +21,9 @@ public class Article extends BaseEntity {
     private String title;
 
     @Lob
-    private String contents;
+    private String text;
+
+    private String imgSrc;
 
     @Column(nullable = false)
     private String description;
@@ -59,9 +61,9 @@ public class Article extends BaseEntity {
     }
 
     @Builder
-    public Article(String title, String contents, String description, String link, String originalLink, String pubDate) {
+    public Article(String title, String text, String description, String link, String originalLink, String pubDate) {
         this.title = title;
-        this.contents = contents;
+        this.text = text;
         this.description = description;
         this.link = link;
         this.originalLink = originalLink;

@@ -1,6 +1,6 @@
 const commentsArea = document.getElementById("comments-area");
 
-function addComment() {
+function addComment(domain) {
     let body = JSON.stringify({
         "id": id,
         "domain": domain,

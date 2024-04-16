@@ -1,5 +1,6 @@
 package me.parkdaiho.project.service.article;
 
+import net.minidev.json.JSONUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -11,30 +12,52 @@ import java.io.IOException;
 @Service
 public class NaverNewsCrawler {
 
-    public String getContents(String link) throws IOException {
-        Document document = Jsoup.connect(link)
-                .header(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36")
-                .get();
+    public String getText(String link) throws IOException {
+        Document document = getDocument(link);
 
-        Element contents = contentsElement(document);
+        Element textElement = getTextElement(document);
 
-        if(contents != null) {
-            contents.getAllElements().not("br").remove();
+        if(textElement != null) {
+            textElement.getAllElements().not("br").remove();
 
-            return contents.html();
+            return textElement.html();
         }
 
         return null;
     }
 
-    public Element contentsElement(Document document) {
-        Element contents = document.getElementById("dic_area");
-        if(contents != null) return contents;
+    public String getImgSrc(String link) throws IOException {
+        Document document = getDocument(link);
 
-        contents = document.getElementById("articeBody");
-        if(contents != null) return contents;
+        Element imgElement = getImgElement(document);
 
-        contents = document.getElementById("newsEndContents");
-        return contents;
+        if(imgElement != null) {
+            return imgElement.attr("data-src");
+        }
+
+        return null;
+    }
+
+    private Element getTextElement(Document document) {
+        Element text = document.getElementById("dic_area");
+        if(text != null) return text;
+
+        text = document.getElementById("articeBody");
+        if(text != null) return text;
+
+        text = document.getElementById("newsEndContents");
+        return text;
+    }
+
+    private Element getImgElement(Document document) {
+        Element img = document.getElementById("img1");
+
+        return img;
+    }
+
+    private Document getDocument(String link) throws IOException {
+        return Jsoup.connect(link)
+                .header(HttpHeaders.USER_AGENT, "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.157 Safari/537.36")
+                .get();
     }
 }

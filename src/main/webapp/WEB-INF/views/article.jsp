@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="ko">
 <head>
@@ -20,21 +21,33 @@
 	<section class="article-area">
 		<div class="article-info">
 			<div class="article-title">
-				${title}
+				TITLE: ${title}
 			</div>
 			<div class="article-pubDate">
-				${pubDate}
+				PUBDATE: ${pubDate}
 			</div>
 			<div class="article-views">
-				${views}
+				VIWES: ${views}
 			</div>
 		</div>
 		<div class="article-contents">
 			<div class="article-contents-images">
-				이미지가 없습니다.
+				<c:choose>
+					<c:when test="${imgSrc != null}">
+						<img src="${imgSrc}">
+					</c:when>
+					<c:otherwise>
+						이미지가 없습니다.
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="article-contents-textarea">
 				${text}
+			</div>
+			<div class="article-originalLink">
+				<a href="${originalLink}">VIEW THE ORIGINAL ARTICLE</a>
+				<br>
+				<a href="${link}">VIEW THE ORIGINAL ARTICLE</a>
 			</div>
 		</div>
 	</section>

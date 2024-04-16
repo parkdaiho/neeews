@@ -45,7 +45,8 @@ public class ArticleViewController {
         ArticleViewResponse article = articleService.getArticleView(id, request, response);
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.ARTICLE);
 
-        model.addAttribute("article", article);
+        articleService.addArticleToModel(article, model);
+
         model.addAttribute("domain", Domain.ARTICLE.getDomainPl());
         model.addAttribute("sort", Order.LATEST.getValue());
 
