@@ -13,7 +13,7 @@
 <main>
 	<section class="index-info-area">
 		<h1>Find articles and posts you interested in!</h1>
-		<form action="/articles" method="post">
+		<form action="/articles" method="get" id="index-form">
 			<div class="index-search-box">
 				<select name="domain" onchange="changeSearchDomain(this.value);">
 					<option value="article" selected>ARTICLE</option>
@@ -23,7 +23,7 @@
 					<option value="sim">MOST-SIMILAR</option>
 					<option value="date">LATEST</option>
 				</select>
-				<input type="text" name="query" placeholder="Search ...">
+				<input type="text" name="query" placeholder="Search articles" id="index-form-input">
 				<button type="submit">SEARCH</button>
 			</div>
 		</form>

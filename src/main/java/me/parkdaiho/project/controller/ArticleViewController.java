@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
+import me.parkdaiho.project.dto.article.SearchedArticlesRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
@@ -25,8 +26,8 @@ public class ArticleViewController {
     private final ArticleService articleService;
     private final CommentService commentService;
 
-    @PostMapping("/articles")
-    public String articles(SearchNaverNewsRequest request, Model model) {
+    @GetMapping("/articles")
+    public String articles(SearchedArticlesRequest request, Model model) {
         SearchNaverNewsResponse response = articleService.getSearchNewsResult(request);
 
         articleService.addSearchedNewsResponseToModel(response, model);

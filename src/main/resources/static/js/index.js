@@ -1,12 +1,22 @@
 function changeSearchDomain(selectedValue) {
+    let form = document.getElementById("index-form");
+    let input = document.getElementById("index-form-input");
+
     let sort = document.getElementById("sort");
 
     let articleSortArr = ["sim", "MOST-SIMILAR", "date", "LATEST"];
     let postSortArr = ["title", "TITLE", "contents", "CONTENTS", "writer", "WRITER"];
 
     let selectedArr;
-    if(selectedValue === "article") selectedArr = articleSortArr;
-    else selectedArr = postSortArr;
+    if(selectedValue === "article") {
+        selectedArr = articleSortArr;
+        form.setAttribute("action", "/articles");
+        input.setAttribute("placeholder", "Search articles");
+    } else {
+        selectedArr = postSortArr;
+        form.setAttribute("action", "/posts");
+        input.setAttribute("placeholder", "Search post");
+    }
 
     sort.options.length = 0;
 

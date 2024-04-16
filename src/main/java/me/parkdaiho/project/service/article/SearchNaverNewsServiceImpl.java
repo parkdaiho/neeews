@@ -28,6 +28,7 @@ public class SearchNaverNewsServiceImpl implements SearchNaverNewsService{
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("query", dto.getQuery());
         params.add("sort", dto.getSort());
+        params.add("start", String.valueOf(dto.getStart()));
         params.add("display", naverSearchProperties.getDisplay());
 
         URI uri = UriComponentsBuilder

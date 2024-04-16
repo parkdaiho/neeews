@@ -35,15 +35,21 @@ public class ArticleService {
 
     private final PaginationProperties paginationProperties;
 
-    public SearchNaverNewsResponse getSearchNewsResult(SearchNaverNewsRequest dto) {
+    public SearchNaverNewsResponse getSearchNewsResult(SearchedArticlesRequest dto) {
         RestTemplate restTemplate = new RestTemplate();
 
         URI uri = UriComponentsBuilder.fromUriString("http://localhost:8080")
                 .path("/api/naver-news") // SearchNaverNewsApiController
                 .build().toUri();
 
+        if(dto.getPage() == null) dto.setPage(1);
+        int start = (dto.getPage() - 1) * paginationProperties.getNewsItemsPerPage() + 1;
+
         RequestEntity<SearchNaverNewsRequest> request = RequestEntity.post(uri)
-                .body(dto);
+                .body(SearchNaverNewsRequest.builder()
+                        .query(dto.getQuery())
+                        .sort(dto.getSort())
+                        .start(start).build());
 
         ResponseEntity<SearchNaverNewsResponse> response = restTemplate.exchange(request, SearchNaverNewsResponse.class);
         if(!response.getStatusCode().is2xxSuccessful()) {
