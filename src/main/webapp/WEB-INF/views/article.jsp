@@ -5,6 +5,9 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/css.css">
 	<title>ARTICLE</title>
+	<script>
+		const domain = "${domain}";
+	</script>
 </head>
 <body>
 <header>
@@ -31,25 +34,36 @@
 			</div>
 		</div>
 		<div class="article-contents">
-			<div class="article-contents-images">
-				<c:choose>
-					<c:when test="${imgSrc != null}">
-						<img src="${imgSrc}">
-					</c:when>
-					<c:otherwise>
-						이미지가 없습니다.
-					</c:otherwise>
-				</c:choose>
-			</div>
-			<div class="article-contents-textarea">
-				${text}
-			</div>
-			<div class="article-originalLink">
-				<a href="${originalLink}">VIEW THE ORIGINAL ARTICLE</a>
-				<br>
-				<a href="${link}">VIEW THE ORIGINAL ARTICLE</a>
-			</div>
+			<c:choose>
+				<c:when test="${isProvided}">
+					<div class="article-contents-images">
+						<c:choose>
+							<c:when test="${imgSrc != null}">
+								<img src="${imgSrc}">
+							</c:when>
+							<c:otherwise>
+								이미지가 없습니다.
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="article-contents-textarea">
+							${text}
+					</div>
+					<div class="article-originalLink">
+						<a href="${originalLink}">VIEW THE ORIGINAL ARTICLE</a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="article-originalLink">
+						저희 사이트에서 제공되지 않는 기사입니다.
+						<a href="${originalLink}">VIEW THE ORIGINAL ARTICLE</a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
+	</section>
+	<section class="poll-area">
+		<jsp:include page="poll-area.jsp"></jsp:include>
 	</section>
 	<section class="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>

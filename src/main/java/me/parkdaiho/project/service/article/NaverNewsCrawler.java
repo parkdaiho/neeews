@@ -31,11 +31,16 @@ public class NaverNewsCrawler {
 
         Element imgElement = getImgElement(document);
 
-        if(imgElement != null) {
-            return imgElement.attr("data-src");
+        if(imgElement == null) {
+            return null;
         }
 
-        return null;
+        String imgSrc = imgElement.attr("data-src");
+        if(!imgSrc.isBlank()) return imgSrc;
+
+        imgSrc = imgElement.attr("src");
+
+        return imgSrc;
     }
 
     private Element getTextElement(Document document) {

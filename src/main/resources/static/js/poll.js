@@ -12,6 +12,13 @@ function commentPoll(id, flag, page, order) {
 }
 
 function poll(id, flag) {
+    let url = "/api/poll";
+    let body = JSON.stringify({
+        "domain": domain,
+        "id": id,
+        "flag": flag,
+    });
+
     function success() {
         alert("poll success")
         location.reload();
@@ -21,20 +28,5 @@ function poll(id, flag) {
         alert("poll fail")
     }
 
-    pollRequest(id, flag, domain, success, fail);
-}
-
-function pollRequest(id, flag, domain, success, fail) {
-    let url = "/api/poll";
-    let headers = {
-        "Authorization": "Bearer " + localStorage.getItem("access_token"),
-        "Content-type": "application/json",
-    };
-    let body = JSON.stringify({
-        "id": id,
-        "domain": domain,
-        "flag": flag,
-    });
-
-    apiRequest(url, Method.PUT, headers, body, success, fail);
+    apiRequest(url, Method.PUT, body, getHeaders(true), success, fail);
 }

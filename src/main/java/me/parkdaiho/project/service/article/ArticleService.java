@@ -173,6 +173,8 @@ public class ArticleService {
         model.addAttribute("isProvided", article.getIsProvided());
         model.addAttribute("originalLink", article.getOriginalLink());
         model.addAttribute("imgSrc", article.getImgSrc());
-        model.addAttribute("link", article.getLink());
+
+        model.addAttribute("good", article.getGood());
+        model.addAttribute("bad", article.getBad());
     }
 }

@@ -16,7 +16,10 @@ public class ArticleViewResponse {
     private String pubDate;
     private Boolean isProvided;
     private Long views;
-    private String link;
+    private Long good;
+    private Long bad;
+
+
 
     public ArticleViewResponse(Article article) {
         this.id = article.getId();
@@ -26,7 +29,8 @@ public class ArticleViewResponse {
         this.pubDate = article.getPubDate();
         this.views = article.getViews();
         this.isProvided = article.getIsProvided();
-        this.link = article.getLink();
         this.imgSrc = article.getImgSrc();
+        this.good = article.getGood();
+        this.bad = article.getBad();
     }
 }
