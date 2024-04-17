@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="ko">
 <head>
@@ -20,21 +21,33 @@
 	<section class="post-area">
 		<div class="post-info">
 			<div class="post-title">
-				TITLE-1
+				${title}
 			</div>
 			<div class="post-writer">
-				aaa
+				${writer}
 			</div>
 			<div class="post-created-at">
-				2024-03-28 16:17:28
+				${createdAt}
+			</div>
+			<div class="post-modified-at">
+				${modifiedAt}
+			</div>
+			<div class="post-views">
+				${views}
 			</div>
 		</div>
 		<div class="post-contents">
 			<div class="post-image-area">
-				<img src="#">
+				<c:forEach var="filename" items="${savedFileNames}">
+					<c:url var="src" value="/post-image">
+						<c:param name="id" value="${id}"></c:param>
+						<c:param name="savedFileName" value="${filename}"></c:param>
+					</c:url>
+					<img src="${src}">
+				</c:forEach>
 			</div>
 			<div class="post-contents-textarea">
-				CONTENTS
+				${text}
 			</div>
 		</div>
 		<div class="post-btn">

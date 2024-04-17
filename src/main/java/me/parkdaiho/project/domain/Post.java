@@ -24,7 +24,7 @@ public class Post extends BaseEntity {
 
     @Lob
     @Column(nullable = false)
-    private String contents;
+    private String text;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id", nullable = false, updatable = false)
@@ -48,9 +48,9 @@ public class Post extends BaseEntity {
     private Long bad;
 
     @Builder
-    public Post(String title, String contents, User user) {
+    public Post(String title, String text, User user) {
         this.title = title;
-        this.contents = contents;
+        this.text = text;
         this.writer = user;
     }
 
@@ -79,7 +79,7 @@ public class Post extends BaseEntity {
 
     public Post modifyPost(ModifyPostRequest request) {
         this.title = request.getTitle();
-        this.contents = request.getContents();
+        this.text = request.getContents();
 
         return this;
     }

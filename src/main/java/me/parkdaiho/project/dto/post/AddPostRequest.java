@@ -13,13 +13,13 @@ import java.util.List;
 public class AddPostRequest {
 
     private String title;
-    private String contents;
+    private String text;
     private List<MultipartFile> files;
 
     public Post toEntity(User user) {
         return Post.builder()
                 .title(title)
-                .contents(contents)
+                .text(text)
                 .user(user)
                 .build();
     }

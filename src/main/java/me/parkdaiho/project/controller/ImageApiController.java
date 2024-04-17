@@ -16,7 +16,7 @@ public class ImageApiController {
     private final ImageFileProperties properties;
 
     @GetMapping("/post-image")
-    public Resource loadImage(Long id, String savedName) throws MalformedURLException {
-        return new UrlResource("file:" + properties.getLocation() + "/posts/" + id + "/" + savedName);
+    public Resource loadImage(Long id, String savedFileName) throws MalformedURLException {
+        return new UrlResource("file:" + properties.getLocation() + "/posts/" + id + "/" + savedFileName);
     }
 }

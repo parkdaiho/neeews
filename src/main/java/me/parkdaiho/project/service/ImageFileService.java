@@ -65,7 +65,7 @@ public class ImageFileService {
 
     public void removeSourceFile(List<ImageFile> images) {
         for (ImageFile image : images) {
-            String imageName = image.getOriginalName();
+            String imageName = image.getSavedName();
 
             File srcFile = new File(imageFileProperties.getLocation() + "/temp/" + imageName);
             srcFile.delete();

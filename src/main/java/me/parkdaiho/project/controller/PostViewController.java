@@ -49,7 +49,8 @@ public class PostViewController {
         PostViewResponse post = postService.getPostViewResponse(id, request, response);
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.POST);
 
-        model.addAttribute("post", post);
+        postService.addPostToModel(post, model);
+
         model.addAttribute("domain", Domain.POST.getDomainPl());
         model.addAttribute("sort", Order.LATEST.getValue());
 

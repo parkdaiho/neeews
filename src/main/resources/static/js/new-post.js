@@ -67,13 +67,13 @@ function modifyPost(postId) {
 
 function requestPost(url, method) {
     let title = document.getElementById("new-post-title");
-    let contents = document.getElementById("new-post-text");
+    let text = document.getElementById("new-post-text");
     let files = document.getElementsByClassName("files");
 
     let formData = new FormData();
 
     formData.append("title", title.value);
-    formData.append("contents", contents.innerHTML
+    formData.append("text", text.innerHTML
         .replaceAll("<div>", "<br>")
         .replaceAll("</div>", ""));
 

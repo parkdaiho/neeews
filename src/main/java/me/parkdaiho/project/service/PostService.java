@@ -61,14 +61,9 @@ public class PostService {
     public PostViewResponse getPostViewResponse(Long id, HttpServletRequest request, HttpServletResponse response) {
         Post post = findPostById(id);
 
-        if(!CookieUtils.checkViewed(request, response, Domain.POST, id)) post.addViews();
+        if (!CookieUtils.checkViewed(request, response, Domain.POST, id)) post.addViews();
 
-        return PostViewResponse.builder()
-                .id(post.getId())
-                .title(post.getTitle())
-                .contents(post.getContents())
-                .savedFileNames(imageFileService.getPostSavedFileName(post.getImages()))
-                .build();
+        return new PostViewResponse(post, imageFileService.getPostSavedFileName(post.getImages()));
     }
 
     public Post findPostById(Long id) {
@@ -118,7 +113,7 @@ public class PostService {
 
         String query = request.getQuery();
         Sort sort = request.getSearchSort() == null ? null : Sort.valueOf(request.getSearchSort().toUpperCase());
-        if(sort == null || query == null) {
+        if (sort == null || query == null) {
             return postRepository.findAll(pageable)
                     .map(entity -> new PostListViewResponse(entity));
         }
@@ -131,7 +126,7 @@ public class PostService {
         String message = null;
         switch (sort) {
             case TITLE -> posts = postRepository.findByTitleContaining(query, pageable);
-            case CONTENTS -> posts = postRepository.findByContentsContaining(query, pageable);
+            case CONTENTS -> posts = postRepository.findByTextContaining(query, pageable);
             case WRITER -> {
                 try {
                     User writer = userService.findByNickname(query);
@@ -145,7 +140,7 @@ public class PostService {
             default -> throw new IllegalArgumentException("Unexpected Sort: " + sort.getProperty());
         }
 
-        if(message == null && !posts.hasContent()) message = messageProperties.getNotFoundPosts();
+        if (message == null && !posts.hasContent()) message = messageProperties.getNotFoundPosts();
 
         final String finalMessage = message;
         return posts.map(entity -> new PostListViewResponse(entity, finalMessage));
@@ -170,7 +165,7 @@ public class PostService {
         int totalPages = posts.getTotalPages();
         int firstNumOfPageBlock = page / paginationProperties.getPostPagesPerBlock() + 1;
         int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getPostPagesPerBlock() - 1;
-        if(totalPages < lastNumOfPageBlock) lastNumOfPageBlock = totalPages;
+        if (totalPages < lastNumOfPageBlock) lastNumOfPageBlock = totalPages;
 
         int nextPage = posts.hasNext() ? page + 1 : totalPages;
         int previousPage = posts.hasPrevious() ? page - 1 : page;
@@ -216,5 +211,17 @@ public class PostService {
 
             default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());
         }
+    }
+
+    public void addPostToModel(PostViewResponse post, Model model) {
+        model.addAttribute("title", post.getTitle());
+        model.addAttribute("writer", post.getWriter());
+        model.addAttribute("createdAt", post.getCreatedAt());
+        model.addAttribute("modifiedAt", post.getModifiedAt());
+        model.addAttribute("views", post.getViews());
+        model.addAttribute("text", post.getText());
+        model.addAttribute("savedFileNames", post.getSavedFileNames());
+        model.addAttribute("good", post.getGood());
+        model.addAttribute("bad", post.getBad());
     }
 }

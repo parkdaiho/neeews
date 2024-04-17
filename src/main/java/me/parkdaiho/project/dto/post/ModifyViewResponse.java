@@ -15,6 +15,6 @@ public class ModifyViewResponse {
     public ModifyViewResponse(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
-        this.contents = post.getContents();
+        this.contents = post.getText();
     }
 }
