@@ -26,7 +26,7 @@ public class IndexViewController {
 
     @GetMapping("/")
     public String index(Model model) {
-        Order order = Order.POPULARITY;
+        Order order = Order.VIEWS;
 
         model.addAttribute("articles", articleService.getArticlesForIndex(order));
         model.addAttribute("posts", postService.getPostsForIndex(order));

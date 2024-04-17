@@ -89,6 +89,9 @@ pagination :
   next-page-name: "nextPage"
   previous-page-name: "previousPage"
 
+  article-list-in-articles: 10
+
+
 message:
   not-found-posts: "There are no posts."
   not-found-nickname: "There is no user with that nickname."

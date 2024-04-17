@@ -103,7 +103,7 @@ public class ArticleService {
     }
 
     public List<IndexViewResponse> getArticlesForIndex(Order order) {
-        Pageable pageable = getPageable(paginationProperties.getIndexViews(), 1, order);
+        Pageable pageable = getPageable(paginationProperties.getIndexViews(), order);
         Page<Article> articles = articleRepository.findAll(pageable);
 
         switch (order) {
@@ -123,15 +123,23 @@ public class ArticleService {
                                 .figure(entity.getViews())
                                 .build()).toList();
             }
+            case COMMENTS -> {
+                return articles.stream()
+                        .map(entity -> IndexViewResponse.builder()
+                                .title(entity.getTitle())
+                                .link("/" + Domain.ARTICLE.getDomainPl() + "/" + entity.getId())
+                                .figure(entity.getCommentsSize())
+                                .build()).toList();
+            }
 
             default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());
         }
     }
 
-    private Pageable getPageable(int size, int page, Order order) {
+    private Pageable getPageable(int size, Order order) {
         org.springframework.data.domain.Sort pageableSort = null;
         switch (order) {
-            case LATEST, POPULARITY, VIEWS -> pageableSort = org.springframework.data.domain.Sort.by(
+            case LATEST, POPULARITY, VIEWS, COMMENTS -> pageableSort = org.springframework.data.domain.Sort.by(
                     org.springframework.data.domain.Sort.Direction.DESC, order.getProperty());
             case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(
                     org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());
@@ -139,7 +147,7 @@ public class ArticleService {
             default -> throw new IllegalArgumentException("Unexpected order:" + order.getValue());
         }
 
-        return PageRequest.of(page - 1, size, pageableSort);
+        return PageRequest.of(0, size, pageableSort);
     }
 
     public void addSearchedNewsResponseToModel(SearchNaverNewsResponse response, Model model) {
@@ -176,5 +184,42 @@ public class ArticleService {
 
         model.addAttribute("good", article.getGood());
         model.addAttribute("bad", article.getBad());
+    }
+
+    public List<ArticlesResponse> getArticlesForArticles(Order order) {
+        Pageable pageable = getPageable(paginationProperties.getArticleListInArticles(), order);
+        Page<Article> articles = articleRepository.findAll(pageable);
+
+        switch (order) {
+            case POPULARITY -> {
+                return articles.stream()
+                        .map(entity -> ArticlesResponse.builder()
+                                .id(entity.getId())
+                                .title(entity.getTitle())
+                                .description(entity.getDescription())
+                                .figure(entity.getGood())
+                                .build()).toList();
+            }
+            case VIEWS -> {
+                return articles.stream()
+                        .map(entity -> ArticlesResponse.builder()
+                                .id(entity.getId())
+                                .title(entity.getTitle())
+                                .description(entity.getDescription())
+                                .figure(entity.getViews())
+                                .build()).toList();
+            }
+            case COMMENTS -> {
+                return articles.stream()
+                        .map(entity -> ArticlesResponse.builder()
+                                .id(entity.getId())
+                                .title(entity.getTitle())
+                                .description(entity.getDescription())
+                                .figure(entity.getCommentsSize())
+                                .build()).toList();
+            }
+
+            default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());
+        }
     }
 }

@@ -32,4 +32,6 @@ public class PaginationProperties {
     private String lastNumOfPageBlockName;
     private String nextPageName;
     private String previousPageName;
+
+    private Integer articleListInArticles;
 }

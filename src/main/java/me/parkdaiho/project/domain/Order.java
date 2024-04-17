@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 public enum Order {
 
     LATEST("latest", "createdAt"), EARLIEST("earliest", "createdAt"),
-    POPULARITY("popularity", "good"), VIEWS("views", "views");
+    POPULARITY("popularity", "good"), VIEWS("views", "views"),
+    COMMENTS("comments", "commentsSize");
+
 
     private final String value;
     private final String property;

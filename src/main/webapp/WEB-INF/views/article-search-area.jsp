@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="/css/css.css">
 </head>
 <body>
-<form action="/articles" method="get">
+<form action="/searched-articles" method="get">
 	<div class="article-search-box">
 		<select name="sort">
 			<c:choose>

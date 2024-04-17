@@ -15,10 +15,17 @@
 					<c:when test="${order == 'views'}">
 						<option value="views" selected>MOST-VIEWED</option>
 						<option value="popularity">MOST-POPULAR</option>
+						<option value="comments">MOST-COMMENTS</option>
+					</c:when>
+					<c:when test="${order == 'popular'}">
+						<option value="views">MOST-VIEWED</option>
+						<option value="popularity" selected>MOST-POPULAR</option>
+						<option value="comments">MOST-COMMENTS</option>
 					</c:when>
 					<c:otherwise>
 						<option value="views">MOST-VIEWED</option>
-						<option value="popularity" selected>MOST-POPULAR</option>
+						<option value="popularity">MOST-POPULAR</option>
+						<option value="comments" selected>MOST-COMMENTS</option>
 					</c:otherwise>
 				</c:choose>
 			</select>
@@ -39,10 +46,17 @@
 					<c:when test="${order == 'views'}">
 						<option value="views" selected>MOST-VIEWED</option>
 						<option value="popularity">MOST-POPULAR</option>
+						<option value="comments">MOST-COMMENTS</option>
+					</c:when>
+					<c:when test="${order == 'popular'}">
+						<option value="views">MOST-VIEWED</option>
+						<option value="popularity" selected>MOST-POPULAR</option>
+						<option value="comments">MOST-COMMENTS</option>
 					</c:when>
 					<c:otherwise>
 						<option value="views">MOST-VIEWED</option>
-						<option value="popularity" selected>MOST-POPULAR</option>
+						<option value="popularity">MOST-POPULAR</option>
+						<option value="comments" selected>MOST-COMMENTS</option>
 					</c:otherwise>
 				</c:choose>
 			</select>
@@ -55,6 +69,6 @@
 			</ul>
 		</div>
 	</c:otherwise>
-</c:choose>>
+</c:choose>
 </body>
 </html>

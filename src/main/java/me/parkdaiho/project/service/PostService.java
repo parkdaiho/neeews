@@ -205,6 +205,14 @@ public class PostService {
                                 .figure(entity.getViews())
                                 .build()).toList();
             }
+            case COMMENTS -> {
+                return posts.stream()
+                        .map(entity -> IndexViewResponse.builder()
+                                .title(entity.getTitle())
+                                .link("/" + Domain.POST.getDomainPl() + "/" + entity.getId())
+                                .figure(entity.getCommentsSize())
+                                .build()).toList();
+            }
 
             default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());
         }

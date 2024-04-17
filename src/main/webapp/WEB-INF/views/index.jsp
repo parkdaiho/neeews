@@ -13,7 +13,7 @@
 <main>
 	<section class="index-info-area">
 		<h1>Find articles and posts you interested in!</h1>
-		<form action="/articles" method="get" id="index-form">
+		<form action="/searched-articles" method="get" id="index-form">
 			<div class="index-search-box">
 				<select name="domain" onchange="changeSearchDomain(this.value);">
 					<option value="article" selected>ARTICLE</option>
@@ -35,6 +35,7 @@
 				<select onchange="getIndexArticles(this.value);">
 					<option value="views">MOST-VIEWED</option>
 					<option value="popularity">MOST-POPULAR</option>
+					<option value="comments">MOST-COMMENTS</option>
 				</select>
 			</div>
 			<div class="index-middle-contents">
@@ -51,6 +52,7 @@
 				<select onchange="getIndexPosts(this.value);">
 					<option value="views">MOST-VIEWED</option>
 					<option value="popularity">MOST-POPULAR</option>
+					<option value="comments">MOST-COMMENTS</option>
 				</select>
 			</div>
 			<div class="index-middle-contents">

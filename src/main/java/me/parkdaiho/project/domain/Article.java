@@ -39,22 +39,25 @@ public class Article extends BaseEntity {
 
     private Long views;
 
-    private Long good;
-
-    private Long bad;
-
     private Boolean isProvided;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    private Long commentsSize;
+
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Poll> pollList = new ArrayList<>();
+
+    private Long good;
+
+    private Long bad;
 
     @PrePersist
     public void prePersist() {
         this.isProvided = !link.equals(originalLink);
         this.views = 0L;
+        this.commentsSize = 0L;
         this.good = 0L;
         this.bad = 0L;
         this.isEnabled = true;
@@ -72,7 +75,9 @@ public class Article extends BaseEntity {
 
     public void addComment(Comment comment) {
         comment.setArticle(this);
+
         comments.add(comment);
+        commentsSize++;
     }
 
     public void addViews() {

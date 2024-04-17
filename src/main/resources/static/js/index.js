@@ -10,7 +10,7 @@ function changeSearchDomain(selectedValue) {
     let selectedArr;
     if(selectedValue === "article") {
         selectedArr = articleSortArr;
-        form.setAttribute("action", "/articles");
+        form.setAttribute("action", "/searched-articles");
         input.setAttribute("placeholder", "Search articles");
     } else {
         selectedArr = postSortArr;
@@ -53,9 +53,12 @@ function indexRequest(domain, order, area) {
     fetch(url)
         .then(response => {
             if(response.ok) {
-                area.innerHTML = response.text();
+                return response.text();
             } else {
                 alert("load " + domain + " fail");
             }
+        })
+        .then(result => {
+            area.innerHTML = result;
         });
 }

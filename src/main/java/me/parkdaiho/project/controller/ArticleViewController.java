@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
+import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.article.SearchedArticlesRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class ArticleViewController {
@@ -26,8 +29,8 @@ public class ArticleViewController {
     private final ArticleService articleService;
     private final CommentService commentService;
 
-    @GetMapping("/articles")
-    public String articles(SearchedArticlesRequest request, Model model) {
+    @GetMapping("/searched-articles")
+    public String searchedArticles(SearchedArticlesRequest request, Model model) {
         SearchNaverNewsResponse response = articleService.getSearchNewsResult(request);
 
         articleService.addSearchedNewsResponseToModel(response, model);
@@ -36,6 +39,17 @@ public class ArticleViewController {
         model.addAttribute("query", request.getQuery());
 
         return "searched-articles";
+    }
+
+    @GetMapping("/articles")
+    public String articles(String order, Model model) {
+        if(order == null) order = Order.VIEWS.getValue();
+        Order orderEnum = Order.valueOf(order.toUpperCase());
+
+        model.addAttribute("articles", articleService.getArticlesForArticles(orderEnum));
+        model.addAttribute("order", order);
+
+        return "articles";
     }
 
     @GetMapping("/articles/{id}")

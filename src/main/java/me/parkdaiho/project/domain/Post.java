@@ -36,6 +36,8 @@ public class Post extends BaseEntity {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    private Long commentsSize;
+
     private Long views;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
@@ -55,6 +57,7 @@ public class Post extends BaseEntity {
     @PrePersist
     public void prePersist() {
         this.views = 0L;
+        this.commentsSize = 0L;
         this.good = 0L;
         this.bad = 0L;
         this.isEnabled = true;
@@ -69,7 +72,9 @@ public class Post extends BaseEntity {
 
     public void addComment(Comment comment) {
         comment.setPost(this);
+
         comments.add(comment);
+        commentsSize++;
     }
 
     public Post modifyPost(ModifyPostRequest request) {

@@ -61,7 +61,7 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>
 
-<script src="/js/articles.js"></script>
+<script src="/js/searched-articles.js"></script>
 
 </body>
 </html>
