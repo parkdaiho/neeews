@@ -1,15 +1,17 @@
 function addFileInput() {
-    const uploadArea = document.getElementById("post-upload-area");
+    const uploadArea = document.getElementById("new-post-image-area");
 
     let newFileArea = document.createElement("div");
-    newFileArea.setAttribute("class", "newFileArea");
+    newFileArea.setAttribute("class", "new-post-image");
 
     let addFileInput = document.createElement("input");
     addFileInput.setAttribute("class", "files");
     addFileInput.setAttribute("type", "file");
+    addFileInput.setAttribute("accept", "image/*")
 
     let thumbnailArea = document.createElement("div");
-    thumbnailArea.setAttribute("class", "thumbnailArea");
+    thumbnailArea.setAttribute("class", "new-post-image-thumbnail");
+
     addFileInput.addEventListener("change", () => {
         setThumbnail(event, thumbnailArea);
     });
@@ -50,7 +52,7 @@ function writePost() {
     requestPost(url, "POST");
 }
 
-function modifyPost(id) {
+function modifyPost(postId) {
     deleteEmptyFileInput();
 
     let files = document.getElementsByClassName("files");
@@ -64,8 +66,8 @@ function modifyPost(id) {
 }
 
 function requestPost(url, method) {
-    let title = document.getElementById("post-write-title");
-    let contents = document.getElementById("post-write-contents");
+    let title = document.getElementById("new-post-title");
+    let contents = document.getElementById("new-post-text");
     let files = document.getElementsByClassName("files");
 
     let formData = new FormData();
@@ -92,7 +94,8 @@ function requestPost(url, method) {
 
                 location.href = headers.get("Location");
             } else {
-
+                alert("fail");
+                location.replace("/");
             }
         });
 }

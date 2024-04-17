@@ -3,7 +3,7 @@ package me.parkdaiho.project.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.dto.board.ModifyPostRequest;
+import me.parkdaiho.project.dto.post.ModifyPostRequest;
 
 import java.util.ArrayList;
 import java.util.List;

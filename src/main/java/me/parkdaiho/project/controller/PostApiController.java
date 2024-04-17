@@ -2,16 +2,14 @@ package me.parkdaiho.project.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.dto.board.*;
+import me.parkdaiho.project.dto.post.*;
 import me.parkdaiho.project.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.net.URI;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController

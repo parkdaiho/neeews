@@ -7,3 +7,9 @@ function getArticles(order) {
 
     location.replace(url);
 }
+
+function showArticle(id) {
+    let url = "/articles/" + id;
+
+    location.replace(url);
+}

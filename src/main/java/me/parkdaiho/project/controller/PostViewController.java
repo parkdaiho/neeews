@@ -5,10 +5,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
-import me.parkdaiho.project.dto.board.ModifyViewResponse;
-import me.parkdaiho.project.dto.board.PostListViewResponse;
-import me.parkdaiho.project.dto.board.PostViewResponse;
-import me.parkdaiho.project.dto.board.SearchPostRequest;
+import me.parkdaiho.project.dto.post.ModifyViewResponse;
+import me.parkdaiho.project.dto.post.PostListViewResponse;
+import me.parkdaiho.project.dto.post.PostViewResponse;
+import me.parkdaiho.project.dto.post.SearchPostRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
@@ -39,7 +39,7 @@ public class PostViewController {
 
     @GetMapping("/new-post")
     public String newPost() {
-        return "post-write";
+        return "new-post";
     }
 
     @GetMapping("/posts/{id}")

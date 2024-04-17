@@ -10,7 +10,7 @@ import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.IndexViewResponse;
-import me.parkdaiho.project.dto.board.*;
+import me.parkdaiho.project.dto.post.*;
 import me.parkdaiho.project.repository.PostRepository;
 import me.parkdaiho.project.service.user.UserService;
 import me.parkdaiho.project.util.CookieUtils;

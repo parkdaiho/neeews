@@ -30,8 +30,8 @@
 			</div>
 		</div>
 		<div class="post-contents">
-			<div class="post-contents-images">
-
+			<div class="post-image-area">
+				<img src="#">
 			</div>
 			<div class="post-contents-textarea">
 				CONTENTS
@@ -40,14 +40,6 @@
 		<div class="post-btn">
 			<button>MODIFY</button>
 			<button>DELETE</button>
-		</div>
-		<div class="post-contents">
-			<div class="post-image-area">
-				<img src="#">
-			</div>
-			<div class="post-contents-textarea">
-				CONTENTS
-			</div>
 		</div>
 	</section>
 	<section class="comments-area">

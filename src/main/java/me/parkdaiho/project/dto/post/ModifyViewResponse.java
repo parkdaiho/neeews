@@ -1,4 +1,4 @@
-package me.parkdaiho.project.dto.board;
+package me.parkdaiho.project.dto.post;
 
 import lombok.Getter;
 import lombok.Setter;

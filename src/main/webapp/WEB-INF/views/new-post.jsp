@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: parkdaeho
-  Date: 4/3/24
-  Time: 4:54 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="ko">
 <head>
@@ -24,28 +18,33 @@
 	</section>
 	<div class="new-post-area">
 		<div class="new-post-title">
-			<input type="text" placeholder="TITLE">
+			TITLE: <input type="text" placeholder="TITLE" id="new-post-title">
 		</div>
-		<div class="new-post-contents textarea" contenteditable="true">
+		<div class="new-post-contents textarea" id="new-post-text" contenteditable="true">
 
 		</div>
-		<div class="new-post-file-area">
-			<div class="new-post-input">
-
-			</div>
-			<div class="new-post-image-thumbnail">
-
-			</div>
+		<div class="new-post-image-area" id="new-post-image-area">
+			<h4>THE IMAGES YOU UPLOAD ARE LOCATED AT THE TOP OF THE POST.</h4>
+			<button onclick="addFileInput();">ADD IMAGE</button>
 		</div>
 		<div class="new-post-btn">
-			<button>ADD</button>
-			<button>MODIFIY</button>
-			<button>BACK</button>
+			<c:choose>
+				<c:when test="${id != null}">
+					<button onclick="modifyPost(${id})">MODIFY</button>
+				</c:when>
+				<c:otherwise>
+					<button onclick="writePost();">ADD</button>
+				</c:otherwise>
+			</c:choose>
+			<button type="reset">BACK</button>
 		</div>
 	</div>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>
+
+<script src="/js/new-post.js"></script>
+
 </body>
 </html>
