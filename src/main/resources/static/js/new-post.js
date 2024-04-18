@@ -60,7 +60,7 @@ function modifyPost(postId) {
         if (!confirm("파일을 추가하면 기존의 파일이 제거됩니다. 수정하시겠습니까?")) return;
     }
 
-    let url = "/api/posts/" + id;
+    let url = "/api/posts/" + postId;
 
     requestPost(url, "PUT");
 }

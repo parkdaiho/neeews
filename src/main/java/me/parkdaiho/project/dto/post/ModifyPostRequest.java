@@ -12,6 +12,6 @@ public class ModifyPostRequest {
 
     private Long id;
     private String title;
-    private String contents;
+    private String text;
     private List<MultipartFile> files;
 }

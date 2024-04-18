@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class SearchPostRequest {
 
-    private String query;
     private Integer page;
-    private String sort;
+    private String order;
+    private String query;
     private String searchSort;
 }

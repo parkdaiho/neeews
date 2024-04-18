@@ -5,6 +5,9 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/css.css">
 	<title>POST</title>
+	<script>
+		const domain = "${domain}";
+	</script>
 </head>
 <body>
 <header>
@@ -51,9 +54,13 @@
 			</div>
 		</div>
 		<div class="post-btn">
-			<button>MODIFY</button>
-			<button>DELETE</button>
+			<button onclick="getModifyPost(${id});">MODIFY</button>
+			<button onclick="deletePost(${id});">DELETE</button>
+			<button onclick="location.replace('/posts');">LIST</button>
 		</div>
+	</section>
+	<section class="poll-area">
+		<jsp:include page="poll-area.jsp"></jsp:include>
 	</section>
 	<section class="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>
@@ -62,5 +69,8 @@
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>
+
+<script src="/js/post.js"></script>
+
 </body>
 </html>

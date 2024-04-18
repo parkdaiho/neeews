@@ -79,7 +79,7 @@ public class Post extends BaseEntity {
 
     public Post modifyPost(ModifyPostRequest request) {
         this.title = request.getTitle();
-        this.text = request.getContents();
+        this.text = request.getText();
 
         return this;
     }

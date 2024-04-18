@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 public enum Sort {
 
     // post, notice
-    TITLE("title", "title"), CONTENTS("contents", "contents"),
+    TITLE("title", "title"), TEXT("text", "text"),
     WRITER("writer", "writer"),
     // membership
     ALL("all", "ALL"), WITHDRAWN("withdrawn", "WITHDRAWN"),

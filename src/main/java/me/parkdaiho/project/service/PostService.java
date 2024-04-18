@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.config.properties.MessageProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
 import me.parkdaiho.project.domain.user.User;
@@ -32,7 +31,6 @@ public class PostService {
     private final UserService userService;
 
     private final PaginationProperties paginationProperties;
-    private final MessageProperties messageProperties;
 
     @Transactional
     public Long getSavedPostId(AddPostRequest dto, PrincipalDetails principal) throws IOException {
@@ -77,7 +75,9 @@ public class PostService {
 
     @Transactional
     public void deletePost(Long id, PrincipalDetails principal) {
-        Post post = checkAuthority(id, principal);
+        Post post = findPostById(id);
+
+        checkAuthority(post, principal);
 
         postRepository.delete(post);
 
@@ -87,7 +87,10 @@ public class PostService {
 
     @Transactional
     public Long getModifiedPostId(Long id, ModifyPostRequest request, PrincipalDetails principal) throws IOException {
-        Post post = checkAuthority(id, principal);
+        Post post = findPostById(id);
+
+        checkAuthority(post, principal);
+
         post.modifyPost(request);
 
         if (request.getFiles() == null) return post.getId();
@@ -99,51 +102,44 @@ public class PostService {
         return post.getId();
     }
 
-    public Post checkAuthority(Long id, PrincipalDetails principal) {
-        Post post = findPostById(id);
+    public void checkAuthority(Post post, PrincipalDetails principal) {
+        if (post.getWriter().getId() == principal.getUserId() || !principal.getRole().getIsUser()) return;
 
-        if (post.getWriter().getId() != principal.getUserId()) throw new IllegalArgumentException("No authority");
-
-        return post;
+        throw new IllegalArgumentException("No authority");
     }
 
     public Page<PostListViewResponse> getPostListViewResponse(SearchPostRequest request) {
-        Order order = Order.valueOf(request.getSort().toUpperCase());
+        Order order = Order.valueOf(request.getOrder().toUpperCase());
         Pageable pageable = getPageable(request.getPage(), paginationProperties.getPostsPerPage(), order);
 
         String query = request.getQuery();
-        Sort sort = request.getSearchSort() == null ? null : Sort.valueOf(request.getSearchSort().toUpperCase());
-        if (sort == null || query == null) {
+        Sort searchSort = request.getSearchSort() == null ? null : Sort.valueOf(request.getSearchSort().toUpperCase());
+        if (searchSort == null || query == null) {
             return postRepository.findAll(pageable)
                     .map(entity -> new PostListViewResponse(entity));
         }
 
-        return getPostListViewResponseBySearch(sort, query, pageable);
+        return getPostListViewResponseBySearch(searchSort, query, pageable);
     }
 
-    private Page<PostListViewResponse> getPostListViewResponseBySearch(Sort sort, String query, Pageable pageable) {
+    private Page<PostListViewResponse> getPostListViewResponseBySearch(Sort searchSort, String query, Pageable pageable) {
         Page<Post> posts;
-        String message = null;
-        switch (sort) {
+        switch (searchSort) {
             case TITLE -> posts = postRepository.findByTitleContaining(query, pageable);
-            case CONTENTS -> posts = postRepository.findByTextContaining(query, pageable);
+            case TEXT -> posts = postRepository.findByTextContaining(query, pageable);
             case WRITER -> {
                 try {
                     User writer = userService.findByNickname(query);
                     posts = postRepository.findByWriter(writer, pageable);
                 } catch (Exception e) {
-                    posts = postRepository.findAll(pageable);
-                    message = messageProperties.getNotFoundNickname();
+                    return null;
                 }
             }
 
-            default -> throw new IllegalArgumentException("Unexpected Sort: " + sort.getProperty());
+            default -> throw new IllegalArgumentException("Unexpected Sort: " + searchSort.getProperty());
         }
 
-        if (message == null && !posts.hasContent()) message = messageProperties.getNotFoundPosts();
-
-        final String finalMessage = message;
-        return posts.map(entity -> new PostListViewResponse(entity, finalMessage));
+        return posts.map(entity -> new PostListViewResponse(entity));
     }
 
     private Pageable getPageable(int page, int size, Order order) {
@@ -161,6 +157,8 @@ public class PostService {
     }
 
     public void addPostsInfoToModel(Page<PostListViewResponse> posts, Model model) {
+        if(posts == null) return;
+
         int page = posts.getNumber() + 1;
         int totalPages = posts.getTotalPages();
         int firstNumOfPageBlock = page / paginationProperties.getPostPagesPerBlock() + 1;
@@ -170,13 +168,14 @@ public class PostService {
         int nextPage = posts.hasNext() ? page + 1 : totalPages;
         int previousPage = posts.hasPrevious() ? page - 1 : page;
 
-        model.addAttribute("page", page);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
-        model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("previousPage", previousPage);
-        model.addAttribute("items", posts.getContent());
+        model.addAttribute(paginationProperties.getPageName(), page);
+        model.addAttribute(paginationProperties.getTotalPagesName(), totalPages);
+        model.addAttribute(paginationProperties.getTotalElementsName(), posts.getTotalElements());
+        model.addAttribute(paginationProperties.getStartNumOfPageBlockName(), firstNumOfPageBlock);
+        model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBlock);
+        model.addAttribute(paginationProperties.getNextPageName(), nextPage);
+        model.addAttribute(paginationProperties.getPreviousPageName(), previousPage);
+        model.addAttribute("posts", posts.getContent());
     }
 
     public List<IndexViewResponse> getPostsForIndex(Order order) {
@@ -213,7 +212,8 @@ public class PostService {
         }
     }
 
-    public void addPostToModel(PostViewResponse post, Model model) {
+    public void addPostViewToModel(PostViewResponse post, Model model) {
+        model.addAttribute("id", post.getId());
         model.addAttribute("title", post.getTitle());
         model.addAttribute("writer", post.getWriter());
         model.addAttribute("createdAt", post.getCreatedAt());
@@ -223,5 +223,11 @@ public class PostService {
         model.addAttribute("savedFileNames", post.getSavedFileNames());
         model.addAttribute("good", post.getGood());
         model.addAttribute("bad", post.getBad());
+    }
+
+    public void addModifyViewToModel(ModifyViewResponse post, Model model) {
+        model.addAttribute("id", post.getId());
+        model.addAttribute("title", post.getTitle());
+        model.addAttribute("text", post.getText());
     }
 }

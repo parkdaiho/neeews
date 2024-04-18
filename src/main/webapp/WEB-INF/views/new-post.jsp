@@ -18,13 +18,13 @@
 	</section>
 	<div class="new-post-area">
 		<div class="new-post-title">
-			TITLE: <input type="text" placeholder="TITLE" id="new-post-title">
+			TITLE: <input type="text" placeholder="TITLE" id="new-post-title" value="${title}">
 		</div>
 		<div class="new-post-contents textarea" id="new-post-text" contenteditable="true">
-
+			${text}
 		</div>
 		<div class="new-post-image-area" id="new-post-image-area">
-			<h4>THE IMAGES YOU UPLOAD ARE LOCATED AT THE TOP OF THE POST.</h4>
+			<h4>The images you upload are located at the top of the post.</h4>
 			<button onclick="addFileInput();">ADD IMAGE</button>
 		</div>
 		<div class="new-post-btn">

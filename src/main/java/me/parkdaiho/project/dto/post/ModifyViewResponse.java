@@ -10,11 +10,11 @@ public class ModifyViewResponse {
 
     private Long id;
     private String title;
-    private String contents;
+    private String text;
 
     public ModifyViewResponse(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
-        this.contents = post.getText();
+        this.text = post.getText();
     }
 }

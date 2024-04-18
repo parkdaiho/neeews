@@ -30,9 +30,7 @@ public class PostApiController {
 
         postService.deletePost(id, principal);
 
-        return ResponseEntity.ok()
-                .header("Location", "/posts")
-                .build();
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping("/api/posts/{id}")

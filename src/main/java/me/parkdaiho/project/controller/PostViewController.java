@@ -28,11 +28,15 @@ public class PostViewController {
     @GetMapping("/posts")
     public String posts(SearchPostRequest request, Model model) {
         if (request.getPage() == null) request.setPage(1);
-        if (request.getSort() == null) request.setSort(Order.LATEST.getValue());
+        if (request.getOrder() == null) request.setOrder(Order.LATEST.getValue());
 
         Page<PostListViewResponse> posts = postService.getPostListViewResponse(request);
 
         postService.addPostsInfoToModel(posts, model);
+
+        model.addAttribute("order", request.getOrder());
+        model.addAttribute("searchSort", request.getSearchSort());
+        model.addAttribute("query", request.getQuery());
 
         return "posts";
     }
@@ -49,7 +53,7 @@ public class PostViewController {
         PostViewResponse post = postService.getPostViewResponse(id, request, response);
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.POST);
 
-        postService.addPostToModel(post, model);
+        postService.addPostViewToModel(post, model);
 
         model.addAttribute("domain", Domain.POST.getDomainPl());
         model.addAttribute("sort", Order.LATEST.getValue());
@@ -76,8 +80,8 @@ public class PostViewController {
     public String modifyPage(Long id, Model model) {
         ModifyViewResponse post = postService.getModifyViewResponse(id);
 
-        model.addAttribute("post", post);
+        postService.addModifyViewToModel(post, model);
 
-        return "post-write";
+        return "new-post";
     }
 }
