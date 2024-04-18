@@ -12,17 +12,11 @@ public class PostListViewResponse {
     private String title;
     private String writer;
     private String createdAt;
-    private String message;
 
     public PostListViewResponse(Post post) {
         this.id = post.getId();
         this.title = post.getTitle();
         this.writer = post.getWriter().getNickname();
         this.createdAt = post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-mm"));
-    }
-
-    public PostListViewResponse(Post post, String message) {
-        this(post);
-        this.message = message;
     }
 }

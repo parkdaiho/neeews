@@ -146,7 +146,8 @@ public class PostService {
         org.springframework.data.domain.Sort pageableSort = null;
         switch (order) {
             case LATEST, POPULARITY, VIEWS -> pageableSort = org.springframework.data.domain.Sort.by(
-                    org.springframework.data.domain.Sort.Direction.DESC, order.getProperty());
+                    org.springframework.data.domain.Sort.Direction.DESC, order.getProperty())
+                    .and(org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, Order.LATEST.getProperty()));
             case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(
                     org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());
 

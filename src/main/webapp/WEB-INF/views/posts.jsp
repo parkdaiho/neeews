@@ -58,7 +58,7 @@
 				<div class="post-created-at">CREATED-AT</div>
 			</div>
 			<c:forEach var="post" items="${posts}">
-				<div class="post-in-posts">
+				<div class="post-in-posts" onclick="getPostView(${post.id});">
 					<div class="post-num">${post.id}</div>
 					<div class="post-title">${post.title}</div>
 					<div class="post-writer">${post.writer}</div>

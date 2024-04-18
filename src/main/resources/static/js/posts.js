@@ -6,3 +6,8 @@ function getPostsByOrder(order) {
     let url = "/posts?" + params;
     location.replace(url);
 }
+
+function getPostView(postId) {
+    let url = "/posts/" + postId;
+    location.replace(url);
+}

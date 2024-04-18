@@ -15,6 +15,7 @@ import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -140,7 +141,8 @@ public class ArticleService {
         org.springframework.data.domain.Sort pageableSort = null;
         switch (order) {
             case LATEST, POPULARITY, VIEWS, COMMENTS -> pageableSort = org.springframework.data.domain.Sort.by(
-                    org.springframework.data.domain.Sort.Direction.DESC, order.getProperty());
+                    org.springframework.data.domain.Sort.Direction.DESC, order.getProperty())
+                    .and(Sort.by(Sort.Direction.DESC, Order.LATEST.getProperty()));
             case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(
                     org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());
 

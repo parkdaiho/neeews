@@ -8,11 +8,11 @@
 </head>
 <body>
 <div class="post-search-area">
-	<form action="/posts" method="POST">
+	<form action="/posts" method="GET">
 		<div class="post-search-box">
 			<select name="searchSort">
 				<c:choose>
-					<c:when test="${searchSort == 'contents'}">
+					<c:when test="${searchSort == 'text'}">
 				<option value="title">TITLE</option>
 				<option value="text" selected>CONTENTS</option>
 				<option value="writer">WRITER</option>
@@ -29,7 +29,7 @@
 					</c:otherwise>
 				</c:choose>
 			</select>
-			<input type="text" id="query" value="${query}">
+			<input type="text" name="query" value="${query}">
 			<button type="submit">SEARCH</button>
 		</div>
 	</form>
