@@ -1,55 +1,9 @@
-function addFileInput() {
-    const uploadArea = document.getElementById("new-post-image-area");
-
-    let newFileArea = document.createElement("div");
-    newFileArea.setAttribute("class", "new-post-image");
-
-    let addFileInput = document.createElement("input");
-    addFileInput.setAttribute("class", "files");
-    addFileInput.setAttribute("type", "file");
-    addFileInput.setAttribute("accept", "image/*")
-
-    let thumbnailArea = document.createElement("div");
-    thumbnailArea.setAttribute("class", "new-post-image-thumbnail");
-
-    addFileInput.addEventListener("change", () => {
-        setThumbnail(event, thumbnailArea);
-    });
-
-    let removeNewFileAreaButton = document.createElement("button");
-    removeNewFileAreaButton.innerHTML = "REMOVE";
-    removeNewFileAreaButton.addEventListener("click", () => {
-            newFileArea.remove();
-        }
-    );
-
-    newFileArea.append(addFileInput);
-    newFileArea.append(thumbnailArea);
-    newFileArea.append(removeNewFileAreaButton);
-
-    uploadArea.append(newFileArea);
-}
-
-function setThumbnail(event, thumbnailArea) {
-    let imageReader = new FileReader();
-
-    imageReader.onload = function (event) {
-        thumbnailArea.innerHTML = "";
-        let thumbnail = document.createElement("img");
-        thumbnail.setAttribute("src", event.target.result);
-        thumbnail.setAttribute("style", "width:50px;height:auto;")
-        thumbnailArea.append(thumbnail);
-    }
-
-    imageReader.readAsDataURL(event.target.files[0]);
-}
-
 function writePost() {
     deleteEmptyFileInput();
 
     let url = "/api/post";
 
-    requestPost(url, "POST");
+    requestPost(url, Method.POST);
 }
 
 function modifyPost(postId) {
@@ -62,7 +16,7 @@ function modifyPost(postId) {
 
     let url = "/api/posts/" + postId;
 
-    requestPost(url, "PUT");
+    requestPost(url, Method.PUT);
 }
 
 function requestPost(url, method) {
@@ -95,19 +49,7 @@ function requestPost(url, method) {
                 location.href = headers.get("Location");
             } else {
                 alert("fail");
-                location.replace("/");
+                location.replace("/posts");
             }
         });
-}
-
-function deleteEmptyFileInput() {
-    let files = document.getElementsByClassName("files");
-    let filesArr = Array.from(files);
-
-    for (let i = 0; i < filesArr.length; i++) {
-        let file = filesArr[i];
-        if (file.files[0] == null) {
-            file.parentElement.remove();
-        }
-    }
 }

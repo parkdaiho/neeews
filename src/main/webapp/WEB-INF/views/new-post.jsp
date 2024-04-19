@@ -20,13 +20,14 @@
 		<div class="new-post-title">
 			TITLE: <input type="text" placeholder="TITLE" id="new-post-title" value="${title}">
 		</div>
-		<div class="new-post-contents textarea" id="new-post-text" contenteditable="true">
-			${text}
+		<div class="new-post-textarea">
+			<div id="new-post-text" contenteditable="true">
+				${text}
+			</div>
 		</div>
-		<div class="new-post-image-area" id="new-post-image-area">
-			<h4>The images you upload are located at the top of the post.</h4>
-			<button onclick="addFileInput();">ADD IMAGE</button>
-		</div>
+
+		<jsp:include page="upload-image-area.jsp"></jsp:include>
+
 		<div class="new-post-btn">
 			<c:choose>
 				<c:when test="${id != null}">
@@ -36,7 +37,7 @@
 					<button onclick="writePost();">ADD</button>
 				</c:otherwise>
 			</c:choose>
-			<button type="reset">BACK</button>
+			<button onclick="location.replace('/posts');">LIST</button>
 		</div>
 	</div>
 </main>

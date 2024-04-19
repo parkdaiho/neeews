@@ -18,9 +18,9 @@
 	<section class="post-search-area">
 		<jsp:include page="post-search-area.jsp"></jsp:include>
 	</section>
-	<div class="posts-area">
+	<section class="posts-area">
 		<div class="posts-info-area">
-			TOTAL ${totalElements} POSTS!
+			TOTAL ${totalElements} POSTS
 			<select onchange="getPostsByOrder(this.value);">
 				<c:choose>
 					<c:when test="${order == 'views'}">
@@ -72,7 +72,7 @@
 		<div class="posts-btn">
 			<button onclick="location.replace('/new-post');">NEW-POST</button>
 		</div>
-	</div>
+	</section>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>

@@ -1,12 +1,10 @@
 package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import me.parkdaiho.project.domain.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -14,7 +12,7 @@ import java.util.List;
 @Setter
 @Table(name = "notice")
 @Entity
-public class Notice extends BaseEntity {
+public class Notice extends BaseEntity implements IncludingImages {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,14 +22,17 @@ public class Notice extends BaseEntity {
     private String title;
 
     @Column(nullable = false)
-    private String contents;
+    private String text;
+
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ImageFile> imageFiles = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id", nullable = false, updatable = false)
     private User writer;
 
     @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();
 
     private Boolean isFixed;
 
@@ -39,7 +40,33 @@ public class Notice extends BaseEntity {
 
     @PrePersist
     public void prePersist() {
-        this.isFixed = false;
         this.isEnabled = true;
+    }
+
+    @Builder
+    public Notice(String title, String text, User writer, Boolean isFixed) {
+        this.title = title;
+        this.text = text;
+        this.writer = writer;
+        this.isFixed = isFixed;
+        this.views = 0L;
+    }
+
+    @Override
+    public void addImageFiles(List<ImageFile> files) {
+        for (ImageFile image : files) {
+            image.setNotice(this);
+
+            imageFiles.add(image);
+        }
+    }
+
+    @Override
+    public void initImages() {
+        this.imageFiles = new ArrayList<>();
+    }
+
+    public void addViews() {
+        views++;
     }
 }

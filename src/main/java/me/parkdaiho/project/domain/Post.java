@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Table(name = "posts")
 @Entity
-public class Post extends BaseEntity {
+public class Post extends BaseEntity implements IncludingImages {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +31,7 @@ public class Post extends BaseEntity {
     private User writer;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<ImageFile> images = new ArrayList<>();
+    private List<ImageFile> imageFiles = new ArrayList<>();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
@@ -63,11 +63,18 @@ public class Post extends BaseEntity {
         this.isEnabled = true;
     }
 
+    @Override
     public void addImageFiles(List<ImageFile> files) {
         for(ImageFile file : files) {
             file.setPost(this);
-            images.add(file);
+
+            imageFiles.add(file);
         }
+    }
+
+    @Override
+    public void initImages() {
+        this.imageFiles = new ArrayList<>();
     }
 
     public void addComment(Comment comment) {
@@ -82,10 +89,6 @@ public class Post extends BaseEntity {
         this.text = request.getText();
 
         return this;
-    }
-
-    public void initImages() {
-        this.images = new ArrayList<>();
     }
 
     public void addViews() {

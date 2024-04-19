@@ -2,8 +2,9 @@ package me.parkdaiho.project.service;
 
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.ImageFileProperties;
+import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.ImageFile;
-import me.parkdaiho.project.domain.Post;
+import me.parkdaiho.project.domain.IncludingImages;
 import me.parkdaiho.project.repository.ImageFileRepository;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
@@ -52,12 +53,12 @@ public class ImageFileService {
         return images;
     }
 
-    public void moveFileToPostDirectory(List<ImageFile> images, Long savedPostId) throws IOException {
+    public void moveFileToEntityDirectory(Domain domain, IncludingImages entity, List<ImageFile> images) throws IOException {
         for (ImageFile image : images) {
             String savedName = image.getSavedName();
 
             File srcFile = new File(imageFileProperties.getLocation() + "/temp/" + savedName);
-            File destinedFolder = new File(imageFileProperties.getLocation() + "/posts/" + savedPostId);
+            File destinedFolder = new File(imageFileProperties.getLocation() + "/" + domain.getDomainPl() + "/" + entity.getId());
 
             FileUtils.moveFileToDirectory(srcFile, destinedFolder, true);
         }
@@ -72,27 +73,21 @@ public class ImageFileService {
         }
     }
 
-    public void removeSavedFile(Post post, List<ImageFile> images) {
+    public void removeSavedFile(Domain domain, IncludingImages entity, List<ImageFile> images) {
         for (ImageFile image : images) {
             String savedName = image.getSavedName();
 
-            File savedFile = new File(imageFileProperties.getLocation() + "/posts/" + post.getId() + "/" + savedName);
+            File savedFile = new File(imageFileProperties.getLocation() + "/" + domain.getDomainPl() + "/" + entity.getId() + "/" + savedName);
             savedFile.delete();
         }
     }
 
-    public List<String> getPostSavedFileName(List<ImageFile> images) {
-        return images.stream()
-                .map(image -> image.getSavedName())
-                .toList();
-    }
+    public List<ImageFile> modifyImages(Domain domain, IncludingImages entity, List<MultipartFile> newImages) throws IOException {
+        List<ImageFile> existingImages = entity.getImageFiles();
 
-    public List<ImageFile> modifyImages(Post post, List<MultipartFile> newImages) throws IOException {
-        List<ImageFile> existingImages = post.getImages();
+        removeSavedFile(domain, entity, entity.getImageFiles());
 
-        removeSavedFile(post, post.getImages());
-
-        post.initImages();
+        entity.initImages();
         imageFileRepository.deleteAll(existingImages);
 
         return uploadImageFiles(newImages);

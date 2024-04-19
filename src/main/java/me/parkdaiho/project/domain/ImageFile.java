@@ -24,6 +24,10 @@ public class ImageFile extends BaseEntity {
     @JoinColumn(name = "post_id", updatable = false)
     private Post post;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "notice_id", updatable = false)
+    private Notice notice;
+
     @PrePersist
     public void prePersist() {
         this.isEnabled = true;

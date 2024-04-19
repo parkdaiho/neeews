@@ -44,12 +44,11 @@ public class PostService {
         return post.getId();
     }
 
-    public void addImagesToPost(Post post, List<ImageFile> images) {
+    private void addImagesToPost(Post post, List<ImageFile> images) {
         try {
             post.addImageFiles(images);
 
-            Long savedPostId = postRepository.save(post).getId();
-            imageFileService.moveFileToPostDirectory(images, savedPostId);
+            imageFileService.moveFileToEntityDirectory(Domain.POST, postRepository.save(post), images);
         } catch (Exception e) {
             imageFileService.removeSourceFile(images);
         }
@@ -61,7 +60,7 @@ public class PostService {
 
         if (!CookieUtils.checkViewed(request, response, Domain.POST, id)) post.addViews();
 
-        return new PostViewResponse(post, imageFileService.getPostSavedFileName(post.getImages()));
+        return new PostViewResponse(post);
     }
 
     public Post findPostById(Long id) {
@@ -81,8 +80,8 @@ public class PostService {
 
         postRepository.delete(post);
 
-        List<ImageFile> images = post.getImages();
-        imageFileService.removeSavedFile(post, images);
+        List<ImageFile> images = post.getImageFiles();
+        imageFileService.removeSavedFile(Domain.POST, post, images);
     }
 
     @Transactional
@@ -95,7 +94,7 @@ public class PostService {
 
         if (request.getFiles() == null) return post.getId();
 
-        List<ImageFile> newImages = imageFileService.modifyImages(post, request.getFiles());
+        List<ImageFile> newImages = imageFileService.modifyImages(Domain.POST, post, request.getFiles());
 
         addImagesToPost(post, newImages);
 

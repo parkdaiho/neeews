@@ -23,7 +23,7 @@ public class PostViewResponse {
     private Long good;
     private Long bad;
 
-    public PostViewResponse(Post post, List<String> savedFileNames) {
+    public PostViewResponse(Post post) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
 
         this.id = post.getId();
@@ -36,6 +36,8 @@ public class PostViewResponse {
         this.good = post.getGood();
         this.bad = post.getBad();
 
-        this.savedFileNames = savedFileNames;
+        this.savedFileNames = post.getImageFiles().stream()
+                .map(imageFile -> imageFile.getSavedName())
+                .toList();
     }
 }

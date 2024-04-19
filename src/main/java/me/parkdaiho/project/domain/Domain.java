@@ -7,7 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Domain {
     USER("user", "users"), ARTICLE("article", "articles"),
-    POST("post", "posts"), COMMENT("comment", "comments");
+    POST("post", "posts"), NOTICE("notice", "notice"),
+    COMMENT("comment", "comments");
 
     public static Domain getDomainByDomainPl(String domainPl) {
         for(Domain domain : Domain.values()) {
