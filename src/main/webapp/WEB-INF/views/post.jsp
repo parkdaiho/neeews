@@ -42,8 +42,9 @@
 		<div class="post-contents">
 			<div class="post-image-area">
 				<c:forEach var="filename" items="${savedFileNames}">
-					<c:url var="src" value="/post-image">
+					<c:url var="src" value="/image">
 						<c:param name="id" value="${id}"></c:param>
+						<c:param name="domain" value="post"></c:param>
 						<c:param name="savedFileName" value="${filename}"></c:param>
 					</c:url>
 					<img src="${src}">
@@ -53,7 +54,7 @@
 				${text}
 			</div>
 		</div>
-		<div class="post-btn">
+		<div class="post-btn-area">
 			<button onclick="getModifyPost(${id});">MODIFY</button>
 			<button onclick="deletePost(${id});">DELETE</button>
 			<button onclick="location.replace('/posts');">LIST</button>

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class AddPostRequest {
+public class NewPostRequest {
 
     private String title;
     private String text;

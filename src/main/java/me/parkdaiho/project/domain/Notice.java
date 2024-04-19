@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.dto.notice.ModifyNoticeRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class Notice extends BaseEntity implements IncludingImages {
     @PrePersist
     public void prePersist() {
         this.isEnabled = true;
+        this.views = 0L;
     }
 
     @Builder
@@ -49,7 +51,6 @@ public class Notice extends BaseEntity implements IncludingImages {
         this.text = text;
         this.writer = writer;
         this.isFixed = isFixed;
-        this.views = 0L;
     }
 
     @Override
@@ -68,5 +69,12 @@ public class Notice extends BaseEntity implements IncludingImages {
 
     public void addViews() {
         views++;
+    }
+
+    public Notice modify(ModifyNoticeRequest request) {
+        this.title = request.getTitle();
+        this.text = request.getText();
+
+        return this;
     }
 }

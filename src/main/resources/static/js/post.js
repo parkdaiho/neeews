@@ -1,10 +1,14 @@
-function getModifyPost(id) {
-    let url = "/post?id=" + id;
+function getModifyPost(postId) {
+    let params = new URLSearchParams({
+        "id": postId
+    });
+    let url = "/post?" + params;
+
     location.replace(url);
 }
 
-function deletePost(id) {
-    let url = "/api/posts/" + id;
+function deletePost(postId) {
+    let url = "/api/posts/" + postId;
 
     function success() {
         alert("success!");

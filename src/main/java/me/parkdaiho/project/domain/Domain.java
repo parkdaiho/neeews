@@ -22,4 +22,8 @@ public enum Domain {
 
     private final String domain;
     private final String domainPl;
+
+    public static String getDomainPl(String domain) {
+        return Domain.valueOf(domain.toUpperCase()).getDomainPl();
+    }
 }

@@ -33,7 +33,7 @@ public class PostService {
     private final PaginationProperties paginationProperties;
 
     @Transactional
-    public Long getSavedPostId(AddPostRequest dto, PrincipalDetails principal) throws IOException {
+    public Long getSavedPostId(NewPostRequest dto, PrincipalDetails principal) throws IOException {
         Post post = dto.toEntity(principal.getUser());
         List<ImageFile> images = imageFileService.uploadImageFiles(dto.getFiles());
 

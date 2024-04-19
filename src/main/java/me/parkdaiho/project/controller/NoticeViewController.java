@@ -3,6 +3,7 @@ package me.parkdaiho.project.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.dto.notice.ModifyViewResponse;
 import me.parkdaiho.project.dto.notice.NoticeViewResponse;
 import me.parkdaiho.project.dto.notice.SearchNoticeRequest;
 import me.parkdaiho.project.service.NoticeService;
@@ -36,5 +37,14 @@ public class NoticeViewController {
         noticeService.addNoticeViewToModel(notice, model);
 
         return "notice";
+    }
+
+    @GetMapping("/notice")
+    public String modifyNotice(Long id, Model model) {
+        ModifyViewResponse notice = noticeService.getModifyViewResponse(id);
+
+        noticeService.addModifyViewToModel(notice, model);
+
+        return "new-notice";
     }
 }

@@ -74,21 +74,22 @@ public class ImageFileService {
     }
 
     public void removeSavedFile(Domain domain, IncludingImages entity, List<ImageFile> images) {
+        List<ImageFile> imageFiles = entity.getImageFiles();
+
         for (ImageFile image : images) {
             String savedName = image.getSavedName();
 
             File savedFile = new File(imageFileProperties.getLocation() + "/" + domain.getDomainPl() + "/" + entity.getId() + "/" + savedName);
             savedFile.delete();
         }
+
+        entity.initImages();
+
+        imageFileRepository.deleteAll(imageFiles);
     }
 
     public List<ImageFile> modifyImages(Domain domain, IncludingImages entity, List<MultipartFile> newImages) throws IOException {
-        List<ImageFile> existingImages = entity.getImageFiles();
-
         removeSavedFile(domain, entity, entity.getImageFiles());
-
-        entity.initImages();
-        imageFileRepository.deleteAll(existingImages);
 
         return uploadImageFiles(newImages);
     }

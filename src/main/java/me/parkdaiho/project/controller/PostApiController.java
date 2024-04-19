@@ -18,7 +18,7 @@ public class PostApiController {
     private final PostService postService;
 
     @PostMapping("/api/post")
-    public ResponseEntity<Void> newPost(AddPostRequest request, @AuthenticationPrincipal PrincipalDetails principal) throws IOException {
+    public ResponseEntity<Void> newPost(NewPostRequest request, @AuthenticationPrincipal PrincipalDetails principal) throws IOException {
         Long savedPostId = postService.getSavedPostId(request, principal);
 
         return ResponseEntity.created(URI.create("/posts/" + savedPostId)).build();
