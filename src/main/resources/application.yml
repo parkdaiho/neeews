@@ -80,6 +80,9 @@ pagination :
   index-views: 10
   news-items-per-page: 10
   news-pages-per-block: 10
+  notice-per-page: 2
+  fixed-notice-per-page: 5
+  notice-pages-per-block: 10
 
   page-name: "page"
   total-pages-name: "totalPages"

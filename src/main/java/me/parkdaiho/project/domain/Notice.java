@@ -35,6 +35,8 @@ public class Notice extends BaseEntity implements IncludingImages {
     @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+    private Long commentsSize;
+
     private Boolean isFixed;
 
     private Long views;
@@ -42,6 +44,7 @@ public class Notice extends BaseEntity implements IncludingImages {
     @PrePersist
     public void prePersist() {
         this.isEnabled = true;
+        this.commentsSize = 0L;
         this.views = 0L;
     }
 
@@ -65,6 +68,13 @@ public class Notice extends BaseEntity implements IncludingImages {
     @Override
     public void initImages() {
         this.imageFiles = new ArrayList<>();
+    }
+
+    public void addComments(Comment comment) {
+        comment.setNotice(this);
+
+        comments.add(comment);
+        commentsSize++;
     }
 
     public void addViews() {

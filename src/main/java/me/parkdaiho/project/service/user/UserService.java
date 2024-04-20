@@ -148,7 +148,7 @@ public class UserService {
         Page<UserInfoResponse> users = getUsers(page, sort, searchSort, query);
 
         int totalPages = users.getTotalPages();
-        int pageBlockNum = page / paginationProperties.getUserPagesPerBlock();
+        int pageBlockNum = (page - 1) / paginationProperties.getUserPagesPerBlock();
         int startNumOfPageBlock = pageBlockNum * paginationProperties.getUserPagesPerBlock() + 1;
         int lastNumOfPageBlock = startNumOfPageBlock + paginationProperties.getUserPagesPerBlock() - 1;
         if (lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
@@ -157,7 +157,7 @@ public class UserService {
         int previousPage = users.hasPrevious() ? page - 1 : page;
 
         model.addAttribute(paginationProperties.getPageName(), page);
-        model.addAttribute("sort", sort);
+        model.addAttribute("order", sort);
         model.addAttribute("searchSort", searchSort);
         model.addAttribute("query", query);
         model.addAttribute(paginationProperties.getTotalPagesName(), totalPages);

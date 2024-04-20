@@ -3,10 +3,13 @@ package me.parkdaiho.project.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.dto.notice.ModifyViewResponse;
+import me.parkdaiho.project.dto.notice.NoticeListViewResponse;
 import me.parkdaiho.project.dto.notice.NoticeViewResponse;
 import me.parkdaiho.project.dto.notice.SearchNoticeRequest;
 import me.parkdaiho.project.service.NoticeService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +28,19 @@ public class NoticeViewController {
 
     @GetMapping("/notice-list")
     public String noticeList(SearchNoticeRequest request, Model model) {
+        if(request.getPage() == null) request.setPage(1);
+        if(request.getOrder() == null) request.setOrder(Order.LATEST.getValue());
+
+        Page<NoticeListViewResponse> fixedNoticeList = noticeService.getFixedNoticeList();
+        Page<NoticeListViewResponse> noticeList = noticeService.getNoticeList(request, fixedNoticeList.getTotalElements());
+
+        model.addAttribute("fixedNoticeList", fixedNoticeList.toList());
+        model.addAttribute("order", request.getOrder());
+        model.addAttribute("searchSort", request.getSearchSort());
+        model.addAttribute("query", request.getQuery());
+
+        noticeService.addNoticeListToModel(noticeList, model);
+
         return "notice-list";
     }
 

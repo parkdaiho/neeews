@@ -17,6 +17,10 @@ public class PaginationProperties {
     private Integer postsPerPage;
     private Integer postPagesPerBlock;
 
+    private Integer noticePerPage;
+    private Integer fixedNoticePerPage;
+    private Integer noticePagesPerBlock;
+
     private Integer commentsPerPage;
     private Integer commentPagesPerBlock;
 

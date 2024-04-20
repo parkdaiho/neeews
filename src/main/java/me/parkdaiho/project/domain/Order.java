@@ -11,7 +11,6 @@ public enum Order {
     POPULARITY("popularity", "good"), VIEWS("views", "views"),
     COMMENTS("comments", "commentsSize");
 
-
     private final String value;
     private final String property;
 }

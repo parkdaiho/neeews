@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="ko">
 <head>
@@ -20,48 +21,55 @@
 	<section class="notice-list-area">
 		<div class="notice-list-info">
 			TOTAL ${totalElements} NOTICE
+			<select onchange="getNoticeByOrder(this.value);">
+				<option value="latest">LATEST</option>
+				<option value="views">MOST-VIEWS</option>
+				<option value="comments">MOST-COMMENTS</option>
+			</select>
 		</div>
 		<div class="notice-list">
 			<div class="notice-list-top">
 				<div class="notice-title">
 					TITLE
 				</div>
-				<div class="notice-writer">
-					WRITER
-				</div>
 				<div class="notice-created-at">
 					CREATED-AT
 				</div>
 			</div>
 			<div class="notice-fixed-in-list">
-				<div class="notice-title">
-					TITLE-1
-				</div>
-				<div class="notice-writer">
-					ADMIN
-				</div>
-				<div class="notice-created-at">
-					2024-03-28
-				</div>
+				<c:forEach var="notice" items="${fixedNoticeList}">
+					<div class="notice-title">
+							${notice.title}
+					</div>
+					<div class="notice-created-at">
+							${notice.createdAt}
+					</div>
+				</c:forEach>
 			</div>
 			<div class="notice-in-list">
-				<div class="notice-title">
-					TITLE-1
-				</div>
-				<div class="notice-writer">
-					ADMIN
-				</div>
-				<div class="notice-created-at">
-					2024-03-28
-				</div>
+				<c:forEach var="notice" items="${noticeList}">
+					<div class="notice-title">
+							${notice.title}
+					</div>
+					<div class="notice-created-at">
+							${notice.createdAt}
+					</div>
+				</c:forEach>
 			</div>
-			...
+		</div>
+		<c:if test="${totalElements != 0}">
+			<jsp:include page="board-pagination.jsp"></jsp:include>
+		</c:if>
+		<div class="notice-list-btn">
+			<button onclick="location.replace('new-notice');">NEW-NOTICE</button>
 		</div>
 	</section>
-	<jsp:include page="board-pagination.jsp"></jsp:include>
 </main>
 <footer>
 	FOOTER
 </footer>
+
+<script src="/js/notice-list.js"></script>
+
 </body>
 </html>

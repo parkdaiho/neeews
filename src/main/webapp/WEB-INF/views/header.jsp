@@ -15,7 +15,7 @@
 			<li><a href="/">HOME</a></li>
 			<li><a href="/articles">ARTICLES</a></li>
 			<li><a href="/posts">COMMUNITY</a></li>
-			<li><a href="/notice">NOTICE</a></li>
+			<li><a href="/notice-list">NOTICE</a></li>
 		</ul>
 	</div>
 	<div class="right-area">

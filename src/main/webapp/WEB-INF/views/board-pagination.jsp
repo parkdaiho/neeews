@@ -9,20 +9,20 @@
 <body>
 	<div class="board-pagination">
 		<ul>
-			<li><a href="javascript: return fail;" onclick="getPages(1, '${sort}', '${query}');"><<</a></li>
-			<li><a href="javascript: return fail;" onclick="getPages(${previousPage}, '${sort}', '${query}');"><</a></li>
+			<li><a href="javascript: return fail;" onclick="getPages(1, '${order}', '${query}');"><<</a></li>
+			<li><a href="javascript: return fail;" onclick="getPages(${previousPage}, '${order}', '${query}');"><</a></li>
 			<c:forEach var="i" begin="${startNumOfPageBlock}" end="${lastNumOfPageBlock}" step="1">
 				<c:choose>
 					<c:when test="${i == page}">
 						<li><a href="javascript: return fail;" class="on">${i}</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="javascript: return fail;" onclick="getPages(${i}, '${sort}', '${query}');">${i}</a></li>
+						<li><a href="javascript: return fail;" onclick="getPages(${i}, '${order}', '${query}');">${i}</a></li>
 					</c:otherwise>
 				</c:choose>
 			</c:forEach>
-			<li><a href="javascript: return fail;" onclick="getPages(${nextPage}, '${sort}', '${query}');">></a></li>
-			<li><a href="javascript: return fail;" onclick="getPages(${totalPages}, '${sort}', '${query}');">>></a></li>
+			<li><a href="javascript: return fail;" onclick="getPages(${nextPage}, '${order}', '${query}');">></a></li>
+			<li><a href="javascript: return fail;" onclick="getPages(${totalPages}, '${order}', '${query}');">>></a></li>
 		</ul>
 	</div>
 </body>

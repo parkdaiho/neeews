@@ -118,10 +118,6 @@ public class PostService {
                     .map(entity -> new PostListViewResponse(entity));
         }
 
-        return getPostListViewResponseBySearch(searchSort, query, pageable);
-    }
-
-    private Page<PostListViewResponse> getPostListViewResponseBySearch(Sort searchSort, String query, Pageable pageable) {
         Page<Post> posts;
         switch (searchSort) {
             case TITLE -> posts = postRepository.findByTitleContaining(query, pageable);
@@ -161,7 +157,8 @@ public class PostService {
 
         int page = posts.getNumber() + 1;
         int totalPages = posts.getTotalPages();
-        int firstNumOfPageBlock = page / paginationProperties.getPostPagesPerBlock() + 1;
+        int pageBlock = (page - 1) / paginationProperties.getPostPagesPerBlock();
+        int firstNumOfPageBlock = pageBlock * paginationProperties.getPostPagesPerBlock() + 1;
         int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getPostPagesPerBlock() - 1;
         if (totalPages < lastNumOfPageBlock) lastNumOfPageBlock = totalPages;
 
@@ -175,6 +172,7 @@ public class PostService {
         model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBlock);
         model.addAttribute(paginationProperties.getNextPageName(), nextPage);
         model.addAttribute(paginationProperties.getPreviousPageName(), previousPage);
+
         model.addAttribute("posts", posts.getContent());
     }
 
