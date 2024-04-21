@@ -11,8 +11,16 @@
 	<div class="user-search-area">
 		<div class="user-search-box">
 			<select id="search-sort">
-				<option value="USERNAME">USERNAME</option>
-				<option value="NICKNAME">NICKNAME</option>
+				<c:choose>
+					<c:when test="${searchSort == 'NICKNAME'}">
+						<option value="USERNAME">USERNAME</option>
+						<option value="NICKNAME" selected>NICKNAME</option>
+					</c:when>
+					<c:otherwise>
+						<option value="USERNAME" selected>USERNAME</option>
+						<option value="NICKNAME">NICKNAME</option>
+					</c:otherwise>
+				</c:choose>
 			</select>
 			<input type="text" id="query" placeholder="Search user" value="${query}">
 		</div>
@@ -66,9 +74,6 @@
 	</div>
 	<div class="membership-users-area">
 		<div class="users-top">
-			<div class="user-id">
-				NUM
-			</div>
 			<div class="user-username">
 				USERNAME
 			</div>
@@ -90,9 +95,6 @@
 		</div>
 		<c:forEach var="user" items="${users}">
 			<div class="user-in-users">
-				<div class="user-id">
-						${user.id}
-				</div>
 				<div class="user-username">
 						${user.username}
 				</div>
@@ -137,9 +139,9 @@
 						</select>
 				</div>
 				<c:if test="${user.isEnabled}">
-				<div class="user-btn">
-					<button type="button" onclick="withdraw(${user.id}, ${page}, '${sort}', '${query}')">WITHDRAW</button>
-				</div>
+					<div class="user-btn">
+						<button type="button" onclick="withdraw(${user.id}, ${page}, '${sort}', '${query}')">WITHDRAW</button>
+					</div>
 				</c:if>
 			</div>
 		</c:forEach>

@@ -157,23 +157,7 @@ public class NoticeService {
     }
 
     public void addNoticeListToModel(Page<NoticeListViewResponse> noticeList, Model model) {
-        int page = noticeList.getNumber() + 1;
-        int totalPages = noticeList.getTotalPages();
-        int pageBlock = (page - 1) / paginationProperties.getNoticePagesPerBlock();
-        int startNumOfPageBlock = pageBlock * paginationProperties.getNoticePagesPerBlock() + 1;
-        int lastNumOfPageBlock = startNumOfPageBlock + paginationProperties.getNoticePagesPerBlock() - 1;
-        if (lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
-
-        int nextPage = noticeList.hasNext() ? page + 1 : totalPages;
-        int previousPage = noticeList.hasPrevious() ? page - 1 : 1;
-
-        model.addAttribute(paginationProperties.getPageName(), page);
-        model.addAttribute(paginationProperties.getTotalPagesName(), totalPages);
-        model.addAttribute(paginationProperties.getTotalElementsName(), noticeList.getTotalElements());
-        model.addAttribute(paginationProperties.getStartNumOfPageBlockName(), startNumOfPageBlock);
-        model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBlock);
-        model.addAttribute(paginationProperties.getNextPageName(), nextPage);
-        model.addAttribute(paginationProperties.getPreviousPageName(), previousPage);
+        paginationProperties.addPaginationAttributesToModel(noticeList, model, paginationProperties.getNoticePagesPerBlock());
 
         model.addAttribute("noticeList", noticeList.toList());
     }

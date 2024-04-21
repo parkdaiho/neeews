@@ -73,14 +73,14 @@ file:
 pagination :
   users-per-page: 1
   user-pages-per-block: 10
-  posts-per-page: 1
+  posts-per-page: 20
   post-pages-per-block: 10
   comments-per-page: 5
   comment-pages-per-block: 5
   index-views: 10
   news-items-per-page: 10
   news-pages-per-block: 10
-  notice-per-page: 2
+  notice-per-page: 20
   fixed-notice-per-page: 5
   notice-pages-per-block: 10
 

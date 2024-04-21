@@ -13,6 +13,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.dto.user.MembershipSearchRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.repository.user.TokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
@@ -70,35 +71,31 @@ public class UserService {
         model.addAttribute("email", user.getEmail());
     }
 
-    public Page<UserInfoResponse> getUsers(int page, String sort, String searchSort, String query) {
-        Pageable pageable = PageRequest.of(page - 1, paginationProperties.getUsersPerPage());
-        Sort sortEnum = Sort.valueOf(sort.toUpperCase());
+    public Page<MembershipViewResponse> getUsers(MembershipSearchRequest request, PrincipalDetails principal) {
+        if(principal.getRole().getIsUser()) throw new IllegalArgumentException("Non-Authority");
+
+        Pageable pageable = PageRequest.of(request.getPage() - 1, paginationProperties.getUsersPerPage());
+        Sort sort = Sort.valueOf(request.getSort().toUpperCase());
+        String query = request.getQuery();
         if(query == null || query.isEmpty()) {
-            return getUsersBySort(sortEnum, pageable);
+            return getUsersBySort(sort, pageable);
         }
 
-        switch (sortEnum) {
+        Sort searchSort = Sort.valueOf(request.getSearchSort().toUpperCase());
+        switch (sort) {
             case ALL -> {
                 return getAllUsersByQuery(query, searchSort, pageable);
             }
-            case ADMIN -> {
-                return getUsersByRoleAndQuery(Role.ADMIN, query, searchSort, pageable);
-            }
-            case MANAGER -> {
-                return getUsersByRoleAndQuery(Role.MANAGER, query, searchSort, pageable);
-            }
-            case USER -> {
-                return getUsersByRoleAndQuery(Role.USER, query, searchSort, pageable);
-            }
-            case WITHDRAWN -> {
-                return getUsersByRoleAndQuery(Role.WITHDRAWN, query, searchSort, pageable);
+            case ADMIN, MANAGER, USER, WITHDRAWN -> {
+                Role role = Role.valueOf(sort.getProperty());
+                return getUsersByRoleAndQuery(role, query, searchSort, pageable);
             }
 
             default -> throw new IllegalArgumentException("Unexpected sort : " + sort);
         }
     }
 
-    private Page<UserInfoResponse> getUsersBySort(Sort sort, Pageable pageable) {
+    private Page<MembershipViewResponse> getUsersBySort(Sort sort, Pageable pageable) {
         Page<User> users;
         switch (sort) {
             case ALL -> users = userRepository.findAll(pageable);
@@ -110,64 +107,37 @@ public class UserService {
             default -> throw new IllegalArgumentException("Unexpected sort: " + sort);
         }
 
-        return users.map(entity -> new UserInfoResponse(entity));
+        return users.map(entity -> new MembershipViewResponse(entity));
     }
 
-    private Page<UserInfoResponse> getUsersByRoleAndQuery(Role role, String query, String searchSort, Pageable pageable) {
-        Sort searchSortEnum = Sort.valueOf(searchSort.toUpperCase());
-
+    private Page<MembershipViewResponse> getUsersByRoleAndQuery(Role role, String query, Sort searchSort, Pageable pageable) {
         Page<User> users;
-        switch (searchSortEnum) {
+        switch (searchSort) {
             case USERNAME -> users = userRepository.findByRoleAndUsernameContaining(role, query, pageable);
             case NICKNAME -> users = userRepository.findByRoleAndNicknameContaining(role, query, pageable);
 
             default -> throw new IllegalArgumentException("Unexpected search-sort: " + searchSort);
         }
 
-        return users.map(entity -> new UserInfoResponse(entity));
+        return users.map(entity -> new MembershipViewResponse(entity));
     }
 
-    private Page<UserInfoResponse> getAllUsersByQuery(String query, String searchSort, Pageable pageable) {
-        Sort searchSortEnum = Sort.valueOf(searchSort);
+    private Page<MembershipViewResponse> getAllUsersByQuery(String query, Sort searchSort, Pageable pageable) {
         Page<User> users;
-        switch (searchSortEnum) {
+        switch (searchSort) {
             case USERNAME -> users = userRepository.findByUsernameContaining(query, pageable);
             case NICKNAME -> users = userRepository.findByNicknameContaining(query, pageable);
 
             default -> throw new IllegalArgumentException("Unexpected search-sort: " + searchSort);
         }
 
-        return users.map(entity -> new UserInfoResponse(entity));
+        return users.map(entity -> new MembershipViewResponse(entity));
     }
 
-    public void addAttributesForMembership(int page, String sort, String searchSort, String query,
-                                           PrincipalDetails principal,
-                                           Model model) {
-        if (principal.getRole().getIsUser()) throw new IllegalArgumentException("No Authority");
+    public void addAttributesForMembership(Page<MembershipViewResponse> users, Model model) {
+        paginationProperties.addPaginationAttributesToModel(users, model, paginationProperties.getUserPagesPerBlock());
 
-        Page<UserInfoResponse> users = getUsers(page, sort, searchSort, query);
-
-        int totalPages = users.getTotalPages();
-        int pageBlockNum = (page - 1) / paginationProperties.getUserPagesPerBlock();
-        int startNumOfPageBlock = pageBlockNum * paginationProperties.getUserPagesPerBlock() + 1;
-        int lastNumOfPageBlock = startNumOfPageBlock + paginationProperties.getUserPagesPerBlock() - 1;
-        if (lastNumOfPageBlock > totalPages) lastNumOfPageBlock = totalPages;
-
-        int nextPage = users.hasNext() ? page + 1 : page;
-        int previousPage = users.hasPrevious() ? page - 1 : page;
-
-        model.addAttribute(paginationProperties.getPageName(), page);
-        model.addAttribute("order", sort);
-        model.addAttribute("searchSort", searchSort);
-        model.addAttribute("query", query);
-        model.addAttribute(paginationProperties.getTotalPagesName(), totalPages);
-        model.addAttribute(paginationProperties.getTotalElementsName(), users.getTotalElements());
-        model.addAttribute(paginationProperties.getStartNumOfPageBlockName(), startNumOfPageBlock);
-        model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBlock);
-        model.addAttribute(paginationProperties.getNextPageName(), nextPage);
-        model.addAttribute(paginationProperties.getPreviousPageName(), previousPage);
         model.addAttribute("users", users.getContent());
-        model.addAttribute("isAdmin", principal.getRole() == Role.ADMIN);
     }
 
     public User getOAuth2UserByEmail(String email, OAuth2UserInfo oAuth2UserInfo) {
@@ -177,19 +147,10 @@ public class UserService {
 
     @Transactional
     public void changeRole(ChangeRoleRequest request, PrincipalDetails principal) {
-        checkAdmin(principal);
+        if (!principal.getRole().equals(Role.ADMIN)) throw new IllegalArgumentException("No Authority");
 
         User user = findById(request.getId());
         user.changeRole(request.getNewRole());
-    }
-
-    private void checkAdmin(PrincipalDetails principal) {
-        User user = principal.getUser();
-        Role role = user.getRole();
-
-        if (!role.equals(Role.ADMIN)) {
-            throw new IllegalArgumentException("No Authority");
-        }
     }
 
     public NicknameDupCheckResponse nicknameDupCheckInMyPage(NicknameDupCheckRequest request, PrincipalDetails principal) {

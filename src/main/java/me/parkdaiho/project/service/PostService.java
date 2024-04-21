@@ -155,23 +155,7 @@ public class PostService {
     public void addPostsInfoToModel(Page<PostListViewResponse> posts, Model model) {
         if(posts == null) return;
 
-        int page = posts.getNumber() + 1;
-        int totalPages = posts.getTotalPages();
-        int pageBlock = (page - 1) / paginationProperties.getPostPagesPerBlock();
-        int firstNumOfPageBlock = pageBlock * paginationProperties.getPostPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getPostPagesPerBlock() - 1;
-        if (totalPages < lastNumOfPageBlock) lastNumOfPageBlock = totalPages;
-
-        int nextPage = posts.hasNext() ? page + 1 : totalPages;
-        int previousPage = posts.hasPrevious() ? page - 1 : page;
-
-        model.addAttribute(paginationProperties.getPageName(), page);
-        model.addAttribute(paginationProperties.getTotalPagesName(), totalPages);
-        model.addAttribute(paginationProperties.getTotalElementsName(), posts.getTotalElements());
-        model.addAttribute(paginationProperties.getStartNumOfPageBlockName(), firstNumOfPageBlock);
-        model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBlock);
-        model.addAttribute(paginationProperties.getNextPageName(), nextPage);
-        model.addAttribute(paginationProperties.getPreviousPageName(), previousPage);
+        paginationProperties.addPaginationAttributesToModel(posts, model, paginationProperties.getPostPagesPerBlock());
 
         model.addAttribute("posts", posts.getContent());
     }

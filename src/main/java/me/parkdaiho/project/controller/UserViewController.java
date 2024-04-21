@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.Role;
-import me.parkdaiho.project.dto.user.UserInfoResponse;
+import me.parkdaiho.project.dto.user.MembershipSearchRequest;
+import me.parkdaiho.project.dto.user.MembershipViewResponse;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -12,8 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequiredArgsConstructor
 @Controller
@@ -56,15 +55,23 @@ public class UserViewController {
     }
 
     @GetMapping("/my-page/membership")
-    public String memberShipPage(@RequestParam(required = false, defaultValue = "1") int page,
-                                 @RequestParam(required = false) String sort,
-                                 @RequestParam(required = false) String searchSort,
-                                 @RequestParam(required = false) String query,
+    public String memberShipPage(MembershipSearchRequest request,
                                  @AuthenticationPrincipal PrincipalDetails principal,
                                  Model model) {
-        if(sort == null) sort = Sort.ALL.getProperty();
+        if(request.getPage() == null) request.setPage(1);
+        if(request.getSort() == null || request.getSort().isBlank()) request.setSort(Sort.ALL.getProperty());
 
-        userService.addAttributesForMembership(page, sort, searchSort, query, principal, model);
+        Page<MembershipViewResponse> users = userService.getUsers(request, principal);
+
+        userService.addAttributesForMembership(users, model);
+
+        model.addAttribute("order", request.getSort()); // for pagination
+        
+        model.addAttribute("sort", request.getSort());
+        model.addAttribute("searchSort", request.getSearchSort());
+        model.addAttribute("query", request.getQuery());
+
+        model.addAttribute("isAdmin", principal.getRole() == Role.ADMIN);
 
         return "membership";
     }

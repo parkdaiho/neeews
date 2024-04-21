@@ -3,13 +3,12 @@ package me.parkdaiho.project.dto.user;
 import lombok.Getter;
 import lombok.Setter;
 import me.parkdaiho.project.domain.user.User;
-import org.eclipse.tags.shaded.org.apache.xpath.operations.Bool;
 
 import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-public class UserInfoResponse {
+public class MembershipViewResponse {
 
     private Long id;
     private String username;
@@ -20,7 +19,7 @@ public class UserInfoResponse {
     private String role;
     private Boolean isEnabled;
 
-    public UserInfoResponse(User user) {
+    public MembershipViewResponse(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.nickname = user.getNickname();
