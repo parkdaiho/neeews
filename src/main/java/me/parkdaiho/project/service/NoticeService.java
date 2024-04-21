@@ -85,6 +85,7 @@ public class NoticeService {
         model.addAttribute("id", notice.getId());
         model.addAttribute("title", notice.getTitle());
         model.addAttribute("text", notice.getText());
+        model.addAttribute("isFixed", String.valueOf(notice.getIsFixed()));
     }
 
     @Transactional

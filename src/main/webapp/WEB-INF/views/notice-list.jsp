@@ -50,26 +50,26 @@
 					CREATED-AT
 				</div>
 			</div>
-			<div class="notice-fixed-in-list">
-				<c:forEach var="notice" items="${fixedNoticeList}">
+			<c:forEach var="notice" items="${fixedNoticeList}">
+				<div class="notice-fixed-in-list" onclick="getNoticeView(${notice.id});">
 					<div class="notice-title">
 							${notice.title}
 					</div>
 					<div class="notice-created-at">
 							${notice.createdAt}
 					</div>
-				</c:forEach>
-			</div>
-			<div class="notice-in-list">
-				<c:forEach var="notice" items="${noticeList}">
+				</div>
+			</c:forEach>
+			<c:forEach var="notice" items="${noticeList}">
+				<div class="notice-in-list" onclick="getNoticeView(${notice.id});">
 					<div class="notice-title">
 							${notice.title}
 					</div>
 					<div class="notice-created-at">
 							${notice.createdAt}
 					</div>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
 		<c:if test="${totalElements != 0}">
 			<jsp:include page="board-pagination.jsp"></jsp:include>

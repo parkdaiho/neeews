@@ -13,5 +13,6 @@ public class ModifyNoticeRequest {
     private Long id;
     private String title;
     private String text;
+    private Boolean isFixed;
     private List<MultipartFile> files;
 }

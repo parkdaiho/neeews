@@ -84,6 +84,7 @@ public class Notice extends BaseEntity implements IncludingImages {
     public Notice modify(ModifyNoticeRequest request) {
         this.title = request.getTitle();
         this.text = request.getText();
+        this.isFixed = request.getIsFixed();
 
         return this;
     }

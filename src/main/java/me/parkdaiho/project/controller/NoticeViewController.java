@@ -29,7 +29,7 @@ public class NoticeViewController {
     @GetMapping("/notice-list")
     public String noticeList(SearchNoticeRequest request, Model model) {
         if(request.getPage() == null) request.setPage(1);
-        if(request.getOrder() == null) request.setOrder(Order.LATEST.getValue());
+        if(request.getOrder() == null || request.getOrder().isBlank()) request.setOrder(Order.LATEST.getValue());
 
         Page<NoticeListViewResponse> fixedNoticeList = noticeService.getFixedNoticeList();
         Page<NoticeListViewResponse> noticeList = noticeService.getNoticeList(request, fixedNoticeList.getTotalElements());

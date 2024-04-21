@@ -21,7 +21,15 @@
 			TITLE : <input type="text" id="new-notice-title" value="${title}">
 		</div>
 		<div class="new-notice-fixed-flag">
-			IS-FIXED : <input type="checkbox" id="new-notice-isFixed">
+			IS-FIXED :
+			<c:choose>
+				<c:when test="${isFixed == 'true'}">
+					<input type="checkbox" id="new-notice-isFixed" checked>
+				</c:when>
+				<c:otherwise>
+					<input type="checkbox" id="new-notice-isFixed">
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div class="new-notice-textarea">
 			<div id="new-notice-text" contenteditable="true">
