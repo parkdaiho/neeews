@@ -9,9 +9,9 @@
 <body>
 <form action="/searched-articles" method="get">
 	<div class="article-search-box">
-		<select name="sort">
+		<select name="searchSort">
 			<c:choose>
-				<c:when test="${sort == 'sim'}">
+				<c:when test="${searchSort == 'sim'}">
 					<option value="sim" selected>MOST-SIMILAR</option>
 					<option value="date">LATEST</option>
 				</c:when>

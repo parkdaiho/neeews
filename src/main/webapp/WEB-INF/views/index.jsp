@@ -19,7 +19,7 @@
 					<option value="article" selected>ARTICLE</option>
 					<option value="post">POST</option>
 				</select>
-				<select name="sort" id="sort">
+				<select name="searchSort" id="sort">
 					<option value="sim">MOST-SIMILAR</option>
 					<option value="date">LATEST</option>
 				</select>

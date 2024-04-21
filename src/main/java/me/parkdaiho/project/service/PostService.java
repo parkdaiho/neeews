@@ -112,12 +112,12 @@ public class PostService {
         Pageable pageable = getPageable(request.getPage(), paginationProperties.getPostsPerPage(), order);
 
         String query = request.getQuery();
-        Sort searchSort = request.getSearchSort() == null ? null : Sort.valueOf(request.getSearchSort().toUpperCase());
-        if (searchSort == null || query == null) {
+        if (query == null || query.isBlank()) {
             return postRepository.findAll(pageable)
                     .map(entity -> new PostListViewResponse(entity));
         }
 
+        Sort searchSort = Sort.valueOf(request.getSearchSort().toUpperCase());
         Page<Post> posts;
         switch (searchSort) {
             case TITLE -> posts = postRepository.findByTitleContaining(query, pageable);

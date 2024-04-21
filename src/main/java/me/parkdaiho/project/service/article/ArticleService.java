@@ -49,7 +49,7 @@ public class ArticleService {
         RequestEntity<SearchNaverNewsRequest> request = RequestEntity.post(uri)
                 .body(SearchNaverNewsRequest.builder()
                         .query(dto.getQuery())
-                        .sort(dto.getSort())
+                        .sort(dto.getSearchSort())
                         .start(start).build());
 
         ResponseEntity<SearchNaverNewsResponse> response = restTemplate.exchange(request, SearchNaverNewsResponse.class);
@@ -171,6 +171,7 @@ public class ArticleService {
         model.addAttribute(paginationProperties.getLastNumOfPageBlockName(), lastNumOfPageBLock);
         model.addAttribute(paginationProperties.getNextPageName(), nextPage);
         model.addAttribute(paginationProperties.getPreviousPageName(), previousPage);
+
         model.addAttribute("items", response.getItems());
     }
 

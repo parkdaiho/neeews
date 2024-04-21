@@ -17,3 +17,15 @@ function getPostView(postId) {
 
     location.replace(url);
 }
+
+function getPages(page, order, searchSort, query) {
+    let params = new URLSearchParams({
+        "page": page,
+        "order": order,
+        "searchSort": searchSort,
+        "query": query
+    });
+    let url = "/posts?" + params;
+
+    location.replace(url);
+}

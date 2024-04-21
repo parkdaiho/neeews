@@ -26,7 +26,7 @@
 		<ul>
 			<li><a href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
 			<li><a href="javascript:return false;" onclick="getWithdrawalPage(${id});">WITHDRAWAL</a></li>
-			<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', null);">MEMBERSHIP</a></li>
+			<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', '', '');">MEMBERSHIP</a></li>
 		</ul>
 	</div>
 	<section class="my-page-area" id="my-page-area">

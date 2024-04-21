@@ -96,8 +96,7 @@ function searchUser() {
         })
 }
 
-function getPages(page, sort, query) {
-    let searchSort = document.getElementById("search-sort").value
+function getPages(page, sort, searchSort, query) {
 
     getMembershipPage(page, sort, searchSort, query);
 }

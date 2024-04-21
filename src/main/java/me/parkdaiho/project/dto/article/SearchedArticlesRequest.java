@@ -8,6 +8,6 @@ import lombok.Setter;
 public class SearchedArticlesRequest {
 
     private String query;
-    private String sort;
+    private String searchSort;
     private Integer page;
 }

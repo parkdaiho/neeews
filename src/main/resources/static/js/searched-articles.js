@@ -1,11 +1,11 @@
-function getPages(page, sort, query) {
+function getPages(page, order, searchSort, query) {
     let params = new URLSearchParams({
         "query": query,
-        "sort":sort,
+        "searchSort": searchSort,
         "page": page
     });
 
-    location.href = "/articles?" + params;
+    location.href = "/searched-articles?" + params;
 }
 
 function showArticle(index) {

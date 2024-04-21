@@ -7,11 +7,11 @@ function getNoticeByOrder(order) {
     location.replace(url);
 }
 
-function getPages(page, order, query) {
+function getPages(page, order, searchSort, query) {
     let params = new URLSearchParams({
         "page": page,
         "order": order,
-        "searchSort": document.getElementById("search-sort").value,
+        "searchSort": searchSort,
         "query": query
     });
     let url = "/notice-list?" + params;

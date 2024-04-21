@@ -13,10 +13,13 @@ function getWithdrawalPage(userid) {
 }
 
 function getMembershipPage(page, sort, searchSort, query) {
-    if (query == null) query = "";
-
-    let url = "/my-page/membership?page="
-        + page + "&sort=" + sort + "&searchSort=" + searchSort + "&query=" + query;
+    let params = new URLSearchParams({
+        "page": page,
+        "sort": sort,
+        "searchSort": searchSort,
+        "query": query
+    });
+    let url = "/my-page/membership?" + params;
 
     getPageInMyPage(url, "MEMBERSHIP");
 }

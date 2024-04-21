@@ -73,7 +73,7 @@ file:
 pagination :
   users-per-page: 1
   user-pages-per-block: 10
-  posts-per-page: 20
+  posts-per-page: 1
   post-pages-per-block: 10
   comments-per-page: 5
   comment-pages-per-block: 5

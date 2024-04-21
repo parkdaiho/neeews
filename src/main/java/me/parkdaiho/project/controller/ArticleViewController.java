@@ -35,7 +35,7 @@ public class ArticleViewController {
 
         articleService.addSearchedNewsResponseToModel(response, model);
 
-        model.addAttribute("sort", request.getSort());
+        model.addAttribute("searchSort", request.getSearchSort());
         model.addAttribute("query", request.getQuery());
 
         return "searched-articles";
