@@ -29,7 +29,7 @@ public class PostViewController {
     @GetMapping("/posts")
     public String posts(SearchPostRequest request, Model model) {
         if (request.getPage() == null) request.setPage(1);
-        if (request.getOrder() == null) request.setOrder(Order.LATEST.getValue());
+        if (request.getOrder() == null || request.getOrder().isBlank()) request.setOrder(Order.LATEST.getValue());
 
         Page<PostListViewResponse> posts = postService.getPostListViewResponse(request);
 

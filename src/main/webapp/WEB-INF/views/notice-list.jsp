@@ -22,9 +22,23 @@
 		<div class="notice-list-info">
 			TOTAL ${totalElements} NOTICE
 			<select onchange="getNoticeByOrder(this.value);">
-				<option value="latest">LATEST</option>
-				<option value="views">MOST-VIEWS</option>
-				<option value="comments">MOST-COMMENTS</option>
+				<c:choose>
+					<c:when test="${order == 'views'}">
+						<option value="latest">LATEST</option>
+						<option value="views" selected>MOST-VIEWS</option>
+						<option value="comments">MOST-COMMENTS</option>
+					</c:when>
+					<c:when test="${order == 'comments'}">
+						<option value="latest">LATEST</option>
+						<option value="views">MOST-VIEWS</option>
+						<option value="comments" selected>MOST-COMMENTS</option>
+					</c:when>
+					<c:otherwise>
+						<option value="latest" selected>LATEST</option>
+						<option value="views">MOST-VIEWS</option>
+						<option value="comments">MOST-COMMENTS</option>
+					</c:otherwise>
+				</c:choose>
 			</select>
 		</div>
 		<div class="notice-list">

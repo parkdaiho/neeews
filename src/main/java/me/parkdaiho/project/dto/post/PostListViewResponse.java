@@ -17,6 +17,6 @@ public class PostListViewResponse {
         this.id = post.getId();
         this.title = post.getTitle();
         this.writer = post.getWriter().getNickname();
-        this.createdAt = post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-mm"));
+        this.createdAt = post.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

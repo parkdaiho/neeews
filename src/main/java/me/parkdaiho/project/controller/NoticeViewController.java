@@ -34,10 +34,11 @@ public class NoticeViewController {
         Page<NoticeListViewResponse> fixedNoticeList = noticeService.getFixedNoticeList();
         Page<NoticeListViewResponse> noticeList = noticeService.getNoticeList(request, fixedNoticeList.getTotalElements());
 
-        model.addAttribute("fixedNoticeList", fixedNoticeList.toList());
         model.addAttribute("order", request.getOrder());
         model.addAttribute("searchSort", request.getSearchSort());
         model.addAttribute("query", request.getQuery());
+
+        model.addAttribute("fixedNoticeList", fixedNoticeList.toList());
 
         noticeService.addNoticeListToModel(noticeList, model);
 

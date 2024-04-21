@@ -2,6 +2,7 @@ package me.parkdaiho.project.dto.notice;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @Getter
 @Setter
