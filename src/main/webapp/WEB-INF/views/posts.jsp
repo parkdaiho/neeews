@@ -69,9 +69,11 @@
 		<c:if test="${totalElements != 0}">
 			<jsp:include page="board-pagination.jsp"></jsp:include>
 		</c:if>
+		<c:if test="${nickname}">
 		<div class="posts-btn">
 			<button onclick="location.replace('/new-post');">NEW-POST</button>
 		</div>
+		</c:if>
 	</section>
 </main>
 <footer>

@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.service.user.TokenService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,7 +53,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String nickname = tokenService.getNicknameByAccessToken(accessToken);
+        Role role = tokenService.getRoleByAccessToken(accessToken);
+
         request.setAttribute("nickname", nickname);
+        request.setAttribute("isManager", role.getIsUser());
 
         return authentication;
     }

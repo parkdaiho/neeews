@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.config.token.TokenProvider;
+import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.repository.user.TokenRepository;
@@ -160,5 +161,11 @@ public class TokenService {
         if(refreshTokenCookie == null) return null;
 
         return refreshTokenCookie.getValue();
+    }
+
+    public Role getRoleByAccessToken(String accessToken) {
+        User user = userService.findById(getUserId(accessToken));
+
+        return user.getRole();
     }
 }

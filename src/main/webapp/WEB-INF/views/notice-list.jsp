@@ -74,9 +74,11 @@
 		<c:if test="${totalElements != 0}">
 			<jsp:include page="board-pagination.jsp"></jsp:include>
 		</c:if>
+		<c:if test="${isManager}">
 		<div class="notice-list-btn">
 			<button onclick="location.replace('new-notice');">NEW-NOTICE</button>
 		</div>
+		</c:if>
 	</section>
 </main>
 <footer>
