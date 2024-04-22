@@ -46,4 +46,12 @@ public class Poll extends BaseEntity {
         this.article = article;
         this.post = post;
     }
+
+    public void updatePoll(Boolean flag) {
+        if(this.flag == null || this.flag != flag) {
+            this.flag = flag;
+        } else {
+            this.flag = null;
+        }
+    }
 }

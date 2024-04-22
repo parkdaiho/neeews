@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @Table(name = "comments")
 @Entity
-public class Comment extends BaseEntity {
+public class Comment extends BaseEntity implements Pollable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,7 +37,6 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "parent_comment_id")
     private Comment parentComment;
 
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "writer_id", updatable = false)
     private User writer;
@@ -50,7 +49,7 @@ public class Comment extends BaseEntity {
     private Long bad;
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
-    private List<Comment> reply = new ArrayList<>();
+    private List<Comment> replies = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
@@ -72,7 +71,8 @@ public class Comment extends BaseEntity {
 
     public void addReply(Comment reply) {
         reply.setParentComment(this);
-        this.reply.add(reply);
+
+        replies.add(reply);
     }
 
     public void syncWithPollList(Long good, Long bad) {

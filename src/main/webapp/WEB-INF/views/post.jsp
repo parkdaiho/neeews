@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="/css/css.css">
 	<title>POST</title>
 	<script>
+		const id = ${id};
 		const domain = "${domain}";
 	</script>
 </head>
@@ -72,6 +73,7 @@
 </footer>
 
 <script src="/js/post.js"></script>
+<script src="/js/comments-area.js"></script>
 
 </body>
 </html>

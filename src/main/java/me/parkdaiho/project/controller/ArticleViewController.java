@@ -5,22 +5,18 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
-import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.article.SearchedArticlesRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.article.ArticleViewResponse;
-import me.parkdaiho.project.dto.article.SearchNaverNewsRequest;
 import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.article.ArticleService;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -60,11 +56,10 @@ public class ArticleViewController {
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.ARTICLE);
 
         articleService.addArticleToModel(article, model);
+        commentService.addCommentsInfoToModel(comments, model);
 
+        model.addAttribute("order", Order.LATEST.getValue());
         model.addAttribute("domain", Domain.ARTICLE.getDomainPl());
-        model.addAttribute("sort", Order.LATEST.getValue());
-
-        commentService.addCommentInfoToModel(comments, model);
 
         return "article";
     }
@@ -75,9 +70,9 @@ public class ArticleViewController {
                                      Model model) {
         Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(order.toUpperCase()), id, Domain.ARTICLE);
 
-        model.addAttribute("sort", order);
+        commentService.addCommentsInfoToModel(comments, model);
 
-        commentService.addCommentInfoToModel(comments, model);
+        model.addAttribute("order", order);
 
         return "comments-area";
     }

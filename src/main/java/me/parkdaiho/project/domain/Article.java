@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Article extends BaseEntity {
+public class Article extends BaseEntity implements Pollable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

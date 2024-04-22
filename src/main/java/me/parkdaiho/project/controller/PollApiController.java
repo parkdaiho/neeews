@@ -18,7 +18,7 @@ public class PollApiController {
 
     @PutMapping("/api/poll")
     public ResponseEntity<Void> poll(@RequestBody PollRequest request, @AuthenticationPrincipal PrincipalDetails principal) {
-        pollService.poll(request, principal);
+        pollService.setPoll(request, principal);
 
         return ResponseEntity.ok().build();
     }

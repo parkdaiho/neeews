@@ -5,7 +5,6 @@ import lombok.Setter;
 import me.parkdaiho.project.domain.Comment;
 
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +17,7 @@ public class CommentViewResponse {
     private String createdDate;
     private Long good;
     private Long bad;
-    private List<CommentViewResponse> reply;
+    private List<CommentViewResponse> replies;
 
     public CommentViewResponse(Comment comment) {
         this.id = comment.getId();
@@ -27,7 +26,7 @@ public class CommentViewResponse {
         this.createdDate = comment.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.good = comment.getGood();
         this.bad = comment.getBad();
-        this.reply = comment.getReply().stream()
+        this.replies = comment.getReplies().stream()
                 .map(entity -> new CommentViewResponse(entity))
                 .toList();
     }

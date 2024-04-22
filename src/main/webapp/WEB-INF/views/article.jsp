@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="/css/css.css">
 	<title>ARTICLE</title>
 	<script>
+		const id = ${id};
 		const domain = "${domain}";
 	</script>
 </head>
@@ -72,5 +73,8 @@
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>
+
+<script src="/js/comments-area.js"></script>
+
 </body>
 </html>

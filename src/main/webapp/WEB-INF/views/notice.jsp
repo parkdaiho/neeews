@@ -5,6 +5,10 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/css.css">
 	<title>NOTICE</title>
+	<script>
+		const id = ${id};
+		const domain = "${domain}";
+	</script>
 </head>
 <body>
 <header>
@@ -60,6 +64,7 @@
 </footer>
 
 <script src="/js/notice.js"></script>
+<script src="/js/comments-area.js"></script>
 
 </body>
 </html>

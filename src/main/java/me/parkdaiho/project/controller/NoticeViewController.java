@@ -3,11 +3,14 @@ package me.parkdaiho.project.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
+import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.dto.notice.ModifyViewResponse;
 import me.parkdaiho.project.dto.notice.NoticeListViewResponse;
 import me.parkdaiho.project.dto.notice.NoticeViewResponse;
 import me.parkdaiho.project.dto.notice.SearchNoticeRequest;
+import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.NoticeService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class NoticeViewController {
 
     private final NoticeService noticeService;
+    private final CommentService commentService;
 
     @GetMapping("/new-notice")
     public String newNotice() {
@@ -50,10 +54,26 @@ public class NoticeViewController {
                          HttpServletRequest request, HttpServletResponse response,
                          Model model) {
         NoticeViewResponse notice = noticeService.getNoticeViewResponse(id, request, response);
+        Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.NOTICE);
 
         noticeService.addNoticeViewToModel(notice, model);
+        commentService.addCommentsInfoToModel(comments, model);
+
+        model.addAttribute("order", Order.LATEST.getValue());
+        model.addAttribute("domain", Domain.NOTICE.getDomainPl());
 
         return "notice";
+    }
+
+    @GetMapping("/notice/{id}/comments")
+    public String noticeCommentView(@PathVariable Long id,
+                                    int page, String order,
+                                    Model model) {
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(order.toUpperCase()), id, Domain.NOTICE);
+
+        commentService.addCommentsInfoToModel(comments, model);
+
+        return "comments-area";
     }
 
     @GetMapping("/notice")

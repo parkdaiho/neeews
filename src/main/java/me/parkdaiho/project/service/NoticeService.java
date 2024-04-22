@@ -62,7 +62,7 @@ public class NoticeService {
         return new NoticeViewResponse(notice);
     }
 
-    private Notice findNoticeById(Long id) {
+    public Notice findNoticeById(Long id) {
         return noticeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected Notice Id:" + id));
     }

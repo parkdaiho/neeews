@@ -12,7 +12,6 @@ import me.parkdaiho.project.dto.post.SearchPostRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
-import org.apache.catalina.util.ToStringUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,24 +54,23 @@ public class PostViewController {
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.POST);
 
         postService.addPostViewToModel(post, model);
+        commentService.addCommentsInfoToModel(comments, model);
 
+        model.addAttribute("order", Order.LATEST.getValue());
         model.addAttribute("domain", Domain.POST.getDomainPl());
-        model.addAttribute("sort", Order.LATEST.getValue());
-
-        commentService.addCommentInfoToModel(comments, model);
 
         return "post";
     }
 
     @GetMapping("/posts/{id}/comments")
     public String postCommentView(@PathVariable Long id,
-                                  int page, String sort,
+                                  int page, String order,
                                   Model model) {
-        Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(sort.toUpperCase()), id, Domain.POST);
+        Page<CommentViewResponse> comments = commentService.getCommentView(page, Order.valueOf(order.toUpperCase()), id, Domain.POST);
 
-        model.addAttribute("sort", sort);
+        commentService.addCommentsInfoToModel(comments, model);
 
-        commentService.addCommentInfoToModel(comments, model);
+        model.addAttribute("order", order);
 
         return "comments-area";
     }

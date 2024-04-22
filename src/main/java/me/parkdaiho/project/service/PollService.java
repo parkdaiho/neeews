@@ -22,64 +22,36 @@ public class PollService {
     private final CommentService commentService;
 
     @Transactional
-    public void poll(PollRequest request, PrincipalDetails principal) {
+    public void setPoll(PollRequest request, PrincipalDetails principal) {
         Long id = request.getId();
-        Boolean flag = request.getFlag();
-        Domain domain = Domain.getDomainByDomainPl(request.getDomain());
-
         User user = principal.getUser();
 
+        Pollable pollable;
+        Poll poll;
+        Domain domain = Domain.getDomainByDomainPl(request.getDomain());
         switch (domain) {
-            case ARTICLE -> pollInArticle(id, flag, user);
-            case POST -> pollInPost(id, flag, user);
-            case COMMENT -> pollInComment(id, flag, user);
+            case ARTICLE -> {
+                pollable = articleService.findArticleById(id);
+                poll = findByArticleAndUser((Article) pollable, user);
+            }
+            case POST -> {
+                pollable = postService.findPostById(id);
+                poll = findByPostAndUser((Post) pollable, user);
+            }
+            case COMMENT -> {
+                pollable = commentService.findCommentById(id);
+                poll = findByCommentAndUser((Comment) pollable, user);
+            }
 
-            default -> throw new IllegalArgumentException("Unsupported domain: " + domain.name());
+            default -> throw new IllegalArgumentException("Unexpected domain: " + request.getDomain());
         }
-    }
 
-    private void setPoll(Poll poll, Boolean flag) {
-        if(poll.getFlag() == null || poll.getFlag() != flag) {
-            poll.setFlag(flag);
-        } else {
-            poll.setFlag(null);
-        }
-    }
+        poll.updatePoll(request.getFlag());
 
-    private void pollInArticle(Long id, Boolean flag, User user) {
-        Article article = articleService.findArticleById(id);
-        Poll poll = findByArticleAndUser(article, user);
+        Long good = getValue(pollable.getPollList(), true);
+        Long bad = getValue(pollable.getPollList(), false);
 
-        setPoll(poll, flag);
-
-        Long good = getValue(article.getPollList(), true);
-        Long bad = getValue(article.getPollList(), false);
-
-        article.syncWithPollList(good, bad);
-    }
-
-    private void pollInPost(Long id, Boolean flag, User user) {
-        Post post = postService.findPostById(id);
-        Poll poll = findByPostAndUser(post, user);
-
-        setPoll(poll, flag);
-
-        Long good = getValue(post.getPollList(), true);
-        Long bad = getValue(post.getPollList(), false);
-
-        post.syncWithPollList(good, bad);
-    }
-
-    private void pollInComment(Long id, Boolean flag, User user) {
-        Comment comment = commentService.findCommentById(id);
-        Poll poll = findByCommentAndUser(comment, user);
-
-        setPoll(poll, flag);
-
-        Long good = getValue(comment.getPollList(), true);
-        Long bad = getValue(comment.getPollList(), false);
-
-        comment.syncWithPollList(good, bad);
+        pollable.syncWithPollList(good, bad);
     }
 
     private Long getValue(List<Poll> pollList, Boolean flag) {

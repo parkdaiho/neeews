@@ -21,8 +21,10 @@ import org.springframework.ui.Model;
 public class CommentService {
 
     private final CommentRepository commentRepository;
+
     private final ArticleService articleService;
     private final PostService postService;
+    private final NoticeService noticeService;
 
     private final PaginationProperties paginationProperties;
 
@@ -30,14 +32,15 @@ public class CommentService {
         return getCommentView(1, Order.LATEST, id, domain);
     }
 
-    public Page<CommentViewResponse> getCommentView(int page, Order order, Long id, Domain domain) {
+    public Page<CommentViewResponse> getCommentView(int page, Order order,
+                                                    Long id, Domain domain) {
         Pageable pageable = getPageable(page, order);
-        Page<Comment> comments = getCommentsById(id, domain, pageable);
+        Page<Comment> comments = getCommentsByParentId(id, domain, pageable);
 
         return comments.map(comment -> new CommentViewResponse(comment));
     }
 
-    private Page<Comment> getCommentsById(Long id, Domain domain, Pageable pageable) {
+    private Page<Comment> getCommentsByParentId(Long id, Domain domain, Pageable pageable) {
         switch (domain) {
             case ARTICLE -> {
                 Article article = articleService.findArticleById(id);
@@ -47,30 +50,19 @@ public class CommentService {
                 Post post = postService.findPostById(id);
                 return commentRepository.findByPost(pageable, post);
             }
+            case NOTICE -> {
+                Notice notice = noticeService.findNoticeById(id);
+                return commentRepository.findByNotice(pageable, notice);
+            }
 
             default -> throw new IllegalArgumentException("Unexpected domain: " + domain.name());
         }
     }
 
-    public void addCommentInfoToModel(Page<CommentViewResponse> comments, Model model) {
-        int page = comments.getNumber() + 1;
-        int totalPages = comments.getTotalPages();
-        int firstNumOfPageBlock = page / paginationProperties.getCommentPagesPerBlock() * paginationProperties.getCommentPagesPerBlock() + 1;
-        int lastNumOfPageBlock = firstNumOfPageBlock + paginationProperties.getCommentPagesPerBlock() - 1;
-        if (totalPages < lastNumOfPageBlock) {
-            lastNumOfPageBlock = totalPages;
-        }
+    public void addCommentsInfoToModel(Page<CommentViewResponse> comments, Model model) {
+        int pagesPerBlock = paginationProperties.getCommentPagesPerBlock();
+        paginationProperties.addPaginationAttributesToModel(comments, model, pagesPerBlock);
 
-        int nextPage = comments.hasNext() ? page + 1 : totalPages;
-        int previousPage = comments.hasPrevious() ? page - 1 : page;
-
-        model.addAttribute("page", page);
-        model.addAttribute("totalElements", comments.getTotalElements());
-        model.addAttribute("nextPage", nextPage);
-        model.addAttribute("previousPage", previousPage);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("firstNumOfPageBlock", firstNumOfPageBlock);
-        model.addAttribute("lastNumOfPageBlock", lastNumOfPageBlock);
         model.addAttribute("comments", comments.getContent());
     }
 
