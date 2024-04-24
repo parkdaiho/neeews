@@ -82,6 +82,10 @@ public class CommentService {
                 Post post = postService.findPostById(dto.getId());
                 post.addComment(comment);
             }
+            case NOTICE -> {
+                Notice notice = noticeService.findNoticeById(dto.getId());
+                notice.addComment(comment);
+            }
 
             default -> throw new IllegalArgumentException("Unexpected domain: " + domain.name());
         }

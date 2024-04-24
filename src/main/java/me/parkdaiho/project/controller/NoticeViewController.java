@@ -73,6 +73,9 @@ public class NoticeViewController {
 
         commentService.addCommentsInfoToModel(comments, model);
 
+        model.addAttribute("page", page);
+        model.addAttribute("order", order);
+
         return "comments-area";
     }
 

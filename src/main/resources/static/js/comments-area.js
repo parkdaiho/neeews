@@ -2,7 +2,7 @@ function addComment() {
     let body = JSON.stringify({
         "id": id,
         "domain": domain,
-        "contents" : document.getElementById("comment-create-contents").innerHTML,
+        "contents" : document.getElementById("new-comment-text").innerHTML,
     });
 
     function success() {
@@ -12,7 +12,9 @@ function addComment() {
     }
 
     function fail() {
-        alert("fail");
+        alert("fail to add comment.");
+        console.log("id: " + id);
+        console.log("domain: " + domain);
     }
 
     apiRequest("/api/comment", Method.POST, body, getHeaders(true), success, fail);
@@ -46,19 +48,16 @@ function addReply(parentCommentId, page, order) {
         "contents": document.getElementById("new-reply-contents-" + parentCommentId).innerHTML,
     });
 
-    fetch("/api/reply", {
-        method: "POST",
-        headers: {
-            "Authorization": "Bearer " + localStorage.getItem("access_token"),
-            "Content-type": "application/json",
-        },
-        body: body,
-    })
-        .then(response => {
-            if(response.ok) {
-                getCommentPage(page, order)
-            }
-        });
+    function success() {
+        getCommentPage(page, order);
+    }
+
+    function fail() {
+        alert("fail to add reply.");
+        console.log("parentCommentId: " + parentCommentId);
+    }
+
+    apiRequest("/api/reply", Method.POST, body, getHeaders(true), success, fail);
 }
 
 function setReplyArea(commentId) {

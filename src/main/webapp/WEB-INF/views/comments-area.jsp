@@ -36,7 +36,7 @@
 	</select>
 </div>
 <div class="comment-list">
-	<c:forEach var="comment" items="comments">
+	<c:forEach var="comment" items="${comments}">
 	<div class="comment-in-comments">
 		<div class="comment-writer">
 			${comment.writer}
@@ -46,8 +46,8 @@
 			${comment.contents}
 		</div>
 		<div class="comment-btn-area">
-			<button>LIKE ${comment.good}</button>
-			<button>DISLIKE ${comment.bad}</button>
+			<button onclick="pollComment(${comment.id}, true, ${page}, '${order}')">LIKE ${comment.good}</button>
+			<button onclick="pollComment(${comment.id}, false, ${page}, '${order}')">DISLIKE ${comment.bad}</button>
 			<button onclick="setReplyArea(${comment.id});">REPLY</button>
 			<button onclick="deleteComment(${comment.id});">DELETE</button>
 		</div>
@@ -57,6 +57,7 @@
 			</div>
 			<div class="new-reply-btn">
 				<button onclick="">ADD</button>
+				<button onclick="setReplyArea(${comment.id});">CLOSE</button>
 			</div>
 		</div>
 		<div class="replies-area">

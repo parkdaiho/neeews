@@ -66,7 +66,7 @@
 	<section class="poll-area">
 		<jsp:include page="poll-area.jsp"></jsp:include>
 	</section>
-	<section class="comments-area">
+	<section class="comments-area" id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>
 	</section>
 </main>

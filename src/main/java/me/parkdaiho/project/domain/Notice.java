@@ -70,7 +70,7 @@ public class Notice extends BaseEntity implements IncludingImages {
         this.imageFiles = new ArrayList<>();
     }
 
-    public void addComments(Comment comment) {
+    public void addComment(Comment comment) {
         comment.setNotice(this);
 
         comments.add(comment);
