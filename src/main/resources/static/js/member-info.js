@@ -1,17 +1,23 @@
-function changeNickname(originalNickname) {
-    let flag = document.getElementById("nickname-dup-flag");
-    let nickname = document.getElementById("nickname");
+const password = document.getElementById("password");
+const confirmPassword = document.getElementById("confirm-password");
+const nickname = document.getElementById("nickname");
 
-    flag.value = nickname.value === originalNickname;
+const confirmPasswordValidFlag = document.getElementById("confirm-password-valid-flag");
+const nicknameValidFlag= document.getElementById("nickname-valid-flag");
+
+
+function changeNickname(originalNickname) {
+    if(nickname.value !== originalNickname) {
+        nicknameValidFlag.value = Check.UNCHECKED;
+    }
 }
 
 function nicknameDupCheck() {
-    let nickname = document.getElementById("nickname").value;
     let body = JSON.stringify({
-        "nickname": nickname,
+        "nickname": nickname.value,
     });
 
-    fetch("/api/nickname", {
+    fetch("/api/information/nickname", {
         method: Method.POST,
         headers: getHeaders(true),
         body: body,
@@ -22,44 +28,44 @@ function nicknameDupCheck() {
             }
         })
         .then(result => {
-                let flag = document.getElementById("nickname-dup-flag");
-
                 if(result.identification === true) {
+                    nicknameValidFlag.value = Check.CHECKED;
                     alert("닉네임을 변경해주세요.");
-                    flag.value = true;
+
                     return;
                 }
 
                 if (result.flag === true) {
-                    flag.value = true;
+                    nicknameValidFlag.value = Check.CHECKED;
                     alert("사용 가능한 닉네임입니다.");
                 } else {
+                    nicknameValidFlag.value = Check.UNCHECKED;
                     alert("이미 존재하는 닉네임입니다.");
-                    flag.value = false;
                 }
             }
         )
 }
 
-function confirmPassword() {
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirm-password").value;
-    let flag = document.getElementById("confirm-password-flag");
+function changePassword() {
+    if(password.value !== confirmPassword.value) {
+        confirmPasswordValidFlag.value = Check.UNCHECKED;
 
-    flag.value = password === confirmPassword;
+        return;
+    }
+
+    confirmPasswordValidFlag.value = Check.CHECKED;
 }
 
 function checkFlag() {
-    let passwordFlag = document.getElementById("confirm-password-flag").value;
-    let nicknameFlag = document.getElementById("nickname-dup-flag").value;
+    if (confirmPasswordValidFlag.value === Check.UNCHECKED) {
+        alert("Please, check the password.");
 
-    if (passwordFlag === 'false') {
-        alert("Please, confirm password.");
         return false;
     }
 
-    if (nicknameFlag === 'false') {
-        alert("Please, check nickname duplication");
+    if (nicknameValidFlag.value === Check.UNCHECKED) {
+        alert("Please, check the nickname");
+
         return false;
     }
 
@@ -69,12 +75,10 @@ function checkFlag() {
 function modifyUser(userId) {
     if(!checkFlag()) return;
 
-    let password = document.getElementById("password").value;
-    let nickname = document.getElementById("nickname").value;
     let body = JSON.stringify({
         "userId": userId,
-        "password": password,
-        "nickname": nickname,
+        "password": password.value,
+        "nickname": nickname.value,
     });
 
     function success() {

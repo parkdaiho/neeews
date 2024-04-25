@@ -1,4 +1,4 @@
-function getArticles(order) {
+function getArticlesByOrder(order) {
     let params = new URLSearchParams({
         "order": order
     });

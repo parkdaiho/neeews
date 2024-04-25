@@ -11,6 +11,11 @@ const Role = {
     USER: "USER"
 }
 
+const Check = {
+    CHECKED: "checked",
+    UNCHECKED: "unchecked"
+}
+
 const token = getKey("token");
 if (token) {
     localStorage.setItem("access_token", token);

@@ -11,14 +11,14 @@
 		USERNAME : <input type="text" value="${username}" readonly>
 	</div>
 	<div class="member-info-password">
-		PASSWORD : <input type="password" id="password" onchange="confirmPassword();">
-		CONFIRM-PASSWORD : <input type="password" id="confirm-password" onchange="confirmPassword();">
-		<input type="hidden" id="confirm-password-flag" value="false">
+		PASSWORD : <input type="password" id="password" onchange="changePassword();">
+		CONFIRM-PASSWORD : <input type="password" id="confirm-password" onchange="changePassword();">
+		<input type="hidden" id="confirm-password-valid-flag" value="unchecked">
 	</div>
 	<div class="member-info-nickname">
 		NICKNAME : <input type="text" value="${nickname}" id="nickname" onchange="changeNickname('${nickname}');">
 		<button type="button" onclick="nicknameDupCheck();">CHECK</button>
-		<input type="hidden" id="nickname-dup-flag" value="true">
+		<input type="hidden" id="nickname-valid-flag" value="checked">
 	</div>
 	<div class="member-info-email">
 		EMAIL : <input type="email" value="${email}" readonly>

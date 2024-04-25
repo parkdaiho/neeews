@@ -22,28 +22,28 @@
 		<div class="article-list-area">
 			<div class="article-list-info">
 				<c:choose>
-					<c:when test="${order == 'views'}">
-						<h2>MOST VIEWED ARTICLES</h2>
-						<select onchange="getArticles(this.value)">
-							<option value="views" selected>MOST-VIEWED</option>
-							<option value="popularity">MOST-POPULAR</option>
-							<option value="comments">MOST-COMMENTS</option>
-						</select>
-					</c:when>
 					<c:when test="${order == 'popularity'}">
-						<h2>MOST POPULAR ARTICLES</h2>
-						<select onchange="getArticles(this.value)">
+						<h2>MOST VIEWED ARTICLES</h2>
+						<select onchange="getArticlesByOrder(this.value);">
 							<option value="views">MOST-VIEWED</option>
 							<option value="popularity" selected>MOST-POPULAR</option>
 							<option value="comments">MOST-COMMENTS</option>
 						</select>
 					</c:when>
-					<c:otherwise>
-						<h2>MOST COMMENTS ARTICLES</h2>
-						<select onchange="getArticles(this.value)">
+					<c:when test="${order == 'comments'}">
+						<h2>MOST POPULAR ARTICLES</h2>
+						<select onchange="getArticlesByOrder(this.value)">
 							<option value="views">MOST-VIEWED</option>
 							<option value="popularity">MOST-POPULAR</option>
 							<option value="comments" selected>MOST-COMMENTS</option>
+						</select>
+					</c:when>
+					<c:otherwise>
+						<h2>MOST COMMENTS ARTICLES</h2>
+						<select onchange="getArticlesByOrder(this.value)">
+							<option value="views" selected>MOST-VIEWED</option>
+							<option value="popularity">MOST-POPULAR</option>
+							<option value="comments">MOST-COMMENTS</option>
 						</select>
 					</c:otherwise>
 				</c:choose>

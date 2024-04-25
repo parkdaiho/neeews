@@ -17,33 +17,38 @@
 	</section>
 	<section class="sign-up-area">
 		<div class="sign-up-username">
-			USERNAME : <input type="text" id="username">
-			<button>CHECK</button>
+			USERNAME : <input type="text" id="username" onchange="changeUsername();">
+			<button onclick="usernameValidCheck();">CHECK</button>
+			<input type="hidden" id="username-valid-flag" value="unchecked">
 		</div>
 		<div class="sign-up-password">
-			PASSWORD : <input type="password" id="password">
-			CONFIRM-PASSWORD : <input type="password" id="confirm-password">
+			PASSWORD : <input type="password" id="password" onchange="changePassword();">
+			CONFIRM-PASSWORD : <input type="password" id="confirm-password" onchange="changePassword();">
+			<input type="hidden" id="confirm-password-valid-flag" value="unchecked">
 		</div>
 		<div class="sign-up-nickname">
-			NICKNAME : <input type="text" id="nickname">
-			<button>CHECK</button>
+			NICKNAME : <input type="text" id="nickname" onchange="changeNickname();">
+			<button onclick="nicknameValidCheck();">CHECK</button>
+			<input type="hidden" id="nickname-valid-flag" value="unchecked">
 		</div>
 		<div class="sign-up-email">
 			<c:choose>
 				<c:when test="${email != null}">
 					EMAIL : <input type="email" id="email" value="${email}" readonly>
 					<input type="hidden" id="provider" value="${provider}">
+					<input type="hidden" id="email-dup-flag" value="checked">
 				</c:when>
 				<c:otherwise>
-					EMAIL : <input type="email" id="email">
+					EMAIL : <input type="email" id="email" onchange="changeEmail();">
 					<input type="hidden" id="provider" value="SELF">
-					<button>CHECK</button>
+					<button onclick="emailDupCheck();">CHECK</button>
+					<input type="hidden" id="email-dup-flag" value="unchecked">
 				</c:otherwise>
 			</c:choose>
 		</div>
 		<div class="sign-up-btn">
 			<button onclick="signUp();">SIGN-UP</button>
-			<button>BACK</button>
+			<button onclick="location.replace('/login');">BACK</button>
 		</div>
 	</section>
 </main>

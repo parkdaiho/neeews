@@ -37,9 +37,9 @@ public class UserApiController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/api/nickname")
-    public ResponseEntity<NicknameDupCheckResponse> dupCheck(@RequestBody NicknameDupCheckRequest request,
-                                                             @AuthenticationPrincipal PrincipalDetails principal) {
+    @PostMapping("/api/information/nickname")
+    public ResponseEntity<MemberInfoNicknameDupCheckResponse> dupCheck(@RequestBody NicknameDupCheckRequest request,
+                                                                       @AuthenticationPrincipal PrincipalDetails principal) {
         return ResponseEntity.ok(userService.nicknameDupCheckInMyPage(request, principal));
     }
 

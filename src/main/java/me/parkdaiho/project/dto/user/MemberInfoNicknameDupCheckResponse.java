@@ -5,12 +5,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class NicknameDupCheckResponse {
+public class MemberInfoNicknameDupCheckResponse {
 
     private Boolean flag;
     private Boolean identification;
 
-    public NicknameDupCheckResponse(boolean flag, Boolean identification) {
+    public MemberInfoNicknameDupCheckResponse(boolean flag, boolean identification) {
         this.flag = flag;
         this.identification = identification;
     }
