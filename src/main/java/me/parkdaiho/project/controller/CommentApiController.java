@@ -37,4 +37,12 @@ public class CommentApiController {
 
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/api/comment")
+    public ResponseEntity<Void> deleteComment(@RequestParam Long id,
+                                              @AuthenticationPrincipal PrincipalDetails principal) {
+        commentService.deleteComment(id, principal);
+
+        return ResponseEntity.ok().build();
+    }
 }

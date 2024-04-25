@@ -6,4 +6,6 @@ public interface Pollable {
 
     List<Poll> getPollList();
     void syncWithPollList(Long good, Long bad);
+    Long getGood();
+    Long getBad();
 }

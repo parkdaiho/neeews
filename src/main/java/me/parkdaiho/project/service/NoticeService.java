@@ -148,8 +148,8 @@ public class NoticeService {
     private Pageable getPageable(int page, int size, Order order) {
         switch (order) {
             case LATEST, VIEWS, COMMENTS -> {
-                return PageRequest.of(page - 1, size,
-                        Sort.by(Sort.Direction.DESC, order.getProperty()));
+                return PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, order.getProperty())
+                                .and(Sort.by(Sort.Direction.DESC, Order.LATEST.getProperty())));
             }
 
             default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());

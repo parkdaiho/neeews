@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
+import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
@@ -13,6 +14,7 @@ import me.parkdaiho.project.service.article.ArticleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -99,7 +101,7 @@ public class CommentService {
                 .build());
 
         Comment parentComment = findCommentById(dto.getParentCommentId());
-        parentComment.addReply(reply);
+        parentComment.addComment(reply);
     }
 
     public Comment findCommentById(Long id) {
@@ -110,12 +112,23 @@ public class CommentService {
     private Pageable getPageable(int page, Order order) {
         org.springframework.data.domain.Sort pageableSort = null;
         switch (order) {
-            case LATEST, POPULARITY -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, order.getProperty());
+            case LATEST, POPULARITY, COMMENTS -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, order.getProperty())
+                    .and(Sort.by(Sort.Direction.DESC, Order.LATEST.getProperty()));
             case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());
 
             default -> throw new IllegalArgumentException("Unexpected order:" + order.getValue());
         }
 
         return PageRequest.of(page - 1, paginationProperties.getCommentsPerPage(), pageableSort);
+    }
+
+    @Transactional
+    public void deleteComment(Long id, PrincipalDetails principal) {
+        Comment comment = findCommentById(id);
+        if(!comment.isWriter(principal) && principal.getRole().getIsUser()) {
+            throw new IllegalArgumentException("No-authority");
+        }
+
+        commentRepository.delete(comment);
     }
 }

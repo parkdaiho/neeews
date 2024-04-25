@@ -2,6 +2,7 @@ package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.user.User;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.List;
 @Setter
 @Table(name = "comments")
 @Entity
-public class Comment extends BaseEntity implements Pollable {
+public class Comment extends BaseEntity implements Pollable, IncludingComments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +50,9 @@ public class Comment extends BaseEntity implements Pollable {
     private Long bad;
 
     @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL)
-    private List<Comment> replies = new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
+
+    private Long commentsSize;
 
     @PrePersist
     public void prePersist() {
@@ -60,6 +63,7 @@ public class Comment extends BaseEntity implements Pollable {
 
         this.good = 0L;
         this.bad = 0L;
+        this.commentsSize = 0L;
         this.isEnabled = true;
     }
 
@@ -69,14 +73,22 @@ public class Comment extends BaseEntity implements Pollable {
         this.writer = writer;
     }
 
-    public void addReply(Comment reply) {
-        reply.setParentComment(this);
-
-        replies.add(reply);
-    }
-
     public void syncWithPollList(Long good, Long bad) {
         this.good = good;
         this.bad = bad;
+    }
+
+    public boolean isWriter(PrincipalDetails principal) {
+        if(principal == null) return false;
+
+        return this.writer.getId() == principal.getUserId();
+    }
+
+    @Override
+    public void addComment(Comment reply) {
+        reply.setParentComment(this);
+
+        comments.add(reply);
+        commentsSize++;
     }
 }

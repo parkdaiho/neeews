@@ -140,8 +140,7 @@ public class ArticleService {
     private Pageable getPageable(int size, Order order) {
         org.springframework.data.domain.Sort pageableSort = null;
         switch (order) {
-            case LATEST, POPULARITY, VIEWS, COMMENTS -> pageableSort = org.springframework.data.domain.Sort.by(
-                    org.springframework.data.domain.Sort.Direction.DESC, order.getProperty())
+            case LATEST, POPULARITY, VIEWS, COMMENTS -> pageableSort = org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, order.getProperty())
                     .and(Sort.by(Sort.Direction.DESC, Order.LATEST.getProperty()));
             case EARLIEST -> pageableSort = org.springframework.data.domain.Sort.by(
                     org.springframework.data.domain.Sort.Direction.ASC, order.getProperty());

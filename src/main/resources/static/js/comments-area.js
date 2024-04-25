@@ -73,3 +73,20 @@ function setReplyArea(commentId) {
 function getCommentsByOrder(order) {
     getCommentPage(1, order);
 }
+
+function deleteComment(commentId, page, order) {
+    let params = new URLSearchParams({
+        "id": commentId,
+    });
+    let url = "/api/comment?" + params;
+
+    function success() {
+        getCommentPage(page, order);
+    }
+
+    function fail() {
+        alert("fail to delete comment");
+    }
+
+    apiRequest(url, Method.DELETE, null, getHeaders(true), success, fail);
+}

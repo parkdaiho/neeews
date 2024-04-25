@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Table(name = "notice")
 @Entity
-public class Notice extends BaseEntity implements IncludingImages {
+public class Notice extends BaseEntity implements IncludingImages, IncludingComments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

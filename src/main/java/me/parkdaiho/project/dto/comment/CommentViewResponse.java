@@ -24,7 +24,7 @@ public class CommentViewResponse {
         this.createdAt = comment.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         this.good = comment.getGood();
         this.bad = comment.getBad();
-        this.replies = comment.getReplies().stream()
+        this.replies = comment.getComments().stream()
                 .map(entity -> new CommentViewResponse(entity))
                 .toList();
     }
