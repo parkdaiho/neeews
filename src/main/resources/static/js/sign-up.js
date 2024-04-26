@@ -84,6 +84,7 @@ function changeUsername() {
 function changePassword() {
     if(password.value !== confirmPassword.value) {
         confirmPasswordValidFlag.value = Check.UNCHECKED;
+
         return;
     }
 
@@ -113,8 +114,8 @@ function usernameValidCheck() {
         alert("사용할 수 없는 아이디입니다.")
     }
 
-    let url = "/api/sign-up/username";
-    apiRequest(url, Method.POST, body, getHeaders(true), success, fail);
+    let url = "/sign-up/username";
+    validCheckRequest(url, body, success, fail);
 }
 
 function nicknameValidCheck() {
@@ -132,8 +133,8 @@ function nicknameValidCheck() {
         alert("사용할 수 없는 닉네입입니다.");
     }
 
-    let url = "/api/sign-up/nickname";
-    apiRequest(url, Method.POST, body, getHeaders(true), success, fail);
+    let url = "/sign-up/nickname";
+    validCheckRequest(url, body, success, fail);
 }
 
 function emailDupCheck() {
@@ -151,6 +152,26 @@ function emailDupCheck() {
         alert("이미 가입된 이메일입니다.");
     }
 
-    let url = "/api/sign-up/email";
-    apiRequest(url, Method.POST, body, getHeaders(true), success, fail);
+    let url = "/sign-up/email";
+    validCheckRequest(url, body, success, fail);
+}
+
+function validCheckRequest(url, body, success, fail) {
+    fetch(url, {
+        method: Method.POST,
+        headers: getHeaders(true),
+        body: body,
+    })
+        .then(response => {
+            if(response.ok) {
+                return response.json();
+            }
+        })
+        .then(result => {
+            if(result) {
+                success();
+            } else {
+                fail();
+            }
+        })
 }

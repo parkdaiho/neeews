@@ -197,4 +197,45 @@ public class UserService {
 
         user.makeWithdrawnMember();
     }
+
+    public Boolean usernameDupCheckInSignUp(UsernameDupCheckRequest request) {
+        if(request.getUsername() == null || request.getUsername().isBlank()) return false;
+
+        try {
+            findByUsername(request.getUsername());
+
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public Boolean nicknameDupCheckInSignUp(NicknameDupCheckRequest request) {
+        if(request.getNickname() == null || request.getNickname().isBlank()) return false;
+
+        try {
+            findByNickname(request.getNickname());
+
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    public Boolean emailDupCheckInSignUp(EmailDupCheckRequest request) {
+        if(request.getEmail() == null || request.getEmail().isBlank()) return false;
+
+        try {
+            findByEmail(request.getEmail());
+
+            return false;
+        } catch (Exception e) {
+            return true;
+        }
+    }
+
+    private User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user: " + email));
+    }
 }
