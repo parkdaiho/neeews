@@ -10,6 +10,14 @@ const nickname = document.getElementById("nickname");
 const email = document.getElementById("email");
 const provider = document.getElementById("provider");
 
+const usernameRegex = /^[a-z0-9]{5,20}$/;
+const nicknameRegex = /^.{2,16}$/;
+const passwordRegex = /(?=.*[a-z])(?=[A-Z])(?=.*[0-9])(?=.*[@#$%!&*_+=-])[a-zA-Z0-9@#$%!&*_+=-]{8,}/;
+
+const usernameRegexFailMessage = "아이디는 5~20자의 영문 소문자, 숫자만 사용가능합니다.";
+const passwordRegexFailMessage = "닉네임의 길이는 2~16자입니다.";
+const nicknameRegexFailMessage = "비밀번호는 영어 소문자, 대문자, 숫자, 특수기호를 모두 포함하는 최소 8자 이상이어야 합니다.";
+
 function signUp() {
     if(!checkFlag()) return;
 
@@ -62,6 +70,13 @@ function checkFlag() {
         return false;
     }
 
+    if(!passwordRegex.test(password.value)) {
+        alert(passwordRegexFailMessage);
+
+        confirmPasswordValidFlag.value = Check.UNCHECKED;
+        password.value = "";
+    }
+
     if(nicknameValidFlag.value === Check.UNCHECKED) {
         alert("Please, check the nickname.")
 
@@ -100,6 +115,12 @@ function changeEmail() {
 }
 
 function usernameValidCheck() {
+    if(!usernameRegex.test(username.value)) {
+        alert(usernameRegexFailMessage);
+
+        return;
+    }
+
     let body = JSON.stringify({
         "username": username.value,
     });
@@ -119,6 +140,12 @@ function usernameValidCheck() {
 }
 
 function nicknameValidCheck() {
+    if(!nicknameRegex.test(nickname.value)) {
+        alert(nicknameRegexFailMessage);
+
+        return;
+    }
+
     let body = JSON.stringify({
         "nickname": nickname.value,
     });
