@@ -8,7 +8,7 @@ public class SearchNaverNewsRequest {
 
     private String query;
     private String sort;
-    private int start;
+    private Integer start;
 
     @Builder
     public SearchNaverNewsRequest(String query, String sort, int start) {

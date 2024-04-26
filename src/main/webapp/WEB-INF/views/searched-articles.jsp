@@ -36,24 +36,31 @@
 					PUBDATE
 				</div>
 			</div>
-			<c:forEach var="item" items="${items}" varStatus="status">
-				<div class="searched-article" onclick="showArticle(${status.index});">
-					<input type="hidden" value="${item.originallink}" id="item_originalLink_${status.index}">
-					<input type="hidden" value="${item.link}" id="item_link_${status.index}">
-					<div class="article-title" id="item_title_${status.index}">
-						${item.title}
-					</div>
-					<div class="article-description" id="item_description_${status.index}">
-							${item.description}
-					</div>
-					<div class="article-pubdate" id="item_pubDate_${status.index}">
-							${item.pubDate}
-					</div>
-				</div>
-			</c:forEach>
-			<c:if test="${totalElements != 0}">
-				<jsp:include page="board-pagination.jsp"></jsp:include>
-			</c:if>
+			<c:choose>
+				<c:when test="${items == null}">
+					NO ARTICLES
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="item" items="${items}" varStatus="status">
+						<div class="searched-article" onclick="showArticle(${status.index});">
+							<input type="hidden" value="${item.originallink}" id="item_originalLink_${status.index}">
+							<input type="hidden" value="${item.link}" id="item_link_${status.index}">
+							<div class="article-title" id="item_title_${status.index}">
+									${item.title}
+							</div>
+							<div class="article-description" id="item_description_${status.index}">
+									${item.description}
+							</div>
+							<div class="article-pubdate" id="item_pubDate_${status.index}">
+									${item.pubDate}
+							</div>
+						</div>
+					</c:forEach>
+					<c:if test="${totalElements != 0}">
+						<jsp:include page="board-pagination.jsp"></jsp:include>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </main>

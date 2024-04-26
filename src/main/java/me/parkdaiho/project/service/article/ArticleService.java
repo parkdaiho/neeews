@@ -37,6 +37,7 @@ public class ArticleService {
     private final PaginationProperties paginationProperties;
 
     public SearchNaverNewsResponse getSearchNewsResult(SearchedArticlesRequest dto) {
+
         RestTemplate restTemplate = new RestTemplate();
 
         URI uri = UriComponentsBuilder.fromUriString("http://localhost:8080")
@@ -152,6 +153,8 @@ public class ArticleService {
     }
 
     public void addSearchedNewsResponseToModel(SearchNaverNewsResponse response, Model model) {
+        if(response == null) return;
+
         int page = response.getStart() / response.getDisplay() + 1;
         int totalPages = response.getTotal() / response.getDisplay() + 1;
         if (totalPages > 100) totalPages = 100;

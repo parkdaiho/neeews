@@ -14,7 +14,7 @@
 	<button onclick="addComment();">ADD</button>
 </div>
 <div class="comments-info">
-	<span class="total-comments">TOTAL ${totalElements}</span>
+	<span class="total-comments">TOTAL ${totalElements} COMMENTS</span>
 	<select onchange="getCommentsByOrder(this.value);" id="order">
 		<c:choose>
 			<c:when test="${order == 'earliest'}">

@@ -17,12 +17,18 @@ import java.nio.charset.StandardCharsets;
 
 @RequiredArgsConstructor
 @Service
-public class SearchNaverNewsServiceImpl implements SearchNaverNewsService{
+public class SearchNaverNewsServiceImpl implements SearchNaverNewsService {
 
     private final NaverSearchProperties naverSearchProperties;
 
     @Override
     public SearchNaverNewsResponse searchNaverNews(SearchNaverNewsRequest dto) {
+        if (dto.getQuery() == null || dto.getQuery().isBlank()
+                || dto.getSort() == null || dto.getSort().isBlank()
+                || dto.getStart() == null) {
+            return null;
+        }
+
         RestTemplate restTemplate = new RestTemplate();
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
