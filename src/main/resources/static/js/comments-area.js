@@ -1,8 +1,15 @@
 function addComment() {
+    let text = document.getElementById("new-comment-text");
+    if(text.innerHTML.trim() === "") {
+        alert(blankTextMessage);
+
+        return;
+    }
+
     let body = JSON.stringify({
         "id": id,
         "domain": domain,
-        "contents" : document.getElementById("new-comment-text").innerHTML,
+        "contents" : text.innerHTML,
     });
 
     function success() {
@@ -43,9 +50,16 @@ function getCommentsByPage(page) {
 }
 
 function addReply(parentCommentId, page, order) {
+    let text = document.getElementById("new-reply-contents-" + parentCommentId);
+    if(text.innerHTML.trim() === "") {
+        alert(blankTextMessage);
+
+        return;
+    }
+
     let body = JSON.stringify({
         "parentCommentId": parentCommentId,
-        "contents": document.getElementById("new-reply-contents-" + parentCommentId).innerHTML,
+        "contents": text.innerHTML,
     });
 
     function success() {

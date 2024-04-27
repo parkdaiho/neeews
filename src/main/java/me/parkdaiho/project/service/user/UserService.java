@@ -153,14 +153,17 @@ public class UserService {
         user.changeRole(request.getNewRole());
     }
 
-    public MemberInfoNicknameDupCheckResponse nicknameDupCheckInMyPage(NicknameDupCheckRequest request, PrincipalDetails principal) {
-        try {
-            User user = findByNickname(request.getNickname());
-            if (user.getId().equals(principal.getUserId())) return new MemberInfoNicknameDupCheckResponse(false, true);
+    public Boolean nicknameDupCheckInMyPage(NicknameDupCheckRequest request, PrincipalDetails principal) {
+        if(principal.getUserId() != findByNickname(request.getOriginalNickname()).getId()) {
+            throw new IllegalArgumentException("No-authority");
+        }
 
-            return new MemberInfoNicknameDupCheckResponse(false, false);
+        try {
+            findByNickname(request.getNickname());
+
+            return false;
         } catch (Exception e) {
-            return new MemberInfoNicknameDupCheckResponse(true, false);
+            return true;
         }
     }
 

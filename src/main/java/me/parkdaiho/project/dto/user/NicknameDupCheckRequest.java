@@ -7,5 +7,6 @@ import lombok.Setter;
 @Setter
 public class NicknameDupCheckRequest {
 
+    private String originalNickname;
     private String nickname;
 }

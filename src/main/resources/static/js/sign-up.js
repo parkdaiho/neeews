@@ -15,6 +15,12 @@ const passwordValidCheckMessage = document.getElementById("password-valid-check-
 const nicknameValidCheckMessage = document.getElementById("nickname-valid-check-message");
 const emailValidCheckMessage = document.getElementById("email-valid-check-message");
 
+const validUsernameMessage = "사용가능한 아이디입니다.";
+const validEmailMessage = "가입가능한 이메일입니다.";
+
+const usernameDupFailMessage = "이미 사용중인 아이디입니다.";
+const emailDupFailMessage = "이미 사용중인 이메일입니다.";
+
 function signUp() {
     if(!checkFlag()) return;
 
@@ -56,26 +62,26 @@ function login(params) {
 
 function checkFlag() {
     if(usernameValidFlag.value === Check.UNCHECKED) {
-        alert("Please, check the username.");
+        alert(uncheckedUsernameMessage);
 
         return false;
     }
 
     if(confirmPasswordValidFlag.value === Check.UNCHECKED) {
-        alert("Please, check the password.")
+        alert(uncheckedPasswordMessage)
         password.value = "";
 
         return false;
     }
 
     if(nicknameValidFlag.value === Check.UNCHECKED) {
-        alert("Please, check the nickname.")
+        alert(uncheckedNicknameMessage);
 
         return false;
     }
 
     if(emailDupFlag.value === Check.UNCHECKED) {
-        alert("Please, check the email.");
+        alert(uncheckedEmailMessage);
 
         return false;
     }
@@ -124,14 +130,14 @@ function usernameValidCheck() {
     });
 
     function success() {
-        alert("사용할 수 있는 아이디입니다.")
+        alert(validUsernameMessage)
 
         usernameValidFlag.value = Check.CHECKED;
         usernameValidCheckMessage.innerHTML = validUsernameMessage;
     }
 
     function fail() {
-        alert("이미 사용중인 아이디입니다.")
+        alert(usernameDupFailMessage);
     }
 
     let url = "/sign-up/username";
@@ -151,14 +157,14 @@ function nicknameValidCheck() {
     });
 
     function success() {
-        alert("사용할 수 있는 닉네임입니다.");
+        alert(validNicknameMessage);
 
         nicknameValidFlag.value = Check.CHECKED;
         nicknameValidCheckMessage.innerHTML = validNicknameMessage;
     }
 
     function fail() {
-        alert("이미 사용중인 닉네입입니다.");
+        alert(nicknameDupFailMessage);
     }
 
     let url = "/sign-up/nickname";
@@ -171,14 +177,14 @@ function emailDupCheck() {
     });
 
     function success() {
-        alert("사용할 수 있는 이메일입니다.");
+        alert(validEmailMessage);
 
         emailDupFlag.value = Check.CHECKED;
         emailValidCheckMessage.innerHTML = validEmailMessage;
     }
 
     function fail() {
-        alert("이미 가입된 이메일입니다.");
+        alert(emailDupFailMessage);
     }
 
     let url = "/sign-up/email";

@@ -25,6 +25,18 @@ function requestNotice(url, method) {
     let text = document.getElementById("new-notice-text");
     let files = document.getElementsByClassName("files");
 
+    if(title.value.trim() === "") {
+        alert(blankTitleMessage);
+
+        return;
+    }
+
+    if(text.innerHTML.trim() === "") {
+        alert(blankTextMessage);
+
+        return;
+    }
+
     let formData = new FormData();
 
     formData.append("title", title.value);

@@ -18,7 +18,7 @@
 	</div>
 	<div class="member-info-nickname">
 		NICKNAME : <input type="text" value="${nickname}" id="nickname" onchange="changeNickname('${nickname}');">
-		<button type="button" onclick="nicknameDupCheck();">CHECK</button>
+		<button type="button" onclick="nicknameDupCheck('${nickname}');">CHECK</button>
 		<input type="hidden" id="nickname-valid-flag" value="checked">
 		<div class="nickname-valid-check-message" id="nickname-valid-check-message"></div>
 	</div>

@@ -3,20 +3,31 @@ const confirmPassword = document.getElementById("confirm-password");
 const nickname = document.getElementById("nickname");
 
 const confirmPasswordValidFlag = document.getElementById("confirm-password-valid-flag");
-const nicknameValidFlag= document.getElementById("nickname-valid-flag");
+const nicknameValidFlag = document.getElementById("nickname-valid-flag");
 
 const passwordValidCheckMessage = document.getElementById("password-valid-check-message");
 const nicknameValidCheckMessage = document.getElementById("nickname-valid-check-message");
 
+const nicknameSameAsOriginalNicknameMessage = "기존에 사용하던 닉네임입니다.";
+
+const modifySuccessMessage = "정보 수정에 성공했습니다.";
+const modifyFailMessage = "정보 수정에 실패했습니다.";
+
 function changeNickname(originalNickname) {
-    if(nickname.value !== originalNickname) {
+    if (nickname.value !== originalNickname) {
         nicknameValidFlag.value = Check.UNCHECKED;
         nicknameValidCheckMessage.innerHTML = "";
     }
 }
 
-function nicknameDupCheck() {
-    if(!nicknameRegex.test(nickname.value)) {
+function nicknameDupCheck(originalNickname) {
+    if (nickname.value === originalNickname) {
+        alert(nicknameSameAsOriginalNicknameMessage);
+
+        return;
+    }
+
+    if (!nicknameRegex.test(nickname.value)) {
         alert(nicknameRegexFailMessage);
         nicknameValidCheckMessage.innerHTML = nicknameRegexFailMessage;
 
@@ -24,6 +35,7 @@ function nicknameDupCheck() {
     }
 
     let body = JSON.stringify({
+        "originalNickname": originalNickname,
         "nickname": nickname.value,
     });
 
@@ -38,32 +50,26 @@ function nicknameDupCheck() {
             }
         })
         .then(result => {
-                if(result.identification === true) {
-                    nicknameValidFlag.value = Check.CHECKED;
-                    alert("닉네임을 변경해주세요.");
+                if (result) {
+                    alert(validNicknameMessage);
 
-                    return;
-                }
-
-                if (result.flag === true) {
-                    alert("사용 가능한 닉네임입니다.");
                     nicknameValidFlag.value = Check.CHECKED;
                     nicknameValidCheckMessage.innerHTML = validNicknameMessage;
                 } else {
-                    alert("이미 사용중인 닉네임입니다.");
+                    alert(nicknameDupFailMessage);
                 }
             }
         )
 }
 
 function changePassword() {
-    if(!passwordRegex.test(password.value)) {
+    if (!passwordRegex.test(password.value)) {
         passwordValidCheckMessage.innerHTML = passwordRegexFailMessage;
     } else {
         passwordValidCheckMessage.innerHTML = validPasswordMessage;
     }
 
-    if(password.value !== confirmPassword.value) {
+    if (password.value !== confirmPassword.value) {
         confirmPasswordValidFlag.value = Check.UNCHECKED;
     } else {
         confirmPasswordValidFlag.value = Check.CHECKED;
@@ -72,13 +78,13 @@ function changePassword() {
 
 function checkFlag() {
     if (confirmPasswordValidFlag.value === Check.UNCHECKED) {
-        alert("Please, check the password.");
+        alert(uncheckedPasswordMessage);
 
         return false;
     }
 
     if (nicknameValidFlag.value === Check.UNCHECKED) {
-        alert("Please, check the nickname");
+        alert(uncheckedNicknameMessage);
 
         return false;
     }
@@ -87,7 +93,7 @@ function checkFlag() {
 }
 
 function modifyUser(userId) {
-    if(!checkFlag()) return;
+    if (!checkFlag()) return;
 
     let body = JSON.stringify({
         "userId": userId,
@@ -96,12 +102,12 @@ function modifyUser(userId) {
     });
 
     function success() {
-        alert("정보를 수정했습니다.");
+        alert(modifySuccessMessage);
         location.reload();
     }
 
     function fail() {
-        alert("정보 수정에 실패했습니다.");
+        alert(modifyFailMessage);
     }
 
     apiRequest("/api/information", Method.PUT, body, getHeaders(true), success, fail);
