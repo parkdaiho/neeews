@@ -7,10 +7,10 @@
 	<link rel="stylesheet" href="/css/css.css">
 </head>
 <body onload="storeAccessToken('${token}');">
-<div class="logo">
+<div class="header-logo">
 	<a href="/">LOGO</a>
 </div>
-<div class="middle-area">
+<div class="header-middle-area">
 	<ul>
 		<li><a href="/">HOME</a></li>
 		<li><a href="/articles">ARTICLES</a></li>
@@ -18,7 +18,7 @@
 		<li><a href="/notice-list">NOTICE</a></li>
 	</ul>
 </div>
-<div class="right-area">
+<div class="header-right-area">
 	<ul>
 		<c:choose>
 			<c:when test="${nickname != null}">
