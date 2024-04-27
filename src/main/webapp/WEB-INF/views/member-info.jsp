@@ -12,6 +12,7 @@
 	</div>
 	<div class="member-info-password">
 		PASSWORD : <input type="password" id="password" onchange="changePassword();">
+		<div class="password-valid-check-message" id="password-valid-check-message"></div>
 		CONFIRM-PASSWORD : <input type="password" id="confirm-password" onchange="changePassword();">
 		<input type="hidden" id="confirm-password-valid-flag" value="unchecked">
 	</div>
@@ -19,6 +20,7 @@
 		NICKNAME : <input type="text" value="${nickname}" id="nickname" onchange="changeNickname('${nickname}');">
 		<button type="button" onclick="nicknameDupCheck();">CHECK</button>
 		<input type="hidden" id="nickname-valid-flag" value="checked">
+		<div class="nickname-valid-check-message" id="nickname-valid-check-message"></div>
 	</div>
 	<div class="member-info-email">
 		EMAIL : <input type="email" value="${email}" readonly>

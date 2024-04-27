@@ -10,13 +10,10 @@ const nickname = document.getElementById("nickname");
 const email = document.getElementById("email");
 const provider = document.getElementById("provider");
 
-const usernameRegex = /^[a-z0-9]{5,20}$/;
-const nicknameRegex = /^.{2,16}$/;
-const passwordRegex = /(?=.*[a-z])(?=[A-Z])(?=.*[0-9])(?=.*[@#$%!&*_+=-])[a-zA-Z0-9@#$%!&*_+=-]{8,}/;
-
-const usernameRegexFailMessage = "아이디는 5~20자의 영문 소문자, 숫자만 사용가능합니다.";
-const passwordRegexFailMessage = "닉네임의 길이는 2~16자입니다.";
-const nicknameRegexFailMessage = "비밀번호는 영어 소문자, 대문자, 숫자, 특수기호를 모두 포함하는 최소 8자 이상이어야 합니다.";
+const usernameValidCheckMessage = document.getElementById("username-valid-check-message");
+const passwordValidCheckMessage = document.getElementById("password-valid-check-message");
+const nicknameValidCheckMessage = document.getElementById("nickname-valid-check-message");
+const emailValidCheckMessage = document.getElementById("email-valid-check-message");
 
 function signUp() {
     if(!checkFlag()) return;
@@ -66,15 +63,9 @@ function checkFlag() {
 
     if(confirmPasswordValidFlag.value === Check.UNCHECKED) {
         alert("Please, check the password.")
+        password.value = "";
 
         return false;
-    }
-
-    if(!passwordRegex.test(password.value)) {
-        alert(passwordRegexFailMessage);
-
-        confirmPasswordValidFlag.value = Check.UNCHECKED;
-        password.value = "";
     }
 
     if(nicknameValidFlag.value === Check.UNCHECKED) {
@@ -94,20 +85,26 @@ function checkFlag() {
 
 function changeUsername() {
     usernameValidFlag.value = Check.UNCHECKED;
+    usernameValidCheckMessage.innerHTML = "";
 }
 
 function changePassword() {
-    if(password.value !== confirmPassword.value) {
-        confirmPasswordValidFlag.value = Check.UNCHECKED;
-
-        return;
+    if(!passwordRegex.test(password.value)) {
+        passwordValidCheckMessage.innerHTML = passwordRegexFailMessage;
+    } else {
+        passwordValidCheckMessage.innerHTML = validPasswordMessage;
     }
 
-    confirmPasswordValidFlag.value = Check.CHECKED;
+    if(password.value !== confirmPassword.value) {
+        confirmPasswordValidFlag.value = Check.UNCHECKED;
+    } else {
+        confirmPasswordValidFlag.value = Check.CHECKED;
+    }
 }
 
 function changeNickname() {
     nicknameValidFlag.value = Check.UNCHECKED;
+    nicknameValidCheckMessage.innerHTML = "";
 }
 
 function changeEmail() {
@@ -117,6 +114,7 @@ function changeEmail() {
 function usernameValidCheck() {
     if(!usernameRegex.test(username.value)) {
         alert(usernameRegexFailMessage);
+        usernameValidCheckMessage.innerHTML = usernameRegexFailMessage;
 
         return;
     }
@@ -129,10 +127,11 @@ function usernameValidCheck() {
         alert("사용할 수 있는 아이디입니다.")
 
         usernameValidFlag.value = Check.CHECKED;
+        usernameValidCheckMessage.innerHTML = validUsernameMessage;
     }
 
     function fail() {
-        alert("사용할 수 없는 아이디입니다.")
+        alert("이미 사용중인 아이디입니다.")
     }
 
     let url = "/sign-up/username";
@@ -142,6 +141,7 @@ function usernameValidCheck() {
 function nicknameValidCheck() {
     if(!nicknameRegex.test(nickname.value)) {
         alert(nicknameRegexFailMessage);
+        nicknameValidCheckMessage.innerHTML = nicknameRegexFailMessage;
 
         return;
     }
@@ -154,10 +154,11 @@ function nicknameValidCheck() {
         alert("사용할 수 있는 닉네임입니다.");
 
         nicknameValidFlag.value = Check.CHECKED;
+        nicknameValidCheckMessage.innerHTML = validNicknameMessage;
     }
 
     function fail() {
-        alert("사용할 수 없는 닉네입입니다.");
+        alert("이미 사용중인 닉네입입니다.");
     }
 
     let url = "/sign-up/nickname";
@@ -173,6 +174,7 @@ function emailDupCheck() {
         alert("사용할 수 있는 이메일입니다.");
 
         emailDupFlag.value = Check.CHECKED;
+        emailValidCheckMessage.innerHTML = validEmailMessage;
     }
 
     function fail() {

@@ -20,16 +20,19 @@
 			USERNAME : <input type="text" id="username" onchange="changeUsername();">
 			<button onclick="usernameValidCheck();">CHECK</button>
 			<input type="hidden" id="username-valid-flag" value="unchecked">
+			<div class="username-valid-check-message" id="username-valid-check-message"></div>
 		</div>
 		<div class="sign-up-password">
 			PASSWORD : <input type="password" id="password" onchange="changePassword();">
 			CONFIRM-PASSWORD : <input type="password" id="confirm-password" onchange="changePassword();">
 			<input type="hidden" id="confirm-password-valid-flag" value="unchecked">
+			<div class="password-valid-check-message" id="password-valid-check-message"></div>
 		</div>
 		<div class="sign-up-nickname">
 			NICKNAME : <input type="text" id="nickname" onchange="changeNickname();">
 			<button onclick="nicknameValidCheck();">CHECK</button>
 			<input type="hidden" id="nickname-valid-flag" value="unchecked">
+			<div class="nickname-valid-check-message" id="nickname-valid-check-message"></div>
 		</div>
 		<div class="sign-up-email">
 			<c:choose>
@@ -43,6 +46,7 @@
 					<input type="hidden" id="provider" value="SELF">
 					<button onclick="emailDupCheck();">CHECK</button>
 					<input type="hidden" id="email-dup-flag" value="unchecked">
+					<div class="email-valid-check-message" id="email-valid-check-message"></div>
 				</c:otherwise>
 			</c:choose>
 		</div>

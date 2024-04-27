@@ -5,14 +5,24 @@ const nickname = document.getElementById("nickname");
 const confirmPasswordValidFlag = document.getElementById("confirm-password-valid-flag");
 const nicknameValidFlag= document.getElementById("nickname-valid-flag");
 
+const passwordValidCheckMessage = document.getElementById("password-valid-check-message");
+const nicknameValidCheckMessage = document.getElementById("nickname-valid-check-message");
 
 function changeNickname(originalNickname) {
     if(nickname.value !== originalNickname) {
         nicknameValidFlag.value = Check.UNCHECKED;
+        nicknameValidCheckMessage.innerHTML = "";
     }
 }
 
 function nicknameDupCheck() {
+    if(!nicknameRegex.test(nickname.value)) {
+        alert(nicknameRegexFailMessage);
+        nicknameValidCheckMessage.innerHTML = nicknameRegexFailMessage;
+
+        return;
+    }
+
     let body = JSON.stringify({
         "nickname": nickname.value,
     });
@@ -36,24 +46,28 @@ function nicknameDupCheck() {
                 }
 
                 if (result.flag === true) {
-                    nicknameValidFlag.value = Check.CHECKED;
                     alert("사용 가능한 닉네임입니다.");
+                    nicknameValidFlag.value = Check.CHECKED;
+                    nicknameValidCheckMessage.innerHTML = validNicknameMessage;
                 } else {
-                    nicknameValidFlag.value = Check.UNCHECKED;
-                    alert("이미 존재하는 닉네임입니다.");
+                    alert("이미 사용중인 닉네임입니다.");
                 }
             }
         )
 }
 
 function changePassword() {
-    if(password.value !== confirmPassword.value) {
-        confirmPasswordValidFlag.value = Check.UNCHECKED;
-
-        return;
+    if(!passwordRegex.test(password.value)) {
+        passwordValidCheckMessage.innerHTML = passwordRegexFailMessage;
+    } else {
+        passwordValidCheckMessage.innerHTML = validPasswordMessage;
     }
 
-    confirmPasswordValidFlag.value = Check.CHECKED;
+    if(password.value !== confirmPassword.value) {
+        confirmPasswordValidFlag.value = Check.UNCHECKED;
+    } else {
+        confirmPasswordValidFlag.value = Check.CHECKED;
+    }
 }
 
 function checkFlag() {

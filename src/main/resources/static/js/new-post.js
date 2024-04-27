@@ -24,6 +24,10 @@ function requestPost(url, method) {
     let text = document.getElementById("new-post-text");
     let files = document.getElementsByClassName("files");
 
+    if(title.value === "") {
+        alert("")
+    }
+
     let formData = new FormData();
 
     formData.append("title", title.value);
