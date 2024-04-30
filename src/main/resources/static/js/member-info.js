@@ -63,16 +63,18 @@ function nicknameDupCheck(originalNickname) {
 }
 
 function changePassword() {
-    if (!passwordRegex.test(password.value)) {
+    if(!passwordRegex.test(password.value)) {
         passwordValidCheckMessage.innerHTML = passwordRegexFailMessage;
-    } else {
-        passwordValidCheckMessage.innerHTML = validPasswordMessage;
+
+        return;
     }
 
-    if (password.value !== confirmPassword.value) {
+    if(password.value !== confirmPassword.value) {
         confirmPasswordValidFlag.value = Check.UNCHECKED;
+        passwordValidCheckMessage.innerHTML = passwordConfirmFailMessage;
     } else {
         confirmPasswordValidFlag.value = Check.CHECKED;
+        passwordValidCheckMessage.innerHTML = validPasswordMessage;
     }
 }
 

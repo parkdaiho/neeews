@@ -28,10 +28,8 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         clearAuthenticationAttributes(request, response);
 
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        User user = principal.getUser();
 
-        Token token = issueToken(request, response, user);
-
+        Token token = issueToken(request, response, principal.getUser());
         String loginSuccessUrl = getLoginSuccessUrl(token.getAccessToken());
 
         getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
