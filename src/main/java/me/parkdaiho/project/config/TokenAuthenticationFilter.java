@@ -23,13 +23,14 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
         String accessToken = tokenService.getAccessTokenByRequest(request);
+
         Authentication authentication = null;
         if (accessToken != null) {
             authentication = getAuthentication(request, accessToken);
         }
 
         String refreshToken = tokenService.getRefreshTokenByRequest(request);
-        if (authentication == null && refreshToken != null) {
+        if(accessToken == null && refreshToken != null) {
             doFilterInternal(request, response, filterChain, refreshToken);
         } else {
             filterChain.doFilter(request, response);
