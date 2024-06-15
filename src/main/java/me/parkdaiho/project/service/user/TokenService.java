@@ -76,7 +76,8 @@ public class TokenService {
         return tokenRepository.save(token);
     }
 
-    public void addRefreshTokenToCookie(HttpServletRequest request, HttpServletResponse response, String refreshToken) {
+    public void addRefreshTokenToCookie(HttpServletRequest request, HttpServletResponse response,
+                                        String refreshToken) {
         CookieUtils.deleteCookie(request, response, jwtProperties.getRefreshTokenCookieName());
         CookieUtils.addCookie(response, jwtProperties.getRefreshTokenCookieName(),
                 refreshToken, (int) jwtProperties.getRefreshTokenDuration().toSeconds());

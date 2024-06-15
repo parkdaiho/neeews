@@ -22,7 +22,6 @@
 	<ul>
 		<c:choose>
 			<c:when test="${nickname != null}">
-				<li><span>${nickname}</span> 님, 환영합니다.</li>
 				<li><a href="/my-page">MY-PAGE</a></li>
 				<li><a href="javascript:return false;" onclick="logout();">LOGOUT</a></li>
 			</c:when>

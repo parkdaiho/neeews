@@ -1,10 +1,17 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     font-size: 10px;
+}
+
+body {
+    min-height: 100vh;
+    width: 1200px;
+    margin: auto;
 }
 
 ul, li {
@@ -14,4 +21,143 @@ ul, li {
 a {
     text-decoration: none;
     color: inherit;
+}
+
+/* header */
+
+header {
+    width: 100%;
+    height: 50px;
+    margin: 15px auto;
+    font-size: 2.0em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-logo {
+    width: 18%;
+    text-align: center;
+}
+
+.header-middle-area {
+    width: 64%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-middle-area ul {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-middle-area ul li {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.header-right-area {
+    width: 24%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header-right-area ul {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header-right-area ul li {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+/* footer */
+
+footer {
+    display: none;
+}
+
+/* index-info-area */
+
+.index-info-area {
+    width: 100%;
+    height: 400px;
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.index-info-area h1 {
+    margin-bottom: 20px;
+    font-size: 5.0em;
+}
+
+.index-search-box {
+    margin: 20px;
+    display: flex;
+}
+
+.index-search-box select, input, button {
+    outline: none;
+    /*border: 2px black solid;*/
+    border-right: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 1.8em;
+}
+
+.index-search-box select {
+    font-size: 1.4em;
+    width: 140px;
+}
+
+.index-search-box input {
+    width: 400px;
+}
+
+.index-search-box button {
+    border: 2px black solid;
+    background: black;
+    color: white;
+}
+
+/* index-middle-area */
+
+.index-middle-area {
+    width: 100%;
+    height: 500px;
+    margin: 20px;
+    display: flex;
+    vertical-align: text-bottom;
+}
+
+.index-middle-part {
+    width: 50%;
+    margin: 20px;
+}
+
+.index-middle-info {
+    margin: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.index-middle-info h2 {
+    margin: 15px 20px;
+    font-size: 2.0em;
+}
+
+.index-middle-info-modifier {
+
+}
+
+.index-middle-info select {
+    font-size: 1.6em;
 }

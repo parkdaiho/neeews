@@ -9,7 +9,16 @@
 <c:choose>
 	<c:when test="${domain == 'article'}">
 		<div class="index-middle-info" id="item-articles-part">
-			<h2>ARTICLES</h2>
+			<h2>
+				<span>
+					<c:choose>
+						<c:when test="${order == 'views'}">MOST-VIEWED</c:when>
+						<c:when test="${order == 'popularity'}">MOST-POPULAR</c:when>
+						<c:otherwise>MOST-COMMENTS</c:otherwise>
+					</c:choose>
+				</span>
+				&nbsp;ARTICLES
+			</h2>
 			<select onchange="getIndexArticles(this.value);">
 				<c:choose>
 					<c:when test="${order == 'views'}">
@@ -17,7 +26,7 @@
 						<option value="popularity">MOST-POPULAR</option>
 						<option value="comments">MOST-COMMENTS</option>
 					</c:when>
-					<c:when test="${order == 'popular'}">
+					<c:when test="${order == 'popularity'}">
 						<option value="views">MOST-VIEWED</option>
 						<option value="popularity" selected>MOST-POPULAR</option>
 						<option value="comments">MOST-COMMENTS</option>
@@ -40,7 +49,16 @@
 	</c:when>
 	<c:otherwise>
 		<div class="index-middle-info" id="item-posts-part">
-			<h2>POSTS</h2>
+			<h2>
+				<span>
+					<c:choose>
+						<c:when test="${order == 'views'}">MOST-VIEWED</c:when>
+						<c:when test="${order == 'popularity'}">MOST-POPULAR</c:when>
+						<c:otherwise>MOST-COMMENTS</c:otherwise>
+					</c:choose>
+				</span>
+				&nbsp;POSTS
+			</h2>
 			<select onchange="getIndexPosts(this.value);">
 				<c:choose>
 					<c:when test="${order == 'views'}">
@@ -48,7 +66,7 @@
 						<option value="popularity">MOST-POPULAR</option>
 						<option value="comments">MOST-COMMENTS</option>
 					</c:when>
-					<c:when test="${order == 'popular'}">
+					<c:when test="${order == 'popularity'}">
 						<option value="views">MOST-VIEWED</option>
 						<option value="popularity" selected>MOST-POPULAR</option>
 						<option value="comments">MOST-COMMENTS</option>

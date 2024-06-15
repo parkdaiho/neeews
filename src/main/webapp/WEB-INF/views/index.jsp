@@ -31,7 +31,7 @@
 	<section class="index-middle-area">
 		<div class="index-middle-part" id="index-articles-part">
 			<div class="index-middle-info">
-				<h2>ARTICLES</h2>
+				<h2><span id="index-articles-modifier">MOST-VIEWED</span>&nbsp;ARTICLES</h2>
 				<select onchange="getIndexArticles(this.value);">
 					<option value="views">MOST-VIEWED</option>
 					<option value="popularity">MOST-POPULAR</option>
@@ -48,7 +48,7 @@
 		</div>
 		<div class="index-middle-part" id="index-posts-part">
 			<div class="index-middle-info">
-				<h2>POSTS</h2>
+				<h2><span class="index-middle-info-modifier" id="index-posts-modifier">MOST-VIEWED</span>&nbsp;POSTS</h2>
 				<select onchange="getIndexPosts(this.value);">
 					<option value="views">MOST-VIEWED</option>
 					<option value="popularity">MOST-POPULAR</option>

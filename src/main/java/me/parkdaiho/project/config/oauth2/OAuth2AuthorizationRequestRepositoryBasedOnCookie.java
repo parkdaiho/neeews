@@ -10,8 +10,6 @@ import org.springframework.security.oauth2.client.web.AuthorizationRequestReposi
 import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 import org.springframework.web.util.WebUtils;
 
-import java.time.Duration;
-
 @RequiredArgsConstructor
 public class OAuth2AuthorizationRequestRepositoryBasedOnCookie
         implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
@@ -20,7 +18,6 @@ public class OAuth2AuthorizationRequestRepositoryBasedOnCookie
 
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
-        System.out.println("loadAuthorizationRequest");
         Cookie cookie = WebUtils.getCookie(request, jwtProperties.getOauth2AuthorizationRequestCookieName());
 
         return CookieUtils.deserialize(cookie.getValue(), OAuth2AuthorizationRequest.class);
@@ -29,7 +26,6 @@ public class OAuth2AuthorizationRequestRepositoryBasedOnCookie
     @Override
     public void saveAuthorizationRequest(OAuth2AuthorizationRequest authorizationRequest,
                                             HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("saveAuthorizationRequest");
         if(authorizationRequest == null) {
             removeAuthorizationRequest(request, response);
 
@@ -42,7 +38,6 @@ public class OAuth2AuthorizationRequestRepositoryBasedOnCookie
 
     @Override
     public OAuth2AuthorizationRequest removeAuthorizationRequest(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("removeAuthorizationRequest");
         return this.loadAuthorizationRequest(request);
     }
 
