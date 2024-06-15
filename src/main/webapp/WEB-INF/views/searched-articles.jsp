@@ -25,17 +25,6 @@
 	</div>
 	<div class="searched-articles-area">
 		<div class="article-in-searched-articles">
-			<div class="searched-article-top">
-				<div class="article-title">
-					TITLE
-				</div>
-				<div class="article-description">
-					DESCRIPTION
-				</div>
-				<div class="article-pubdate">
-					PUBDATE
-				</div>
-			</div>
 			<c:choose>
 				<c:when test="${items == null}">
 					NO ARTICLES

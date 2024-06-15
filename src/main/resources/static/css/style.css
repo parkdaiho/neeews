@@ -82,6 +82,13 @@ footer {
     display: none;
 }
 
+/* main */
+
+main {
+    width: 90%;
+    margin: auto;
+}
+
 /* index-info-area */
 
 .index-info-area {
@@ -131,9 +138,8 @@ footer {
 /* index-middle-area */
 
 .index-middle-area {
-    width: 100%;
+    width: 1200px;
     height: 500px;
-    margin: 20px;
     display: flex;
     vertical-align: text-bottom;
 }
@@ -144,10 +150,9 @@ footer {
 }
 
 .index-middle-info {
-    margin: 20px;
     display: flex;
     align-items: center;
-    border-bottom: 1px black solid;
+    border-bottom: 2px black solid;
 }
 
 .index-middle-info h2 {
@@ -159,4 +164,102 @@ footer {
     display: inline-block;
     height: 30px;
     font-size: 1.6rem;
+}
+
+/* page-info-area */
+.page-info-area {
+    height: 100px;
+    margin: 10px auto;
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    border-bottom: 4px black solid;
+}
+
+.page-info-area h1 {
+    margin: 5px 10px;
+    font-size: 2.5rem;
+}
+
+.page-info-area p {
+    margin: 5px 10px;
+    font-size: 2.0rem;
+}
+
+/* article-search-area */
+
+.article-search-area {
+    padding: 5px;
+}
+
+/* article-search-box */
+
+.article-search-box {
+    padding: 5px;
+    display: flex;
+}
+
+.article-search-box select, input, button {
+    outline: none;
+    border-right: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 1.6rem;
+}
+
+.article-search-box select {
+    font-size: 1.4rem;
+    width: 140px;
+    color: #717176;
+}
+
+.article-search-box input {
+    width: 300px;
+}
+
+.article-search-box button {
+    border: 2px black solid;
+    background: black;
+    color: white;
+}
+
+/* searched-articles-info */
+
+.searched-articles-info {
+    padding: 5px;
+    font-size: 1.6rem;
+    border-bottom: 2px black solid;
+}
+
+/* searched-articles-area */
+
+.searched-articles-area {
+    padding: 5px;
+    font-size: 1.6rem;
+}
+
+/* searched-article */
+
+.searched-article {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.6rem;
+    border-bottom: 1px black solid;
+    margin-bottom: 5px;
+}
+
+.article-title {
+    font-weight: bold;
+    padding: 6px;
+    border-bottom: 1px lightgrey solid;
+}
+
+.article-description {
+    padding: 4px;
+    border-bottom: 1px lightgrey solid;
+}
+
+.article-pubDate {
+    padding: 4px;
 }
