@@ -14,7 +14,9 @@
 	<button onclick="addComment();">ADD</button>
 </div>
 <div class="comments-info">
-	<span class="total-comments">TOTAL ${totalElements} COMMENTS</span>
+	<div class="total-comments">
+		TOTAL <b>${totalElements}</b> COMMENTS
+	</div>
 	<select onchange="getCommentsByOrder(this.value);" id="order">
 		<c:choose>
 			<c:when test="${order == 'earliest'}">
@@ -48,7 +50,7 @@
 	<c:forEach var="comment" items="${comments}">
 		<div class="comment-in-comments">
 			<div class="comment-writer">
-					${comment.writer}
+				<b>${comment.writer}</b>
 				<span class="comment-created-At">${comment.createdAt}</span>
 			</div>
 			<div class="comment-contents">

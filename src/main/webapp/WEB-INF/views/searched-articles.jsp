@@ -34,13 +34,13 @@
 						<div class="searched-article" onclick="showArticle(${status.index});">
 							<input type="hidden" value="${item.originallink}" id="item_originalLink_${status.index}">
 							<input type="hidden" value="${item.link}" id="item_link_${status.index}">
-							<div class="article-title" id="item_title_${status.index}">
+							<div class="searched-article-title" id="item_title_${status.index}">
 									${item.title}
 							</div>
-							<div class="article-description" id="item_description_${status.index}">
+							<div class="searched-article-description" id="item_description_${status.index}">
 									${item.description}
 							</div>
-							<div class="article-pubdate" id="item_pubDate_${status.index}">
+							<div class="searched-article-pubdate" id="item_pubDate_${status.index}">
 									${item.pubDate}
 							</div>
 						</div>

@@ -6,8 +6,8 @@
 	<title>POLL-AREA</title>
 </head>
 <body>
-<button onclick="poll(${id}, true);">👍 ${good}</button>
-<button onclick="poll(${id}, false)">👎 ${bad}</button>
+<button onclick="poll(${id}, true);">👍&nbsp;&nbsp;${good}</button>
+<button onclick="poll(${id}, false);">👎&nbsp;&nbsp;${bad}</button>
 
 <script src="/js/poll.js"></script>
 

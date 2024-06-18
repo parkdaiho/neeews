@@ -23,6 +23,20 @@ a {
     color: inherit;
 }
 
+button {
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+select {
+    font-size: 1.4rem;
+    width: 140px;
+    color: #717176;
+}
+
 /* header */
 
 header {
@@ -111,7 +125,9 @@ main {
     display: flex;
 }
 
-.index-search-box select, input, button {
+.index-search-box select,
+.index-search-box input,
+.index-search-box button {
     outline: none;
     border-right: none;
     background: transparent;
@@ -198,7 +214,9 @@ main {
     display: flex;
 }
 
-.article-search-box select, input, button {
+.article-search-box select,
+.article-search-box input,
+.article-search-box button {
     outline: none;
     border-right: none;
     background: transparent;
@@ -238,26 +256,27 @@ main {
 .searched-article {
     display: flex;
     flex-direction: column;
-    font-size: 1.6rem;
     border-bottom: 1px black solid;
     margin-bottom: 5px;
     cursor: pointer;
 }
 
-.article-title {
-    font-size: 1.8rem;
+.searched-article-title {
+    font-size: 2.0rem;
     font-weight: bold;
+    padding: 8px;
+    border-bottom: 1px lightgrey solid;
+}
+
+.searched-article-description {
+    font-size: 1.6rem;
     padding: 6px;
     border-bottom: 1px lightgrey solid;
 }
 
-.article-description {
-    padding: 4px;
-    border-bottom: 1px lightgrey solid;
-}
-
-.article-pubDate {
-    padding: 4px;
+.searched-article-pubDate {
+    font-size: 1.4rem;
+    padding: 8px;
 }
 
 /* board-pagination */
@@ -275,6 +294,7 @@ main {
 }
 
 /* articles */
+
 .article-list-info {
     padding: 5px;
     border-bottom: 1px black solid;
@@ -315,7 +335,7 @@ main {
 }
 
 .article-summary-title {
-    font-size: 1.8rem;
+    font-size: 2.0rem;
     font-weight: bold;
     padding: 6px;
     border-bottom: 1px lightgrey solid;
@@ -338,11 +358,109 @@ main {
     display: flex;
 }
 
-.article-figure {
+.article-summary-figure {
     font-size: 1.4rem;
     margin: 0 5px;
 }
 
-.article-figure:last-of-type {
-    border: none;
+/* article */
+
+.article-info {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px black solid;
+}
+
+.article-title {
+    padding: 10px;
+    font-size: 3.0rem;
+    font-weight: bolder;
+}
+
+.article-figures {
+    display: flex;
+    align-items: center;
+}
+
+.article-figure {
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+.article-contents {
+    padding: 10px;
+}
+
+.article-contents-images {
+    padding-top: 5px;
+    margin-bottom: 5px;
+    font-size: 2.0rem;
+    font-weight: bolder;
+}
+
+.article-contents-textarea {
+    font-size: 2.0rem;
+}
+
+.article-originalLink {
+    padding: 15px 0;
+    font-size: 1.8rem;
+    font-weight: bolder;
+    color: dodgerblue;
+    text-decoration: underline;
+}
+
+/* comments-area */
+
+.comments-area {
+    padding: 15px;
+    border-top: 2px solid black;
+}
+
+.new-comment-textarea {
+    display: flex;
+    align-items: flex-end;
+}
+
+.new-comment-text {
+    padding: 10px;
+    margin-right: 10px;
+    font-size: 2.0rem;
+    width: 80%;
+    height: 200px;
+    border: 1px solid black;
+}
+
+.new-comment-textarea button {
+    width: 94px;
+    background: black;
+    color: white;
+}
+
+.comments-info {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px black solid;
+    font-size: 1.6rem;
+}
+
+.comment-list {
+    padding: 10px;
+}
+
+.comments-info select {
+    font-size: 1.4rem;
+}
+
+/* poll-area */
+.poll-area {
+    width: 30%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.poll-area button {
+    width: 40%;
+    margin-left: 10px;
 }

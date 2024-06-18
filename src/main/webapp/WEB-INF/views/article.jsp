@@ -25,13 +25,15 @@
 	<section class="article-area">
 		<div class="article-info">
 			<div class="article-title">
-				TITLE: ${title}
+				${title}
 			</div>
-			<div class="article-pubDate">
-				PUBDATE: ${pubDate}
-			</div>
-			<div class="article-views">
-				VIWES: ${views}
+			<div class="article-figures">
+				<div class="article-figure">
+					${pubDate}
+				</div>
+				<div class="article-figure">
+					<b>VIEWS</b>&nbsp;&nbsp;${views}
+				</div>
 			</div>
 		</div>
 		<div class="article-contents">
@@ -55,8 +57,10 @@
 					</div>
 				</c:when>
 				<c:otherwise>
-					<div class="article-originalLink">
+					<div class="article-contents-textarea">
 						저희 사이트에서 제공되지 않는 기사입니다.
+					</div>
+					<div class="article-originalLink">
 						<a href="${originalLink}">VIEW THE ORIGINAL ARTICLE</a>
 					</div>
 				</c:otherwise>

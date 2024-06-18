@@ -65,13 +65,13 @@
 									${article.pubDate}
 							</div>
 							<div class="article-summary-figures">
-								<div class="article-figure">
+								<div class="article-summary-figure">
 									<b>조회수</b>&nbsp;&nbsp;${article.views}
 								</div>
-								<div class="article-figure">
+								<div class="article-summary-figure">
 									<b>좋아요</b>&nbsp;&nbsp;${article.good}
 								</div>
-								<div class="article-figure">
+								<div class="article-summary-figure">
 									<b>댓글수</b>&nbsp;&nbsp;${article.commentsSize}
 								</div>
 							</div>
