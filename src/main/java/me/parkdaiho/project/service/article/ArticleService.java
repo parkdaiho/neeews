@@ -195,36 +195,7 @@ public class ArticleService {
         Pageable pageable = getPageable(paginationProperties.getArticleListInArticles(), order);
         Page<Article> articles = articleRepository.findAll(pageable);
 
-        switch (order) {
-            case POPULARITY -> {
-                return articles.stream()
-                        .map(entity -> ArticlesResponse.builder()
-                                .id(entity.getId())
-                                .title(entity.getTitle())
-                                .description(entity.getDescription())
-                                .figure(entity.getGood())
-                                .build()).toList();
-            }
-            case VIEWS -> {
-                return articles.stream()
-                        .map(entity -> ArticlesResponse.builder()
-                                .id(entity.getId())
-                                .title(entity.getTitle())
-                                .description(entity.getDescription())
-                                .figure(entity.getViews())
-                                .build()).toList();
-            }
-            case COMMENTS -> {
-                return articles.stream()
-                        .map(entity -> ArticlesResponse.builder()
-                                .id(entity.getId())
-                                .title(entity.getTitle())
-                                .description(entity.getDescription())
-                                .figure(entity.getCommentsSize())
-                                .build()).toList();
-            }
-
-            default -> throw new IllegalArgumentException("Unexpected order: " + order.getValue());
-        }
+        return articles.stream()
+                .map(entity -> new ArticlesResponse(entity)).toList();
     }
 }

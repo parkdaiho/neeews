@@ -61,18 +61,18 @@
 							<div class="article-summary-description">
 									${article.description}
 							</div>
+							<div class="article-summary-pubdate">
+									${article.pubDate}
+							</div>
 							<div class="article-summary-figures">
 								<div class="article-figure">
-									${article.pubDate}
+									<b>조회수</b>&nbsp;&nbsp;${article.views}
 								</div>
 								<div class="article-figure">
-									<b>조회수</b>&nbsp;&nbsp;999
+									<b>좋아요</b>&nbsp;&nbsp;${article.good}
 								</div>
 								<div class="article-figure">
-									<b>좋아요</b>&nbsp;&nbsp;999
-								</div>
-								<div class="article-figure">
-									<b>댓글수</b>&nbsp;&nbsp;999
+									<b>댓글수</b>&nbsp;&nbsp;${article.commentsSize}
 								</div>
 							</div>
 						</div>

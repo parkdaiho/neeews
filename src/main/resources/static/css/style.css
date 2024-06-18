@@ -322,9 +322,15 @@ main {
 }
 
 .article-summary-description {
-    padding: 4px;
+    padding: 6px;
     border-bottom: 1px lightgrey solid;
     font-size: 1.6rem;
+}
+
+.article-summary-pubdate {
+    padding: 6px;
+    border-bottom: 1px lightgrey solid;
+    font-size: 1.4rem;
 }
 
 .article-summary-figures {
@@ -334,7 +340,7 @@ main {
 
 .article-figure {
     font-size: 1.4rem;
-    margin: 5px;
+    margin: 0 5px;
 }
 
 .article-figure:last-of-type {

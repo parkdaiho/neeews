@@ -3,6 +3,7 @@ package me.parkdaiho.project.dto.article;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import me.parkdaiho.project.domain.Article;
 
 @Getter
 @Setter
@@ -13,13 +14,17 @@ public class ArticlesResponse {
     private String description;
     private String pubDate;
     private Long figure;
+    private Long views;
+    private Long good;
+    private Long commentsSize;
 
-    @Builder
-    public ArticlesResponse(Long id, String title, String description, String pubDate, Long figure) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.pubDate = pubDate;
-        this.figure = figure;
+    public ArticlesResponse(Article article) {
+        this.id = article.getId();
+        this.title = article.getTitle();
+        this.description = article.getDescription();
+        this.pubDate = article.getPubDate();
+        this.views = article.getViews();
+        this.good = article.getGood();
+        this.commentsSize = article.getCommentsSize();
     }
 }
