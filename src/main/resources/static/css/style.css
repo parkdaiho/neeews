@@ -189,6 +189,8 @@ main {
 
 .article-search-area {
     padding: 5px;
+    border-bottom: 2px black solid;
+    margin-bottom: 10px;
 }
 
 .article-search-box {
@@ -225,7 +227,7 @@ main {
 .searched-articles-info {
     padding: 5px;
     font-size: 2.0rem;
-    border-bottom: 2px black solid;
+    border-bottom: 1px black solid;
 }
 
 .searched-articles-area {
@@ -270,4 +272,71 @@ main {
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+/* articles */
+.article-list-info {
+    padding: 5px;
+    border-bottom: 1px black solid;
+    display: flex;
+}
+
+.article-list-info h2 {
+    margin: 5px 20px;
+    font-size: 2.0rem;
+}
+
+.article-list-info select {
+    display: inline-block;
+    height: 30px;
+    font-size: 1.6rem;
+}
+
+.article-in-list {
+    padding-top: 5px;
+    display: flex;
+    border-bottom: 1px black solid;
+    cursor: pointer;
+}
+
+.article-rank-in-articles {
+    width: 8%;
+    font-size: 2.5rem;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.article-summary {
+    width: 92%;
+    display: flex;
+    flex-direction: column;
+}
+
+.article-summary-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 6px;
+    border-bottom: 1px lightgrey solid;
+}
+
+.article-summary-description {
+    padding: 4px;
+    border-bottom: 1px lightgrey solid;
+    font-size: 1.6rem;
+}
+
+.article-summary-figures {
+    padding: 4px;
+    display: flex;
+}
+
+.article-figure {
+    font-size: 1.4rem;
+    margin: 5px;
+}
+
+.article-figure:last-of-type {
+    border: none;
 }

@@ -11,13 +11,13 @@
 	<div class="article-search-box">
 		<select name="searchSort">
 			<c:choose>
-				<c:when test="${searchSort == 'sim'}">
-					<option value="sim" selected>MOST-SIMILAR</option>
-					<option value="date">LATEST</option>
-				</c:when>
-				<c:otherwise>
+				<c:when test="${searchSort == 'date'}">
 					<option value="sim">MOST-SIMILAR</option>
 					<option value="date" selected>LATEST</option>
+				</c:when>
+				<c:otherwise>
+					<option value="sim" selected>MOST-SIMILAR</option>
+					<option value="date">LATEST</option>
 				</c:otherwise>
 			</c:choose>
 		</select>

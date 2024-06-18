@@ -20,7 +20,7 @@
 	</section>
 	<div class="searched-articles-info">
 		<div class="searched-articles-total-users">
-			WE PROVIDE UP TO 1000 ARTICLES OUT OF TOTAL OF ${totalElements} ARTICLES ACCORDING TO ACCURACY, LATEST ORDER.
+			WE PROVIDE UP TO 1000 ARTICLES OUT OF TOTAL OF <i>${totalElements}</i> ARTICLES ACCORDING TO ACCURACY, LATEST ORDER.
 		</div>
 	</div>
 	<div class="searched-articles-area">

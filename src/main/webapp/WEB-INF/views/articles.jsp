@@ -23,7 +23,7 @@
 			<div class="article-list-info">
 				<c:choose>
 					<c:when test="${order == 'popularity'}">
-						<h2>MOST VIEWED ARTICLES</h2>
+						<h2>MOST-POPULAR ARTICLES</h2>
 						<select onchange="getArticlesByOrder(this.value);">
 							<option value="views">MOST-VIEWED</option>
 							<option value="popularity" selected>MOST-POPULAR</option>
@@ -31,7 +31,7 @@
 						</select>
 					</c:when>
 					<c:when test="${order == 'comments'}">
-						<h2>MOST POPULAR ARTICLES</h2>
+						<h2>MOST-COMMENTS ARTICLES</h2>
 						<select onchange="getArticlesByOrder(this.value)">
 							<option value="views">MOST-VIEWED</option>
 							<option value="popularity">MOST-POPULAR</option>
@@ -39,7 +39,7 @@
 						</select>
 					</c:when>
 					<c:otherwise>
-						<h2>MOST COMMENTS ARTICLES</h2>
+						<h2>MOST-VIEWED ARTICLES</h2>
 						<select onchange="getArticlesByOrder(this.value)">
 							<option value="views" selected>MOST-VIEWED</option>
 							<option value="popularity">MOST-POPULAR</option>
@@ -51,20 +51,30 @@
 			<div class="article-list">
 				<c:forEach var="article" items="${articles}" varStatus="status">
 					<div class="article-in-list" onclick="showArticle(${article.id});">
-						<div class="article-rank">
+						<div class="article-rank-in-articles">
 								${status.count}
 						</div>
-						<div class="article-title">
-								${article.title}
-						</div>
-						<div class="article-description">
-								${article.description}
-						</div>
-						<div class="article-pubDate">
-								${article.pubDate}
-						</div>
-						<div class="article-figure">
-							👍 ${article.figure}
+						<div class="article-summary">
+							<div class="article-summary-title">
+									${article.title}
+							</div>
+							<div class="article-summary-description">
+									${article.description}
+							</div>
+							<div class="article-summary-figures">
+								<div class="article-figure">
+									${article.pubDate}
+								</div>
+								<div class="article-figure">
+									<b>조회수</b>&nbsp;&nbsp;999
+								</div>
+								<div class="article-figure">
+									<b>좋아요</b>&nbsp;&nbsp;999
+								</div>
+								<div class="article-figure">
+									<b>댓글수</b>&nbsp;&nbsp;999
+								</div>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
