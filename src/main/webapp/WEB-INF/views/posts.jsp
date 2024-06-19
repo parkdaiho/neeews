@@ -52,14 +52,14 @@
 		</div>
 		<div class="post-list">
 			<div class="post-in-posts-top">
-				<div class="post-num">NUM</div>
+				<div class="post-id">NUM</div>
 				<div class="post-title">TITLE</div>
 				<div class="post-writer">WRITER</div>
 				<div class="post-created-at">CREATED-AT</div>
 			</div>
 			<c:forEach var="post" items="${posts}">
 				<div class="post-in-posts" onclick="getPostView(${post.id});">
-					<div class="post-num">${post.id}</div>
+					<div class="post-id">${post.id}</div>
 					<div class="post-title">${post.title}</div>
 					<div class="post-writer">${post.writer}</div>
 					<div class="post-created-at">${post.createdAt}</div>
@@ -69,7 +69,7 @@
 		<c:if test="${totalElements != 0}">
 			<jsp:include page="board-pagination.jsp"></jsp:include>
 		</c:if>
-		<c:if test="${nickname}">
+		<c:if test="${nickname != null}">
 		<div class="posts-btn">
 			<button onclick="location.replace('/new-post');">NEW-POST</button>
 		</div>

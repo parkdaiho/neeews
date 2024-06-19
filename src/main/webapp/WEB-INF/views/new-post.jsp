@@ -16,30 +16,31 @@
 		<h1>POST</h1>
 		<p>Add a post and share your opinion with people!</p>
 	</section>
-	<div class="new-post-area">
+	<section class="new-post-area">
 		<div class="new-post-title">
-			TITLE: <input type="text" placeholder="TITLE" id="new-post-title" value="${title}">
+			<span>TITLE</span>
+			<input type="text" id="new-post-title" value="${title}">
 		</div>
 		<div class="new-post-textarea">
-			<div id="new-post-text" contenteditable="true">
+			<div class="new-post-text" id="new-post-text" contenteditable="true">
 				${text}
 			</div>
 		</div>
 
 		<jsp:include page="upload-image-area.jsp"></jsp:include>
 
-		<div class="new-post-btn">
-			<c:choose>
-				<c:when test="${id != null}">
-					<button onclick="modifyPost(${id})">MODIFY</button>
-				</c:when>
-				<c:otherwise>
-					<button onclick="writePost();">ADD</button>
-				</c:otherwise>
-			</c:choose>
-			<button onclick="location.replace('/posts');">LIST</button>
-		</div>
-	</div>
+	</section>
+	<section class="new-post-btn">
+		<c:choose>
+			<c:when test="${id != null}">
+				<button onclick="modifyPost(${id})">MODIFY</button>
+			</c:when>
+			<c:otherwise>
+				<button onclick="writePost();">ADD</button>
+			</c:otherwise>
+		</c:choose>
+		<button onclick="location.replace('/posts');">LIST</button>
+	</section>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>

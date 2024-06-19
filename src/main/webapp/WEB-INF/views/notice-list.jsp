@@ -43,6 +43,9 @@
 		</div>
 		<div class="notice-list">
 			<div class="notice-list-top">
+				<div class="notice-id">
+					NUM
+				</div>
 				<div class="notice-title">
 					TITLE
 				</div>
@@ -52,21 +55,27 @@
 			</div>
 			<c:forEach var="notice" items="${fixedNoticeList}">
 				<div class="notice-fixed-in-list" onclick="getNoticeView(${notice.id});">
+					<div class="notice-id">
+
+					</div>
 					<div class="notice-title">
-							${notice.title}
+						${notice.title}
 					</div>
 					<div class="notice-created-at">
-							${notice.createdAt}
+						${notice.createdAt}
 					</div>
 				</div>
 			</c:forEach>
 			<c:forEach var="notice" items="${noticeList}">
 				<div class="notice-in-list" onclick="getNoticeView(${notice.id});">
+					<div class="notice-id">
+						${notice.id}
+					</div>
 					<div class="notice-title">
-							${notice.title}
+						${notice.title}
 					</div>
 					<div class="notice-created-at">
-							${notice.createdAt}
+						${notice.createdAt}
 					</div>
 				</div>
 			</c:forEach>
@@ -75,9 +84,9 @@
 			<jsp:include page="board-pagination.jsp"></jsp:include>
 		</c:if>
 		<c:if test="${isManager}">
-		<div class="notice-list-btn">
-			<button onclick="location.replace('new-notice');">NEW-NOTICE</button>
-		</div>
+			<div class="notice-list-btn">
+				<button onclick="location.replace('new-notice');">NEW-NOTICE</button>
+			</div>
 		</c:if>
 	</section>
 </main>

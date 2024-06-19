@@ -16,12 +16,13 @@
 		<h1>NOTICE</h1>
 		<p>Please, Copyedit contents before adding notice.</p>
 	</section>
-	<div class="new-notice-area">
+	<section class="new-post-area">
 		<div class="new-notice-title">
-			TITLE : <input type="text" id="new-notice-title" value="${title}">
+			<span>TITLE</span>
+			<input type="text" id="new-notice-title" value="${title}">
 		</div>
 		<div class="new-notice-fixed-flag">
-			IS-FIXED :
+			<span>IS-FIXED</span>
 			<c:choose>
 				<c:when test="${isFixed == 'true'}">
 					<input type="checkbox" id="new-notice-isFixed" checked>
@@ -31,16 +32,16 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-		<div class="new-notice-textarea">
-			<div id="new-notice-text" contenteditable="true">
+		<div class="new-post-textarea">
+			<div class="new-post-text" id="new-post-text" contenteditable="true">
 				${text}
 			</div>
 		</div>
 
 		<jsp:include page="upload-image-area.jsp"></jsp:include>
 
-	</div>
-	<div class="new-notice-btn">
+	</section>
+	<section class="new-post-btn">
 		<c:choose>
 			<c:when test="${id != null}">
 				<button onclick="modifyNotice(${id});">MODIFY</button>
@@ -50,7 +51,7 @@
 			</c:otherwise>
 		</c:choose>
 		<button onclick="location.replace('/notice-list');">LIST</button>
-	</div>
+	</section>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>

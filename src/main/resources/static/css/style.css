@@ -453,6 +453,7 @@ main {
 }
 
 /* poll-area */
+
 .poll-area {
     width: 30%;
     margin: 10px auto;
@@ -463,4 +464,90 @@ main {
 .poll-area button {
     width: 40%;
     margin-left: 10px;
+}
+
+/* new-post */
+
+.new-post-area {
+    border-bottom: 2px black solid;
+}
+
+.new-post-title {
+    padding: 10px;
+    font-size: 2.0rem;
+    display: flex;
+    border-bottom: 1px black solid;
+    align-items: center;
+}
+
+.new-post-title span {
+    width: 10%;
+    display: inline-block;
+    padding-right: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.new-post-title input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1.8rem;
+}
+
+.new-post-textarea {
+    border-bottom: 1px black solid;
+    padding: 15px;
+}
+
+.new-post-text {
+    height: 300px;
+    border: 1px lightgrey solid;
+    background: white;
+    font-size: 2.0rem;
+    padding: 10px;
+}
+
+/* new-notice */
+
+.new-notice-title {
+    padding: 10px;
+    font-size: 2.0rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px lightgrey solid;
+}
+
+.new-notice-title span {
+    width: 10%;
+    display: inline-block;
+    padding-right: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.new-notice-title input {
+    width: 80%;
+    padding: 10px;
+    font-size: 1.8rem;
+}
+
+.new-notice-fixed-flag {
+    padding: 10px;
+    border-bottom: 1px black solid;
+    font-size: 2.0rem;
+    display: flex;
+    align-items: center;
+}
+
+.new-notice-fixed-flag span {
+    width: 10%;
+    display: inline-block;
+    padding-right: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.new-notice-fixed-flag input {
+    padding-left: 10px;
+    width: 20px;
 }
