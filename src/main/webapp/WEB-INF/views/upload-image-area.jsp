@@ -7,9 +7,12 @@
 	<title>UPLOAD-IMAGE-AREA</title>
 </head>
 <body>
-<div class="upload-image-area" id="upload-image-area">
-	<h4>The images you upload are located at the top of the post.</h4>
+<div class="upload-image-description">
+	<span>The images you upload are located at the top of the post.</span>
 	<button onclick="addFileInput();">ADD IMAGE</button>
+</div>
+<div class="upload-image-area" id="upload-image-area">
+
 </div>
 
 <script src="/js/upload-image.js"></script>

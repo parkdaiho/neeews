@@ -507,6 +507,23 @@ main {
     padding: 10px;
 }
 
+.new-post-btn {
+    width: 30%;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+}
+
+.new-post-btn button {
+    width: 40%;
+    margin-left: 10px;
+}
+
+.new-post-btn button:first-of-type {
+    background: black;
+    color: white;
+}
+
 /* new-notice */
 
 .new-notice-title {
@@ -550,4 +567,65 @@ main {
 .new-notice-fixed-flag input {
     padding-left: 10px;
     width: 20px;
+}
+
+/* upload-image-area */
+
+.upload-image-description{
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px lightgrey solid;
+}
+
+.upload-image-description span {
+    margin-right: 10px;
+    display: inline-block;
+    font-size: 2.0rem;
+    font-weight: bold;
+}
+
+.upload-image-description button {
+    background: black;
+    color: white;
+}
+
+.upload-image-area {
+    display: flex;
+    align-items: center;
+    overflow: scroll;
+}
+
+.upload-image {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-image-btn-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.upload-image-btn-area input {
+    width: 90%;
+    margin: 15px;
+}
+
+.upload-image-btn-area button {
+    background: red;
+    color: white;
+    font-size: 1.6rem;
+}
+
+.upload-image-thumbnail {
+    height: 180px;
+    margin-bottom: 15px;
+}
+
+.upload-image-thumbnail img {
+    width: 100%;
 }

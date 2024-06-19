@@ -4,10 +4,20 @@ function addFileInput() {
     let newFileArea = document.createElement("div");
     newFileArea.setAttribute("class", "upload-image");
 
+    let newFileBtnArea = document.createElement("div");
+    newFileBtnArea.setAttribute("class", "upload-image-btn-area");
+
     let addFileInput = document.createElement("input");
     addFileInput.setAttribute("class", "files");
     addFileInput.setAttribute("type", "file");
     addFileInput.setAttribute("accept", "image/*")
+
+    let removeNewFileAreaButton = document.createElement("button");
+    removeNewFileAreaButton.innerHTML = "X";
+    removeNewFileAreaButton.addEventListener("click", () => {
+            newFileArea.remove();
+        }
+    );
 
     let thumbnailArea = document.createElement("div");
     thumbnailArea.setAttribute("class", "upload-image-thumbnail");
@@ -16,16 +26,10 @@ function addFileInput() {
         setThumbnail(event, thumbnailArea);
     });
 
-    let removeNewFileAreaButton = document.createElement("button");
-    removeNewFileAreaButton.innerHTML = "REMOVE";
-    removeNewFileAreaButton.addEventListener("click", () => {
-            newFileArea.remove();
-        }
-    );
-
-    newFileArea.append(addFileInput);
+    newFileBtnArea.append(addFileInput);
+    newFileBtnArea.append(removeNewFileAreaButton);
+    newFileArea.append(newFileBtnArea);
     newFileArea.append(thumbnailArea);
-    newFileArea.append(removeNewFileAreaButton);
 
     uploadArea.append(newFileArea);
 }
@@ -37,7 +41,7 @@ function setThumbnail(event, thumbnailArea) {
         thumbnailArea.innerHTML = "";
         let thumbnail = document.createElement("img");
         thumbnail.setAttribute("src", event.target.result);
-        thumbnail.setAttribute("style", "width:50px;height:auto;")
+        thumbnail.setAttribute("style", "max-width:180px;max-height:180px;")
         thumbnailArea.append(thumbnail);
     }
 
