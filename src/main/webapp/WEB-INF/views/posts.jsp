@@ -53,7 +53,7 @@
 		<div class="post-list">
 			<div class="post-in-posts-top">
 				<div class="post-id">NUM</div>
-				<div class="post-title">TITLE</div>
+				<div class="post-top-title">TITLE</div>
 				<div class="post-writer">WRITER</div>
 				<div class="post-created-at">CREATED-AT</div>
 			</div>
@@ -66,15 +66,15 @@
 				</div>
 			</c:forEach>
 		</div>
-		<c:if test="${totalElements != 0}">
-			<jsp:include page="board-pagination.jsp"></jsp:include>
-		</c:if>
-		<c:if test="${nickname != null}">
+	</section>
+	<c:if test="${nickname != null}">
 		<div class="posts-btn">
 			<button onclick="location.replace('/new-post');">NEW-POST</button>
 		</div>
-		</c:if>
-	</section>
+	</c:if>
+	<c:if test="${totalElements != 0}">
+		<jsp:include page="board-pagination.jsp"></jsp:include>
+	</c:if>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>

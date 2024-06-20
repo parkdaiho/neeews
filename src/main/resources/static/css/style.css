@@ -207,7 +207,7 @@ main {
 
 .search-area {
     padding: 5px;
-    border-bottom: 2px black solid;
+    border-bottom: 3px black solid;
     margin-bottom: 10px;
 }
 
@@ -606,21 +606,18 @@ main {
     align-items: center;
 }
 
-.upload-image-btn-area {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.upload-image-btn-area input {
+.upload-image input {
     width: 90%;
     margin: 15px;
 }
 
-.upload-image-btn-area button {
+.upload-image button {
+    width: 90%;
+    text-align: center;
     background: black;
     color: white;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
 }
 
 .upload-image-thumbnail {
@@ -643,8 +640,8 @@ main {
 
 .posts-info-area {
     display: flex;
-
-    border-bottom: 1px black solid;
+    border-bottom: 2px black solid;
+    padding: 15px;
 }
 
 .posts-info-area span {
@@ -669,16 +666,41 @@ main {
 
 .post-id {
     width: 10%;
+    padding: 5px;
 }
 
-.post-title {
+.post-top-title {
     width: 60%;
+    padding: 5px;
 }
 
 .post-writer {
     width: 15%;
+    padding: 5px;
 }
 
 .post-created-at {
     width: 15%;
+    padding: 5px;
+}
+
+.posts-btn {
+    padding: 5px;
+    display: flex;
+    justify-content: end;
+}
+
+.post-in-posts {
+    display: flex;
+    cursor: pointer;
+    text-align: center;
+    font-size: 2.0rem;
+    padding: 5px;
+    border-bottom: 1px lightgrey solid;
+}
+
+.post-title {
+    width: 60%;
+    padding: 5px 10px;
+    text-align: start;
 }

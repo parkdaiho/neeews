@@ -18,9 +18,9 @@
 	<section class="search-area">
 		<jsp:include page="notice-search-area.jsp"></jsp:include>
 	</section>
-	<section class="notice-list-area">
-		<div class="notice-list-info">
-			TOTAL ${totalElements} NOTICE
+	<section class="posts-area">
+		<div class="posts-info-area">
+			<span>TOTAL <b>${totalElements}</b> NOTICE</span>
 			<select onchange="getNoticeByOrder(this.value);">
 				<c:choose>
 					<c:when test="${order == 'views'}">
@@ -41,54 +41,39 @@
 				</c:choose>
 			</select>
 		</div>
-		<div class="notice-list">
-			<div class="notice-list-top">
-				<div class="notice-id">
-					NUM
-				</div>
-				<div class="notice-title">
-					TITLE
-				</div>
-				<div class="notice-created-at">
-					CREATED-AT
-				</div>
+		<div class="post-list">
+			<div class="post-in-posts-top">
+				<div class="post-id">NUM</div>
+				<div class="post-top-title">TITLE</div>
+				<div class="post-writer"></div>
+				<div class="post-created-at">CREATED-AT</div>
 			</div>
 			<c:forEach var="notice" items="${fixedNoticeList}">
 				<div class="notice-fixed-in-list" onclick="getNoticeView(${notice.id});">
-					<div class="notice-id">
-
-					</div>
-					<div class="notice-title">
-						${notice.title}
-					</div>
-					<div class="notice-created-at">
-						${notice.createdAt}
-					</div>
+					<div class="post-id"></div>
+					<div class="post-title">${notice.title}</div>
+					<div class="post-writer"></div>
+					<div class="post-created-at">${notice.createdAt}</div>
 				</div>
 			</c:forEach>
 			<c:forEach var="notice" items="${noticeList}">
-				<div class="notice-in-list" onclick="getNoticeView(${notice.id});">
-					<div class="notice-id">
-						${notice.id}
-					</div>
-					<div class="notice-title">
-						${notice.title}
-					</div>
-					<div class="notice-created-at">
-						${notice.createdAt}
-					</div>
+				<div class="post-in-posts" onclick="getNoticeView(${notice.id});">
+					<div class="post-id">${notice.id}</div>
+					<div class="post-title">${notice.title}</div>
+					<div class="post-writer"></div>
+					<div class="post-created-at">${notice.createdAt}</div>
 				</div>
 			</c:forEach>
 		</div>
-		<c:if test="${totalElements != 0}">
-			<jsp:include page="board-pagination.jsp"></jsp:include>
-		</c:if>
-		<c:if test="${isManager}">
-			<div class="notice-list-btn">
-				<button onclick="location.replace('new-notice');">NEW-NOTICE</button>
-			</div>
-		</c:if>
 	</section>
+	<c:if test="${isManager}">
+		<div class="posts-btn">
+			<button onclick="location.replace('new-notice');">NEW-NOTICE</button>
+		</div>
+	</c:if>
+	<c:if test="${totalElements != 0}">
+		<jsp:include page="board-pagination.jsp"></jsp:include>
+	</c:if>
 </main>
 <footer>
 	FOOTER
