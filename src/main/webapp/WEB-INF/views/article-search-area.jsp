@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="/searched-articles" method="get">
-	<div class="article-search-box">
+	<div class="search-box">
 		<select name="searchSort">
 			<c:choose>
 				<c:when test="${searchSort == 'date'}">

@@ -19,7 +19,7 @@
 		<h1>NOTICE</h1>
 		<p>Read notice and give me your opinion!</p>
 	</section>
-	<section class="notice-search-area">
+	<section class="search-area">
 		<jsp:include page="notice-search-area.jsp"></jsp:include>
 	</section>
 	<section class="notice-area">

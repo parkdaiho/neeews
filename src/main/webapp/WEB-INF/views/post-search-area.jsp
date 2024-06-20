@@ -7,33 +7,31 @@
 	<title>post-search-area</title>
 </head>
 <body>
-<div class="post-search-area">
-	<form action="/posts" method="GET">
-		<div class="post-search-box">
-			<select name="searchSort" id="search-sort">
-				<c:choose>
-					<c:when test="${searchSort == 'text'}">
-						<option value="title">TITLE</option>
-						<option value="text" selected>CONTENTS</option>
-						<option value="writer">WRITER</option>
-					</c:when>
-					<c:when test="${searchSort == 'writer'}">
-						<option value="title">TITLE</option>
-						<option value="text">CONTENTS</option>
-						<option value="writer" selected>WRITER</option>
-					</c:when>
-					<c:otherwise>
-						<option value="title" selected>TITLE</option>
-						<option value="text">CONTENTS</option>
-						<option value="writer">WRITER</option>
-					</c:otherwise>
-				</c:choose>
-			</select>
-			<input type="hidden" name="order" value="${order}">
-			<input type="text" name="query" id="query" value="${query}">
-			<button type="submit">SEARCH</button>
-		</div>
-	</form>
-</div>
+<form action="/posts" method="GET">
+	<div class="search-box">
+		<select name="searchSort" id="search-sort">
+			<c:choose>
+				<c:when test="${searchSort == 'text'}">
+					<option value="title">TITLE</option>
+					<option value="text" selected>CONTENTS</option>
+					<option value="writer">WRITER</option>
+				</c:when>
+				<c:when test="${searchSort == 'writer'}">
+					<option value="title">TITLE</option>
+					<option value="text">CONTENTS</option>
+					<option value="writer" selected>WRITER</option>
+				</c:when>
+				<c:otherwise>
+					<option value="title" selected>TITLE</option>
+					<option value="text">CONTENTS</option>
+					<option value="writer">WRITER</option>
+				</c:otherwise>
+			</c:choose>
+		</select>
+		<input type="hidden" name="order" value="${order}">
+		<input type="text" name="query" id="query" value="${query}">
+		<button type="submit">SEARCH</button>
+	</div>
+</form>
 </body>
 </html>

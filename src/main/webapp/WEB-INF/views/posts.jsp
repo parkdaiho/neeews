@@ -15,12 +15,12 @@
 		<h1>COMMUNITY</h1>
 		<p>Read posts you interested in!</p>
 	</section>
-	<section class="post-search-area">
+	<section class="search-area">
 		<jsp:include page="post-search-area.jsp"></jsp:include>
 	</section>
 	<section class="posts-area">
 		<div class="posts-info-area">
-			TOTAL ${totalElements} POSTS
+			<span>TOTAL <b>${totalElements}</b> POSTS</span>
 			<select onchange="getPostsByOrder(this.value);">
 				<c:choose>
 					<c:when test="${order == 'views'}">

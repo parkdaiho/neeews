@@ -15,7 +15,7 @@
 		<h1>ARTICLES</h1>
 		<p>We provide articles that match the search term.</p>
 	</section>
-	<section class="article-search-area">
+	<section class="search-area">
 		<jsp:include page="article-search-area.jsp"></jsp:include>
 	</section>
 	<div class="searched-articles-info">

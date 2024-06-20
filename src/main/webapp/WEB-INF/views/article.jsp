@@ -19,7 +19,7 @@
 		<h1>ARTICLES</h1>
 		<p>FIND ARTICLES AND READ IT!</p>
 	</section>
-	<section class="article-search-area">
+	<section class="search-area">
 		<jsp:include page="article-search-area.jsp"></jsp:include>
 	</section>
 	<section class="article-area">

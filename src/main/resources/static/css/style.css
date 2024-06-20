@@ -201,22 +201,24 @@ main {
     font-size: 2.0rem;
 }
 
-/* article-search-area */
+/* article-search-area
+   post-search-area
+   notice-search-area */
 
-.article-search-area {
+.search-area {
     padding: 5px;
     border-bottom: 2px black solid;
     margin-bottom: 10px;
 }
 
-.article-search-box {
+.search-box {
     padding: 5px;
     display: flex;
 }
 
-.article-search-box select,
-.article-search-box input,
-.article-search-box button {
+.search-box select,
+.search-box input,
+.search-box button {
     outline: none;
     border-right: none;
     background: transparent;
@@ -224,17 +226,17 @@ main {
     font-size: 1.6rem;
 }
 
-.article-search-box select {
+.search-box select {
     font-size: 1.4rem;
     width: 140px;
     color: #717176;
 }
 
-.article-search-box input {
+.search-box input {
     width: 300px;
 }
 
-.article-search-box button {
+.search-box button {
     border: 2px black solid;
     background: black;
     color: white;
@@ -616,7 +618,7 @@ main {
 }
 
 .upload-image-btn-area button {
-    background: red;
+    background: black;
     color: white;
     font-size: 1.6rem;
 }
@@ -628,4 +630,55 @@ main {
 
 .upload-image-thumbnail img {
     width: 100%;
+}
+
+/* post-search-area */
+
+
+/* posts */
+
+.posts-area {
+    border-bottom: 2px black solid;
+}
+
+.posts-info-area {
+    display: flex;
+
+    border-bottom: 1px black solid;
+}
+
+.posts-info-area span {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 2.0rem;
+}
+
+.post-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-in-posts-top {
+    display: flex;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px black solid;
+    padding: 5px;
+}
+
+.post-id {
+    width: 10%;
+}
+
+.post-title {
+    width: 60%;
+}
+
+.post-writer {
+    width: 15%;
+}
+
+.post-created-at {
+    width: 15%;
 }

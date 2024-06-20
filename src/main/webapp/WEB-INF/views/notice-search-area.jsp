@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="/notice-list" method="GET">
-	<div class="notice-search-box">
+	<div class="search-box">
 		<select name="searchSort" id="search-sort">
 			<c:choose>
 				<c:when test="${searchSort == 'text'}">

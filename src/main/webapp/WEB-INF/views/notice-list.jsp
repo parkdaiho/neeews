@@ -15,7 +15,7 @@
 		<h1>NOTICE</h1>
 		<p>Check out notice for using our site!</p>
 	</section>
-	<section class="notice-search-area">
+	<section class="search-area">
 		<jsp:include page="notice-search-area.jsp"></jsp:include>
 	</section>
 	<section class="notice-list-area">
