@@ -29,10 +29,10 @@
 			</div>
 			<div class="article-figures">
 				<div class="article-figure">
-					${pubDate}
+					<span>작성일</span>${pubDate}
 				</div>
 				<div class="article-figure">
-					<b>VIEWS</b>&nbsp;&nbsp;${views}
+					<span>조회수</span>${views}
 				</div>
 			</div>
 		</div>
@@ -66,9 +66,12 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
+		<div class="poll-area">
+			<jsp:include page="poll-area.jsp"></jsp:include>
+		</div>
 	</section>
-	<section class="poll-area">
-		<jsp:include page="poll-area.jsp"></jsp:include>
+	<section class="article-btn-area">
+		<button onclick="">CLIPPING</button>
 	</section>
 	<section class="comments-area" id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>

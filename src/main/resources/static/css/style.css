@@ -367,6 +367,10 @@ main {
 
 /* article */
 
+.article-area {
+    border-bottom: 2px solid black;
+}
+
 .article-info {
     display: flex;
     flex-direction: column;
@@ -387,6 +391,12 @@ main {
 .article-figure {
     padding: 10px;
     font-size: 1.5rem;
+}
+
+.article-figure span {
+    display: inline-block;
+    margin-right: 8px;
+    font-weight: bold;
 }
 
 .article-contents {
@@ -412,11 +422,20 @@ main {
     text-decoration: underline;
 }
 
+.article-btn-area {
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+}
+
+.article-btn-area button {
+    margin-left: 5px;
+}
+
 /* comments-area */
 
 .comments-area {
     padding: 15px;
-    border-top: 2px solid black;
 }
 
 .new-comment-textarea {
@@ -629,9 +648,6 @@ main {
     width: 100%;
 }
 
-/* post-search-area */
-
-
 /* posts */
 
 .posts-area {
@@ -704,3 +720,81 @@ main {
     padding: 5px 10px;
     text-align: start;
 }
+
+/* notice-list */
+
+.notice-fixed-in-list {
+    display: flex;
+    cursor: pointer;
+    text-align: center;
+    font-size: 2.0rem;
+    font-weight: bold;
+    padding: 5px;
+    border-bottom: 1px black solid;
+    background: lightgrey;
+}
+
+/* post */
+
+.post-area {
+    border-bottom: 2px black solid;
+}
+
+.posts-btn-area {
+    padding: 10px;
+    display: flex;
+    justify-content: right;
+}
+
+.post-btn-area button {
+    margin-left: 5px;
+}
+
+.post-title {
+    padding: 10px;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px black solid;
+}
+
+.post-figures {
+    display: flex;
+    align-items: center;
+}
+
+.post-figure {
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+.post-figure span {
+    display: inline-block;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.post-contents {
+    padding: 10px;
+}
+
+.post-contents-images {
+    padding-top: 5px;
+    margin-bottom: 5px;
+    font-size: 2.0rem;
+    font-weight: bolder;
+}
+
+.post-contents-images img {
+    display: inline-block;
+    padding: 5px;
+}
+
+.post-contents-textarea {
+    font-size: 2.0rem;
+}
+

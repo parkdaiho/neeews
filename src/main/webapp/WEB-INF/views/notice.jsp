@@ -22,20 +22,25 @@
 	<section class="search-area">
 		<jsp:include page="notice-search-area.jsp"></jsp:include>
 	</section>
-	<section class="notice-area">
-		<div class="notice-info">
+	<section class="post-area">
+		<div class="post-info">
 			<div class="notice-title">
-				TITLE : ${title}
+				${title}
 			</div>
-			<div class="notice-created-at">
-				CREATED-AT : ${createdAt}
-			</div>
-			<div class="notice-modified-at">
-				MODIFIED-AT : ${modifiedAt}
+			<div class="post-figures">
+				<div class="post-figure">
+					<span>작성일</span>${createdAt}
+				</div>
+				<div class="post-figure">
+					<span>수정일</span>${modifiedAt}
+				</div>
+				<div class="post-figure">
+					<span>조회수<span> ${views}
+				</div>
 			</div>
 		</div>
-		<div class="notice-contents">
-			<div class="notice-contents-images">
+		<div class="post-contents">
+			<div class="post-contents-images">
 				<c:forEach var="fileName" items="${savedFileNames}">
 					<c:url var="src" value="/image">
 						<c:param name="id" value="${id}"></c:param>
@@ -45,15 +50,15 @@
 					<img src="${src}">
 				</c:forEach>
 			</div>
-			<div class="notice-contents-textarea">
+			<div class="post-contents-textarea">
 				${text}
 			</div>
 		</div>
-		<div class="notice-btn-area">
-			<button onclick="getModifyNotice(${id});">MODIFY</button>
-			<button onclick="deleteNotice(${id});">DELETE</button>
-			<button onclick="location.replace('/notice-list');">LIST</button>
-		</div>
+	</section>
+	<section class="post-btn-area">
+		<button onclick="getModifyNotice(${id});">MODIFY</button>
+		<button onclick="deleteNotice(${id});">DELETE</button>
+		<button onclick="location.replace('/notice-list');">LIST</button>
 	</section>
 	<section class="comments-area" id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>

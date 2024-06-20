@@ -19,7 +19,7 @@
 		<h1>COMMUNITY</h1>
 		<p>Read the post and share your opinions with people in the comments!</p>
 	</section>
-	<section class="post-search-area">
+	<section class="search-area">
 		<jsp:include page="post-search-area.jsp"></jsp:include>
 	</section>
 	<section class="post-area">
@@ -27,21 +27,23 @@
 			<div class="post-title">
 				${title}
 			</div>
-			<div class="post-writer">
-				${writer}
-			</div>
-			<div class="post-created-at">
-				${createdAt}
-			</div>
-			<div class="post-modified-at">
-				${modifiedAt}
-			</div>
-			<div class="post-views">
-				${views}
+			<div class="post-figures">
+				<div class="post-figure">
+					<span>작성자</span>${writer}
+				</div>
+				<div class="post-figure">
+					<span>작성일</span>${createdAt}
+				</div>
+				<div class="post-figure">
+					<span>수정일</span>${modifiedAt}
+				</div>
+				<div class="post-figure">
+					<span>조회수</span>${views}
+				</div>
 			</div>
 		</div>
 		<div class="post-contents">
-			<div class="post-image-area">
+			<div class="post-contents-images">
 				<c:forEach var="filename" items="${savedFileNames}">
 					<c:url var="src" value="/image">
 						<c:param name="id" value="${id}"></c:param>
@@ -55,14 +57,14 @@
 				${text}
 			</div>
 		</div>
-		<div class="post-btn-area">
-			<button onclick="getModifyPost(${id});">MODIFY</button>
-			<button onclick="deletePost(${id});">DELETE</button>
-			<button onclick="location.replace('/posts');">LIST</button>
+		<div class="poll-area">
+			<jsp:include page="poll-area.jsp"></jsp:include>
 		</div>
 	</section>
-	<section class="poll-area">
-		<jsp:include page="poll-area.jsp"></jsp:include>
+	<section class="post-btn-area">
+		<button onclick="getModifyPost(${id});">MODIFY</button>
+		<button onclick="deletePost(${id});">DELETE</button>
+		<button onclick="location.replace('/posts');">LIST</button>
 	</section>
 	<section class="comments-area" id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>
