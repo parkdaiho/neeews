@@ -43,25 +43,25 @@
 		</div>
 		<div class="post-list">
 			<div class="post-in-posts-top">
-				<div class="post-id">NUM</div>
-				<div class="post-top-title">TITLE</div>
-				<div class="post-writer"></div>
-				<div class="post-created-at">CREATED-AT</div>
+				<div class="post-id-in-list">NUM</div>
+				<div class="post-top-title-in-list">TITLE</div>
+				<div class="post-writer-in-list"></div>
+				<div class="post-created-at-in-list">CREATED-AT</div>
 			</div>
 			<c:forEach var="notice" items="${fixedNoticeList}">
 				<div class="notice-fixed-in-list" onclick="getNoticeView(${notice.id});">
-					<div class="post-id"></div>
-					<div class="post-title">${notice.title}</div>
-					<div class="post-writer"></div>
-					<div class="post-created-at">${notice.createdAt}</div>
+					<div class="post-id-in-list"></div>
+					<div class="post-title-in-list">${notice.title}</div>
+					<div class="post-writer-in-list"></div>
+					<div class="post-created-at-in-list">${notice.createdAt}</div>
 				</div>
 			</c:forEach>
 			<c:forEach var="notice" items="${noticeList}">
 				<div class="post-in-posts" onclick="getNoticeView(${notice.id});">
-					<div class="post-id">${notice.id}</div>
-					<div class="post-title">${notice.title}</div>
-					<div class="post-writer"></div>
-					<div class="post-created-at">${notice.createdAt}</div>
+					<div class="post-id-in-list">${notice.id}</div>
+					<div class="post-title-in-list">${notice.title}</div>
+					<div class="post-writer-in-list"></div>
+					<div class="post-created-at-in-list">${notice.createdAt}</div>
 				</div>
 			</c:forEach>
 		</div>

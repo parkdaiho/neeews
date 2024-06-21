@@ -56,7 +56,7 @@
 		</div>
 	</section>
 	<section class="post-btn-area">
-		<button onclick="getModifyNotice(${id});">MODIFY</button>
+		<button class="add" onclick="getModifyNotice(${id});">MODIFY</button>
 		<button onclick="deleteNotice(${id});">DELETE</button>
 		<button onclick="location.replace('/notice-list');">LIST</button>
 	</section>

@@ -62,7 +62,7 @@
 		</div>
 	</section>
 	<section class="post-btn-area">
-		<button onclick="getModifyPost(${id});">MODIFY</button>
+		<button class="add" onclick="getModifyPost(${id});">MODIFY</button>
 		<button onclick="deletePost(${id});">DELETE</button>
 		<button onclick="location.replace('/posts');">LIST</button>
 	</section>

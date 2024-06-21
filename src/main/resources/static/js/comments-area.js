@@ -74,13 +74,26 @@ function addReply(parentCommentId, page, order) {
     apiRequest("/api/reply", Method.POST, body, getHeaders(true), success, fail);
 }
 
-function setReplyArea(commentId) {
+function setNewReplyArea(commentId) {
     let newReplyArea = document.getElementById("new-reply-area-" + commentId);
 
     if(newReplyArea.style.display === "none") {
         newReplyArea.style.display = "";
     } else {
         newReplyArea.style.display = "none";
+    }
+}
+
+function setRepliesArea(commentId, repliesSize) {
+    let repliesArea = document.getElementById("replies-area-" + commentId);
+    let reliesAreaBtn = document.getElementById("replies-area-btn-" + commentId);
+
+    if(repliesArea.style.display === "none") {
+        reliesAreaBtn.innerHTML = "답글 " + repliesSize + "개 ▲";
+        repliesArea.style.display = "";
+    } else {
+        reliesAreaBtn.innerHTML = "답글 " + repliesSize + "개 ▼"
+        repliesArea.style.display = "none";
     }
 }
 

@@ -59,34 +59,41 @@
 			<div class="comment-btn-area">
 				<button onclick="pollComment(${comment.id}, true, ${page}, '${order}')"><span>좋아요</span>${comment.good}</button>
 				<button onclick="pollComment(${comment.id}, false, ${page}, '${order}')"><span>싫어요</span>${comment.bad}</button>
-				<button onclick="setReplyArea(${comment.id});">REPLY</button>
+				<button onclick="setNewReplyArea(${comment.id});">REPLY</button>
 				<c:if test="${comment.writer == nickname}">
 					<button onclick="deleteComment(${comment.id}, ${page}, '${order}');">DELETE</button>
 				</c:if>
 			</div>
+			<c:if test="${comment.replies.size() != 0}">
+			<button onclick="setRepliesArea(${comment.id}, ${comment.replies.size()});"
+							class="replies-area-btn"
+							id="replies-area-btn-${comment.id}">답글 ${comment.replies.size()}개 ▼</button>
+			</c:if>
 			<div class="new-reply-area" id="new-reply-area-${comment.id}" style="display: none;">
-				<div class="new-reply-textarea" contenteditable="true" id="new-reply-contents-${comment.id}">
-
+				<div class="new-reply-textarea">
+					<div class="new-reply-text" contenteditable="true" id="new-reply-contents-${comment.id}"></div>
 				</div>
-				<div class="new-reply-btn">
-					<button onclick="addReply(${comment.id}, ${page}, '${order}')">ADD</button>
-					<button onclick="setReplyArea(${comment.id});">CLOSE</button>
+				<div class="new-reply-btn-area">
+					<button class="add" onclick="addReply(${comment.id}, ${page}, '${order}')">ADD</button>
+					<button onclick="setNewReplyArea(${comment.id});">CLOSE</button>
 				</div>
 			</div>
-			<div class="replies-area">
+			<div class="replies-area" id="replies-area-${comment.id}" style="display: none;">
 				<c:forEach var="reply" items="${comment.replies}">
 					<div class="reply-in-replies">
-						<div class="reply-writer">
-								${reply.writer}
-							<span class="reply-created-at">${reply.createdAt}</span>
+						<div class="reply-info">
+							<div class="reply-writer">${reply.writer}</div>
+							<div class="reply-created-at">${reply.createdAt}</div>
 						</div>
 						<div class="reply-contents">
 								${reply.contents}
 						</div>
 						<div class="reply-btn-area">
-							<button onclick="pollComment(${reply.id}, true, ${page}, '${order}')">LIKE ${reply.good}</button>
-							<button onclick="pollComment(${reply.id}, false, ${page}, '${order}')">DISLIKE ${reply.bad}</button>
-							<button onclick="">DELETE</button>
+							<button onclick="pollComment(${reply.id}, true, ${page}, '${order}')"><span>좋아요</span>${reply.good}</button>
+							<button onclick="pollComment(${reply.id}, false, ${page}, '${order}')"><span>싫어요</span>${reply.bad}</button>
+							<c:if test="${reply.writer == nickname || isManager}">
+								<button onclick="">DELETE</button>
+							</c:if>
 						</div>
 					</div>
 				</c:forEach>
