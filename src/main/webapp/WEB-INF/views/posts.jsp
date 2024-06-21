@@ -52,17 +52,17 @@
 		</div>
 		<div class="post-list">
 			<div class="post-in-posts-top">
-				<div class="post-id">NUM</div>
-				<div class="post-top-title">TITLE</div>
-				<div class="post-writer">WRITER</div>
-				<div class="post-created-at">CREATED-AT</div>
+				<div class="post-id-in-list">NUM</div>
+				<div class="post-top-title-in-list">TITLE</div>
+				<div class="post-writer-in-list">WRITER</div>
+				<div class="post-created-at-in-list">CREATED-AT</div>
 			</div>
 			<c:forEach var="post" items="${posts}">
 				<div class="post-in-posts" onclick="getPostView(${post.id});">
-					<div class="post-id">${post.id}</div>
-					<div class="post-title">${post.title}</div>
-					<div class="post-writer">${post.writer}</div>
-					<div class="post-created-at">${post.createdAt}</div>
+					<div class="post-id-in-list">${post.id}</div>
+					<div class="post-title-in-list">${post.title}</div>
+					<div class="post-writer-in-list">${post.writer}</div>
+					<div class="post-created-at-in-list">${post.createdAt}</div>
 				</div>
 			</c:forEach>
 		</div>

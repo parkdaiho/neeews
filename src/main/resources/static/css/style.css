@@ -368,7 +368,7 @@ main {
 /* article */
 
 .article-area {
-    border-bottom: 2px solid black;
+    border-bottom: 3px solid black;
 }
 
 .article-info {
@@ -449,7 +449,7 @@ main {
     font-size: 2.0rem;
     width: 80%;
     height: 200px;
-    border: 1px solid black;
+    border: 1px solid lightgrey;
 }
 
 .new-comment-textarea button {
@@ -459,10 +459,15 @@ main {
 }
 
 .comments-info {
+    padding: 10px;
     display: flex;
     align-items: center;
-    border-bottom: 1px black solid;
-    font-size: 1.6rem;
+    border-bottom: 2px black solid;
+    font-size: 2.0rem;
+}
+
+.total-comments {
+    margin-right: 15px;
 }
 
 .comment-list {
@@ -471,6 +476,50 @@ main {
 
 .comments-info select {
     font-size: 1.4rem;
+}
+
+.comment-in-comments {
+    padding: 5px;
+    border-bottom: 1px black solid;
+}
+
+.comment-info {
+    padding: 5px;
+    border-bottom: 1px lightgrey solid;
+    display: flex;
+    align-items: center;
+}
+
+.comment-writer {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-right: 9px;
+}
+
+.comment-created-At {
+    font-size: 1.4rem;
+}
+
+.comment-contents {
+    font-size: 1.6rem;
+    padding: 5px;
+}
+
+.comment-btn-area {
+    padding: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.comment-btn-area button {
+    display: inline-block;
+    font-size: 1.4rem;
+    margin-left: 5px;
+}
+
+.comment-btn-area span {
+    display: inline-block;
+    margin-right: 7px;
 }
 
 /* poll-area */
@@ -680,22 +729,22 @@ main {
     padding: 5px;
 }
 
-.post-id {
+.post-id-in-list {
     width: 10%;
     padding: 5px;
 }
 
-.post-top-title {
+.post-top-title-in-list {
     width: 60%;
     padding: 5px;
 }
 
-.post-writer {
+.post-writer-in-list {
     width: 15%;
     padding: 5px;
 }
 
-.post-created-at {
+.post-created-at-in-list {
     width: 15%;
     padding: 5px;
 }
@@ -715,7 +764,7 @@ main {
     border-bottom: 1px lightgrey solid;
 }
 
-.post-title {
+.post-title-in-list {
     width: 60%;
     padding: 5px 10px;
     text-align: start;
@@ -737,13 +786,13 @@ main {
 /* post */
 
 .post-area {
-    border-bottom: 2px black solid;
+    border-bottom: 3px black solid;
 }
 
-.posts-btn-area {
+.post-btn-area {
     padding: 10px;
     display: flex;
-    justify-content: right;
+    justify-content: flex-end;
 }
 
 .post-btn-area button {
@@ -797,4 +846,3 @@ main {
 .post-contents-textarea {
     font-size: 2.0rem;
 }
-

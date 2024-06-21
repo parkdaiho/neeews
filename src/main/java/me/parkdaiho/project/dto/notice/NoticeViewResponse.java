@@ -20,7 +20,7 @@ public class NoticeViewResponse {
     private List<String> savedFileName;
 
     public NoticeViewResponse(Notice notice) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
 
         this.id = notice.getId();
         this.title = notice.getTitle();

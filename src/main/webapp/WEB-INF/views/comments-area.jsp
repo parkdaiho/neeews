@@ -49,18 +49,20 @@
 <div class="comment-list">
 	<c:forEach var="comment" items="${comments}">
 		<div class="comment-in-comments">
-			<div class="comment-writer">
-				<b>${comment.writer}</b>
-				<span class="comment-created-At">${comment.createdAt}</span>
+			<div class="comment-info">
+				<div class="comment-writer">${comment.writer}</div>
+				<div class="comment-created-At">${comment.createdAt}</div>
 			</div>
 			<div class="comment-contents">
 					${comment.contents}
 			</div>
 			<div class="comment-btn-area">
-				<button onclick="pollComment(${comment.id}, true, ${page}, '${order}')">LIKE ${comment.good}</button>
-				<button onclick="pollComment(${comment.id}, false, ${page}, '${order}')">DISLIKE ${comment.bad}</button>
+				<button onclick="pollComment(${comment.id}, true, ${page}, '${order}')"><span>좋아요</span>${comment.good}</button>
+				<button onclick="pollComment(${comment.id}, false, ${page}, '${order}')"><span>싫어요</span>${comment.bad}</button>
 				<button onclick="setReplyArea(${comment.id});">REPLY</button>
-				<button onclick="deleteComment(${comment.id}, ${page}, '${order}');">DELETE</button>
+				<c:if test="${comment.writer == nickname}">
+					<button onclick="deleteComment(${comment.id}, ${page}, '${order}');">DELETE</button>
+				</c:if>
 			</div>
 			<div class="new-reply-area" id="new-reply-area-${comment.id}" style="display: none;">
 				<div class="new-reply-textarea" contenteditable="true" id="new-reply-contents-${comment.id}">

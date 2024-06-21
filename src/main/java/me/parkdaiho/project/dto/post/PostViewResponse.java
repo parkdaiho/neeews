@@ -24,7 +24,7 @@ public class PostViewResponse {
     private Long bad;
 
     public PostViewResponse(Post post) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
 
         this.id = post.getId();
         this.title = post.getTitle();
