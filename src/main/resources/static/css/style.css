@@ -1053,3 +1053,58 @@ main {
     font-weight: bold;
     text-decoration: underline;
 }
+
+/* sign-up */
+
+.sign-up-page {
+    width: 70%;
+    margin: 0 auto;
+    padding-bottom: 80px;
+    border-bottom: 3px solid black;
+}
+
+.sign-up-area {
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.sign-up-input {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px lightgrey solid;
+}
+
+.sign-up-input label {
+    text-align: center;
+    width: 30%;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 2.0rem;
+}
+
+.sign-up-input-button-area {
+    width: 70%;
+    display: flex;
+    align-items: center;
+}
+
+.sign-up-input-button-area input {
+    width: 80%;
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 1.6rem;
+    border-radius: 5px;
+}
+
+.sign-up-btn {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.sign-up-btn button {
+    margin-left: 5px;
+}

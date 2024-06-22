@@ -11,50 +11,72 @@
 	<jsp:include page="header.jsp"></jsp:include>
 </header>
 <main>
-	<section class="page-info-area">
-		<h1>SIGN-UP</h1>
-		<p>Please become a member of our site!</p>
-	</section>
-	<section class="sign-up-area">
-		<div class="sign-up-username">
-			USERNAME : <input type="text" id="username" onchange="changeUsername();">
-			<button onclick="usernameValidCheck();">CHECK</button>
-			<input type="hidden" id="username-valid-flag" value="unchecked">
-			<div class="username-valid-check-message" id="username-valid-check-message"></div>
-		</div>
-		<div class="sign-up-password">
-			PASSWORD : <input type="password" id="password" onchange="changePassword();">
-			CONFIRM-PASSWORD : <input type="password" id="confirm-password" onchange="changePassword();">
-			<input type="hidden" id="confirm-password-valid-flag" value="unchecked">
-			<div class="password-valid-check-message" id="password-valid-check-message"></div>
-		</div>
-		<div class="sign-up-nickname">
-			NICKNAME : <input type="text" id="nickname" onchange="changeNickname();">
-			<button onclick="nicknameValidCheck();">CHECK</button>
-			<input type="hidden" id="nickname-valid-flag" value="unchecked">
-			<div class="nickname-valid-check-message" id="nickname-valid-check-message"></div>
-		</div>
-		<div class="sign-up-email">
-			<c:choose>
-				<c:when test="${email != null}">
-					EMAIL : <input type="email" id="email" value="${email}" readonly>
-					<input type="hidden" id="provider" value="${provider}">
-					<input type="hidden" id="email-dup-flag" value="checked">
-				</c:when>
-				<c:otherwise>
-					EMAIL : <input type="email" id="email" onchange="changeEmail();">
-					<input type="hidden" id="provider" value="SELF">
-					<button onclick="emailDupCheck();">CHECK</button>
-					<input type="hidden" id="email-dup-flag" value="unchecked">
-					<div class="email-valid-check-message" id="email-valid-check-message"></div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-		<div class="sign-up-btn">
-			<button onclick="signUp();">SIGN-UP</button>
+	<div class="sign-up-page">
+		<section class="page-info-area">
+			<h1>SIGN-UP</h1>
+			<p>Please become a member of our site!</p>
+		</section>
+		<section class="sign-up-area">
+			<div class="sign-up-input">
+				<label for="username">USERNAME</label>
+				<div class="sign-up-input-button-area">
+					<input type="text" id="username" onchange="changeUsername();" autocomplete="false">
+					<button class="add" onclick="usernameValidCheck();">CHECK</button>
+				</div>
+				<input type="hidden" id="username-valid-flag" value="unchecked">
+			</div>
+			<div class="input-valid-check-message" id="username-valid-check-message" style="display: none;"></div>
+			<div class="sign-up-input">
+				<label for="password">PASSWORD</label>
+				<div class="sign-up-input-button-area">
+					<input type="password" id="password" onchange="changePassword();">
+				</div>
+			</div>
+			<div class="sign-up-input">
+				<label for="confirm-password">CONFIRM-PASSWORD</label>
+				<div class="sign-up-input-button-area">
+					<input type="password" id="confirm-password" onchange="changePassword();">
+				</div>
+				<input type="hidden" id="confirm-password-valid-flag" value="unchecked">
+			</div>
+			<div class="input-valid-check-message" id="password-valid-check-message" style="display: none;"></div>
+			<div class="sign-up-input">
+				<label for="nickname">NICKNAME</label>
+				<div class="sign-up-input-button-area">
+					<input type="text" id="nickname" onchange="changeNickname();" autocomplete="false">
+					<button class="add" onclick="nicknameValidCheck();">CHECK</button>
+				</div>
+				<input type="hidden" id="nickname-valid-flag" value="unchecked">
+			</div>
+			<div class="input-valid-check-message" id="nickname-valid-check-message" style="display: none;"></div>
+			<div class="sign-up-input">
+				<c:choose>
+					<c:when test="${email != null}">
+						<label for="email">EMAIL</label>
+						<div class="sign-up-input-button-area">
+							<input type="email" id="email" value="${email}" readonly>
+						</div>
+						<input type="hidden" id="provider" value="${provider}">
+						<input type="hidden" id="email-dup-flag" value="checked">
+					</c:when>
+					<c:otherwise>
+						<label for="email">EMAIL</label>
+						<div class="sign-up-input-button-area">
+							<input type="email" id="email" onchange="changeEmail();" autocomplete="false">
+							<input type="hidden" id="provider" value="SELF">
+							<button class="add" onclick="emailDupCheck();">CHECK</button>
+						</div>
+						<input type="hidden" id="email-dup-flag" value="unchecked">
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="input-valid-check-message" id="email-valid-check-message" style="display: none;"></div>
+		</section>
+		<section class="sign-up-btn">
+			<button class="add" onclick="signUp();">SIGN-UP</button>
 			<button onclick="location.replace('/login');">BACK</button>
-		</div>
-	</section>
+		</section>
+	</div>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>

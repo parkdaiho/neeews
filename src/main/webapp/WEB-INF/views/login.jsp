@@ -19,7 +19,7 @@
 			<form action="/login" method="POST">
 				<ul>
 					<li>
-						<input type="text" name="username" placeholder="USERNAME">
+						<input type="text" name="username" placeholder="USERNAME" autocomplete="false">
 					</li>
 					<li>
 						<input type="password" name="password" placeholder="PASSWORD">
