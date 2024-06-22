@@ -10,30 +10,37 @@
 	<jsp:include page="header.jsp"></jsp:include>
 </header>
 <main>
-	<section class="page-info-area">
-		<h1>LOGIN</h1>
-		<p>Login and do various activities!</p>
-	</section>
-	<section class="login-area">
-		<form action="/login" method="POST">
-			<div class="login-username">
-				USERNAME : <input type="text" name="username">
-			</div>
-			<div class="login-password">
-				PASSWORD : <input type="password" name="password">
-			</div>
-			<div class="login-btn">
-				<button type="submit">LOGIN</button>
-				<button>RESET</button>
-			</div>
-		</form>
-		<div class="login-oauth2">
+	<div class="login-page">
+		<section class="page-info-area">
+			<h1>LOGIN</h1>
+			<p>Login and do various activities!</p>
+		</section>
+		<section class="login-area">
+			<form action="/login" method="POST">
+				<ul>
+					<li>
+						<input type="text" name="username" placeholder="USERNAME">
+					</li>
+					<li>
+						<input type="password" name="password" placeholder="PASSWORD">
+					</li>
+				</ul>
+				<div class="login-btn">
+					<div class="save-username">
+						<label for="save-username">아이디 저장</label>
+						<input type="checkbox" id="save-username">
+					</div>
+					<button type="submit">LOGIN</button>
+				</div>
+			</form>
+		</section>
+		<section class="login-sign-up">
+			If you're not a member yet, please <a href="/sign-up">sign up</a>!
+		</section>
+		<section class="login-oauth2">
 			<a href="/oauth2/authorization/google"><img src="/img/oauth2-google.png"></a>
-		</div>
-		<div class="login-sign-up">
-			<a href="/sign-up">If you're not a member yet, please sign up!</a>
-		</div>
-	</section>
+		</section>
+	</div>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>

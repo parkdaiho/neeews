@@ -40,14 +40,9 @@
 			<c:choose>
 				<c:when test="${isProvided}">
 					<div class="article-contents-images">
-						<c:choose>
-							<c:when test="${imgSrc != null}">
-								<img src="${imgSrc}">
-							</c:when>
-							<c:otherwise>
-								이미지가 없습니다.
-							</c:otherwise>
-						</c:choose>
+						<c:if test="${imgSrc != null}">
+							<img src="${imgSrc}">
+						</c:if>
 					</div>
 					<div class="article-contents-textarea">
 							${text}

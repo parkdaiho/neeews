@@ -29,6 +29,8 @@ button {
     padding: 10px;
     font-size: 1.8rem;
     cursor: pointer;
+    border-radius: 5px;
+    margin-left: 5px;
 }
 
 select {
@@ -149,8 +151,15 @@ main {
     color: #717176;
 }
 
+.index-search-box select:first-of-type {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
 .index-search-box input {
     width: 400px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .index-search-box button {
@@ -189,9 +198,10 @@ main {
 }
 
 /* page-info-area */
+
 .page-info-area {
     height: 100px;
-    margin: 10px auto;
+    margin: 50px auto;
     padding: 10px;
     display: flex;
     justify-content: end;
@@ -238,10 +248,14 @@ main {
     font-size: 1.4rem;
     width: 140px;
     color: #717176;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
 .search-box input {
     width: 300px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .search-box button {
@@ -253,7 +267,7 @@ main {
 /* searched-articles */
 
 .searched-articles-info {
-    padding: 5px;
+    padding: 10px;
     font-size: 2.0rem;
     border-bottom: 1px black solid;
 }
@@ -274,19 +288,19 @@ main {
 .searched-article-title {
     font-size: 2.0rem;
     font-weight: bold;
-    padding: 8px;
+    padding: 10px;
     border-bottom: 1px lightgrey solid;
 }
 
 .searched-article-description {
     font-size: 1.6rem;
-    padding: 6px;
+    padding: 10px;
     border-bottom: 1px lightgrey solid;
 }
 
 .searched-article-pubDate {
     font-size: 1.4rem;
-    padding: 8px;
+    padding: 10px;
 }
 
 /* board-pagination */
@@ -294,7 +308,7 @@ main {
 .board-pagination {
     width: 60%;
     font-size: 1.8rem;
-    margin: 30px auto;
+    margin: 40px auto;
 }
 
 .board-pagination ul {
@@ -303,23 +317,30 @@ main {
     justify-content: center;
 }
 
+.board-pagination ul li {
+    width: 7%;
+    margin-left: 5px;
+    font-size: 1.8rem;
+}
+
 /* articles */
 
 .article-list-info {
-    padding: 5px;
+    padding: 10px;
     border-bottom: 1px black solid;
     display: flex;
 }
 
 .article-list-info h2 {
-    margin: 5px 20px;
+    margin: 10px 20px;
     font-size: 2.0rem;
 }
 
 .article-list-info select {
+    padding: 5px;
     display: inline-block;
     height: 30px;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 .article-in-list {
@@ -347,24 +368,24 @@ main {
 .article-summary-title {
     font-size: 2.0rem;
     font-weight: bold;
-    padding: 6px;
+    padding: 10px;
     border-bottom: 1px lightgrey solid;
 }
 
 .article-summary-description {
-    padding: 6px;
+    padding: 10px;
     border-bottom: 1px lightgrey solid;
     font-size: 1.6rem;
 }
 
 .article-summary-pubdate {
-    padding: 6px;
+    padding: 10px;
     border-bottom: 1px lightgrey solid;
     font-size: 1.4rem;
 }
 
 .article-summary-figures {
-    padding: 4px;
+    padding: 10px;
     display: flex;
 }
 
@@ -412,18 +433,18 @@ main {
 }
 
 .article-contents-images {
-    padding-top: 5px;
-    margin-bottom: 5px;
+    padding: 10px;
     font-size: 2.0rem;
     font-weight: bolder;
 }
 
 .article-contents-textarea {
+    padding: 10px;
     font-size: 2.0rem;
 }
 
 .article-originalLink {
-    padding: 15px 0;
+    padding: 20px 0;
     font-size: 1.8rem;
     font-weight: bolder;
     color: #065fd4;
@@ -456,7 +477,7 @@ main {
     margin-right: 10px;
     font-size: 2.0rem;
     width: 80%;
-    height: 200px;
+    height: 150px;
     border: 1px solid lightgrey;
 }
 
@@ -945,4 +966,90 @@ main {
 
 .post-contents-textarea {
     font-size: 2.0rem;
+}
+
+/* login */
+
+.login-page {
+    width: 60%;
+    margin: 0 auto;
+    padding-bottom: 80px;
+    border-bottom: 3px solid black;
+}
+
+.login-area {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-area ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-area ul li input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.8rem;
+    display: inline-block;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.login-btn {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-btn button {
+    width: 80px;
+    margin-right: 5px;
+}
+
+.save-username {
+    padding: 10px;
+    margin-left: 20px;
+    font-size: 2.0rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.save-username label {
+    margin-right: 1.0rem;
+}
+
+.save-username input {
+    height: 2.0rem;
+}
+
+.login-oauth2 {
+    width: 60%;
+    margin: 0 auto 20px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.0rem;
+}
+
+.login-oauth2 img {
+    width: 100%;
+}
+
+.login-sign-up {
+    width: 60%;
+    font-size: 2.0rem;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.login-sign-up a {
+    color: #065fd4;
+    font-weight: bold;
+    text-decoration: underline;
 }
