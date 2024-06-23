@@ -10,14 +10,14 @@
 <div class="header-logo">
 	<a href="/">LOGO</a>
 </div>
-<div class="header-middle-area">
+<nav class="header-middle-area">
 	<ul>
 		<li><a href="/">HOME</a></li>
 		<li><a href="/articles">ARTICLES</a></li>
 		<li><a href="/posts">COMMUNITY</a></li>
 		<li><a href="/notice-list">NOTICE</a></li>
 	</ul>
-</div>
+</nav>
 <div class="header-right-area">
 	<ul>
 		<c:choose>

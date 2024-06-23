@@ -17,6 +17,7 @@ function changeNickname(originalNickname) {
     if (nickname.value !== originalNickname) {
         nicknameValidFlag.value = Check.UNCHECKED;
         nicknameValidCheckMessage.innerHTML = "";
+        nicknameValidCheckMessage.style.display = "none";
     }
 }
 
@@ -29,7 +30,7 @@ function nicknameDupCheck(originalNickname) {
 
     if (!nicknameRegex.test(nickname.value)) {
         alert(nicknameRegexFailMessage);
-        nicknameValidCheckMessage.innerHTML = nicknameRegexFailMessage;
+        showValidMessage(nicknameValidCheckMessage, nicknameRegexFailMessage);
 
         return;
     }
@@ -54,7 +55,7 @@ function nicknameDupCheck(originalNickname) {
                     alert(validNicknameMessage);
 
                     nicknameValidFlag.value = Check.CHECKED;
-                    nicknameValidCheckMessage.innerHTML = validNicknameMessage;
+                    showValidMessage(nicknameValidCheckMessage, validNicknameMessage);
                 } else {
                     alert(nicknameDupFailMessage);
                 }
@@ -64,17 +65,17 @@ function nicknameDupCheck(originalNickname) {
 
 function changePassword() {
     if(!passwordRegex.test(password.value)) {
-        passwordValidCheckMessage.innerHTML = passwordRegexFailMessage;
+        showValidMessage(passwordValidCheckMessage, passwordRegexFailMessage);
 
         return;
     }
 
     if(password.value !== confirmPassword.value) {
         confirmPasswordValidFlag.value = Check.UNCHECKED;
-        passwordValidCheckMessage.innerHTML = passwordConfirmFailMessage;
+        showValidMessage(passwordValidCheckMessage, passwordConfirmFailMessage);
     } else {
         confirmPasswordValidFlag.value = Check.CHECKED;
-        passwordValidCheckMessage.innerHTML = validPasswordMessage;
+        showValidMessage(passwordValidCheckMessage, validPasswordMessage);
     }
 }
 
@@ -113,4 +114,9 @@ function modifyUser(userId) {
     }
 
     apiRequest("/api/information", Method.PUT, body, getHeaders(true), success, fail);
+}
+
+function showValidMessage(object, message) {
+    object.style.display = "";
+    object.innerHTML = message;
 }

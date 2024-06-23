@@ -58,6 +58,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         request.setAttribute("nickname", nickname);
         request.setAttribute("isManager", !role.getIsUser());
+        request.setAttribute("isAdmin", role == Role.ADMIN);
 
         return authentication;
     }

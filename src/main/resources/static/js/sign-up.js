@@ -91,28 +91,32 @@ function checkFlag() {
 
 function changeUsername() {
     usernameValidFlag.value = Check.UNCHECKED;
+
     usernameValidCheckMessage.innerHTML = "";
+    usernameValidCheckMessage.style.display = "none";
 }
 
 function changePassword() {
     if(!passwordRegex.test(password.value)) {
-        passwordValidCheckMessage.innerHTML = passwordRegexFailMessage;
+        showValidCheckMessage(passwordValidCheckMessage, passwordRegexFailMessage);
 
         return;
     }
 
     if(password.value !== confirmPassword.value) {
         confirmPasswordValidFlag.value = Check.UNCHECKED;
-        passwordValidCheckMessage.innerHTML = passwordConfirmFailMessage;
+        showValidCheckMessage(passwordValidCheckMessage, passwordConfirmFailMessage);
     } else {
         confirmPasswordValidFlag.value = Check.CHECKED;
-        passwordValidCheckMessage.innerHTML = validPasswordMessage;
+        showValidCheckMessage(passwordValidCheckMessage, validPasswordMessage);
     }
 }
 
 function changeNickname() {
     nicknameValidFlag.value = Check.UNCHECKED;
+
     nicknameValidCheckMessage.innerHTML = "";
+    nicknameValidCheckMessage.style.display = "none";
 }
 
 function changeEmail() {
@@ -122,7 +126,7 @@ function changeEmail() {
 function usernameValidCheck() {
     if(!usernameRegex.test(username.value)) {
         alert(usernameRegexFailMessage);
-        usernameValidCheckMessage.innerHTML = usernameRegexFailMessage;
+        showValidCheckMessage(usernameValidCheckMessage, usernameRegexFailMessage);
 
         return;
     }
@@ -135,7 +139,7 @@ function usernameValidCheck() {
         alert(validUsernameMessage)
 
         usernameValidFlag.value = Check.CHECKED;
-        usernameValidCheckMessage.innerHTML = validUsernameMessage;
+        showValidCheckMessage(usernameValidCheckMessage, validUsernameMessage)
     }
 
     function fail() {
@@ -149,7 +153,7 @@ function usernameValidCheck() {
 function nicknameValidCheck() {
     if(!nicknameRegex.test(nickname.value)) {
         alert(nicknameRegexFailMessage);
-        nicknameValidCheckMessage.innerHTML = nicknameRegexFailMessage;
+        showValidCheckMessage(nicknameValidCheckMessage, nicknameRegexFailMessage);
 
         return;
     }
@@ -162,7 +166,7 @@ function nicknameValidCheck() {
         alert(validNicknameMessage);
 
         nicknameValidFlag.value = Check.CHECKED;
-        nicknameValidCheckMessage.innerHTML = validNicknameMessage;
+        showValidCheckMessage(nicknameValidCheckMessage, validNicknameMessage);
     }
 
     function fail() {
@@ -182,7 +186,7 @@ function emailDupCheck() {
         alert(validEmailMessage);
 
         emailDupFlag.value = Check.CHECKED;
-        emailValidCheckMessage.innerHTML = validEmailMessage;
+        showValidCheckMessage(emailValidCheckMessage, validEmailMessage);
     }
 
     function fail() {
@@ -211,4 +215,9 @@ function validCheckRequest(url, body, success, fail) {
                 fail();
             }
         })
+}
+
+function showValidCheckMessage(object, message) {
+    object.style.display = "";
+    object.innerHTML = message;
 }

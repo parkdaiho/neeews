@@ -22,16 +22,22 @@
 			</c:otherwise>
 		</c:choose>
 	</section>
-	<div class="my-page-menu">
-		<ul>
-			<li><a href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
-			<li><a href="javascript:return false;" onclick="getWithdrawalPage(${id});">WITHDRAWAL</a></li>
-			<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', '', '');">MEMBERSHIP</a></li>
-		</ul>
+	<div class="my-page">
+		<nav class="my-page-menu">
+			<ul>
+				<li><a href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
+				<c:if test="${isAdmin}">
+					<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', '', '');">MEMBERSHIP</a></li>
+				</c:if>
+				<li><a href="javascript:return false;" onclick="">CLIPPINGS</a></li>
+				<li><a href="javascript:return false;" onclick="">MY-POST</a></li>
+				<li><a href="javascript:return false;" onclick="getWithdrawalPage(${id});">WITHDRAWAL</a></li>
+			</ul>
+		</nav>
+		<section class="my-page-contents" id="my-page-area">
+			<jsp:include page="member-info.jsp"></jsp:include>
+		</section>
 	</div>
-	<section class="my-page-area" id="my-page-area">
-		<jsp:include page="member-info.jsp"></jsp:include>
-	</section>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>
