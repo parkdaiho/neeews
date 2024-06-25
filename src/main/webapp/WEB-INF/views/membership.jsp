@@ -8,8 +8,8 @@
 </head>
 <body>
 <div class="membership-area">
-	<div class="user-search-area">
-		<div class="user-search-box">
+	<div class="search-area">
+		<div class="search-box">
 			<select id="search-sort">
 				<c:choose>
 					<c:when test="${searchSort == 'NICKNAME'}">
@@ -23,12 +23,12 @@
 				</c:choose>
 			</select>
 			<input type="text" id="query" placeholder="Search user" value="${query}">
+			<button onclick="searchUser();">SEARCH</button>
 		</div>
-		<button onclick="searchUser();">SEARCH</button>
 	</div>
 	<div class="membership-info">
 		<div class="membership-total-users">
-			TOTAL ${totalElements} USERS
+			TOTAL <b>${totalElements}</b> USERS
 		</div>
 		<div class="membership-users-sort">
 			<select id="membership-users-sort-select" onchange="getUsersBySort(this.value);">
@@ -92,6 +92,7 @@
 			<div class="user-role">
 				ROLE
 			</div>
+			<div class="user-btn"></div>
 		</div>
 		<c:forEach var="user" items="${users}">
 			<div class="user-in-users">
@@ -112,35 +113,35 @@
 				</div>
 				<div class="user-role">
 					<c:choose>
-					<c:when test="${!isAdmin}">
-					<select disabled>
+						<c:when test="${!isAdmin}">
+							<select disabled>
 						</c:when>
 						<c:otherwise>
-						<select id="user-role-${user.id}" onchange="changeRole(${user.id}, '${user.role}', this.value);">
-							</c:otherwise>
-							</c:choose>
-							<c:choose>
-								<c:when test="${user.role == 'ADMIN'}">
-									<option value="ADMIN" selected>ADMIN</option>
-									<option value="MANAGER">MANAGER</option>
-									<option value="USER">USER</option>
-								</c:when>
-								<c:when test="${user.role == 'MANAGER'}">
-									<option value="ADMIN">ADMIN</option>
-									<option value="MANAGER" selected>MANAGER</option>
-									<option value="USER">USER</option>
-								</c:when>
-								<c:otherwise>
-									<option value="ADMIN">ADMIN</option>
-									<option value="MANAGER">MANAGER</option>
-									<option value="USER" selected>USER</option>
-								</c:otherwise>
-							</c:choose>
-						</select>
+							<select id="user-role-${user.id}" onchange="changeRole(${user.id}, '${user.role}', this.value);">
+						</c:otherwise>
+					</c:choose>
+					<c:choose>
+						<c:when test="${user.role == 'ADMIN'}">
+							<option value="ADMIN" selected>ADMIN</option>
+							<option value="MANAGER">MANAGER</option>
+							<option value="USER">USER</option>
+						</c:when>
+						<c:when test="${user.role == 'MANAGER'}">
+							<option value="ADMIN">ADMIN</option>
+							<option value="MANAGER" selected>MANAGER</option>
+							<option value="USER">USER</option>
+						</c:when>
+						<c:otherwise>
+							<option value="ADMIN">ADMIN</option>
+							<option value="MANAGER">MANAGER</option>
+							<option value="USER" selected>USER</option>
+						</c:otherwise>
+					</c:choose>
+					</select>
 				</div>
 				<c:if test="${user.isEnabled}">
 					<div class="user-btn">
-						<button type="button" onclick="withdraw(${user.id}, ${page}, '${sort}', '${query}')">WITHDRAW</button>
+						<button type="button" onclick="withdraw(${user.id}, ${page}, '${sort}', '${query}')">🗑️</button>
 					</div>
 				</c:if>
 			</div>

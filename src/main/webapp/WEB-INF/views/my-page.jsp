@@ -26,7 +26,7 @@
 		<nav class="my-page-menu">
 			<ul>
 				<li><a href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
-				<c:if test="${isAdmin}">
+				<c:if test="${isManager}">
 					<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', '', '');">MEMBERSHIP</a></li>
 				</c:if>
 				<li><a href="javascript:return false;" onclick="">CLIPPINGS</a></li>

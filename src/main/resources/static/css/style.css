@@ -1122,14 +1122,13 @@ main {
 /* my-page */
 
 .my-page {
-    padding: 15px;
     display: flex;
 }
 
 .my-page-menu {
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 20%;
     padding: 30px 20px;
     border-right: 3px black solid;
 }
@@ -1142,8 +1141,8 @@ main {
 }
 
 .my-page-contents {
-    margin: 30px auto;
-    width: 75%;
+    margin: 15px auto;
+    width: 80%;
     display: flex;
     justify-content: center;
 }
@@ -1191,4 +1190,100 @@ main {
     display: flex;
     align-items: center;
     justify-content: end;
+}
+
+/* membership */
+
+.membership-area {
+    width: 100%;
+    padding: 10px;
+}
+
+.membership-info {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px black solid;
+}
+
+.membership-total-users {
+    font-size: 1.8rem;
+}
+
+.membership-total-users {
+    margin-right: 10px;
+}
+
+.membership-users-area {
+    padding: 5px;
+    margin-top: 10px;
+    border-bottom: 2px black solid;
+}
+
+.users-top {
+    display: flex;
+    font-size: 1.6rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px black solid;
+}
+
+.user-in-users {
+    display: flex;
+    font-size: 1.6rem;
+    border-bottom: 1px black solid;
+    text-align: center;
+    align-items: center;
+}
+
+.user-username {
+    width: 15%;
+    padding: 5px;
+    overflow: scroll;
+    font-size: 1.8rem;
+}
+
+.user-nickname {
+    width: 15%;
+    padding: 5px;
+    overflow: scroll;
+    font-size: 1.8rem;
+}
+
+.user-email {
+    width: 20%;
+    padding: 5px;
+    font-size: 1.8rem;
+}
+
+.user-created-at {
+    width: 15%;
+    padding: 5px;
+    overflow: scroll;
+}
+
+.user-modified-at {
+    width: 15%;
+    padding: 5px;
+    overflow: scroll;
+}
+
+.user-role {
+    width: 15%;
+    padding: 5px;
+}
+
+.user-role select {
+    width: 95%;
+    font-size: 1.6rem;
+}
+
+.user-btn {
+    width: 5%;
+}
+
+.user-btn button {
+    width: 95%;
+    height: 95%;
+    font-size: 1.6rem;
 }
