@@ -10,11 +10,15 @@ function addFileInput() {
     addFileInput.setAttribute("accept", "image/*")
 
     let removeNewFileAreaButton = document.createElement("button");
-    removeNewFileAreaButton.innerHTML = "REMOVE IMAGE";
     removeNewFileAreaButton.addEventListener("click", () => {
             newFileArea.remove();
         }
     );
+
+    let removeImg = document.createElement("img");
+    removeImg.setAttribute("src", "/img/trashcan.png");
+
+    removeNewFileAreaButton.append(removeImg);
 
     let thumbnailArea = document.createElement("div");
     thumbnailArea.setAttribute("class", "upload-image-thumbnail");

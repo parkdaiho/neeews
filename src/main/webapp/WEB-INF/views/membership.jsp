@@ -141,7 +141,7 @@
 				</div>
 				<c:if test="${user.isEnabled}">
 					<div class="user-btn">
-						<button type="button" onclick="withdraw(${user.id}, ${page}, '${sort}', '${query}')">🗑️</button>
+						<button type="button" onclick="withdraw(${user.id}, ${page}, '${sort}', '${query}')"><img src="/img/trashcan.png"></button>
 					</div>
 				</c:if>
 			</div>

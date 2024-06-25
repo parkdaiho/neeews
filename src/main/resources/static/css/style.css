@@ -801,12 +801,12 @@ main {
 }
 
 .upload-image button {
-    width: 90%;
-    text-align: center;
-    background: black;
-    color: white;
-    font-size: 1.8rem;
+    width: 20%;
     margin-bottom: 5px;
+}
+
+.upload-image button img {
+    width: 100%;
 }
 
 .upload-image-thumbnail {
@@ -1287,6 +1287,10 @@ main {
     font-size: 1.6rem;
 }
 
+.user-btn button img {
+    width: 100%;
+}
+
 /* withdrawal */
 
 .withdrawal-area{
@@ -1333,12 +1337,10 @@ main {
 
 .withdrawal-btn {
     width: 60%;
-    padding: 15px;
     display: flex;
     justify-content: end;
 }
 
 .withdrawal-btn button {
-    padding: 10px;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
