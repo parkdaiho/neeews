@@ -7,8 +7,13 @@
 </head>
 <body>
 <div class="withdrawal-area">
+	<div class="withdrawal-info-area">
+		<h2>WITHDRAWAL</h2>
+		<p>You can withdraw from our membership.</p>
+	</div>
 	<div class="withdrawal-password">
-		PASSWORD : <input type="password" id="password">
+		<label>PASSWORD</label>
+		<input type="password" id="password">
 	</div>
 	<div class="withdrawal-btn">
 		<button type="button" onclick="withdrawal(${id});">WITHDRAWAL</button>

@@ -71,8 +71,6 @@ public class UserViewController {
         model.addAttribute("searchSort", request.getSearchSort());
         model.addAttribute("query", request.getQuery());
 
-        model.addAttribute("isAdmin", principal.getRole() == Role.ADMIN);
-
         return "membership";
     }
 }

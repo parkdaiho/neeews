@@ -1215,7 +1215,6 @@ main {
 }
 
 .membership-users-area {
-    padding: 5px;
     margin-top: 10px;
     border-bottom: 2px black solid;
 }
@@ -1284,6 +1283,62 @@ main {
 
 .user-btn button {
     width: 95%;
-    height: 95%;
+    height: 90%;
+    font-size: 1.6rem;
+}
+
+/* withdrawal */
+
+.withdrawal-area{
+    width: 100%;
+    padding: 10px;
+}
+
+.withdrawal-info-area {
+    padding: 15px;
+    border-bottom: 2px black solid;
+}
+
+.withdrawal-info-area h2 {
+    padding: 5px;
+    font-size: 2.0rem;
+    font-weight: bold;
+}
+
+.withdrawal-info-area p {
+    padding: 5px;
+    font-size: 1.8rem;
+}
+
+.withdrawal-password {
+    padding: 15px;
+    width: 60%;
+    border-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.withdrawal-password label {
+    padding: 5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.withdrawal-password input {
+    width: 60%;
+    padding: 10px;
+    font-size: 1.6rem;
+}
+
+.withdrawal-btn {
+    width: 60%;
+    padding: 15px;
+    display: flex;
+    justify-content: end;
+}
+
+.withdrawal-btn button {
+    padding: 10px;
     font-size: 1.6rem;
 }
