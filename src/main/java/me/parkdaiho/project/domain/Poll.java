@@ -2,6 +2,7 @@ package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.user.User;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

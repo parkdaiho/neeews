@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
-import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;

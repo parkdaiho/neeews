@@ -1,7 +1,8 @@
-package me.parkdaiho.project.domain;
+package me.parkdaiho.project.domain.article;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.parkdaiho.project.domain.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,9 @@ public class Article extends BaseEntity implements Pollable, IncludingComments {
     private Long good;
 
     private Long bad;
+
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Clipping> clippings;
 
     @PrePersist
     public void prePersist() {

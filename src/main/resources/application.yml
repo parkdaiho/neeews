@@ -83,6 +83,8 @@ pagination :
   notice-per-page: 20
   fixed-notice-per-page: 5
   notice-pages-per-block: 10
+  clippings-per-page: 10
+  clippings-pages-per-block: 10
 
   page-name: "page"
   total-pages-name: "totalPages"

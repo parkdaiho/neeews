@@ -1,9 +1,8 @@
 package me.parkdaiho.project.dto.article;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import me.parkdaiho.project.domain.Article;
+import me.parkdaiho.project.domain.article.Article;
 
 @Getter
 @Setter

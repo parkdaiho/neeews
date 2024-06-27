@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.*;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.PollRequest;
 import me.parkdaiho.project.repository.PollRepository;

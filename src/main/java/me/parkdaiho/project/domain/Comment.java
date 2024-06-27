@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.user.User;
 
 import java.util.ArrayList;

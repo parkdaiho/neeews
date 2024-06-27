@@ -1,6 +1,6 @@
-package me.parkdaiho.project.repository;
+package me.parkdaiho.project.repository.article;
 
-import me.parkdaiho.project.domain.Article;
+import me.parkdaiho.project.domain.article.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

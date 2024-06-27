@@ -31,6 +31,9 @@ public class PaginationProperties {
     private Integer newsItemsPerPage;
     private Integer newsPagesPerBlock;
 
+    private Integer clippingsPerPage;
+    private Integer clippingsPagesPerBlock;
+
     private String pageName;
     private String totalPagesName;
     private String totalElementsName;

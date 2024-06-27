@@ -3,6 +3,7 @@ package me.parkdaiho.project.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 import me.parkdaiho.project.domain.*;
+import me.parkdaiho.project.domain.article.Clipping;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
@@ -52,6 +53,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "writer")
     private List<Notice> noticeList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Clipping> clippings;
 
     @PrePersist
     public void prePersist() {

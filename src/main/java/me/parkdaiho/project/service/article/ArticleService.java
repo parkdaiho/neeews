@@ -4,13 +4,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
-import me.parkdaiho.project.domain.Article;
+import me.parkdaiho.project.domain.article.Article;
+import me.parkdaiho.project.domain.article.Clipping;
+import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.article.*;
-import me.parkdaiho.project.repository.ArticleRepository;
+import me.parkdaiho.project.repository.article.ArticleRepository;
+import me.parkdaiho.project.repository.article.ClippingRepository;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,11 +37,11 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final NaverNewsCrawler naverNewsCrawler;
+    private final ClippingRepository clippingRepository;
 
     private final PaginationProperties paginationProperties;
 
     public SearchNaverNewsResponse getSearchNewsResult(SearchedArticlesRequest dto) {
-
         RestTemplate restTemplate = new RestTemplate();
 
         URI uri = UriComponentsBuilder.fromUriString("http://localhost:8080")
@@ -197,5 +201,53 @@ public class ArticleService {
 
         return articles.stream()
                 .map(entity -> new ArticlesResponse(entity)).toList();
+    }
+
+    public void addClippingsToModel(Integer page, PrincipalDetails principal, Model model) {
+        if(page == null) page = 1;
+
+        Page<Clipping> clippings = getClippingsByUser(page, principal.getUser());
+        List<ArticlesResponse> articles = clippings.stream()
+                .map(entity -> new ArticlesResponse(entity.getArticle())).toList();
+
+        model.addAttribute("articles", articles);
+
+        paginationProperties.addPaginationAttributesToModel(clippings, model, paginationProperties.getClippingsPagesPerBlock());
+    }
+
+    private Page<Clipping> getClippingsByUser(Integer page, User user) {
+        Pageable pageable = PageRequest.of(page - 1, paginationProperties.getClippingsPerPage(),
+                Sort.Direction.DESC);
+
+        return clippingRepository.findClippingByUser(user, pageable);
+    }
+
+    @Transactional
+    public void clippingArticle(Long id, PrincipalDetails principal) {
+        Clipping clipping = new Clipping(findArticleById(id), principal.getUser());
+        clippingRepository.save(clipping);
+    }
+
+    @Transactional
+    public void cancelClipping(Long id, PrincipalDetails principal) {
+        Clipping clipping = getClippingByArticleAndUser(findArticleById(id), principal.getUser());
+
+        clippingRepository.delete(clipping);
+    }
+
+    private Clipping getClippingByArticleAndUser(Article article, User user) {
+        return clippingRepository.findClippingByArticleAndUser(article, user)
+                .orElseThrow(() -> new IllegalArgumentException("Not clipped"));
+    }
+
+
+    public Boolean getIsClipped(Long id, PrincipalDetails principal) {
+        try {
+            getClippingByArticleAndUser(findArticleById(id), principal.getUser());
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
     }
 }

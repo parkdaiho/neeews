@@ -1,6 +1,6 @@
 package me.parkdaiho.project.repository;
 
-import me.parkdaiho.project.domain.Article;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.Comment;
 import me.parkdaiho.project.domain.Notice;
 import me.parkdaiho.project.domain.Post;

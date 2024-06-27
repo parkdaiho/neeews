@@ -1,8 +1,10 @@
 package me.parkdaiho.project.controller;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
 import me.parkdaiho.project.dto.article.SearchedArticlesRequest;
@@ -11,8 +13,8 @@ import me.parkdaiho.project.dto.article.ArticleViewResponse;
 import me.parkdaiho.project.dto.article.SearchNaverNewsResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.article.ArticleService;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,6 +53,7 @@ public class ArticleViewController {
     @GetMapping("/articles/{id}")
     public String articleView(@PathVariable Long id,
                               HttpServletRequest request, HttpServletResponse response,
+                              @Nullable @AuthenticationPrincipal PrincipalDetails principal,
                               Model model) {
         ArticleViewResponse article = articleService.getArticleView(id, request, response);
         Page<CommentViewResponse> comments = commentService.getDefaultComments(id, Domain.ARTICLE);
@@ -58,6 +61,7 @@ public class ArticleViewController {
         articleService.addArticleToModel(article, model);
         commentService.addCommentsInfoToModel(comments, model);
 
+        model.addAttribute("isClipped", articleService.getIsClipped(id, principal));
         model.addAttribute("order", Order.LATEST.getValue());
         model.addAttribute("domain", Domain.ARTICLE.getDomainPl());
 
@@ -78,5 +82,15 @@ public class ArticleViewController {
         return "comments-area";
     }
 
+    @GetMapping("/clippings")
+    public String clippingsView(Integer page,
+                                @Nullable @AuthenticationPrincipal PrincipalDetails principal,
+                                Model model) {
+        if(principal == null) return "clippings";
+
+        articleService.addClippingsToModel(page, principal, model);
+
+        return "clippings";
+    }
 }
 
