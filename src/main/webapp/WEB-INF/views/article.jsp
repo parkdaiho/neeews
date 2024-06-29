@@ -66,14 +66,16 @@
 		</div>
 	</section>
 	<section class="article-btn-area">
-		<c:choose>
-			<c:when test="${!isClipped}">
-				<button onclick="cancelClipping();">CANCEL CLIPPING</button>
-			</c:when>
-			<c:otherwise>
-				<button onclick="clippingArticle();">CLIPPING</button>
-			</c:otherwise>
-		</c:choose>
+		<c:if test="${login}">
+			<c:choose>
+				<c:when test="${isClipped}">
+					<button onclick="cancelClipping();">CANCEL CLIPPING</button>
+				</c:when>
+				<c:otherwise>
+					<button class="add" onclick="clippingArticle();">CLIPPING</button>
+				</c:otherwise>
+			</c:choose>
+		</c:if>
 	</section>
 	<section class="comments-area" id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>

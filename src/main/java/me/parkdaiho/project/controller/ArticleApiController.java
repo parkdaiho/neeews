@@ -25,17 +25,17 @@ public class ArticleApiController {
     }
 
     @PostMapping("/api/clipping")
-    public ResponseEntity<Void> clippingArticle(@RequestBody Long id,
+    public ResponseEntity<Void> clippingArticle(@RequestBody ClippingRequest request,
                                                 @AuthenticationPrincipal PrincipalDetails principal) {
-        articleService.clippingArticle(id, principal);
+        articleService.clippingArticle(request, principal);
 
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/api/clipping")
-    public ResponseEntity<Void> cancelClipping(@RequestBody Long id,
+    public ResponseEntity<Void> cancelClipping(@RequestBody ClippingRequest request,
                                                @AuthenticationPrincipal PrincipalDetails principal) {
-        articleService.clippingArticle(id, principal);
+        articleService.clippingArticle(request, principal);
 
         return ResponseEntity.ok().build();
     }

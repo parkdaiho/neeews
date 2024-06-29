@@ -8,7 +8,7 @@ function cancelClipping() {
 
 function clickClippingBtn(method) {
     let body = JSON.stringify({
-        "id": id,
+        "articleId": id,
     });
 
     function success() {
