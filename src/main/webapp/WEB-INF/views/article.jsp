@@ -66,7 +66,14 @@
 		</div>
 	</section>
 	<section class="article-btn-area">
-		<button onclick="">CLIPPING</button>
+		<c:choose>
+			<c:when test="${!isClipped}">
+				<button onclick="cancelClipping();">CANCEL CLIPPING</button>
+			</c:when>
+			<c:otherwise>
+				<button onclick="clippingArticle();">CLIPPING</button>
+			</c:otherwise>
+		</c:choose>
 	</section>
 	<section class="comments-area" id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>
@@ -76,6 +83,7 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>
 
+<script src="/js/article.js"></script>
 <script src="/js/comments-area.js"></script>
 
 </body>

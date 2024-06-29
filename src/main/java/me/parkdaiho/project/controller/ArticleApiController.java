@@ -24,11 +24,19 @@ public class ArticleApiController {
         return ResponseEntity.created(URI.create("/articles/" + articleId)).build();
     }
 
-    @PostMapping("/api/clip/{id}")
-    public ResponseEntity<Void> clipArticle(@PathVariable Long id,
-                                            @AuthenticationPrincipal PrincipalDetails principal) {
+    @PostMapping("/api/clipping")
+    public ResponseEntity<Void> clippingArticle(@RequestBody Long id,
+                                                @AuthenticationPrincipal PrincipalDetails principal) {
         articleService.clippingArticle(id, principal);
 
-        return ResponseEntity.created(URI.create("/clippings")).build();
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/api/clipping")
+    public ResponseEntity<Void> cancelClipping(@RequestBody Long id,
+                                               @AuthenticationPrincipal PrincipalDetails principal) {
+        articleService.clippingArticle(id, principal);
+
+        return ResponseEntity.ok().build();
     }
 }
