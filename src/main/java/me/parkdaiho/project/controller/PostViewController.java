@@ -1,18 +1,18 @@
 package me.parkdaiho.project.controller;
 
+import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
-import me.parkdaiho.project.dto.post.ModifyViewResponse;
-import me.parkdaiho.project.dto.post.PostListViewResponse;
-import me.parkdaiho.project.dto.post.PostViewResponse;
-import me.parkdaiho.project.dto.post.SearchPostRequest;
+import me.parkdaiho.project.dto.post.*;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

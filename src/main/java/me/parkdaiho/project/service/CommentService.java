@@ -9,12 +9,14 @@ import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.dto.comment.AddCommentRequest;
 import me.parkdaiho.project.dto.comment.AddReplyRequest;
 import me.parkdaiho.project.dto.comment.CommentViewResponse;
+import me.parkdaiho.project.dto.comment.MyCommentResponse;
 import me.parkdaiho.project.repository.CommentRepository;
 import me.parkdaiho.project.service.article.ArticleService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -29,6 +31,7 @@ public class CommentService {
     private final NoticeService noticeService;
 
     private final PaginationProperties paginationProperties;
+    private final LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
     public Page<CommentViewResponse> getDefaultComments(Long id, Domain domain) {
         return getCommentView(1, Order.LATEST, id, domain);
@@ -130,5 +133,15 @@ public class CommentService {
         }
 
         commentRepository.delete(comment);
+    }
+
+    public void getMyCommentsToModel(Integer page, PrincipalDetails principal, Model model) {
+        Pageable pageable = PageRequest.of(page, paginationProperties.getMyCommentsPerPage(),
+                Sort.Direction.DESC);
+
+        Page<Comment> comments = commentRepository.findByWriter(pageable, principal.getUser());
+
+        model.addAttribute("comments", comments.map(entity -> new CommentViewResponse(entity)));
+        paginationProperties.addPaginationAttributesToModel(comments, model, paginationProperties.getMyCommentsPagesPerBlock());
     }
 }

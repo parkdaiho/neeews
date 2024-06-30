@@ -34,6 +34,12 @@ public class PaginationProperties {
     private Integer clippingsPerPage;
     private Integer clippingsPagesPerBlock;
 
+    private Integer myPostsPerPage;
+    private Integer myPostsPagesPerBlock;
+
+    private Integer myCommentsPerPage;
+    private Integer myCommentsPagesPerBlock;
+
     private String pageName;
     private String totalPagesName;
     private String totalElementsName;

@@ -47,6 +47,8 @@
 <script src="/js/membership.js"></script>
 <script src="/js/member-info.js"></script>
 <script src="/js/withdrawal.js"></script>
+<script src="/js/my-posts.js"></script>
+<script src="/js/my-comments.js"></script>
 
 </body>
 </html>

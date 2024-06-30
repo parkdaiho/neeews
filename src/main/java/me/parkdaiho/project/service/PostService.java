@@ -212,4 +212,14 @@ public class PostService {
         model.addAttribute("title", post.getTitle());
         model.addAttribute("text", post.getText());
     }
+
+    public void getMyPostsToModel(Integer page, PrincipalDetails principal, Model model) {
+        Pageable pageable = PageRequest.of(page, paginationProperties.getMyPostsPerPage(),
+                org.springframework.data.domain.Sort.Direction.DESC);
+
+        Page<Post> posts = postRepository.findByWriter(principal.getUser(), pageable);
+
+        model.addAttribute("posts", posts.map(entity -> new PostListViewResponse(entity)));
+        paginationProperties.addPaginationAttributesToModel(posts, model, paginationProperties.getMyPostsPagesPerBlock());
+    }
 }

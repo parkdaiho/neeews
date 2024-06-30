@@ -14,34 +14,30 @@
 		</div>
 	</div>
 	<div class="my-posts-list">
-		<div class="my-post-top">
-			<div class="my-post-id">
-				NUM
+		<c:forEach items="${posts}" var="post">
+			<div class="post-in-my-posts" onclick="showMyPost(${post.id});">
+				<div class="my-post-title">
+					${post.title}
+				</div>
+				<div class="my-post-figures">
+					<div class="my-post-figure">
+						${post.createdAt}
+					</div>
+					<div class="my-post-figure">
+						${post.views}
+					</div>
+					<div class="my-post-figure">
+						${post.commentsSize}
+					</div>
+					<div class="my-post-figure">
+						${post.good}
+					</div>
+					<div class="my-post-figure">
+						${post.bad}
+					</div>
+				</div>
 			</div>
-			<div class="my-post-top-title">
-				TITLE
-			</div>
-			<div class="my-post-created-at">
-				CREATED-AT
-			</div>
-			<div class="my-post-views">
-				VIEWS
-			</div>
-		</div>
-		<div class="post-in-my-posts">
-			<div class="my-post-id">
-				...
-			</div>
-			<div class="my-post-title">
-				...
-			</div>
-			<div class="my-post-created-at">
-				...
-			</div>
-			<div class="my-post-views">
-				...
-			</div>
-		</div>
+		</c:forEach>
 	</div>
 	<c:if test="${totalElements != 0}">
 		<jsp:include page="board-pagination.jsp"></jsp:include>

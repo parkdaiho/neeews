@@ -92,4 +92,22 @@ public class Comment extends BaseEntity implements Pollable, IncludingComments {
         comments.add(reply);
         commentsSize++;
     }
+
+    public Domain getParentDomain() {
+        if(parentComment != null) return parentComment.getParentDomain();
+
+        if(article != null) return Domain.ARTICLE;
+        if(post != null) return Domain.POST;
+
+        return Domain.NOTICE;
+    }
+
+    public Long getParentId() {
+        if(parentComment != null) return parentComment.getParentId();
+
+        if(article != null) return article.getId();
+        if(post != null) return post.getId();
+
+        return notice.getId();
+    }
 }
