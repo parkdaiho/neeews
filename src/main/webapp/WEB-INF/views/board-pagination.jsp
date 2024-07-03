@@ -14,7 +14,7 @@
 			<c:forEach var="i" begin="${startNumOfPageBlock}" end="${lastNumOfPageBlock}" step="1">
 				<c:choose>
 					<c:when test="${i == page}">
-						<li><a href="javascript: return fail;" class="on">${i}</a></li>
+						<li><a href="javascript: return fail;" class="selected-page">${i}</a></li>
 					</c:when>
 					<c:otherwise>
 						<li><a href="javascript: return fail;" onclick="getPages(${i}, '${order}', '${searchSort}', '${query}');">${i}</a></li>

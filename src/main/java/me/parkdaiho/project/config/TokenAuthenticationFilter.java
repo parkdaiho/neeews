@@ -33,6 +33,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         if(accessToken == null && refreshToken != null) {
             doFilterInternal(request, response, filterChain, refreshToken);
         } else {
+            request.setAttribute("login", false);
             filterChain.doFilter(request, response);
         }
     }

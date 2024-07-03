@@ -207,8 +207,8 @@ public class ArticleService {
         if(page == null) page = 1;
 
         Page<Clipping> clippings = getClippingsByUser(page, principal.getUser());
-        List<ArticlesResponse> articles = clippings.stream()
-                .map(entity -> new ArticlesResponse(entity.getArticle())).toList();
+        List<ClippingResponse> articles = clippings.stream()
+                .map(entity -> new ClippingResponse(entity.getArticle())).toList();
 
         model.addAttribute("articles", articles);
 
@@ -217,7 +217,7 @@ public class ArticleService {
 
     private Page<Clipping> getClippingsByUser(Integer page, User user) {
         Pageable pageable = PageRequest.of(page - 1, paginationProperties.getClippingsPerPage(),
-                Sort.Direction.DESC);
+                Sort.by(Sort.Direction.DESC, "id"));
 
         return clippingRepository.findClippingByUser(user, pageable);
     }
@@ -225,6 +225,7 @@ public class ArticleService {
     @Transactional
     public void clippingArticle(ClippingRequest request, PrincipalDetails principal) {
         Clipping clipping = new Clipping(findArticleById(request.getArticleId()), principal.getUser());
+
         clippingRepository.save(clipping);
     }
 

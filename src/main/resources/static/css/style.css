@@ -318,9 +318,16 @@ main {
 }
 
 .board-pagination ul li {
+    display: flex;
+    align-items: center;
     width: 7%;
     margin-left: 5px;
     font-size: 1.8rem;
+}
+
+.selected-page {
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 /* articles */
@@ -826,6 +833,7 @@ main {
 
 .posts-info-area {
     display: flex;
+    align-items: center;
     border-bottom: 2px black solid;
     padding: 15px;
 }
@@ -1347,4 +1355,73 @@ main {
 
 /* clippings */
 
+.clippings-area {
+    border-bottom: 3px black solid;
+}
 
+.clippings-btn-area {
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.clippings-btn-area button {
+    margin-left: 5px;
+}
+
+.clippings-info-area {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px black solid;
+    padding: 25px 15px 15px 15px;
+    font-size: 2.0rem;
+}
+
+.clippings-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.clipping-list-top {
+    display: flex;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px black solid;
+    padding: 5px;
+}
+
+.clipping-checkbox {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+    padding: 5px;
+}
+
+.clipping-top-title {
+    width: 75%;
+    padding: 5px;
+    text-align: center;
+}
+
+.clipping-title {
+    width: 75%;
+    padding: 5px 10px;
+    text-align: start;
+    overflow: hidden;
+}
+
+.clipping-pubdate {
+    width: 15%;
+    padding: 5px;
+    text-align: center;
+}
+
+.clipping-in-list {
+    display: flex;
+    cursor: pointer;
+    text-align: center;
+    font-size: 2.0rem;
+    padding: 5px;
+    border-bottom: 1px lightgrey solid;
+}

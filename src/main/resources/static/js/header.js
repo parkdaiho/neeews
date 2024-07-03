@@ -15,3 +15,7 @@ function logout() {
 
     form.submit();
 }
+
+function clippings(login) {
+    location.replace("/clippings");
+}

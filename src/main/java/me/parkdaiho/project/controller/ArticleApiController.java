@@ -35,7 +35,7 @@ public class ArticleApiController {
     @DeleteMapping("/api/clipping")
     public ResponseEntity<Void> cancelClipping(@RequestBody ClippingRequest request,
                                                @AuthenticationPrincipal PrincipalDetails principal) {
-        articleService.clippingArticle(request, principal);
+        articleService.cancelClipping(request, principal);
 
         return ResponseEntity.ok().build();
     }
