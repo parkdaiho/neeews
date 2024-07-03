@@ -29,3 +29,9 @@ function cancelClipping() {
 
     apiRequest(url, Method.DELETE, body, getHeaders(true), success, fail);
 }
+
+function showClipping(articleId) {
+    let url = "/articles/" + articleId;
+
+    location.replace(url);
+}

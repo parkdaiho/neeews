@@ -36,10 +36,10 @@
 						<div class="clipping-checkbox">
 							<input type="checkbox" class="clippings-checkbox" id="clipping-${clipping.id}">
 						</div>
-						<div class="clipping-title">
+						<div class="clipping-title" onclick="showClipping(${clipping.id});">
 							${clipping.title}
 						</div>
-						<div class="clipping-pubdate">
+						<div class="clipping-pubdate" onclick="showClipping(${clipping.id});">
 							${clipping.pubDate}
 						</div>
 				</div>

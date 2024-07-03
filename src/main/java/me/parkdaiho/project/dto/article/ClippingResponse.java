@@ -18,6 +18,7 @@ public class ClippingResponse {
 
         this.id = article.getId();
         this.title = article.getTitle();
+
         LocalDateTime pubDate = LocalDateTime.parse(article.getPubDate().trim(), formatter);
         this.pubDate = pubDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
