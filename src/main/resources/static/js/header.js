@@ -16,6 +16,6 @@ function logout() {
     form.submit();
 }
 
-function clippings(login) {
+function clippingsPage(login) {
     location.replace("/clippings");
 }

@@ -13,7 +13,7 @@
 <nav class="header-middle-area">
 	<ul>
 		<li><a href="/articles">ARTICLES</a></li>
-		<li><a href="javascript:return false;" onclick="clippings(${login});">CLIPPINGS</a></li>
+		<li><a href="javascript:return false;" onclick="clippingsPage(${login});">CLIPPINGS</a></li>
 		<li><a href="/posts">COMMUNITY</a></li>
 		<li><a href="/notice-list">NOTICE</a></li>
 	</ul>

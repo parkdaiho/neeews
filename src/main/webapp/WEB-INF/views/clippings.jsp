@@ -47,7 +47,7 @@
 		</div>
 	</div>
 	<section class="clippings-btn-area">
-		<button onclick="">CANCEL CLIPPING</button>
+		<button onclick="cancelClipping();">CANCEL CLIPPING</button>
 	</section>
 	<c:if test="${totalElements != 0}">
 		<jsp:include page="board-pagination.jsp"></jsp:include>
@@ -57,7 +57,7 @@
 	<jsp:include page="footer.jsp"></jsp:include>
 </footer>
 
-<script src="/js/searched-articles.js"></script>
+<script src="/js/clippings.js"></script>
 
 </body>
 </html>

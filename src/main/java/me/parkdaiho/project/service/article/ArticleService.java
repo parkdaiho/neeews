@@ -224,16 +224,20 @@ public class ArticleService {
 
     @Transactional
     public void clippingArticle(ClippingRequest request, PrincipalDetails principal) {
-        Clipping clipping = new Clipping(findArticleById(request.getArticleId()), principal.getUser());
+        for(Long articleId : request.getArticleIdArr()) {
+            Clipping clipping = new Clipping(findArticleById(articleId), principal.getUser());
 
-        clippingRepository.save(clipping);
+            clippingRepository.save(clipping);
+        }
     }
 
     @Transactional
     public void cancelClipping(ClippingRequest request, PrincipalDetails principal) {
-        Clipping clipping = getClippingByArticleAndUser(findArticleById(request.getArticleId()), principal.getUser());
+        for(Long articleId : request.getArticleIdArr()) {
+            Clipping clipping = getClippingByArticleAndUser(findArticleById(articleId), principal.getUser());
 
-        clippingRepository.delete(clipping);
+            clippingRepository.delete(clipping);
+        }
     }
 
     private Clipping getClippingByArticleAndUser(Article article, User user) {

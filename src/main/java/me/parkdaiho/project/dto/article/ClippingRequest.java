@@ -7,5 +7,5 @@ import lombok.Setter;
 @Setter
 public class ClippingRequest {
 
-    private Long articleId;
+    private Long[] articleIdArr;
 }
