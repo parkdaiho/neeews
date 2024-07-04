@@ -1433,7 +1433,8 @@ main {
     width: 100%;
     padding: 10px;
 }
-.my-posts-info {
+
+.my-posts-info-area {
     padding: 10px;
     display: flex;
     align-items: center;
@@ -1445,7 +1446,6 @@ main {
 }
 
 .my-posts-list {
-    margin-top: 10px;
     border-bottom: 2px black solid;
 }
 
@@ -1473,6 +1473,56 @@ main {
 }
 
 .my-post-figure {
+    font-size: 1.4rem;
+    margin-right: 5px;
+}
+
+/* my-comments */
+
+.my-comments-area{
+    width: 100%;
+    padding: 10px;
+}
+
+.my-comments-info-area {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px black solid;
+}
+
+.my-comments-total-comments {
+    font-size: 2.2rem;
+}
+
+.my-comments-list {
+    border-bottom: 2px black solid;
+}
+
+.comment-in-my-comments {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px black solid;
+}
+
+.my-comments-contents{
+    padding: 5px;
+    font-size: 1.8rem;
+    overflow: hidden;
+    border-bottom: 1px lightgrey solid;
+}
+
+.my-comments-figures {
+    padding: 5px;
+    display: flex;
+}
+
+.my-comments-created-at {
+    font-size: 1.6rem;
+    margin-right: 10px;
+}
+
+.my-comments-figure {
     font-size: 1.4rem;
     margin-right: 5px;
 }

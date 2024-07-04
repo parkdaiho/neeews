@@ -8,14 +8,14 @@
 </head>
 <body>
 <div class="my-comments-area">
-	<div class="my-comments-info">
-		<div class="my-comments-total-posts">
+	<div class="my-comments-info-area">
+		<div class="my-comments-total-comments">
 			TOTAL <b>${totalElements}</b> COMMENTS
 		</div>
 	</div>
 	<div class="my-comments-list">
 		<c:forEach items="${comments}" var="comment">
-			<div class="my-comment-in-list" onclick="showMyComment('${comment.domain}', ${comment.parentId});">
+			<div class="comment-in-my-comments" onclick="showMyComment('${comment.domain}', ${comment.parentId});">
 				<div class="my-comments-contents">
 					${comment.contents}
 				</div>
@@ -31,9 +31,8 @@
 					</div>
 				</div>
 			</div>
-			</c:forEach>
+		</c:forEach>
 	</div>
-</div>
 	<c:if test="${totalElements != 0}">
 		<jsp:include page="board-pagination.jsp"></jsp:include>
 	</c:if>
