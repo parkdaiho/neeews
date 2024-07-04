@@ -20,14 +20,14 @@
 					${comment.contents}
 				</div>
 				<div class="my-comments-figures">
-					<div class="my-comments-figure">
+					<div class="my-comments-created-at">
 						${comment.createdAt}
 					</div>
 					<div class="my-comments-figure">
-						${comment.good}
+						<b>좋아요</b>&nbsp;&nbsp;${comment.good}
 					</div>
 					<div class="my-comments-figure">
-						${comment.bad}
+						<b>싫어요</b>&nbsp;&nbsp;${comment.bad}
 					</div>
 				</div>
 			</div>

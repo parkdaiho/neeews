@@ -11,6 +11,7 @@ import me.parkdaiho.project.dto.user.MembershipViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
 import me.parkdaiho.project.service.user.UserService;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -64,9 +65,6 @@ public class UserViewController {
     public String memberShipPage(MembershipSearchRequest request,
                                  @AuthenticationPrincipal PrincipalDetails principal,
                                  Model model) {
-        if(request.getPage() == null) request.setPage(1);
-        if(request.getSort() == null || request.getSort().isBlank()) request.setSort(Sort.ALL.getProperty());
-
         Page<MembershipViewResponse> users = userService.getUsers(request, principal);
 
         userService.addAttributesForMembership(users, model);
@@ -84,8 +82,6 @@ public class UserViewController {
     public String myPostsPage(@Nullable Integer page,
                               @AuthenticationPrincipal PrincipalDetails principal,
                               Model model) {
-        if(page == null) page = 1;
-
         postService.getMyPostsToModel(page, principal, model);
 
         return "my-posts";
@@ -95,8 +91,6 @@ public class UserViewController {
     public String myCommentsPage(@Nullable Integer page,
                                  @AuthenticationPrincipal PrincipalDetails principal,
                                  Model model) {
-        if (page == null) page = 1;
-
         commentService.getMyCommentsToModel(page, principal, model);
 
         return "my-comments";

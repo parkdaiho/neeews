@@ -61,10 +61,10 @@
 							<div class="article-summary-description">
 									${article.description}
 							</div>
-							<div class="article-summary-pubdate">
-									${article.pubDate}
-							</div>
 							<div class="article-summary-figures">
+								<div class="article-summary-pubdate">
+										${article.pubDate}
+								</div>
 								<div class="article-summary-figure">
 									<b>조회수</b>&nbsp;&nbsp;${article.views}
 								</div>

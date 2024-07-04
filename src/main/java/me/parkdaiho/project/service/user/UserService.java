@@ -72,6 +72,9 @@ public class UserService {
     }
 
     public Page<MembershipViewResponse> getUsers(MembershipSearchRequest request, PrincipalDetails principal) {
+        if(request.getPage() == null) request.setPage(1);
+        if(request.getSort() == null || request.getSort().isBlank()) request.setSort(Sort.ALL.getProperty());
+
         if(principal.getRole().getIsUser()) throw new IllegalArgumentException("Non-Authority");
 
         Pageable pageable = PageRequest.of(request.getPage() - 1, paginationProperties.getUsersPerPage());

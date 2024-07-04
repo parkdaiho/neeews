@@ -336,6 +336,7 @@ main {
     padding: 10px;
     border-bottom: 1px black solid;
     display: flex;
+    align-items: center;
 }
 
 .article-list-info h2 {
@@ -386,9 +387,8 @@ main {
 }
 
 .article-summary-pubdate {
-    padding: 10px;
-    border-bottom: 1px lightgrey solid;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
+    margin-right: 10px;
 }
 
 .article-summary-figures {
@@ -1215,10 +1215,7 @@ main {
 }
 
 .membership-total-users {
-    font-size: 1.8rem;
-}
-
-.membership-total-users {
+    font-size: 2.2rem;
     margin-right: 10px;
 }
 
@@ -1428,4 +1425,54 @@ main {
     font-size: 2.0rem;
     padding: 5px;
     border-bottom: 1px lightgrey solid;
+}
+
+/* my-posts */
+
+.my-posts-area{
+    width: 100%;
+    padding: 10px;
+}
+.my-posts-info {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px black solid;
+}
+
+.my-posts-total-posts{
+    font-size: 2.2rem;
+}
+
+.my-posts-list {
+    margin-top: 10px;
+    border-bottom: 2px black solid;
+}
+
+.post-in-my-posts {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px black solid;
+}
+
+.my-post-title {
+    padding: 5px;
+    font-size: 1.8rem;
+    overflow: hidden;
+    border-bottom: 1px lightgrey solid;
+}
+
+.my-post-figures {
+    padding: 5px;
+    display: flex;
+}
+
+.my-post-created-at {
+    font-size: 1.6rem;
+    margin-right: 10px;
+}
+
+.my-post-figure {
+    font-size: 1.4rem;
+    margin-right: 5px;
 }

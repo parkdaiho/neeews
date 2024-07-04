@@ -29,8 +29,8 @@
 				<c:if test="${isManager}">
 					<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', '', '');">MEMBERSHIP</a></li>
 				</c:if>
-				<li><a href="javascript:return false;" onclick="">MY-POSTS</a></li>
-				<li><a href="javascript:return false;" onclick="">MY-COMMENTS</a></li>
+				<li><a href="javascript:return false;" onclick="getMyPostsPage(1);">MY-POSTS</a></li>
+				<li><a href="javascript:return false;" onclick="getMyCommentsPage(1);">MY-COMMENTS</a></li>
 				<li><a href="javascript:return false;" onclick="getWithdrawalPage(${id});">WITHDRAWAL</a></li>
 			</ul>
 		</nav>

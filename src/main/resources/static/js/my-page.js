@@ -24,6 +24,24 @@ function getMembershipPage(page, sort, searchSort, query) {
     getPageInMyPage(url, "MEMBERSHIP");
 }
 
+function getMyPostsPage(page) {
+    let param = new URLSearchParams({
+        "page": page,
+    });
+    let url = "/my-page/my-posts?" + param;
+
+    getPageInMyPage(url, "MY-POSTS");
+}
+
+function getMyCommentsPage(page) {
+    let param = new URLSearchParams({
+        "page": page,
+    });
+    let url = "/my-page/my-comments?" + param;
+
+    getPageInMyPage(url, "MY-COMMENTS");
+}
+
 function getPageInMyPage(url, pageName) {
     fetch(url, {
         method: Method.GET,

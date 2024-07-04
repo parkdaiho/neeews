@@ -136,12 +136,14 @@ public class CommentService {
     }
 
     public void getMyCommentsToModel(Integer page, PrincipalDetails principal, Model model) {
+        if (page == null) page = 1;
+
         Pageable pageable = PageRequest.of(page, paginationProperties.getMyCommentsPerPage(),
-                Sort.Direction.DESC);
+                Sort.by(Sort.Direction.DESC, "id"));
 
         Page<Comment> comments = commentRepository.findByWriter(pageable, principal.getUser());
 
-        model.addAttribute("comments", comments.map(entity -> new CommentViewResponse(entity)));
+        model.addAttribute("comments", comments.map(entity -> new CommentViewResponse(entity)).toList());
         paginationProperties.addPaginationAttributesToModel(comments, model, paginationProperties.getMyCommentsPagesPerBlock());
     }
 }

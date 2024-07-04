@@ -3,3 +3,8 @@ function showMyPost(postId) {
 
     location.replace(url);
 }
+
+function getPages(page, sort, searchSort, query) {
+
+    getMyPostsPage(page);
+}

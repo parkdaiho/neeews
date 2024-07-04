@@ -203,7 +203,8 @@ public class ArticleService {
                 .map(entity -> new ArticlesResponse(entity)).toList();
     }
 
-    public void addClippingsToModel(Integer page, PrincipalDetails principal, Model model) {
+    public void addClippingsToModel(Integer page, PrincipalDetails principal,
+                                    Model model) {
         if(page == null) page = 1;
 
         Page<Clipping> clippings = getClippingsByUser(page, principal.getUser());

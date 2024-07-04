@@ -3,6 +3,7 @@ package me.parkdaiho.project.controller;
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Domain;
@@ -83,7 +84,7 @@ public class ArticleViewController {
     }
 
     @GetMapping("/clippings")
-    public String clippingsView(Integer page,
+    public String clippingsView(@Nullable Integer page,
                                 @Nullable @AuthenticationPrincipal PrincipalDetails principal,
                                 Model model) {
         if(principal == null) return "clippings";
