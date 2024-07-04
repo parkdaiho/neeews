@@ -216,11 +216,11 @@ public class PostService {
     public void getMyPostsToModel(Integer page, PrincipalDetails principal, Model model) {
         if(page == null) page = 1;
 
-        Pageable pageable = PageRequest.of(page, paginationProperties.getMyPostsPerPage(),
+        Pageable pageable = PageRequest.of(page - 1, paginationProperties.getMyPostsPerPage(),
                 org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC, "id"));
 
         Page<MyPostResponse> posts = postRepository.findByWriter(principal.getUser(), pageable)
-                .map(entity -> new MyPostResponse(entity));
+                        .map(entity -> new MyPostResponse(entity));
 
         model.addAttribute("posts", posts.getContent());
         paginationProperties.addPaginationAttributesToModel(posts, model, paginationProperties.getMyPostsPagesPerBlock());

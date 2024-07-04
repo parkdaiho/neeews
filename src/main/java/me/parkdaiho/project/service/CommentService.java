@@ -138,7 +138,7 @@ public class CommentService {
     public void getMyCommentsToModel(Integer page, PrincipalDetails principal, Model model) {
         if (page == null) page = 1;
 
-        Pageable pageable = PageRequest.of(page, paginationProperties.getMyCommentsPerPage(),
+        Pageable pageable = PageRequest.of(page - 1, paginationProperties.getMyCommentsPerPage(),
                 Sort.by(Sort.Direction.DESC, "id"));
 
         Page<MyCommentResponse> comments = commentRepository.findByWriter(pageable, principal.getUser())
