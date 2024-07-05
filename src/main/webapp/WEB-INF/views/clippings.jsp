@@ -46,10 +46,10 @@
 			</c:forEach>
 		</div>
 	</div>
-	<section class="clippings-btn-area">
-		<button onclick="cancelClipping();">CANCEL CLIPPING</button>
-	</section>
 	<c:if test="${totalElements != 0}">
+		<section class="clippings-btn-area">
+			<button onclick="cancelClipping();">CANCEL CLIPPING</button>
+		</section>
 		<jsp:include page="board-pagination.jsp"></jsp:include>
 	</c:if>
 </main>

@@ -42,7 +42,23 @@
 		<div class="index-middle-contents">
 			<ul>
 				<c:forEach var="item" items="${items}">
-					<li><a href="${item.link}">${item.title}</a><span>${item.figure}</span></li>
+					<li>
+						<a href="${item.link}">${item.title}</a>
+						<span>
+							<c:choose>
+								<c:when test="${order == 'views'}">
+									조회수
+								</c:when>
+								<c:when test="${order == 'popularity'}">
+									좋아요
+								</c:when>
+								<c:otherwise>
+									댓글수
+								</c:otherwise>
+							</c:choose>
+								&nbsp;&nbsp;${item.figure}
+						</span>
+					</li>
 				</c:forEach>
 			</ul>
 		</div>

@@ -33,7 +33,7 @@
 			<div class="index-middle-info">
 				<h2><span id="index-articles-modifier">MOST-VIEWED</span>&nbsp;ARTICLES</h2>
 				<select onchange="getIndexArticles(this.value);">
-					<option value="views">MOST-VIEWED</option>
+					<option value="views" selected>MOST-VIEWED</option>
 					<option value="popularity">MOST-POPULAR</option>
 					<option value="comments">MOST-COMMENTS</option>
 				</select>
@@ -41,16 +41,19 @@
 			<div class="index-middle-contents">
 				<ul>
 					<c:forEach var="article" items="${articles}">
-						<li><a href="${article.link}">${article.title}</a><span>${article.figure}</span></li>
+						<li>
+							<a href="${article.link}">${article.title}</a>
+							<span>조회수&nbsp;&nbsp;${article.figure}</span>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
 		</div>
 		<div class="index-middle-part" id="index-posts-part">
 			<div class="index-middle-info">
-				<h2><span class="index-middle-info-modifier" id="index-posts-modifier">MOST-VIEWED</span>&nbsp;POSTS</h2>
+				<h2><span id="index-posts-modifier">MOST-VIEWED</span>&nbsp;POSTS</h2>
 				<select onchange="getIndexPosts(this.value);">
-					<option value="views">MOST-VIEWED</option>
+					<option value="views" selected>MOST-VIEWED</option>
 					<option value="popularity">MOST-POPULAR</option>
 					<option value="comments">MOST-COMMENTS</option>
 				</select>
@@ -58,7 +61,10 @@
 			<div class="index-middle-contents">
 				<ul>
 					<c:forEach var="post" items="${posts}">
-						<li><a href="${post.link}">${post.title}</a><span>${post.figure}</span></li>
+						<li>
+							<a href="${post.link}">${post.title}</a>
+							<span>조회수&nbsp;&nbsp;${post.figure}</span>
+						</li>
 					</c:forEach>
 				</ul>
 			</div>
