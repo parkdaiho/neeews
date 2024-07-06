@@ -6,7 +6,11 @@
 	<title>Index</title>
 	<link rel="stylesheet" href="/css/css.css">
 </head>
-<body onload="storeAccessToken('${token}');">
+<body
+		<c:if test="${token != null}">
+			onload="storeAccessToken('${token}');"
+		</c:if>
+>
 <div class="header-logo">
 	<a href="/">LOGO</a>
 </div>

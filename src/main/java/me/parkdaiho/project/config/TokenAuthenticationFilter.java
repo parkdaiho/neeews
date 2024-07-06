@@ -23,32 +23,29 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
         String accessToken = tokenService.getAccessTokenByRequest(request);
+        String refreshToken = tokenService.getRefreshTokenByRequest(request);
 
         Authentication authentication = null;
-        if (accessToken != null) {
-            authentication = getAuthentication(request, accessToken);
-        }
 
-        String refreshToken = tokenService.getRefreshTokenByRequest(request);
-        if(accessToken == null && refreshToken != null) {
-            doFilterInternal(request, response, filterChain, refreshToken);
+        if (accessToken != null) {
+            authentication = getAuthenticationByAccessToken(request, accessToken);
+        } else if (refreshToken != null) {
+            authentication = getAuthenticationByRefreshToken(request, refreshToken);
         } else {
             request.setAttribute("login", false);
-            filterChain.doFilter(request, response);
         }
-    }
-
-    private void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain,
-                                  String refreshToken) throws ServletException, IOException {
-        String accessToken = tokenService.getAccessTokenByRefreshToken(refreshToken);
-        request.setAttribute("token", accessToken);
-
-        getAuthentication(request, accessToken);
 
         filterChain.doFilter(request, response);
     }
 
-    private Authentication getAuthentication(HttpServletRequest request, String accessToken) {
+    private Authentication getAuthenticationByRefreshToken(HttpServletRequest request, String refreshToken) throws ServletException, IOException {
+        String accessToken = tokenService.getAccessTokenByRefreshToken(refreshToken);
+        request.setAttribute("token", accessToken);
+
+        return getAuthenticationByAccessToken(request, accessToken);
+    }
+
+    private Authentication getAuthenticationByAccessToken(HttpServletRequest request, String accessToken) {
         Authentication authentication = tokenService.getAuthenticationByAccessToken(accessToken);
         if (authentication == null) return null;
 
