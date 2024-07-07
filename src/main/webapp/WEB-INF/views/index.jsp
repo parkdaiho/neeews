@@ -12,7 +12,7 @@
 </header>
 <main>
 	<section class="index-info-area">
-		<h1>Find articles and posts you interested in!</h1>
+		<h1>Search articles and posts you interested in!</h1>
 		<form action="/searched-articles" method="get" id="index-form">
 			<div class="index-search-box">
 				<select name="domain" onchange="changeSearchDomain(this.value);">

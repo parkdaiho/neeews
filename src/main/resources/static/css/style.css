@@ -127,7 +127,7 @@ main {
 
 .index-info-area h1 {
     margin-bottom: 20px;
-    font-size: 5.0rem;
+    font-size: 4.0rem;
 }
 
 .index-search-box {
@@ -208,15 +208,16 @@ main {
 
 .index-middle-contents ul li {
     display: flex;
+    align-items: center;
     padding: 10px 0;
     font-size: 1.8rem;
     border-bottom: 1px solid lightgrey;
 }
 
 .index-middle-contents ul li a {
+    padding: 5px;
     display: inline-block;
     width: 80%;
-    height: 2.2rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -468,7 +469,7 @@ main {
 }
 
 .article-contents {
-    padding: 20px 10px;
+    padding: 25px 10px;
 }
 
 .article-contents-images {
@@ -989,7 +990,7 @@ main {
 }
 
 .post-contents {
-    padding: 10px;
+    padding: 25px 10px;
 }
 
 .post-contents-images {
@@ -1498,6 +1499,7 @@ main {
     font-weight: bold;
     overflow: hidden;
     border-bottom: 1px lightgrey solid;
+    cursor: pointer;
 }
 
 .my-post-figures {
@@ -1549,6 +1551,7 @@ main {
     font-size: 1.8rem;
     overflow: hidden;
     border-bottom: 1px lightgrey solid;
+    cursor: pointer;
 }
 
 .my-comments-figures {

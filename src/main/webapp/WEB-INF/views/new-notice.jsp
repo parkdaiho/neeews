@@ -33,7 +33,7 @@
 			</c:choose>
 		</div>
 		<div class="new-post-textarea">
-			<div class="new-post-text" id="new-post-text" contenteditable="true">
+			<div class="new-post-text" id="new-notice-text" contenteditable="true">
 				${text}
 			</div>
 		</div>

@@ -24,7 +24,7 @@
 	</section>
 	<section class="post-area">
 		<div class="post-info">
-			<div class="notice-title">
+			<div class="post-title">
 				${title}
 			</div>
 			<div class="post-figures">
