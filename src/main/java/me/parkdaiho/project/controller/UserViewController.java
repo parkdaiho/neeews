@@ -1,6 +1,7 @@
 package me.parkdaiho.project.controller;
 
 import jakarta.annotation.Nullable;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Sort;
@@ -11,6 +12,7 @@ import me.parkdaiho.project.dto.user.MembershipViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
 import me.parkdaiho.project.service.user.UserService;
+import org.aspectj.asm.IModelFilter;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -28,7 +30,11 @@ public class UserViewController {
     private final CommentService commentService;
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(HttpServletRequest request, Model model) {
+        String username = userService.getSavedUsername(request);
+
+        model.addAttribute("username", username);
+
         return "login";
     }
 

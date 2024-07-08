@@ -108,7 +108,7 @@
 			<c:forEach var="i" begin="${startNumOfPageBlock}" end="${lastNumOfPageBlock}" step="1">
 				<c:choose>
 					<c:when test="${page == i}">
-						<li class="on">${i}</li>
+						<li class="selected-comments-page">${i}</li>
 					</c:when>
 					<c:otherwise>
 						<li><a href="javascript:return fail;" onclick="getCommentsByPage(${previousPage});">${i}</a></li>

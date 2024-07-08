@@ -3,6 +3,7 @@ package me.parkdaiho.project.util;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.domain.Domain;
 import org.springframework.util.SerializationUtils;
 
@@ -58,6 +59,12 @@ public class CookieUtils {
         addCookie(response, domain.getDomainPl(), serialize(viewedList), 60 * 60 * 2);
 
         return false;
+    }
+
+    public static String getSavedUsernameByCookie(HttpServletRequest request, String cookieName) {
+        Cookie cookie = getCookieByName(request, cookieName);
+
+        return cookie != null ? cookie.getValue() : null;
     }
 
     public static Cookie getCookieByName(HttpServletRequest request, String name) {

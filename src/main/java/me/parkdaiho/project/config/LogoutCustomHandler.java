@@ -19,7 +19,7 @@ public class LogoutCustomHandler implements LogoutHandler {
         logout(request, response);
     }
 
-    public void logout(HttpServletRequest request, HttpServletResponse response) {
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
         CookieUtils.deleteCookie(request, response, jwtProperties.getRefreshTokenCookieName());
     }
 }

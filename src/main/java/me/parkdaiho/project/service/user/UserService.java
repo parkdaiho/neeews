@@ -1,5 +1,6 @@
 package me.parkdaiho.project.service.user;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
+import me.parkdaiho.project.config.properties.CookieNameProperties;
 import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Sort;
@@ -33,6 +35,7 @@ public class UserService {
 
     private final PaginationProperties paginationProperties;
     private final JwtProperties jwtProperties;
+    private final CookieNameProperties cookieNameProperties;
 
     public SignUpResponse signUp(SignUpRequest dto) {
         tokenRepository.save(new Token(dto.toEntity()));
@@ -243,5 +246,9 @@ public class UserService {
     private User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user: " + email));
+    }
+
+    public String getSavedUsername(HttpServletRequest request) {
+        return CookieUtils.getSavedUsernameByCookie(request, cookieNameProperties.getSavedUserName());
     }
 }

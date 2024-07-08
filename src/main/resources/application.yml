@@ -98,3 +98,9 @@ pagination :
   last-num-of-page-block-name: "lastNumOfPageBlock"
   next-page-name: "nextPage"
   previous-page-name: "previousPage"
+
+cookie-name :
+  saved-user-name: "savedUsername"
+  articles: "articles"
+  posts: "posts"
+  notice: "notice"

@@ -603,7 +603,14 @@ main {
 }
 
 .comments-pagination ul li {
-    margin-left: 15px;
+    margin-left: 5px;
+    width: 7%;
+    font-size: 1.6rem;
+}
+
+.selected-comments-page {
+    font-size: 2.0rem;
+    font-weight: bold;
 }
 
 .new-reply-area {

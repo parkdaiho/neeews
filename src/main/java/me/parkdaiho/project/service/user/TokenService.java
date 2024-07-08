@@ -8,7 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.JwtProperties;
-import me.parkdaiho.project.config.token.TokenProvider;
+import me.parkdaiho.project.util.TokenProvider;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.User;
@@ -27,7 +27,6 @@ import java.util.Collections;
 public class TokenService {
 
     private final TokenRepository tokenRepository;
-    private final TokenProvider tokenProvider;
     private final UserService userService;
 
     private final JwtProperties jwtProperties;
@@ -61,8 +60,8 @@ public class TokenService {
     }
 
     public Token saveToken(User user) {
-        String newRefreshToken = tokenProvider.generateToken(user, jwtProperties.getRefreshTokenDuration());
-        String newAccessToken = tokenProvider.generateToken(user, jwtProperties.getAccessTokenDuration());
+        String newRefreshToken = TokenProvider.generateRefreshToken(user, jwtProperties);
+        String newAccessToken = TokenProvider.generateAccessToken(user, jwtProperties);
 
         Token token = tokenRepository.findById(user.getId())
                 .map(entity -> entity.updateRefreshToken(newRefreshToken)
@@ -91,7 +90,7 @@ public class TokenService {
             return accessToken;
         }
 
-        accessToken = tokenProvider.generateToken(user, jwtProperties.getAccessTokenDuration());
+        accessToken = TokenProvider.generateAccessToken(user, jwtProperties);
         token.updateAccessToken(accessToken);
 
         return accessToken;

@@ -25,7 +25,8 @@
 <div class="header-right-area">
 	<ul>
 		<c:choose>
-			<c:when test="${nickname != null}">
+<%--			<c:when test="${nickname != null}">--%>
+			<c:when test="${login}">
 				<li><a href="/my-page">MY-PAGE</a></li>
 				<li><a href="javascript:return false;" onclick="logout();">LOGOUT</a></li>
 			</c:when>

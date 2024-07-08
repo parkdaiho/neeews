@@ -24,7 +24,8 @@ public class AuthenticationCustomFailureHandler extends SimpleUrlAuthenticationF
     private final AuthenticationCustomSuccessHandler authenticationCustomSuccessHandler;
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+                                        AuthenticationException exception) throws IOException, ServletException {
         String username = request.getParameter("username") == null ? null : request.getParameter("username");
 
         if (username == null) {
@@ -32,7 +33,6 @@ public class AuthenticationCustomFailureHandler extends SimpleUrlAuthenticationF
         } else {
             formLoginFailRedirect(request, response, username);
         }
-
     }
 
     private void formLoginFailRedirect(HttpServletRequest request, HttpServletResponse response,
