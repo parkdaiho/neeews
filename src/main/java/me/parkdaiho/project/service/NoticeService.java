@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.properties.CookieNameProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
 import me.parkdaiho.project.dto.notice.*;
@@ -28,6 +29,7 @@ public class NoticeService {
     private final ImageFileService imageFileService;
 
     private final PaginationProperties paginationProperties;
+    private final CookieNameProperties cookieNameProperties;
 
     @Transactional
     public Long getSavedNoticeId(NewNoticeRequest request, PrincipalDetails principal) throws IOException {
@@ -57,7 +59,7 @@ public class NoticeService {
     public NoticeViewResponse getNoticeViewResponse(Long id, HttpServletRequest request, HttpServletResponse response) {
         Notice notice = findNoticeById(id);
 
-        if (!CookieUtils.checkViewed(request, response, Domain.NOTICE, id)) notice.addViews();
+        if (!CookieUtils.checkViewed(request, response, cookieNameProperties.getViewedNotice(), id)) notice.addViews();
 
         return new NoticeViewResponse(notice);
     }

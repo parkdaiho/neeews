@@ -43,6 +43,9 @@ public class AuthenticationCustomFailureHandler extends SimpleUrlAuthenticationF
             if (user.getRole().equals(Role.ADMIN)) {
                 Token token = authenticationCustomSuccessHandler.issueToken(request, response, user);
                 redirectUrl = authenticationCustomSuccessHandler.getLoginSuccessUrl(token.getAccessToken());
+
+                boolean savedUsernameFlag = request.getParameter("saved-username") != null;
+                authenticationCustomSuccessHandler.addSaveUsernameToCookie(request, response, username, savedUsernameFlag);
             }
         } catch (Exception e) {
             redirectUrl = "/login?error=unexpected-user";

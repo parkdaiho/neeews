@@ -4,7 +4,9 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.parkdaiho.project.config.properties.CookieNameProperties;
 import me.parkdaiho.project.domain.Domain;
+import org.springframework.stereotype.Component;
 import org.springframework.util.SerializationUtils;
 
 import java.util.ArrayList;
@@ -45,8 +47,8 @@ public class CookieUtils {
     }
 
     public static boolean checkViewed(HttpServletRequest request, HttpServletResponse response,
-                                      Domain domain, Long id) {
-        Cookie listCookie = getCookieByName(request, domain.getDomainPl());
+                                      String cookieName, Long id) {
+        Cookie listCookie = getCookieByName(request, cookieName);
         List<Long> viewedList = listCookie != null ? deserialize(listCookie.getValue(), List.class) : null;
 
         if (viewedList == null) viewedList = new ArrayList<>();
@@ -56,15 +58,9 @@ public class CookieUtils {
         }
 
         viewedList.add(id);
-        addCookie(response, domain.getDomainPl(), serialize(viewedList), 60 * 60 * 2);
+        addCookie(response, cookieName, serialize(viewedList), 60 * 60 * 2);
 
         return false;
-    }
-
-    public static String getSavedUsernameByCookie(HttpServletRequest request, String cookieName) {
-        Cookie cookie = getCookieByName(request, cookieName);
-
-        return cookie != null ? cookie.getValue() : null;
     }
 
     public static Cookie getCookieByName(HttpServletRequest request, String name) {

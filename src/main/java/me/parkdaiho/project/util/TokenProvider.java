@@ -1,10 +1,8 @@
 package me.parkdaiho.project.util;
 
 import io.jsonwebtoken.*;
-import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.domain.user.User;
-import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.util.Date;

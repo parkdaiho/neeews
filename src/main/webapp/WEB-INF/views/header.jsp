@@ -12,7 +12,7 @@
 		</c:if>
 >
 <div class="header-logo">
-	<a href="/">LOGO</a>
+	<a href="/">HOME</a>
 </div>
 <nav class="header-middle-area">
 	<ul>
@@ -25,7 +25,6 @@
 <div class="header-right-area">
 	<ul>
 		<c:choose>
-<%--			<c:when test="${nickname != null}">--%>
 			<c:when test="${login}">
 				<li><a href="/my-page">MY-PAGE</a></li>
 				<li><a href="javascript:return false;" onclick="logout();">LOGOUT</a></li>

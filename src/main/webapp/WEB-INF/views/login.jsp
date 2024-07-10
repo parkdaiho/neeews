@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="ko">
 <head>
@@ -19,7 +20,8 @@
 			<form action="/login" method="POST">
 				<ul>
 					<li>
-						<input type="text" name="username" placeholder="USERNAME" autocomplete="false">
+						<input type="text" name="username" placeholder="USERNAME" autocomplete="false"
+						value="${username}">
 					</li>
 					<li>
 						<input type="password" name="password" placeholder="PASSWORD">
@@ -28,7 +30,14 @@
 				<div class="login-btn">
 					<div class="save-username">
 						<label for="save-username">아이디 저장</label>
-						<input type="checkbox" id="save-username">
+						<c:choose>
+							<c:when test="${username != null}">
+								<input type="checkbox" id="save-username" name="save-username" value="checked" checked>
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" id="save-username" name="save-username" value="checked">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<button class="add" type="submit">LOGIN</button>
 				</div>

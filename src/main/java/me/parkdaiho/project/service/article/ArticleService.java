@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.properties.CookieNameProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Domain;
 import me.parkdaiho.project.domain.Order;
@@ -40,6 +41,7 @@ public class ArticleService {
     private final ClippingRepository clippingRepository;
 
     private final PaginationProperties paginationProperties;
+    private final CookieNameProperties cookieNameProperties;
 
     public SearchNaverNewsResponse getSearchNewsResult(SearchedArticlesRequest dto) {
         RestTemplate restTemplate = new RestTemplate();
@@ -98,7 +100,7 @@ public class ArticleService {
     public ArticleViewResponse getArticleView(Long id, HttpServletRequest request, HttpServletResponse response) {
         Article article = findArticleById(id);
 
-        if (!CookieUtils.checkViewed(request, response, Domain.ARTICLE, id)) article.addViews();
+        if (!CookieUtils.checkViewed(request, response, cookieNameProperties.getViewedArticles(), id)) article.addViews();
 
         return new ArticleViewResponse(article);
     }

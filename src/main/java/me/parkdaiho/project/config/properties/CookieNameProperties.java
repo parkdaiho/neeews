@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("cookie-name")
 public class CookieNameProperties {
 
-    private String savedUserName;
+    private String savedUsername;
 
-    private String articles;
-    private String posts;
-    private String notice;
+    private String viewedArticles;
+    private String viewedPosts;
+    private String viewedNotice;
 }

@@ -249,6 +249,11 @@ public class UserService {
     }
 
     public String getSavedUsername(HttpServletRequest request) {
-        return CookieUtils.getSavedUsernameByCookie(request, cookieNameProperties.getSavedUserName());
+        Cookie cookie = CookieUtils.getCookieByName(request, cookieNameProperties.getSavedUsername());
+        if(cookie == null) return null;
+
+        String serializedUsername = cookie.getValue();
+
+        return CookieUtils.deserialize(serializedUsername, String.class);
     }
 }

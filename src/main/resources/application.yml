@@ -100,7 +100,7 @@ pagination :
   previous-page-name: "previousPage"
 
 cookie-name :
-  saved-user-name: "savedUsername"
-  articles: "articles"
-  posts: "posts"
-  notice: "notice"
+  saved-username: "savedUsername"
+  viewed-articles: "articles"
+  viewed-posts: "posts"
+  viewed-notice: "notice"

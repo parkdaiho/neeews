@@ -1,13 +1,16 @@
 package me.parkdaiho.project.config;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
+import me.parkdaiho.project.config.properties.CookieNameProperties;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.service.user.TokenService;
+import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,6 +22,8 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
 
     private final OAuth2AuthorizationRequestRepositoryBasedOnCookie oAuth2AuthorizationRequestRepositoryBasedOnCookie;
     private final TokenService tokenService;
+
+    private final CookieNameProperties cookieNameProperties;
 
     private final static String REDIRECT_PATH = "/";
 
@@ -32,11 +37,14 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         Token token = issueToken(request, response, principal.getUser());
         String loginSuccessUrl = getLoginSuccessUrl(token.getAccessToken());
 
+        boolean saveUsernameFlag = request.getParameter("save-username") != null;
+        addSaveUsernameToCookie(request, response, principal.getUsername(), saveUsernameFlag);
+
         getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
     }
 
     public Token issueToken(HttpServletRequest request, HttpServletResponse response,
-                              User user) {
+                            User user) {
         Token issuedToken = tokenService.saveToken(user);
         tokenService.addRefreshTokenToCookie(request, response, issuedToken.getRefreshToken());
 
@@ -53,5 +61,24 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     private void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
         super.clearAuthenticationAttributes(request);
         oAuth2AuthorizationRequestRepositoryBasedOnCookie.removeAuthorizationRequestCookie(request, response);
+    }
+
+    public void addSaveUsernameToCookie(HttpServletRequest request, HttpServletResponse response,
+                                        String username, boolean saveUsernameFlag) {
+        if(!saveUsernameFlag) {
+            CookieUtils.deleteCookie(request, response, cookieNameProperties.getSavedUsername());
+
+            return;
+        }
+
+        String serializedUsername = CookieUtils.serialize(username);
+        Cookie cookie = CookieUtils.getCookieByName(request, cookieNameProperties.getSavedUsername());
+        if(cookie == null) {
+            cookie = new Cookie(cookieNameProperties.getSavedUsername(), serializedUsername);
+        } else {
+            cookie.setValue(serializedUsername);
+        }
+
+        response.addCookie(cookie);
     }
 }
