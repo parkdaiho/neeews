@@ -10,7 +10,6 @@ import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.service.user.TokenService;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
@@ -44,8 +43,7 @@ public class AuthenticationCustomFailureHandler extends SimpleUrlAuthenticationF
                 Token token = authenticationCustomSuccessHandler.issueToken(request, response, user);
                 redirectUrl = authenticationCustomSuccessHandler.getLoginSuccessUrl(token.getAccessToken());
 
-                boolean savedUsernameFlag = request.getParameter("saved-username") != null;
-                authenticationCustomSuccessHandler.addSaveUsernameToCookie(request, response, username, savedUsernameFlag);
+                authenticationCustomSuccessHandler.saveUsername(request, response, username);
             }
         } catch (Exception e) {
             redirectUrl = "/login?error=unexpected-user";

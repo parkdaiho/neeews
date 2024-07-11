@@ -1079,12 +1079,18 @@ main {
 
 .login-oauth2 {
     width: 70%;
+    border-top: lightgrey 1px solid;
     margin: 0 auto 20px;
-    padding: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 2.0rem;
+    padding-top: 20px;
+}
+
+.login-oauth2 a {
+    width: 15%;
+    align-items: center;
+    margin-right: 20px
 }
 
 .login-oauth2 img {
@@ -1103,6 +1109,20 @@ main {
     color: #065fd4;
     font-weight: bold;
     text-decoration: underline;
+}
+
+.save-username {
+    vertical-align: center;
+}
+
+.save-username label {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 2.0rem;
+}
+
+.save-username input {
+    transform: scale(1.4);
 }
 
 /* sign-up */

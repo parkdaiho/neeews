@@ -37,8 +37,7 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         Token token = issueToken(request, response, principal.getUser());
         String loginSuccessUrl = getLoginSuccessUrl(token.getAccessToken());
 
-        boolean saveUsernameFlag = request.getParameter("save-username") != null;
-        addSaveUsernameToCookie(request, response, principal.getUsername(), saveUsernameFlag);
+        saveUsername(request, response, principal.getUsername());
 
         getRedirectStrategy().sendRedirect(request, response, loginSuccessUrl);
     }
@@ -63,8 +62,9 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
         oAuth2AuthorizationRequestRepositoryBasedOnCookie.removeAuthorizationRequestCookie(request, response);
     }
 
-    public void addSaveUsernameToCookie(HttpServletRequest request, HttpServletResponse response,
-                                        String username, boolean saveUsernameFlag) {
+    public void saveUsername(HttpServletRequest request, HttpServletResponse response,
+                             String username) {
+        boolean saveUsernameFlag = request.getParameter("save-username") != null;
         if(!saveUsernameFlag) {
             CookieUtils.deleteCookie(request, response, cookieNameProperties.getSavedUsername());
 

@@ -12,6 +12,9 @@ public class OAuth2UserInfoFactory {
             case GOOGLE -> {
                 return new GoogleUserInfo(attributes);
             }
+            case NAVER -> {
+                return new NaverUserInfo((Map<String, Object>) attributes.get("response"));
+            }
 
             default -> throw new IllegalArgumentException("Please Check Provider: " + provider);
         }

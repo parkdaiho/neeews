@@ -48,6 +48,7 @@
 		</section>
 		<section class="login-oauth2">
 			<a href="/oauth2/authorization/google"><img src="/img/oauth2-google.png"></a>
+			<a href="/oauth2/authorization/naver"><img src="/img/oauth2-naver.png"></a>
 		</section>
 	</div>
 </main>
