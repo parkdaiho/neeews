@@ -34,10 +34,10 @@ public class NoticeApiController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/api/notice")
-    public ResponseEntity<Void> modifyPost(ModifyNoticeRequest request,
+    @PutMapping("/api/notice/{id}")
+    public ResponseEntity<Void> modifyPost(@PathVariable Long id, ModifyNoticeRequest request,
                                            @AuthenticationPrincipal PrincipalDetails principal) throws IOException {
-        Long savedNoticeId = noticeService.modifyNotice(request, principal);
+        Long savedNoticeId = noticeService.modifyNotice(id, request, principal);
 
         return ResponseEntity.created(URI.create("/notice/" + savedNoticeId)).build();
     }

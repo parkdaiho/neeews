@@ -109,10 +109,10 @@ public class NoticeService {
     }
 
     @Transactional
-    public Long modifyNotice(ModifyNoticeRequest request, PrincipalDetails principal) throws IOException {
+    public Long modifyNotice(Long id, ModifyNoticeRequest request, PrincipalDetails principal) throws IOException {
         checkAuthority(principal);
 
-        Notice notice = findNoticeById(request.getId());
+        Notice notice = findNoticeById(id);
         notice.modify(request);
 
         if (request.getFiles() == null) return notice.getId();

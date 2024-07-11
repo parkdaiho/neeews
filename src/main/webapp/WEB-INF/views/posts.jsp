@@ -67,7 +67,7 @@
 			</c:forEach>
 		</div>
 	</section>
-	<c:if test="${nickname != null}">
+	<c:if test="${login}">
 		<div class="posts-btn">
 			<button onclick="location.replace('/new-post');">NEW-POST</button>
 		</div>
