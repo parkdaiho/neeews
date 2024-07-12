@@ -2,7 +2,7 @@ package me.parkdaiho.project.config;
 
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
-import me.parkdaiho.project.config.properties.CookieNameProperties;
+import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.service.user.OAuth2UserCustomService;
 import me.parkdaiho.project.service.user.TokenService;
@@ -29,7 +29,7 @@ public class WebSecurityConfig {
     private final TokenService tokenService;
 
     private final JwtProperties jwtProperties;
-    private final CookieNameProperties cookieNameProperties;
+    private final CookieProperties cookieProperties;
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -98,7 +98,7 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationCustomSuccessHandler authenticationCustomSuccessHandler() {
         return new AuthenticationCustomSuccessHandler(oAuth2AuthorizationRequestRepositoryBasedOnCookie(),
-                tokenService, cookieNameProperties);
+                tokenService, cookieProperties);
     }
 
     @Bean

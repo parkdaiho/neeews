@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
-import me.parkdaiho.project.config.properties.CookieNameProperties;
+import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.service.user.TokenService;
@@ -23,7 +23,7 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
     private final OAuth2AuthorizationRequestRepositoryBasedOnCookie oAuth2AuthorizationRequestRepositoryBasedOnCookie;
     private final TokenService tokenService;
 
-    private final CookieNameProperties cookieNameProperties;
+    private final CookieProperties cookieProperties;
 
     private final static String REDIRECT_PATH = "/";
 
@@ -66,15 +66,15 @@ public class AuthenticationCustomSuccessHandler extends SimpleUrlAuthenticationS
                              String username) {
         boolean saveUsernameFlag = request.getParameter("save-username") != null;
         if(!saveUsernameFlag) {
-            CookieUtils.deleteCookie(request, response, cookieNameProperties.getSavedUsername());
+            CookieUtils.deleteCookie(request, response, cookieProperties.getSavedUsernameName());
 
             return;
         }
 
         String serializedUsername = CookieUtils.serialize(username);
-        Cookie cookie = CookieUtils.getCookieByName(request, cookieNameProperties.getSavedUsername());
+        Cookie cookie = CookieUtils.getCookieByName(request, cookieProperties.getSavedUsernameName());
         if(cookie == null) {
-            cookie = new Cookie(cookieNameProperties.getSavedUsername(), serializedUsername);
+            cookie = new Cookie(cookieProperties.getSavedUsernameName(), serializedUsername);
         } else {
             cookie.setValue(serializedUsername);
         }

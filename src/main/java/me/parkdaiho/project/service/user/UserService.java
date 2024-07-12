@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthenticationCustomException;
 import me.parkdaiho.project.config.oauth2.OAuth2UserInfo;
-import me.parkdaiho.project.config.properties.CookieNameProperties;
+import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.config.properties.JwtProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.Sort;
@@ -35,7 +35,7 @@ public class UserService {
 
     private final PaginationProperties paginationProperties;
     private final JwtProperties jwtProperties;
-    private final CookieNameProperties cookieNameProperties;
+    private final CookieProperties cookieProperties;
 
     public SignUpResponse signUp(SignUpRequest dto) {
         tokenRepository.save(new Token(dto.toEntity()));
@@ -249,7 +249,7 @@ public class UserService {
     }
 
     public String getSavedUsername(HttpServletRequest request) {
-        Cookie cookie = CookieUtils.getCookieByName(request, cookieNameProperties.getSavedUsername());
+        Cookie cookie = CookieUtils.getCookieByName(request, cookieProperties.getSavedUsernameName());
         if(cookie == null) return null;
 
         String serializedUsername = cookie.getValue();

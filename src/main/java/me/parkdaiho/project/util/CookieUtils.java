@@ -3,10 +3,8 @@ package me.parkdaiho.project.util;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import me.parkdaiho.project.config.properties.CookieNameProperties;
+import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.domain.Domain;
-import org.springframework.stereotype.Component;
 import org.springframework.util.SerializationUtils;
 
 import java.util.ArrayList;
@@ -47,7 +45,16 @@ public class CookieUtils {
     }
 
     public static boolean checkViewed(HttpServletRequest request, HttpServletResponse response,
-                                      String cookieName, Long id) {
+                                      Domain domain, CookieProperties cookieProperties, Long id) {
+        String cookieName = null;
+        switch (domain) {
+            case ARTICLE -> cookieName = cookieProperties.getViewedArticlesName();
+            case POST -> cookieName = cookieProperties.getViewedPostsName();
+            case NOTICE -> cookieName = cookieProperties.getViewedNoticeName();
+
+            default -> throw new IllegalArgumentException("Unsupported domain: " + domain.getDomain());
+        }
+
         Cookie listCookie = getCookieByName(request, cookieName);
         List<Long> viewedList = listCookie != null ? deserialize(listCookie.getValue(), List.class) : null;
 
@@ -58,7 +65,7 @@ public class CookieUtils {
         }
 
         viewedList.add(id);
-        addCookie(response, cookieName, serialize(viewedList), 60 * 60 * 2);
+        addCookie(response, cookieName, serialize(viewedList), cookieProperties.getViewedCheckedExpiry());
 
         return false;
     }

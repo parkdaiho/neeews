@@ -5,7 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.config.properties.CookieNameProperties;
+import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
 import me.parkdaiho.project.domain.user.User;
@@ -32,7 +32,7 @@ public class PostService {
     private final UserService userService;
 
     private final PaginationProperties paginationProperties;
-    private final CookieNameProperties cookieNameProperties;
+    private final CookieProperties cookieProperties;
 
     @Transactional
     public Long getSavedPostId(NewPostRequest dto, PrincipalDetails principal) throws IOException {
@@ -60,7 +60,7 @@ public class PostService {
     public PostViewResponse getPostViewResponse(Long id, HttpServletRequest request, HttpServletResponse response) {
         Post post = findPostById(id);
 
-        if (!CookieUtils.checkViewed(request, response, cookieNameProperties.getViewedPosts(), id)) post.addViews();
+        if (!CookieUtils.checkViewed(request, response, Domain.POST, cookieProperties, id)) post.addViews();
 
         return new PostViewResponse(post);
     }

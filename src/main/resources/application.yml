@@ -115,8 +115,11 @@ pagination :
   next-page-name: "nextPage"
   previous-page-name: "previousPage"
 
-cookie-name :
-  saved-username: "savedUsername"
-  viewed-articles: "articles"
-  viewed-posts: "posts"
-  viewed-notice: "notice"
+cookie :
+  saved-username-name: "SAVED-USERNAME"
+  viewed-articles-name: "VIEWED-ARTICLES"
+  viewed-posts-name: "VIEWED-POSTS"
+  viewed-notice-name: "VIEWED-NOTICE"
+
+  saved-username-expiry: 31536000
+  viewed-checked-expiry: 86400
