@@ -4,7 +4,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import me.parkdaiho.project.domain.Post;
+import me.parkdaiho.project.domain.article.Article;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class PostViewResponse {
     private List<String> savedFileNames;
     private Long good;
     private Long bad;
+    private Article article;
 
     public PostViewResponse(Post post) {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
@@ -35,7 +38,6 @@ public class PostViewResponse {
         this.text = post.getText();
         this.good = post.getGood();
         this.bad = post.getBad();
-
         this.savedFileNames = post.getImageFiles().stream()
                 .map(imageFile -> imageFile.getSavedName())
                 .toList();

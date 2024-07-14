@@ -57,6 +57,9 @@ public class Article extends BaseEntity implements Pollable, IncludingComments {
     @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Clipping> clippings;
 
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Post> posts;
+
     @PrePersist
     public void prePersist() {
         this.isProvided = !link.equals(originalLink);

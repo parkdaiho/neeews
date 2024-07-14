@@ -20,6 +20,7 @@ function modifyPost(postId) {
 }
 
 function requestPost(url, method) {
+    let articleId = document.getElementById("new-post-article-id");
     let title = document.getElementById("new-post-title");
     let text = document.getElementById("new-post-text");
     let files = document.getElementsByClassName("files");
@@ -38,6 +39,7 @@ function requestPost(url, method) {
 
     let formData = new FormData();
 
+    if(articleId != null) formData.append("articleId", articleId.value);
     formData.append("title", title.value);
     formData.append("text", text.innerHTML
         .replaceAll("<div>", "<br>")

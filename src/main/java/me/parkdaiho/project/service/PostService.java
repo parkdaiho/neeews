@@ -8,10 +8,12 @@ import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.config.properties.PaginationProperties;
 import me.parkdaiho.project.domain.*;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.IndexViewResponse;
 import me.parkdaiho.project.dto.post.*;
 import me.parkdaiho.project.repository.PostRepository;
+import me.parkdaiho.project.service.article.ArticleService;
 import me.parkdaiho.project.service.user.UserService;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -30,6 +33,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final ImageFileService imageFileService;
     private final UserService userService;
+    private final ArticleService articleService;
 
     private final PaginationProperties paginationProperties;
     private final CookieProperties cookieProperties;
@@ -37,8 +41,11 @@ public class PostService {
     @Transactional
     public Long getSavedPostId(NewPostRequest dto, PrincipalDetails principal) throws IOException {
         Post post = dto.toEntity(principal.getUser());
-        List<ImageFile> images = imageFileService.uploadImageFiles(dto.getFiles());
 
+        Long articleId = dto.getArticleId();
+        if(articleId != null) post.setArticle(articleService.findArticleById(articleId));
+
+        List<ImageFile> images = imageFileService.uploadImageFiles(dto.getFiles());
         if (images == null) return postRepository.save(post).getId();
 
         addImagesToPost(post, images);
@@ -62,7 +69,14 @@ public class PostService {
 
         if (!CookieUtils.checkViewed(request, response, Domain.POST, cookieProperties, id)) post.addViews();
 
-        return new PostViewResponse(post);
+        PostViewResponse view = new PostViewResponse(post);
+        Article article = post.getArticle();
+
+        if(article == null) return view;
+
+        view.setArticle(article);
+
+        return view;
     }
 
     public Post findPostById(Long id) {

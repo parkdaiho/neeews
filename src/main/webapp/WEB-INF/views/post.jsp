@@ -43,6 +43,19 @@
 			</div>
 		</div>
 		<div class="post-contents">
+			<c:if test="${article != null}">
+				<div class="article-in-post" onclick="showArticle(${articleId});">
+					<div class="article-in-post-title">
+						${article.title}
+					</div>
+					<div class="article-in-post-description">
+						${article.description}
+					</div>
+					<div class="article-in-post-pubdate">
+						${article.pubDate}
+					</div>
+				</div>
+			</c:if>
 			<div class="post-contents-images">
 				<c:forEach var="filename" items="${savedFileNames}">
 					<c:url var="src" value="/image">

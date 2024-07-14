@@ -3,6 +3,7 @@ package me.parkdaiho.project.dto.post;
 import lombok.Getter;
 import lombok.Setter;
 import me.parkdaiho.project.domain.Post;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.user.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @Setter
 public class NewPostRequest {
 
+    private Long articleId;
     private String title;
     private String text;
     private List<MultipartFile> files;

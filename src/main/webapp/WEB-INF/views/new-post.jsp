@@ -37,6 +37,9 @@
 			</c:when>
 			<c:otherwise>
 				<button onclick="writePost();">ADD</button>
+				<c:if test="${articleId != null}">
+					<input type="hidden" value="${articleId}" id="new-post-article-id">
+				</c:if>
 			</c:otherwise>
 		</c:choose>
 		<button onclick="location.replace('/posts');">LIST</button>

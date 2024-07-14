@@ -2,6 +2,7 @@ package me.parkdaiho.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import me.parkdaiho.project.domain.article.Article;
 import me.parkdaiho.project.domain.user.User;
 import me.parkdaiho.project.dto.post.ModifyPostRequest;
 
@@ -18,6 +19,10 @@ public class Post extends BaseEntity implements IncludingImages, Pollable, Inclu
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "article_id", updatable = false)
+    private Article article;
 
     @Column(nullable = false)
     private String title;
@@ -48,7 +53,8 @@ public class Post extends BaseEntity implements IncludingImages, Pollable, Inclu
     private Long bad;
 
     @Builder
-    public Post(String title, String text, User user) {
+    public Post(Article article, String title, String text, User user) {
+        this.article = article;
         this.title = title;
         this.text = text;
         this.writer = user;

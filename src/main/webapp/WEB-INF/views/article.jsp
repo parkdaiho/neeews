@@ -75,6 +75,7 @@
 					<button class="add" onclick="clippingArticle();">CLIPPING</button>
 				</c:otherwise>
 			</c:choose>
+			<button onclick="writePost();">NEW-POST</button>
 		</c:if>
 	</section>
 	<section class="comments-area" id="comments-area">

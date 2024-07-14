@@ -3,6 +3,7 @@ package me.parkdaiho.project.controller;
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Domain;
@@ -42,7 +43,9 @@ public class PostViewController {
     }
 
     @GetMapping("/new-post")
-    public String newPost() {
+    public String newPost(@Nullable Long articleId, Model model) {
+        model.addAttribute("articleId", articleId);
+
         return "new-post";
     }
 
