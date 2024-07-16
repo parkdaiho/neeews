@@ -128,12 +128,19 @@ public class PostService {
         Pageable pageable = getPageable(request.getPage(), paginationProperties.getPostsPerPage(), order);
 
         String query = request.getQuery();
+        Sort searchSort = Sort.valueOf(request.getSearchSort().toUpperCase());
+
+        if(request.getArticleId() != null) {
+            Article article = articleService.findArticleById(request.getArticleId());
+
+            return getPostListViewResponseByArticle(article, pageable, query, searchSort);
+        }
+
         if (query == null || query.isBlank()) {
             return postRepository.findAll(pageable)
                     .map(entity -> new PostListViewResponse(entity));
         }
 
-        Sort searchSort = Sort.valueOf(request.getSearchSort().toUpperCase());
         Page<Post> posts;
         switch (searchSort) {
             case TITLE -> posts = postRepository.findByTitleContaining(query, pageable);
@@ -142,6 +149,32 @@ public class PostService {
                 try {
                     User writer = userService.findByNickname(query);
                     posts = postRepository.findByWriter(writer, pageable);
+                } catch (Exception e) {
+                    return null;
+                }
+            }
+
+            default -> throw new IllegalArgumentException("Unexpected Sort: " + searchSort.getProperty());
+        }
+
+        return posts.map(entity -> new PostListViewResponse(entity));
+    }
+
+    private Page<PostListViewResponse> getPostListViewResponseByArticle(Article article, Pageable pageable,
+                                                                        String query, Sort searchSort) {
+        if(query == null || query.isBlank()) {
+            return postRepository.findByArticle(article, pageable)
+                    .map(entity -> new PostListViewResponse(entity));
+        }
+
+        Page<Post> posts;
+        switch (searchSort) {
+            case TITLE -> posts = postRepository.findByArticleAndTitleContaining(article, query, pageable);
+            case TEXT -> posts = postRepository.findByArticleAndTextContaining(article, query, pageable);
+            case WRITER -> {
+                try {
+                    User writer = userService.findByNickname(query);
+                    posts = postRepository.findByArticleAndWriter(article, writer, pageable);
                 } catch (Exception e) {
                     return null;
                 }

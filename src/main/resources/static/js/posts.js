@@ -20,6 +20,7 @@ function getPostView(postId) {
 
 function getPages(page, order, searchSort, query) {
     let params = new URLSearchParams({
+        "articleId": articleId,
         "page": page,
         "order": order,
         "searchSort": searchSort,
