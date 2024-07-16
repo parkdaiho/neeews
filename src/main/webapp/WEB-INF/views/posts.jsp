@@ -10,6 +10,9 @@
 <header>
 	<jsp:include page="header.jsp"></jsp:include>
 </header>
+<script>
+    const articleId = ${articleId};
+</script>
 <main>
 	<section class="page-info-area">
 		<h1>COMMUNITY</h1>
@@ -49,6 +52,9 @@
 					</c:otherwise>
 				</c:choose>
 			</select>
+			<c:if test="${articleId != null}">
+				<a href="/articles/${articleId}">View article related to posts</a>
+			</c:if>
 		</div>
 		<div class="post-list">
 			<div class="post-in-posts-top">

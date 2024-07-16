@@ -884,6 +884,15 @@ main {
     font-size: 2.0rem;
 }
 
+.posts-info-area a {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 2.0rem;
+    font-weight: bold;
+    text-decoration-line: underline;
+    color: #065fd4;
+}
+
 .post-list {
     display: flex;
     flex-direction: column;

@@ -5,9 +5,6 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/css.css">
 	<title>BOARD-PAGINATION</title>
-	<script>
-      const articleId = ${articleId};
-	</script>
 </head>
 <body>
 	<div class="board-pagination">

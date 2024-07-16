@@ -29,6 +29,14 @@ function writePost() {
     });
 
     let url = "/new-post?" + params;
+    location.replace(url);
+}
 
+function showPosts() {
+    let params = new URLSearchParams({
+        "articleId": id,
+    });
+
+    let url = "/posts?" + params;
     location.replace(url);
 }

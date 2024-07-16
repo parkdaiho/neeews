@@ -39,6 +39,8 @@ public class PostViewController {
         model.addAttribute("searchSort", request.getSearchSort());
         model.addAttribute("query", request.getQuery());
 
+        if(request.getArticleId() != null) model.addAttribute("articleId", request.getArticleId());
+
         return "posts";
     }
 

@@ -77,6 +77,7 @@
 			</c:choose>
 			<button onclick="writePost();">NEW-POST</button>
 		</c:if>
+		<button onclick="showPosts();">POSTS</button>
 	</section>
 	<section class="comments-area" id="comments-area">
 		<jsp:include page="comments-area.jsp"></jsp:include>

@@ -128,7 +128,9 @@ public class PostService {
         Pageable pageable = getPageable(request.getPage(), paginationProperties.getPostsPerPage(), order);
 
         String query = request.getQuery();
-        Sort searchSort = Sort.valueOf(request.getSearchSort().toUpperCase());
+        Sort searchSort = request.getSearchSort() == null ?
+                null : Sort.valueOf(request.getSearchSort().toUpperCase().toUpperCase());
+
 
         if(request.getArticleId() != null) {
             Article article = articleService.findArticleById(request.getArticleId());
