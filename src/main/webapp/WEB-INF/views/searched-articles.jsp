@@ -31,9 +31,9 @@
 				</c:when>
 				<c:otherwise>
 					<c:forEach var="item" items="${items}" varStatus="status">
+						<input type="hidden" value="${item.originallink}" id="item_originalLink_${status.index}">
+						<input type="hidden" value="${item.link}" id="item_link_${status.index}">
 						<div class="searched-article" onclick="showArticle(${status.index});">
-							<input type="hidden" value="${item.originallink}" id="item_originalLink_${status.index}">
-							<input type="hidden" value="${item.link}" id="item_link_${status.index}">
 							<div class="searched-article-title" id="item_title_${status.index}">
 									${item.title}
 							</div>

@@ -47,6 +47,10 @@ public class WebSecurityConfig {
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
+        http.authorizeHttpRequests()
+                        .requestMatchers("/my-page", "/my-page/**").authenticated()
+                        .anyRequest().permitAll();
+
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")

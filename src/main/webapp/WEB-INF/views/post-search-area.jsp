@@ -30,6 +30,9 @@
 		</select>
 		<input type="hidden" name="order" value="${order}">
 		<input type="text" name="query" id="query" value="${query}">
+		<c:if test="${articleId != null}">
+			<input type="hidden" name="articleId" value="${articleId}">
+		</c:if>
 		<button type="submit">SEARCH</button>
 	</div>
 </form>
