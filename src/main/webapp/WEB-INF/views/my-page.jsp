@@ -25,13 +25,13 @@
 	<div class="my-page">
 		<nav class="my-page-menu">
 			<ul>
-				<li><a href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
+				<li><a class="menu-on" id="member-info-menu" href="javascript:return false;" onclick="getMemberInfoPage();">MEMBER-INFO</a></li>
 				<c:if test="${isManager}">
-					<li><a href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', '', '');">MEMBERSHIP</a></li>
+					<li><a id="membership-menu" href="javascript:return false;" onclick="getMembershipPage(1, 'ALL', '', '');">MEMBERSHIP</a></li>
 				</c:if>
-				<li><a href="javascript:return false;" onclick="getMyPostsPage(1);">MY-POSTS</a></li>
-				<li><a href="javascript:return false;" onclick="getMyCommentsPage(1);">MY-COMMENTS</a></li>
-				<li><a href="javascript:return false;" onclick="getWithdrawalPage(${id});">WITHDRAWAL</a></li>
+				<li><a id="my-posts-menu" href="javascript:return false;" onclick="getMyPostsPage(1);">MY-POSTS</a></li>
+				<li><a id="my-comments-menu" href="javascript:return false;" onclick="getMyCommentsPage(1);">MY-COMMENTS</a></li>
+				<li><a id="withdrawal-menu" href="javascript:return false;" onclick="getWithdrawalPage(${id});">WITHDRAWAL</a></li>
 			</ul>
 		</nav>
 		<section class="my-page-contents" id="my-page-area">
