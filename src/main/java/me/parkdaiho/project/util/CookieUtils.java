@@ -18,6 +18,7 @@ public class CookieUtils {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
         cookie.setMaxAge(expiry);
+        cookie.setSecure(true);
 
         response.addCookie(cookie);
     }

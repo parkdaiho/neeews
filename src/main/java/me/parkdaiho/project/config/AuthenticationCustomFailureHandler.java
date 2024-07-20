@@ -27,10 +27,15 @@ public class AuthenticationCustomFailureHandler extends SimpleUrlAuthenticationF
                                         AuthenticationException exception) throws IOException, ServletException {
         String username = request.getParameter("username") == null ? null : request.getParameter("username");
 
-        if (username == null) {
-            oAuth2SignUpRedirect(request, response, (OAuth2AuthenticationCustomException) exception);
-        } else {
+        if (username != null) {
             formLoginFailRedirect(request, response, username);
+        } else {
+            try {
+                oAuth2SignUpRedirect(request, response, (OAuth2AuthenticationCustomException) exception);
+            } catch (Exception e) {
+                String redirectUrl = "/login?error=fail-authentication";
+                getRedirectStrategy().sendRedirect(request, response, redirectUrl);
+            }
         }
     }
 

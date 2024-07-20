@@ -51,6 +51,10 @@ public class NaverNewsCrawler {
         if(text != null) return text;
 
         text = document.getElementById("newsEndContents");
+        if(text != null) return text;
+
+        text = document.getElementById("ijam_content");
+
         return text;
     }
 
