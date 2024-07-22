@@ -1,4 +1,9 @@
+let clicked = false;
+
 function poll(id, flag) {
+    if(clicked) return false;
+    clicked = true;
+
     let url = "/api/poll";
     let body = JSON.stringify({
         "domain": domain,
@@ -13,12 +18,16 @@ function poll(id, flag) {
 
     function fail() {
         alert("poll fail")
+        clicked = false;
     }
 
     apiRequest(url, Method.PUT, body, getHeaders(true), success, fail);
 }
 
 function pollComment(id, flag, page, order) {
+    if(clicked) return false;
+    clicked = true;
+
     let body = JSON.stringify({
         "domain": "comments",
         "id": id,
@@ -35,6 +44,7 @@ function pollComment(id, flag, page, order) {
         console.log("flag: " + flag);
         console.log("page: " + page);
         console.log("order: " + order);
+        clicked = false;
     }
 
     apiRequest("/api/poll", Method.PUT, body, getHeaders(true), success, fail);

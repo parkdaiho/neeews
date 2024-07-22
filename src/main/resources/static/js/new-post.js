@@ -1,4 +1,10 @@
+let clicked = false;
+
 function writePost() {
+    if(clicked) return false;
+
+    clicked = true;
+
     deleteEmptyFileInput();
 
     let url = "/api/post";
@@ -7,6 +13,10 @@ function writePost() {
 }
 
 function modifyPost(postId) {
+    if(!clicked) return false;
+
+    clicked = true;
+
     deleteEmptyFileInput();
 
     let files = document.getElementsByClassName("files");
@@ -28,11 +38,15 @@ function requestPost(url, method) {
     if(title.value.trim() === "") {
         alert(blankTitleMessage);
 
+        clicked = false;
+
         return;
     }
 
     if(text.innerHTML.trim() === "") {
         alert(blankTextMessage);
+
+        clicked = false;
 
         return;
     }

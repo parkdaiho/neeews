@@ -75,7 +75,14 @@
 	</section>
 	<c:if test="${login}">
 		<div class="posts-btn">
-			<button onclick="location.replace('/new-post');">NEW-POST</button>
+			<c:choose>
+				<c:when test="${articleId != null}">
+					<button onclick="location.replace('/new-post?articleId=${articleId}');">NEW-POST</button>
+				</c:when>
+				<c:otherwise>
+					<button onclick="location.replace('/new-post');">NEW-POST</button>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</c:if>
 	<c:if test="${totalElements != 0}">

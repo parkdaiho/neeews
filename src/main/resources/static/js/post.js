@@ -1,3 +1,5 @@
+let clicked = false;
+
 function getModifyPost(postId) {
     let params = new URLSearchParams({
         "id": postId
@@ -8,6 +10,9 @@ function getModifyPost(postId) {
 }
 
 function deletePost(postId) {
+    if(clicked) return false;
+    clicked = true;
+
     let url = "/api/posts/" + postId;
 
     function success() {

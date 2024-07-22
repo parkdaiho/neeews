@@ -1,7 +1,13 @@
+let clicked = false;
 function addComment() {
+    if(clicked) return false;
+    clicked = true;
+
     let text = document.getElementById("new-comment-text");
     if(text.innerHTML.trim() === "") {
         alert(blankTextMessage);
+
+        clicked = false;
 
         return;
     }
@@ -50,9 +56,14 @@ function getCommentsByPage(page) {
 }
 
 function addReply(parentCommentId, page, order) {
+    if (clicked) return false;
+    clicked = true;
+
     let text = document.getElementById("new-reply-contents-" + parentCommentId);
     if(text.innerHTML.trim() === "") {
         alert(blankTextMessage);
+
+        clicked = false;
 
         return;
     }
@@ -102,6 +113,9 @@ function getCommentsByOrder(order) {
 }
 
 function deleteComment(commentId, page, order) {
+    if (clicked) return false;
+    clicked = true;
+
     let params = new URLSearchParams({
         "id": commentId,
     });
