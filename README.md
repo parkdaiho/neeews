@@ -1,4 +1,4 @@
-<img width="1219" alt="image" src="https://github.com/user-attachments/assets/bae70fc9-c81d-4829-b355-f7d92a7a6e12"># Project 📰
+# Project 📰
 
 👉🏻 여러 언론사가 제공하는 뉴스에 관련된 여러 기능을 제공하는 웹 애플리케이션 프로젝트
 
