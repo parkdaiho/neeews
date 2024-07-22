@@ -18,7 +18,11 @@ public class NaverNewsCrawler {
         Element textElement = getTextElement(document);
 
         if(textElement != null) {
-            textElement.getAllElements().not("br").remove();
+            textElement.getAllElements()
+                    .not("p")
+                    .not("br")
+                    .not("span")
+                    .remove();
 
             return textElement.html();
         }
@@ -44,18 +48,18 @@ public class NaverNewsCrawler {
     }
 
     private Element getTextElement(Document document) {
-        Element text = document.getElementById("dic_area");
-        if(text != null) return text;
+        Element textElement = document.getElementById("dic_area");
+        if(textElement != null) return textElement;
 
-        text = document.getElementById("articeBody");
-        if(text != null) return text;
+        textElement = document.getElementById("articeBody");
+        if(textElement != null) return textElement;
 
-        text = document.getElementById("newsEndContents");
-        if(text != null) return text;
+        textElement = document.getElementById("newsEndContents");
+        if(textElement != null) return textElement;
 
-        text = document.getElementById("ijam_content");
+        textElement = document.getElementById("ijam_content");
 
-        return text;
+        return textElement;
     }
 
     private Element getImgElement(Document document) {
