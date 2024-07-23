@@ -52,6 +52,24 @@ spring:
     redis:
       host: localhost
       port: 6379
+      timeout: 1800
+
+  mail:
+    host: smtp.gmail.com
+    protocol: smtp
+    port: 587
+    username: eogh7204@gmail.com
+    password: szvzqclypviejody
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connection-timeout: 5000
+          timeout: 5000
+          write-timeout: 5000
 
 jwt:
   oauth2-authorization-request-cookie-name: "oauth2_auth_request"

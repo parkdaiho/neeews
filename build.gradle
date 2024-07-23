@@ -30,6 +30,7 @@ dependencies {
     implementation('org.jsoup:jsoup:1.7.2') // jsoup
     implementation('commons-io:commons-io:2.11.0') // 파일 업로드
     implementation('org.springframework.boot:spring-boot-starter-aop') // Header 관련 서비스를 모든 페이지에 적용시키기 위한 AOP
+    implementation('org.springframework.boot:spring-boot-starter-mail') // mail
 
     runtimeOnly('com.h2database:h2') // 인메모리 데이터베이스(for test)
 

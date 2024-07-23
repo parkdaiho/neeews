@@ -39,6 +39,24 @@
 - Microsoft-Edge
 - Chrome (OAuth2 로그인 문제)
 
+## Information Architecture
+
+
+
+## 구현 기능 🔥
+
+- [뉴스 검색](#뉴스-검색-)
+- [회원 관리](#회원-관리-)
+- [커뮤니티(게시판)](#커뮤니티게시판)
+
+### 뉴스 검색 🔎
+
+#### Naver news-search API
+
+### 회원 관리 👩🏻‍💼
+
+### 커뮤니티(게시판) 📋
+
 ## 화면 구성 🖼️
 
 - [헤더](#헤더)
@@ -52,7 +70,7 @@
 ### 헤더
 
 - 모든 페이지에 적용된다.
-  
+
 - 로그인 상태가 아닐 때
 
 <img width="1220" alt="image" src="https://github.com/user-attachments/assets/2f47229a-103a-41c8-bf18-32eb71e541d6">
@@ -83,13 +101,13 @@
 <img width="1199" alt="image" src="https://github.com/user-attachments/assets/de3bcebe-9d3d-466c-83a6-e3b8a390e860">
 
 - 기사 목록
- 
+
 <img width="1204" alt="image" src="https://github.com/user-attachments/assets/ed5f6cfd-55be-41b3-97d0-c6486a781898">
 
 ### 기사 뷰
 
 - 기사 내용
- 
+
 <img width="1210" alt="image" src="https://github.com/user-attachments/assets/7bc77da1-edf9-4488-9596-f13473e0eb82">
 
 - 기사 관련 버튼(좋아요, 싫어요, 기사 관련 게시물 작성하기, 기사와 관련된 게시물 목록)
@@ -189,16 +207,3 @@
 
 <img width="873" alt="image" src="https://github.com/user-attachments/assets/bfd4a70e-984f-4688-948c-008d9b66ad90">
 
-## 구현 기능 🔥
-
-- [뉴스 검색](#뉴스-검색-)
-- [회원 관리](#회원-관리-)
-- [커뮤니티(게시판)](#커뮤니티게시판)
-
-### 뉴스 검색 🔎
-
-#### Naver news-search API
-
-### 회원 관리 👩🏻‍💼
-
-### 커뮤니티(게시판) 📋
