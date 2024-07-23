@@ -41,7 +41,7 @@
 
 ## Information Architecture
 
-
+<img width="1627" alt="image" src="https://github.com/user-attachments/assets/b491e532-608e-4c0c-a82d-17aaf7a85a17">
 
 ## 구현 기능 🔥
 
