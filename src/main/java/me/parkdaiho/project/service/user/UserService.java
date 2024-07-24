@@ -19,12 +19,17 @@ import me.parkdaiho.project.dto.user.MembershipSearchRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.repository.user.TokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
+import me.parkdaiho.project.service.RedisService;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+
+import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -32,6 +37,8 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
+
+    private final RedisService redisService;
 
     private final PaginationProperties paginationProperties;
     private final JwtProperties jwtProperties;
@@ -239,8 +246,20 @@ public class UserService {
 
             return false;
         } catch (Exception e) {
+            sendAuthenticationNumber(request.getEmail());
+
             return true;
         }
+    }
+
+    private void sendAuthenticationNumber(String email) {
+        StringBuilder authenticationNumber = new StringBuilder();
+        for(int i = 0; i < 6; i++) {
+            int number = (int) (Math.random() * 10);
+            authenticationNumber.append(number);
+        }
+
+        redisService.putRedisTemplate(email, authenticationNumber.toString());
     }
 
     private User findByEmail(String email) {
@@ -255,5 +274,19 @@ public class UserService {
         String serializedUsername = cookie.getValue();
 
         return CookieUtils.deserialize(serializedUsername, String.class);
+    }
+
+    public Boolean emailAuthCheckInSignUp(EmailAuthCheckRequest request) {
+        try {
+            String savedAuthNumber = redisService.getValue(request.getEmail());
+            String authNumber = request.getEmailAuthNumber();
+
+            if(authNumber == null || authNumber.isBlank()) return false;
+
+            return savedAuthNumber.equals(authNumber);
+        } catch (Exception e) {
+
+            return false;
+        }
     }
 }

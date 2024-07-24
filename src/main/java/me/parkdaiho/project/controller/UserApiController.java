@@ -36,6 +36,11 @@ public class UserApiController {
         return ResponseEntity.ok(userService.emailDupCheckInSignUp(request));
     }
 
+    @PostMapping("/sign-up/email-auth")
+    public ResponseEntity<Boolean> authEmail(@RequestBody EmailAuthCheckRequest request) {
+        return ResponseEntity.ok(userService.emailAuthCheckInSignUp(request));
+    }
+
     @PostMapping("/api/membership")
     public ResponseEntity<Void> changeRole(@RequestBody ChangeRoleRequest request,
                                            @AuthenticationPrincipal PrincipalDetails principal) {

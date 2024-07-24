@@ -56,17 +56,27 @@
 						<div class="sign-up-input-button-area">
 							<input type="email" id="email" value="${email}" readonly>
 						</div>
+						<div class="input-valid-check-message" id="email-valid-check-message">
+							이메일 인증이 완료되었습니다.
+						</div>
 						<input type="hidden" id="provider" value="${provider}">
 						<input type="hidden" id="email-dup-flag" value="checked">
 					</c:when>
 					<c:otherwise>
 						<label for="email">EMAIL</label>
 						<div class="sign-up-input-button-area">
-							<input type="email" id="email" onchange="changeEmail();" autocomplete="false">
-							<input type="hidden" id="provider" value="SELF">
-							<button class="add" onclick="emailDupCheck();">CHECK</button>
+							<input type="email" id="email" autocomplete="false">
+							<button class="add" onclick="emailValidCheck();">CHECK</button>
 						</div>
-						<input type="hidden" id="email-dup-flag" value="unchecked">
+						<div class="sign-up-input-email-auth-area" id="email-auth-area" style="display: none;">
+							<label for="email-auth-number">Enter emailed authentication number.</label>
+							<input type="text" id="email-auth-number">
+							<button class="add" onclick="emailAuthCheck();">CHECK</button>
+						</div>
+						<div class="input-valid-check-message" id="email-valid-check-message" style="display: none;"></div>
+						<input type="hidden" id="provider" value="SELF">
+						<input type="hidden" id="email-valid-flag" value="unchecked">
+						<input type="hidden" id="email-auth-flag" value="unchecked">
 					</c:otherwise>
 				</c:choose>
 			</div>

@@ -1,7 +1,8 @@
 const usernameValidFlag = document.getElementById("username-valid-flag");
 const nicknameValidFlag = document.getElementById("nickname-valid-flag");
 const confirmPasswordValidFlag = document.getElementById("confirm-password-valid-flag");
-const emailDupFlag =  document.getElementById("email-dup-flag");
+const emailValidFlag =  document.getElementById("email-valid-flag");
+const emailAuthFlag = document.getElementById("email-auth-flag");
 
 const username = document.getElementById("username");
 const password = document.getElementById("password");
@@ -15,11 +16,16 @@ const passwordValidCheckMessage = document.getElementById("password-valid-check-
 const nicknameValidCheckMessage = document.getElementById("nickname-valid-check-message");
 const emailValidCheckMessage = document.getElementById("email-valid-check-message");
 
+const emailAuthArea = document.getElementById("email-auth-area");
+
 const validUsernameMessage = "사용가능한 아이디입니다.";
-const validEmailMessage = "가입가능한 이메일입니다.";
+const validEmailMessage = "이메일 인증이 완료되었습니다.";
 
 const usernameDupFailMessage = "이미 사용중인 아이디입니다.";
 const emailDupFailMessage = "이미 사용중인 이메일입니다.";
+const emailAuthFailMessage = "인증번호를 확인해주세요.";
+
+const uncheckedEmailAuthMessage = "이메일을 인증해주세요.";
 
 function signUp() {
     if(!checkFlag()) return;
@@ -80,8 +86,14 @@ function checkFlag() {
         return false;
     }
 
-    if(emailDupFlag.value === Check.UNCHECKED) {
+    if(emailValidFlag.value === Check.UNCHECKED) {
         alert(uncheckedEmailMessage);
+
+        return false;
+    }
+
+    if(emailAuthFlag.value === Check.UNCHECKED) {
+        alert(uncheckedEmailAuthMessage);
 
         return false;
     }
@@ -117,10 +129,6 @@ function changeNickname() {
 
     nicknameValidCheckMessage.innerHTML = "";
     nicknameValidCheckMessage.style.display = "none";
-}
-
-function changeEmail() {
-    emailDupFlag.value = Check.UNCHECKED;
 }
 
 function usernameValidCheck() {
@@ -177,16 +185,16 @@ function nicknameValidCheck() {
     validCheckRequest(url, body, success, fail);
 }
 
-function emailDupCheck() {
+function emailValidCheck() {
     let body = JSON.stringify({
         "email": email.value,
     });
 
     function success() {
-        alert(validEmailMessage);
+        emailValidFlag.value = Check.CHECKED;
 
-        emailDupFlag.value = Check.CHECKED;
-        showValidCheckMessage(emailValidCheckMessage, validEmailMessage);
+        email.setAttribute("readonly", "readonly");
+        emailAuthArea.style.display = "";
     }
 
     function fail() {
@@ -195,6 +203,30 @@ function emailDupCheck() {
 
     let url = "/sign-up/email";
     validCheckRequest(url, body, success, fail);
+}
+
+function emailAuthCheck() {
+    let emailAuthNumber = document.getElementById("email-auth-number");
+    let body = JSON.stringify({
+        "email": email.value,
+        "emailAuthNumber": emailAuthNumber.value,
+    });
+
+    function success() {
+        alert(validEmailMessage);
+
+        emailAuthArea.style.display = "none";
+        showValidCheckMessage(emailValidCheckMessage, validEmailMessage);
+    }
+
+    function fail() {
+        alert(emailAuthFailMessage);
+
+        emailAuthNumber.value = "";
+    }
+
+    let url = "/sign-up/email-auth"
+    validCheckRequest(url, body, success, fail)
 }
 
 function validCheckRequest(url, body, success, fail) {
