@@ -38,7 +38,7 @@ function signUp() {
         provider: provider.value
     });
 
-    fetch("/sign-up", {
+    fetch("/api/sign-up", {
         method: "POST",
         headers: {
             "Content-type": "application/json",
@@ -154,7 +154,7 @@ function usernameValidCheck() {
         alert(usernameDupFailMessage);
     }
 
-    let url = "/sign-up/username";
+    let url = "/api/sign-up/username";
     validCheckRequest(url, body, success, fail);
 }
 
@@ -181,7 +181,7 @@ function nicknameValidCheck() {
         alert(nicknameDupFailMessage);
     }
 
-    let url = "/sign-up/nickname";
+    let url = "/api/sign-up/nickname";
     validCheckRequest(url, body, success, fail);
 }
 
@@ -193,7 +193,10 @@ function emailValidCheck() {
     function success() {
         emailValidFlag.value = Check.CHECKED;
 
+        let emailValidCheckBtn = document.getElementById("email-valid-check-btn");
+        emailValidCheckBtn.setAttribute("disabled", "disabled");
         email.setAttribute("readonly", "readonly");
+
         emailAuthArea.style.display = "";
     }
 
@@ -201,7 +204,7 @@ function emailValidCheck() {
         alert(emailDupFailMessage);
     }
 
-    let url = "/sign-up/email";
+    let url = "/api/sign-up/email";
     validCheckRequest(url, body, success, fail);
 }
 
@@ -225,7 +228,7 @@ function emailAuthCheck() {
         emailAuthNumber.value = "";
     }
 
-    let url = "/sign-up/email-auth"
+    let url = "/api/sign-up/email-auth"
     validCheckRequest(url, body, success, fail)
 }
 

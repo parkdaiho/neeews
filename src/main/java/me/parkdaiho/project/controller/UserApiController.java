@@ -16,27 +16,27 @@ public class UserApiController {
 
     private final UserService userService;
 
-    @PostMapping("/sign-up")
+    @PostMapping("/api/sign-up")
     public ResponseEntity<SignUpResponse> signUp(@RequestBody SignUpRequest dto) {
         return ResponseEntity.ok(userService.signUp(dto));
     }
 
-    @PostMapping("/sign-up/username")
+    @PostMapping("/api/sign-up/username")
     public ResponseEntity<Boolean> checkUsername(@RequestBody UsernameDupCheckRequest request) {
         return ResponseEntity.ok(userService.usernameDupCheckInSignUp(request));
     }
 
-    @PostMapping("/sign-up/nickname")
+    @PostMapping("/api/sign-up/nickname")
     public ResponseEntity<Boolean> checkNickname(@RequestBody NicknameDupCheckRequest request) {
         return ResponseEntity.ok(userService.nicknameDupCheckInSignUp(request));
     }
 
-    @PostMapping("/sign-up/email")
+    @PostMapping("/api/sign-up/email")
     public ResponseEntity<Boolean> checkEmail(@RequestBody EmailDupCheckRequest request) {
         return ResponseEntity.ok(userService.emailDupCheckInSignUp(request));
     }
 
-    @PostMapping("/sign-up/email-auth")
+    @PostMapping("/api/sign-up/email-auth")
     public ResponseEntity<Boolean> authEmail(@RequestBody EmailAuthCheckRequest request) {
         return ResponseEntity.ok(userService.emailAuthCheckInSignUp(request));
     }

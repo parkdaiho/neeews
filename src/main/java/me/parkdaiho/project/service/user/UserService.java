@@ -25,6 +25,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -39,6 +41,7 @@ public class UserService {
     private final TokenRepository tokenRepository;
 
     private final RedisService redisService;
+    private final JavaMailSender javaMailSender;
 
     private final PaginationProperties paginationProperties;
     private final JwtProperties jwtProperties;
@@ -252,7 +255,8 @@ public class UserService {
         }
     }
 
-    private void sendAuthenticationNumber(String email) {
+    @Transactional
+    protected void sendAuthenticationNumber(String email) {
         StringBuilder authenticationNumber = new StringBuilder();
         for(int i = 0; i < 6; i++) {
             int number = (int) (Math.random() * 10);
@@ -260,6 +264,14 @@ public class UserService {
         }
 
         redisService.putRedisTemplate(email, authenticationNumber.toString());
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("test");
+        message.setTo(email);
+        message.setSubject("회원가입 이메일 인증번호입니다.");
+        message.setText("인증번호 : " + authenticationNumber);
+
+        javaMailSender.send(message);
     }
 
     private User findByEmail(String email) {

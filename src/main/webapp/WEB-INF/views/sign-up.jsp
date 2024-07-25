@@ -49,38 +49,42 @@
 				<input type="hidden" id="nickname-valid-flag" value="unchecked">
 			</div>
 			<div class="input-valid-check-message" id="nickname-valid-check-message" style="display: none;"></div>
-			<div class="sign-up-input">
 				<c:choose>
 					<c:when test="${email != null}">
+					<div class="sign-up-input">
 						<label for="email">EMAIL</label>
 						<div class="sign-up-input-button-area">
 							<input type="email" id="email" value="${email}" readonly>
-						</div>
-						<div class="input-valid-check-message" id="email-valid-check-message">
-							이메일 인증이 완료되었습니다.
+							<button class="add" disabled>CHECK</button>
 						</div>
 						<input type="hidden" id="provider" value="${provider}">
 						<input type="hidden" id="email-dup-flag" value="checked">
+					</div>
+					<div class="input-valid-check-message">
+						이메일 인증이 완료되었습니다.
+					</div>
 					</c:when>
 					<c:otherwise>
-						<label for="email">EMAIL</label>
-						<div class="sign-up-input-button-area">
-							<input type="email" id="email" autocomplete="false">
-							<button class="add" onclick="emailValidCheck();">CHECK</button>
+						<div class="sign-up-input">
+							<label for="email">EMAIL</label>
+							<div class="sign-up-input-button-area">
+								<input type="email" id="email" autocomplete="false">
+								<button class="add" onclick="emailValidCheck();" id="email-valid-check-btn">CHECK</button>
+							</div>
+							<input type="hidden" id="provider" value="SELF">
+							<input type="hidden" id="email-valid-flag" value="unchecked">
+							<input type="hidden" id="email-auth-flag" value="unchecked">
 						</div>
-						<div class="sign-up-input-email-auth-area" id="email-auth-area" style="display: none;">
-							<label for="email-auth-number">Enter emailed authentication number.</label>
-							<input type="text" id="email-auth-number">
-							<button class="add" onclick="emailAuthCheck();">CHECK</button>
+						<div class="sign-up-input" id="email-auth-area" style="display: none;">
+							<label for="email-auth-number">CODE</label>
+							<div class="sign-up-input-button-area">
+								<input type="text" id="email-auth-number" placeholder="Enter emailed authentication number.">
+								<button class="add" onclick="emailAuthCheck();">CHECK</button>
+							</div>
 						</div>
 						<div class="input-valid-check-message" id="email-valid-check-message" style="display: none;"></div>
-						<input type="hidden" id="provider" value="SELF">
-						<input type="hidden" id="email-valid-flag" value="unchecked">
-						<input type="hidden" id="email-auth-flag" value="unchecked">
 					</c:otherwise>
 				</c:choose>
-			</div>
-			<div class="input-valid-check-message" id="email-valid-check-message" style="display: none;"></div>
 		</section>
 		<section class="sign-up-btn">
 			<button class="add" onclick="signUp();">SIGN-UP</button>

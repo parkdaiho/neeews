@@ -55,8 +55,8 @@ spring:
       timeout: 1800
 
   mail:
-    host: smtp.gmail.com
     protocol: smtp
+    host: smtp.gmail.com
     port: 587
     username: eogh7204@gmail.com
     password: szvzqclypviejody
