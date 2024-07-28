@@ -15,6 +15,7 @@ import me.parkdaiho.project.service.user.UserService;
 import org.aspectj.asm.IModelFilter;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +42,21 @@ public class UserViewController {
     @GetMapping("/sign-up")
     public String signUpPage() {
         return "sign-up";
+    }
+
+    @GetMapping("/find-user-info")
+    public String findUserInfo() {
+        return "find-user-info";
+    }
+
+    @GetMapping("/find-username")
+    public String findUsername() {
+        return "find-username";
+    }
+
+    @GetMapping("/find-password")
+    public String findPassword() {
+        return "find-password";
     }
 
     @GetMapping("/my-page")

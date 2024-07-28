@@ -71,7 +71,7 @@ function getPageInMyPage(url, pageName) {
         })
         .then(result => {
             area.innerHTML = result;
-        })
+        });
 }
 
 function menuOn(menuElement){

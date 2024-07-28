@@ -43,8 +43,13 @@
 				</div>
 			</form>
 		</section>
-		<section class="login-sign-up">
-			If you're not our site member yet, please <a href="/sign-up">sign up</a>!
+		<section class="login-additional-area">
+			<div class="login-additional">
+				If you're not our site member yet, please <a href="/sign-up">sign up</a>!
+			</div>
+			<div class="login-additional">
+				If you forget your username or password, <a href="/find-user-info">click here</a>!
+			</div>
 		</section>
 		<section class="login-oauth2">
 			<a href="/oauth2/authorization/google"><img src="/img/oauth2-google.png"></a>

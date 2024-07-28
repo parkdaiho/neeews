@@ -1107,15 +1107,18 @@ main {
     width: 100%;
 }
 
-.login-sign-up {
+.login-additional-area {
     width: 70%;
-    font-size: 2.0rem;
-    font-weight: bold;
-    text-align: center;
     margin: 20px auto;
 }
 
-.login-sign-up a {
+.login-additional {
+    padding: 10px;
+    font-size: 2.0rem;
+    text-align: center;
+}
+
+.login-additional a {
     color: #065fd4;
     font-weight: bold;
     text-decoration: underline;
@@ -1136,7 +1139,6 @@ main {
 }
 
 /* sign-up */
-
 .sign-up-page {
     width: 70%;
     margin: 0 auto;
@@ -1197,8 +1199,10 @@ main {
     color: #065fd4;
 }
 
-/* my-page */
+/* find-user-info */
 
+
+/* my-page */
 .my-page {
     display: flex;
 }
@@ -1609,4 +1613,58 @@ main {
 .my-comments-figure {
     font-size: 1.4rem;
     margin-right: 10px;
+}
+
+/* find-user-info */
+.find-user-info-page {
+    width: 80%;
+    margin: 0 auto;
+    padding-bottom: 80px;
+}
+
+.find-user-info-area {
+    padding: 30px;
+    text-align: center;
+}
+
+.find-user-info-area p {
+    width: 60%;
+    display: inline-block;
+    font-size: 3.0rem;
+    padding-top: 20px;
+}
+
+.find-user-info-btn-area {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px;
+}
+
+.find-user-info-btn {
+    min-width: 200px;
+    min-height: 200px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border: 2px black solid;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* find-username */
+.find-username-area {
+    width: 60%;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.find-username-info {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px black solid;
 }

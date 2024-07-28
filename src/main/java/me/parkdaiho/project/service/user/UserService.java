@@ -19,6 +19,7 @@ import me.parkdaiho.project.dto.user.MembershipSearchRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.repository.user.TokenRepository;
 import me.parkdaiho.project.repository.user.UserRepository;
+import me.parkdaiho.project.service.EmailService;
 import me.parkdaiho.project.service.RedisService;
 import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
@@ -41,7 +42,7 @@ public class UserService {
     private final TokenRepository tokenRepository;
 
     private final RedisService redisService;
-    private final JavaMailSender javaMailSender;
+    private final EmailService emailService;
 
     private final PaginationProperties paginationProperties;
     private final JwtProperties jwtProperties;
@@ -265,13 +266,7 @@ public class UserService {
 
         redisService.putRedisTemplate(email, authenticationNumber.toString());
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("test");
-        message.setTo(email);
-        message.setSubject("회원가입 이메일 인증번호입니다.");
-        message.setText("인증번호 : " + authenticationNumber);
-
-        javaMailSender.send(message);
+        emailService.sendSignUpAuthenticationCode(email, authenticationNumber.toString());
     }
 
     private User findByEmail(String email) {
