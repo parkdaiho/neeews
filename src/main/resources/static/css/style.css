@@ -1414,7 +1414,7 @@ main {
 }
 
 .withdrawal-password input {
-    width: 60%;
+    width: 70%;
     padding: 10px;
     font-size: 1.6rem;
 }
@@ -1616,11 +1616,6 @@ main {
 }
 
 /* find-user-info */
-.find-user-info-page {
-    width: 80%;
-    margin: 0 auto;
-    padding-bottom: 80px;
-}
 
 .find-user-info-area {
     padding: 30px;
@@ -1635,7 +1630,7 @@ main {
 }
 
 .find-user-info-btn-area {
-    width: 60%;
+    width: 45%;
     margin: 0 auto;
     display: flex;
     justify-content: space-around;
@@ -1655,16 +1650,72 @@ main {
     align-items: center;
 }
 
-/* find-username */
-.find-username-area {
-    width: 60%;
-    padding: 20px;
-    margin: 0 auto;
+/* find-username, find-password */
+
+.find-info-area {
+    display: flex;
 }
 
-.find-username-info {
+.find-user-info-menu {
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    padding: 30px 20px;
+    border-right: 3px black solid;
+}
+
+.find-user-info-menu ul li {
+    font-size: 2.0rem;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+.find-user-info-right-area {
+    width: 100%;
+    padding: 15px;
+}
+
+.find-user-info-info {
     padding: 20px;
     display: flex;
     flex-direction: column;
     border-bottom: 2px black solid;
+}
+
+.find-user-info-info h2{
+    margin: 5px 10px;
+    font-size: 2.5rem;
+}
+
+.find-user-info-info p {
+    margin: 5px 10px;
+    font-size: 2.2rem;
+}
+
+.find-user-info-input {
+    padding: 15px;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.find-user-info-input label {
+    padding: 5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.find-user-info-input input{
+    width: 70%;
+    padding: 10px;
+    font-size: 1.6rem;
+}
+
+.find-username-btn-area,
+.find-password-btn-area {
+    width: 60%;
+    display: flex;
+    justify-content: end;
+    font-size: 1.4rem;
 }
