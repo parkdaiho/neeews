@@ -54,6 +54,13 @@ public class UserViewController {
         return "find-username";
     }
 
+    @GetMapping("/found-username")
+    public String foundUsername(String username, Model model) {
+        model.addAttribute("username", username);
+
+        return "found-username";
+    }
+
     @GetMapping("/find-password")
     public String findPassword() {
         return "find-password";

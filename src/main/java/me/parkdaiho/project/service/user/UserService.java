@@ -15,6 +15,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.dto.SendCodeForUsernameRequest;
 import me.parkdaiho.project.dto.user.MembershipSearchRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.repository.user.TokenRepository;
@@ -25,14 +26,8 @@ import me.parkdaiho.project.util.CookieUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-
-import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -258,15 +253,9 @@ public class UserService {
 
     @Transactional
     protected void sendAuthenticationNumber(String email) {
-        StringBuilder authenticationNumber = new StringBuilder();
-        for(int i = 0; i < 6; i++) {
-            int number = (int) (Math.random() * 10);
-            authenticationNumber.append(number);
-        }
+        String code = emailService.sendAuthenticationCodeForSignUp(email);
 
-        redisService.putRedisTemplate(email, authenticationNumber.toString());
-
-        emailService.sendSignUpAuthenticationCode(email, authenticationNumber.toString());
+        redisService.putRedisTemplate(email, code);
     }
 
     private User findByEmail(String email) {
@@ -285,15 +274,43 @@ public class UserService {
 
     public Boolean emailAuthCheckInSignUp(EmailAuthCheckRequest request) {
         try {
-            String savedAuthNumber = redisService.getValue(request.getEmail());
-            String authNumber = request.getEmailAuthNumber();
+            String savedCode = redisService.getValue(request.getEmail());
+            String code = request.getCode();
 
-            if(authNumber == null || authNumber.isBlank()) return false;
+            if(code == null || code.isBlank()) return false;
 
-            return savedAuthNumber.equals(authNumber);
+            return savedCode.equals(code);
         } catch (Exception e) {
 
             return false;
+        }
+    }
+
+    public void sendCode(SendCodeForUsernameRequest request) {
+        String email = request.getEmail();
+
+        findByEmail(email);
+
+        String code = emailService.sendAuthenticationCodeForUsername(email);
+
+        redisService.putRedisTemplate(email, code);
+    }
+
+    public String emailAuthCheckInFindUsername(EmailAuthCheckRequest request) {
+        String email = request.getEmail();
+        if(email == null) throw new IllegalArgumentException("Email is null.");
+
+        String authNumber = request.getCode();
+        if(authNumber == null) throw new IllegalArgumentException("AuthNumber is null.");
+
+        boolean flag = authNumber.equals(redisService.getValue(email));
+
+        System.out.println(redisService.getValue(email) + " " + authNumber);
+
+        if(flag) {
+            return findByEmail(email).getUsername();
+        } else {
+            throw new IllegalArgumentException("The code is not the same.");
         }
     }
 }

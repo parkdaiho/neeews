@@ -15,8 +15,8 @@
 		<h1>FIND USER INFORMATION</h1>
 		<p>You can find your username or password this page.</p>
 	</section>
-	<div class="find-user-info-page" id="find-user-info-page">
-		<section class="find-user-info-area">
+	<section class="find-user-info-page" id="find-user-info-page">
+		<div class="find-user-info-area">
 			<p>What information did you forget?</p>
 			<div class="find-user-info-btn-area">
 				<div class="find-user-info-btn" onclick="getFindUsernamePage();">
@@ -26,8 +26,8 @@
 					PASSWORD
 				</div>
 			</div>
-		</section>
-	</div>
+		</div>
+	</section>
 </main>
 <footer>
 	<jsp:include page="footer.jsp"></jsp:include>

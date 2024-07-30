@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.dto.AuthCheckResponseForUsername;
+import me.parkdaiho.project.dto.SendCodeForUsernameRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.http.ResponseEntity;
@@ -77,5 +79,19 @@ public class UserApiController {
         userService.deleteUser(request, response, dto, principal);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/username")
+    public ResponseEntity<Void> sendCodeForUsername(@RequestBody SendCodeForUsernameRequest request) {
+        userService.sendCode(request);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/username/authentication")
+    public ResponseEntity<AuthCheckResponseForUsername> authenticateCodeForUsername(@RequestBody EmailAuthCheckRequest request) {
+        String username = userService.emailAuthCheckInFindUsername(request);
+
+        return ResponseEntity.ok(new AuthCheckResponseForUsername(username));
     }
 }

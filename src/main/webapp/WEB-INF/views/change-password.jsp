@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="/css/css.css">
-	<title>FIND PASSWORD</title>
+	<title>CHANGE-PASSWORD</title>
 </head>
 <body>
 	<div class="find-info-area">
@@ -16,23 +16,19 @@
 		</div>
 		<div class="find-user-info-right-area">
 			<div class="find-user-info-info">
-				<h2>FIND PASSWORD</h2>
-				<p>Find your password through username and the mail you authenticated in the sign-up.</p>
+				<h2>CHANGE-PASSWORD</h2>
+				<p>Change to the password you want to use.</p>
 			</div>
-			<div class="find-user-info-input">
-				<label>USERNAME</label>
-				<input type="text" id="username">
+			<div class="change-password-input">
+				<label>PASSWORD</label>
+				<input type="password" id="password">
 			</div>
-			<div class="find-user-info-input">
-				<label>EMAIL</label>
-				<input type="email" id="email">
+			<div class="change-password-input">
+				<label>CONFIRM-PASSWORD</label>
+				<input type="password" id="confirm-password">
 			</div>
-			<div class="find-user-info-input" id="find-user-info-code" style="display: none;">
-				<label>CODE</label>
-				<input type="text" id="code">
-			</div>
-			<div class="find-password-btn-area">
-				<button onclick="sendCodeForPassword();" id="find-password-btn">CHECK</button>
+			<div class="change-password-btn-area">
+				<button onclick="changePassword();">CHANGE</button>
 			</div>
 		</div>
 	</div>

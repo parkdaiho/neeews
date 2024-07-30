@@ -212,7 +212,7 @@ function emailAuthCheck() {
     let emailAuthNumber = document.getElementById("email-auth-number");
     let body = JSON.stringify({
         "email": email.value,
-        "emailAuthNumber": emailAuthNumber.value,
+        "code": emailAuthNumber.value,
     });
 
     function success() {

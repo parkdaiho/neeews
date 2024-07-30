@@ -17,7 +17,7 @@
 		<div class="find-user-info-right-area">
 			<div class="find-user-info-info">
 				<h2>FIND USERNAME</h2>
-				<p>Enter the email when you signed up.</p>
+				<p>Find your username through the mail you authenticated in the sign-up.</p>
 			</div>
 			<div class="find-user-info-input">
 				<label>EMAIL</label>
@@ -28,7 +28,8 @@
 				<input type="text" id="code">
 			</div>
 			<div class="find-username-btn-area">
-				<button onclick="" id="find-username-btn">SEND</button>
+				<button onclick="sendCodeForUsername();" id="find-username-send-btn">SEND</button>
+				<button onclick="authenticateCodeForUsername();" id="find-username-auth-btn" style="display: none;">AUTHENTICATION</button>
 			</div>
 		</div>
 	</div>

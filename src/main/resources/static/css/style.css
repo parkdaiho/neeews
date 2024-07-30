@@ -1719,3 +1719,35 @@ main {
     justify-content: end;
     font-size: 1.4rem;
 }
+
+.find-username-result {
+    padding: 15px;
+    text-align: center;
+    font-size: 2.0rem;
+}
+
+.found-username {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #065fd4;
+}
+
+.change-password-input {
+    padding: 15px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.change-password-input label {
+    padding: 5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.change-password-input input{
+    width: 65%;
+    padding: 10px;
+    font-size: 1.6rem;
+}

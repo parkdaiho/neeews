@@ -10,6 +10,20 @@ function getFindPasswordPage() {
     getPage(url, "find-password");
 }
 
+function getFoundUsername(username) {
+    let params = new URLSearchParams({
+        "username": username,
+    });
+    let url = "/found-username?" + params;
+
+    getPage(url, "found-username");
+}
+
+function getLoginPage() {
+    let url = "/login";
+    location.replace(url);
+}
+
 function getPage(url, pageName) {
     let findUserInfoPage = document.getElementById("find-user-info-page");
     fetch(url, {

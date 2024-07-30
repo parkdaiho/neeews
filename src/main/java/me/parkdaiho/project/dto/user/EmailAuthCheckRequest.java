@@ -8,5 +8,5 @@ import lombok.Setter;
 public class EmailAuthCheckRequest {
 
     private String email;
-    private String emailAuthNumber;
+    private String code;
 }

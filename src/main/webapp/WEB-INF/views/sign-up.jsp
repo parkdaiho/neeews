@@ -58,7 +58,8 @@
 							<button class="add" disabled>CHECK</button>
 						</div>
 						<input type="hidden" id="provider" value="${provider}">
-						<input type="hidden" id="email-dup-flag" value="checked">
+						<input type="hidden" id="email-auth-flag" value="checked">
+						<input type="hidden" id="email-valid-flag" value="checked">
 					</div>
 					<div class="input-valid-check-message">
 						이메일 인증이 완료되었습니다.
