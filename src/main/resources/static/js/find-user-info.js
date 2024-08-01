@@ -10,13 +10,16 @@ function getFindPasswordPage() {
     getPage(url, "find-password");
 }
 
-function getFoundUsername(username) {
-    let params = new URLSearchParams({
-        "username": username,
-    });
-    let url = "/found-username?" + params;
+function getFoundUsername() {
+    let url = "/find-username/result";
 
-    getPage(url, "found-username");
+    getPage(url, "find-username-result");
+}
+
+function getChangePasswordPage() {
+    let url = "/find-password/result";
+
+    getPage(url, "find-password-result");
 }
 
 function getLoginPage() {

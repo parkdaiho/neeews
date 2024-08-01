@@ -16,7 +16,9 @@
 		</div>
 		<div class="find-user-info-right-area">
 			<div class="find-username-result">
-				아이디는 <span class="found-username">${username}</span> 입니다.
+				<p>
+					아이디는 <span class="found-username">${username}</span> 입니다.
+				</p>
 			</div>
 			<div class="find-username-result-btn-area">
 				<button onclick="getLoginPage();">LOGIN</button>

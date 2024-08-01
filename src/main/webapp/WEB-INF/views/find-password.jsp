@@ -32,7 +32,8 @@
 				<input type="text" id="code">
 			</div>
 			<div class="find-password-btn-area">
-				<button onclick="sendCodeForPassword();" id="find-password-btn">CHECK</button>
+				<button onclick="sendCodeForPassword();" id="find-password-send-btn">SEND</button>
+				<button onclick="authCodeForPassword();" id="find-password-auth-btn">CHECK</button>
 			</div>
 		</div>
 	</div>

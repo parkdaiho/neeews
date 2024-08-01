@@ -2,6 +2,7 @@ package me.parkdaiho.project.controller;
 
 import jakarta.annotation.Nullable;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.domain.Sort;
@@ -12,6 +13,7 @@ import me.parkdaiho.project.dto.user.MembershipViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
 import me.parkdaiho.project.service.user.UserService;
+import me.parkdaiho.project.util.CookieUtils;
 import org.aspectj.asm.IModelFilter;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
@@ -54,16 +56,29 @@ public class UserViewController {
         return "find-username";
     }
 
-    @GetMapping("/found-username")
-    public String foundUsername(String username, Model model) {
+    @GetMapping("/find-username/result")
+    public String foundUsername(HttpServletRequest request, HttpServletResponse response,
+                                Model model) {
+        String username = userService.getFoundUsername(request, response);
+
         model.addAttribute("username", username);
 
-        return "found-username";
+        return "find-user-info-result";
     }
 
     @GetMapping("/find-password")
     public String findPassword() {
         return "find-password";
+    }
+
+    @GetMapping("/change-password")
+    public String changePassword() {
+        return "change-password";
+    }
+
+    @GetMapping("/find-password/result")
+    public String changePasswordResult() {
+        return "find-user-info-result";
     }
 
     @GetMapping("/my-page")

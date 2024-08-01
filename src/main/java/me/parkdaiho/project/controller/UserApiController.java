@@ -89,9 +89,10 @@ public class UserApiController {
     }
 
     @PostMapping("/api/username/authentication")
-    public ResponseEntity<AuthCheckResponseForUsername> authenticateCodeForUsername(@RequestBody EmailAuthCheckRequest request) {
-        String username = userService.emailAuthCheckInFindUsername(request);
+    public ResponseEntity<Void> authenticateCodeForUsername(@RequestBody EmailAuthCheckRequest request,
+                                                            HttpServletResponse response) {
+        userService.emailAuthCheckInFindUsername(request, response);
 
-        return ResponseEntity.ok(new AuthCheckResponseForUsername(username));
+        return ResponseEntity.ok().build();
     }
 }

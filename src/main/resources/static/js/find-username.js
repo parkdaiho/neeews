@@ -43,12 +43,9 @@ function authenticateCodeForUsername() {
     })
         .then(response => {
             if(response.ok) {
-                return response.json();
+                getFoundUsername();
             } else {
                 alert("Fail authentication.");
             }
-        })
-        .then(result => {
-            getFoundUsername(result.username);
         });
 }

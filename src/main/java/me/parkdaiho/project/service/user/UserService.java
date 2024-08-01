@@ -296,7 +296,7 @@ public class UserService {
         redisService.putRedisTemplate(email, code);
     }
 
-    public String emailAuthCheckInFindUsername(EmailAuthCheckRequest request) {
+    public void emailAuthCheckInFindUsername(EmailAuthCheckRequest request, HttpServletResponse response) {
         String email = request.getEmail();
         if(email == null) throw new IllegalArgumentException("Email is null.");
 
@@ -305,12 +305,23 @@ public class UserService {
 
         boolean flag = authNumber.equals(redisService.getValue(email));
 
-        System.out.println(redisService.getValue(email) + " " + authNumber);
-
         if(flag) {
-            return findByEmail(email).getUsername();
+            String serializedUsername = CookieUtils.serialize(findByEmail(email).getUsername());
+            CookieUtils.addCookie(response, cookieProperties.getUsernameInFindUsernameName(),
+                    serializedUsername, cookieProperties.getFindUserInfoExpiry());
         } else {
             throw new IllegalArgumentException("The code is not the same.");
         }
+    }
+
+    public String getFoundUsername(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = CookieUtils.getCookieByName(request, cookieProperties.getUsernameInFindUsernameName());
+        if(cookie == null) throw new IllegalArgumentException("Unexpected access");
+
+        String username = CookieUtils.deserialize(cookie.getValue(), String.class);
+
+        CookieUtils.deleteCookie(request, response, cookieProperties.getUsernameInFindUsernameName());
+
+        return username;
     }
 }

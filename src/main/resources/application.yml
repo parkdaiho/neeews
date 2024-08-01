@@ -137,9 +137,14 @@ pagination :
 
 cookie :
   saved-username-name: "SAVED-USERNAME"
+
   viewed-articles-name: "VIEWED-ARTICLES"
   viewed-posts-name: "VIEWED-POSTS"
   viewed-notice-name: "VIEWED-NOTICE"
 
+  username-in-find-username-name: "FIND-USERNAME"
+  email-in-find-password-name: "FIND-PASSWORD"
+
   saved-username-expiry: 31536000
   viewed-checked-expiry: 86400
+  find-user-info-expiry: 1800
