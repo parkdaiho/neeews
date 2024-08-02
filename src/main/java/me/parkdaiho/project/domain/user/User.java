@@ -77,10 +77,15 @@ public class User extends BaseEntity {
         this.role = Role.valueOf(role.toUpperCase());
     }
 
-    public void update(String password, String nickname) {
+    public void update(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         this.password = passwordEncoder.encode(password);
+    }
+
+    public void update(String password, String nickname) {
+        update(password);
+
         this.nickname = nickname;
     }
 

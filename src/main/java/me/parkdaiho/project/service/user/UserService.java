@@ -15,8 +15,8 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
-import me.parkdaiho.project.dto.SendCodeForPasswordRequest;
-import me.parkdaiho.project.dto.SendCodeForUsernameRequest;
+import me.parkdaiho.project.dto.user.SendCodeForPasswordRequest;
+import me.parkdaiho.project.dto.user.SendCodeForUsernameRequest;
 import me.parkdaiho.project.dto.user.MembershipSearchRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.repository.user.TokenRepository;
@@ -359,5 +359,19 @@ public class UserService {
         } else {
             throw new IllegalArgumentException("Check code.");
         }
+    }
+
+    @Transactional
+    public void changePassword(ChangePasswordRequest dto,
+                               HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = CookieUtils.getCookieByName(request, cookieProperties.getEmailInFindPasswordName());
+        if(cookie == null) throw new IllegalArgumentException("Unexpected access");
+
+        String email = CookieUtils.deserialize(cookie.getValue(), String.class);
+        User user = findByEmail(email);
+
+        user.update(dto.getPassword());
+        
+        CookieUtils.deleteCookie(request, response, cookieProperties.getEmailInFindPasswordName());
     }
 }

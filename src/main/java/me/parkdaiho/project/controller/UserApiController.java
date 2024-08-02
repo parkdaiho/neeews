@@ -4,9 +4,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
-import me.parkdaiho.project.dto.AuthCheckResponseForUsername;
-import me.parkdaiho.project.dto.SendCodeForPasswordRequest;
-import me.parkdaiho.project.dto.SendCodeForUsernameRequest;
+import me.parkdaiho.project.dto.user.SendCodeForPasswordRequest;
+import me.parkdaiho.project.dto.user.SendCodeForUsernameRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.service.user.UserService;
 import org.springframework.http.ResponseEntity;
@@ -108,6 +107,14 @@ public class UserApiController {
     public ResponseEntity<Void> authenticationForPassword(@RequestBody EmailAuthCheckRequest request,
                                                           HttpServletResponse response) {
         userService.emailAuthCheckInFindPassword(request, response);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/api/password")
+    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest dto,
+                                               HttpServletRequest request, HttpServletResponse response) {
+        userService.changePassword(dto, request, response);
 
         return ResponseEntity.ok().build();
     }
