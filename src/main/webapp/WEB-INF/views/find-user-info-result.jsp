@@ -15,13 +15,21 @@
 			</ul>
 		</div>
 		<div class="find-user-info-right-area">
-			<div class="find-username-result">
+			<div class="find-user-info-result">
 				<p>
-					아이디는 <span class="found-username">${username}</span> 입니다.
+					<c:choose>
+						<c:when test="${username != null}">
+								아이디는 <span class="found-username">${username}</span> 입니다.
+						</c:when>
+						<c:otherwise>
+								비밀번호를 변경했습니다.
+						</c:otherwise>
+					</c:choose>
+					로그인을 해주세요.
 				</p>
-			</div>
-			<div class="find-username-result-btn-area">
-				<button onclick="getLoginPage();">LOGIN</button>
+				<div class="find-username-result-btn-area">
+					<button onclick="getLoginPage();">LOGIN</button>
+				</div>
 			</div>
 		</div>
 	</div>

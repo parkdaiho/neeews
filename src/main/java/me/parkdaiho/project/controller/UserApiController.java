@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.dto.AuthCheckResponseForUsername;
+import me.parkdaiho.project.dto.SendCodeForPasswordRequest;
 import me.parkdaiho.project.dto.SendCodeForUsernameRequest;
 import me.parkdaiho.project.dto.user.*;
 import me.parkdaiho.project.service.user.UserService;
@@ -92,6 +93,21 @@ public class UserApiController {
     public ResponseEntity<Void> authenticateCodeForUsername(@RequestBody EmailAuthCheckRequest request,
                                                             HttpServletResponse response) {
         userService.emailAuthCheckInFindUsername(request, response);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/password")
+    public ResponseEntity<Void> sendCodeForPassword(@RequestBody SendCodeForPasswordRequest request) {
+        userService.sendCode(request);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/api/password/authentication")
+    public ResponseEntity<Void> authenticationForPassword(@RequestBody EmailAuthCheckRequest request,
+                                                          HttpServletResponse response) {
+        userService.emailAuthCheckInFindPassword(request, response);
 
         return ResponseEntity.ok().build();
     }

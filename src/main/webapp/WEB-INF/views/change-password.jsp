@@ -21,12 +21,16 @@
 			</div>
 			<div class="change-password-input">
 				<label>PASSWORD</label>
-				<input type="password" id="password">
+				<input type="password" id="password" onchange="checkRegex();">
+				<input type="hidden" id="regex-check" value="false">
 			</div>
 			<div class="change-password-input">
 				<label>CONFIRM-PASSWORD</label>
-				<input type="password" id="confirm-password">
+				<input type="password" id="confirm-password" onchange="checkConfirm();">
+				<input type="hidden" id="confirm-check" value="unchecked">
 			</div>
+			<div class="change-password-valid-check-message" id="change-password-valid-check-message"
+					 style="display: none;"></div>
 			<div class="change-password-btn-area">
 				<button onclick="changePassword();">CHANGE</button>
 			</div>

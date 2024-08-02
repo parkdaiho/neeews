@@ -15,6 +15,7 @@ import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.domain.user.Token;
 import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.domain.user.User;
+import me.parkdaiho.project.dto.SendCodeForPasswordRequest;
 import me.parkdaiho.project.dto.SendCodeForUsernameRequest;
 import me.parkdaiho.project.dto.user.MembershipSearchRequest;
 import me.parkdaiho.project.dto.user.*;
@@ -286,16 +287,18 @@ public class UserService {
         }
     }
 
+    @Transactional
     public void sendCode(SendCodeForUsernameRequest request) {
         String email = request.getEmail();
+        if(email == null) throw new IllegalArgumentException("Email is null.");
 
         findByEmail(email);
 
         String code = emailService.sendAuthenticationCodeForUsername(email);
-
         redisService.putRedisTemplate(email, code);
     }
 
+    @Transactional
     public void emailAuthCheckInFindUsername(EmailAuthCheckRequest request, HttpServletResponse response) {
         String email = request.getEmail();
         if(email == null) throw new IllegalArgumentException("Email is null.");
@@ -314,6 +317,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public String getFoundUsername(HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = CookieUtils.getCookieByName(request, cookieProperties.getUsernameInFindUsernameName());
         if(cookie == null) throw new IllegalArgumentException("Unexpected access");
@@ -323,5 +327,37 @@ public class UserService {
         CookieUtils.deleteCookie(request, response, cookieProperties.getUsernameInFindUsernameName());
 
         return username;
+    }
+
+    @Transactional
+    public void sendCode(SendCodeForPasswordRequest request) {
+        String username = request.getUsername();
+        if(username == null) throw new IllegalArgumentException("Username is null.");
+
+        String email = request.getEmail();
+        if(email == null) throw new IllegalArgumentException("Email is null.");
+
+        User user = findByUsername(username);
+        if(!email.equals(user.getEmail())) throw new IllegalArgumentException("Check input.");
+
+        String code = emailService.sendAuthenticationCodeForPassword(email);
+        redisService.putRedisTemplate(email, code);
+    }
+
+    public void emailAuthCheckInFindPassword(EmailAuthCheckRequest request, HttpServletResponse response) {
+        String email = request.getEmail();
+        if(email == null) throw new IllegalArgumentException("Email is null.");
+
+        String authNumber = request.getCode();
+        if(authNumber == null) throw new IllegalArgumentException("AuthNumber is null.");
+
+        boolean flag = authNumber.equals(redisService.getValue(email));
+        if(flag) {
+            String serializedEmail = CookieUtils.serialize(email);
+            CookieUtils.addCookie(response, cookieProperties.getEmailInFindPasswordName(),
+                    serializedEmail, cookieProperties.getFindUserInfoExpiry());
+        } else {
+            throw new IllegalArgumentException("Check code.");
+        }
     }
 }

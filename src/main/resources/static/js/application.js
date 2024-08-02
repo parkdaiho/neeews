@@ -26,7 +26,7 @@ const usernameRegex = /^[a-z0-9]{5,20}$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%!&*_+=-])[a-zA-Z0-9@#$%!&*_+=-]{8,20}$/;
 const nicknameRegex = /^.{2,16}$/;
 
-const validPasswordMessage = "사용가능한 비밀번호입니다.";
+const validPasswordMessage = "사용가능한 비밀번호입니다. 비밀번호를 확인해주세요.";
 const validNicknameMessage = "사용가능한 닉네임입니다.";
 
 const nicknameDupFailMessage = "이미 사용중인 닉네임입니다.";

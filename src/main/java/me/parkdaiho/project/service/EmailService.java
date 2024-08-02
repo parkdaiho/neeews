@@ -40,6 +40,20 @@ public class EmailService {
         return code;
     }
 
+    @Transactional
+    public String sendAuthenticationCodeForPassword(String email) {
+        String code = createAuthenticationCode();
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("Find password authentication code");
+        message.setText("Authentication-code is: " + code);
+
+        emailSender.send(message);
+
+        return code;
+    }
+
     private String createAuthenticationCode() {
         StringBuilder authenticationNumber = new StringBuilder();
         for(int i = 0; i < 6; i++) {
@@ -49,4 +63,5 @@ public class EmailService {
 
         return authenticationNumber.toString();
     }
+
 }

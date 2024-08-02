@@ -43,7 +43,7 @@ function authenticateCodeForUsername() {
     })
         .then(response => {
             if(response.ok) {
-                getFoundUsername();
+                getFindUsernameResultPage();
             } else {
                 alert("Fail authentication.");
             }

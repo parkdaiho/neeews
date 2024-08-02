@@ -2,20 +2,26 @@ function sendCodeForPassword() {
     let email = document.getElementById("email");
     let username = document.getElementById("username");
     let body = JSON.stringify({
-        "email": email.value,
         "username": username.value,
+        "email": email.value,
     });
 
-    let url = "/api/password";
-
     function success() {
-        getPage(url, "change-password");
+        let codeArea = document.getElementById("find-user-info-code");
+        codeArea.style.display = "";
+
+        let sendBtn = document.getElementById("find-password-send-btn");
+        sendBtn.style.display = "none";
+
+        let authBtn = document.getElementById("find-password-auth-btn");
+        authBtn.style.display = "";
     }
 
     function fail() {
         alert("Fail api-request");
     }
 
+    let url = "/api/password";
     apiRequestInFindPassword(url, body, success, fail);
 }
 
@@ -24,13 +30,19 @@ function authCodeForPassword() {
     let code = document.getElementById("code");
     let body = JSON.stringify({
         "email": email.value,
-        "code":code.value,
+        "code": code.value,
     });
 
-    let url = "/api/password/authentication";
     function success() {
-        getPage(url, "authCode")
+        getChangePasswordPage();
     }
+
+    function fail() {
+        alert("Fail api-request");
+    }
+
+    let url = "/api/password/authentication";
+    apiRequestInFindPassword(url, body, success, fail);
 }
 
 function apiRequestInFindPassword(url, body, success, fail) {
@@ -46,4 +58,80 @@ function apiRequestInFindPassword(url, body, success, fail) {
                 return fail();
             }
         })
+}
+
+function checkRegex() {
+    let regexFlag = document.getElementById("regex-check");
+    regexFlag.value = Check.UNCHECKED;
+
+    let confirmFlag = document.getElementById("confirm-check");
+    confirmFlag.value = Check.UNCHECKED;
+
+    let validCheckMessageArea= document.getElementById("change-password-valid-check-message");
+    validCheckMessageArea.style.display = "";
+
+    let password = document.getElementById("password");
+    if(!passwordRegex.test(password.value)) {
+        validCheckMessageArea.innerHTML = passwordRegexFailMessage;
+        regexFlag.value = Check.UNCHECKED;
+
+        return;
+    }
+
+    validCheckMessageArea.innerHTML = validPasswordMessage;
+    regexFlag.value = Check.CHECKED;
+}
+
+function checkConfirm() {
+    let confirmFlag = document.getElementById("confirm-check");
+    confirmFlag.value = Check.UNCHECKED;
+
+    let regexFlag = document.getElementById("regex-check");
+    if(regexFlag.value !== Check.UNCHECKED) return;
+
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirm-password").value;
+    let validCheckMessageArea= document.getElementById("change-password-valid-check-message");
+
+    if(password === confirmPassword) {
+        validCheckMessageArea.style.display = "none";
+        confirmFlag.value = Check.CHECKED;
+    }
+
+    confirmFlag.value = Check.UNCHECKED;
+}
+
+function changePassword() {
+    let regexFlag = document.getElementById("regex-check");
+    if (regexFlag !== Check.UNCHECKED) {
+        alert(passwordRegexFailMessage);
+
+        return;
+    }
+
+    let confirmFlag = document.getElementById("confirm-check");
+    if(confirmFlag !== Check.UNCHECKED) {
+        alert(passwordConfirmFailMessage);
+
+        return;
+    }
+
+    let confirmPassword = document.getElementById("confirm-password");
+    let body = JSON.stringify({
+        "password": confirmPassword.value,
+    });
+
+    let url = "/api/password"
+    fetch(url, {
+        method: Method.PUT,
+        headers: getHeaders(true),
+        body: body,
+    })
+        .then(response => {
+            if(response.ok) {
+                getFindPasswordResultPage();
+            } else {
+                alert("fail to change password");
+            }
+        });
 }

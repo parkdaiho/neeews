@@ -10,10 +10,16 @@ function getFindPasswordPage() {
     getPage(url, "find-password");
 }
 
-function getFoundUsername() {
+function getFindUsernameResultPage() {
     let url = "/find-username/result";
 
     getPage(url, "find-username-result");
+}
+
+function getFindPasswordResultPage() {
+    let url = "/find-password/result";
+
+    getPage(url);
 }
 
 function getChangePasswordPage() {
