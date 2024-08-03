@@ -1638,6 +1638,7 @@ main {
 }
 
 .find-user-info-btn {
+    background-color: white;
     min-width: 200px;
     min-height: 200px;
     font-size: 2.5rem;
@@ -1651,7 +1652,6 @@ main {
 }
 
 /* find-username, find-password */
-
 .find-info-area {
     display: flex;
 }
@@ -1764,4 +1764,19 @@ main {
     width: 65%;
     padding: 10px;
     font-size: 1.6rem;
+}
+
+.change-password-valid-check-message {
+    width: 70%;
+    text-align: end;
+    padding: 5px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #065fd4;
+}
+
+.change-password-btn-area {
+    width: 70%;
+    display: flex;
+    justify-content: end;
 }

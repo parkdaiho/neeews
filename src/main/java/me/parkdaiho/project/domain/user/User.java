@@ -100,8 +100,8 @@ public class User extends BaseEntity {
     }
 
     public void makeWithdrawnMember() {
-        this.password = invalidationField(this.password);
-        this.email = invalidationField(this.email);
+        this.password = invalidationField();
+        this.email = invalidationField();
         this.role = Role.WITHDRAWN;
 
         this.token.deleteToken();
@@ -109,7 +109,7 @@ public class User extends BaseEntity {
         this.isEnabled = false;
     }
 
-    private String invalidationField(String field) {
-        return "withdrawn-member(" + field + ")";
+    private String invalidationField() {
+        return "withdrawn-member";
     }
 }

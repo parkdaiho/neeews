@@ -54,7 +54,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         String nickname = tokenService.getNicknameByAccessToken(accessToken);
         Role role = tokenService.getRoleByAccessToken(accessToken);
 
-//        request.setAttribute("nickname", nickname);
         request.setAttribute("login", true);
         request.setAttribute("isManager", !role.getIsUser());
         request.setAttribute("isAdmin", role == Role.ADMIN);

@@ -1,10 +1,12 @@
 package me.parkdaiho.project.controller;
 
 import jakarta.annotation.Nullable;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
+import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.domain.Sort;
 import me.parkdaiho.project.dto.comment.MyCommentResponse;
 import me.parkdaiho.project.dto.post.MyPostResponse;
@@ -31,6 +33,8 @@ public class UserViewController {
     private final UserService userService;
     private final PostService postService;
     private final CommentService commentService;
+
+    private final CookieProperties cookieProperties;
 
     @GetMapping("/login")
     public String loginPage(HttpServletRequest request, Model model) {
@@ -72,12 +76,14 @@ public class UserViewController {
     }
 
     @GetMapping("/change-password")
-    public String changePassword() {
+    public String changePassword(HttpServletRequest request) {
+        userService.checkCookieForPage(request, cookieProperties.getEmailInFindPasswordName());
+
         return "change-password";
     }
 
     @GetMapping("/find-password/result")
-    public String changePasswordResult() {
+    public String findPasswordResult() {
         return "find-user-info-result";
     }
 

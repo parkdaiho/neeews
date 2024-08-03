@@ -23,7 +23,7 @@ function getFindPasswordResultPage() {
 }
 
 function getChangePasswordPage() {
-    let url = "/find-password/result";
+    let url = "/change-password";
 
     getPage(url, "find-password-result");
 }

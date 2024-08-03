@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.oauth2.OAuth2AuthorizationRequestRepositoryBasedOnCookie;
 import me.parkdaiho.project.config.properties.CookieProperties;
 import me.parkdaiho.project.config.properties.JwtProperties;
+import me.parkdaiho.project.domain.user.Role;
 import me.parkdaiho.project.service.user.OAuth2UserCustomService;
 import me.parkdaiho.project.service.user.TokenService;
 import me.parkdaiho.project.service.user.UserDetailCustomService;
@@ -48,8 +49,9 @@ public class WebSecurityConfig {
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeHttpRequests()
-                        .requestMatchers("/my-page", "/my-page/**").authenticated()
-                        .anyRequest().permitAll();
+                .requestMatchers("/my-page", "/my-page/**").authenticated()
+                .requestMatchers("/api/membership").hasAnyRole(Role.ADMIN.getAuthority(), Role.MANAGER.getAuthority())
+                .anyRequest().permitAll();
 
         http.formLogin()
                 .loginPage("/login")

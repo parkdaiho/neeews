@@ -22,12 +22,12 @@
 			<div class="change-password-input">
 				<label>PASSWORD</label>
 				<input type="password" id="password" onchange="checkRegex();">
-				<input type="hidden" id="regex-check" value="false">
+				<input type="hidden" id="regex-check">
 			</div>
 			<div class="change-password-input">
 				<label>CONFIRM-PASSWORD</label>
 				<input type="password" id="confirm-password" onchange="checkConfirm();">
-				<input type="hidden" id="confirm-check" value="unchecked">
+				<input type="hidden" id="confirm-check">
 			</div>
 			<div class="change-password-valid-check-message" id="change-password-valid-check-message"
 					 style="display: none;"></div>

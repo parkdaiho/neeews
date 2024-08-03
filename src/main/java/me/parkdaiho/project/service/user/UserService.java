@@ -374,4 +374,9 @@ public class UserService {
         
         CookieUtils.deleteCookie(request, response, cookieProperties.getEmailInFindPasswordName());
     }
+
+    public void checkCookieForPage(HttpServletRequest request, String cookieName) {
+        Cookie cookie = CookieUtils.getCookieByName(request, cookieName);
+        if(cookie == null) throw new IllegalArgumentException("Unexpected access");
+    }
 }

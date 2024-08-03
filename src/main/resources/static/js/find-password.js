@@ -87,30 +87,29 @@ function checkConfirm() {
     confirmFlag.value = Check.UNCHECKED;
 
     let regexFlag = document.getElementById("regex-check");
-    if(regexFlag.value !== Check.UNCHECKED) return;
+    if(regexFlag.value === Check.UNCHECKED) return;
 
     let password = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirm-password").value;
-    let validCheckMessageArea= document.getElementById("change-password-valid-check-message");
 
     if(password === confirmPassword) {
+        let validCheckMessageArea= document.getElementById("change-password-valid-check-message");
         validCheckMessageArea.style.display = "none";
+
         confirmFlag.value = Check.CHECKED;
     }
-
-    confirmFlag.value = Check.UNCHECKED;
 }
 
 function changePassword() {
     let regexFlag = document.getElementById("regex-check");
-    if (regexFlag !== Check.UNCHECKED) {
+    if (regexFlag === Check.UNCHECKED) {
         alert(passwordRegexFailMessage);
 
         return;
     }
 
     let confirmFlag = document.getElementById("confirm-check");
-    if(confirmFlag !== Check.UNCHECKED) {
+    if(confirmFlag === Check.UNCHECKED) {
         alert(passwordConfirmFailMessage);
 
         return;
