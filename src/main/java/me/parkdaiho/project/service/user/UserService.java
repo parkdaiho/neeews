@@ -379,4 +379,9 @@ public class UserService {
         Cookie cookie = CookieUtils.getCookieByName(request, cookieName);
         if(cookie == null) throw new IllegalArgumentException("Unexpected access");
     }
+
+    public void deleteExistingCookieForFindUserInfo(HttpServletRequest request, HttpServletResponse response) {
+        CookieUtils.deleteCookie(request, response, cookieProperties.getUsernameInFindUsernameName());
+        CookieUtils.deleteCookie(request, response, cookieProperties.getEmailInFindPasswordName());
+    }
 }

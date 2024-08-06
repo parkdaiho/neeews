@@ -1,4 +1,6 @@
 function sendCodeForPassword() {
+    loading();
+
     let email = document.getElementById("email");
     let username = document.getElementById("username");
     let body = JSON.stringify({
@@ -7,6 +9,8 @@ function sendCodeForPassword() {
     });
 
     function success() {
+        loading();
+
         let codeArea = document.getElementById("find-user-info-code");
         codeArea.style.display = "";
 
@@ -18,6 +22,7 @@ function sendCodeForPassword() {
     }
 
     function fail() {
+        loading();
         alert("Fail api-request");
     }
 

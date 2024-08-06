@@ -50,3 +50,14 @@ function getPage(url, pageName) {
             findUserInfoPage.innerHTML = result;
         });
 }
+
+function loading() {
+    let loading = document.getElementById("find-user-info-loading");
+    let loadingDisplay = loading.style.display;
+
+    if(loadingDisplay === "none") {
+        loading.style.display = "";
+    } else {
+        loading.style.display = "none";
+    }
+}

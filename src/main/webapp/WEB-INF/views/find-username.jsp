@@ -23,6 +23,9 @@
 				<label>EMAIL</label>
 				<input type="email" id="email">
 			</div>
+			<div class="find-user-info-loading" id="find-user-info-loading" style="display: none;">
+				LOADING...
+			</div>
 			<div class="find-user-info-input" id="find-user-info-code" style="display: none;">
 				<label>CODE</label>
 				<input type="text" id="code">

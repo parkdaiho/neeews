@@ -1,25 +1,17 @@
 package me.parkdaiho.project.controller;
 
 import jakarta.annotation.Nullable;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import me.parkdaiho.project.config.PrincipalDetails;
 import me.parkdaiho.project.config.properties.CookieProperties;
-import me.parkdaiho.project.domain.Sort;
-import me.parkdaiho.project.dto.comment.MyCommentResponse;
-import me.parkdaiho.project.dto.post.MyPostResponse;
 import me.parkdaiho.project.dto.user.MembershipSearchRequest;
 import me.parkdaiho.project.dto.user.MembershipViewResponse;
 import me.parkdaiho.project.service.CommentService;
 import me.parkdaiho.project.service.PostService;
 import me.parkdaiho.project.service.user.UserService;
-import me.parkdaiho.project.util.CookieUtils;
-import org.aspectj.asm.IModelFilter;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,7 +48,9 @@ public class UserViewController {
     }
 
     @GetMapping("/find-username")
-    public String findUsername() {
+    public String findUsername(HttpServletRequest request, HttpServletResponse response) {
+        userService.deleteExistingCookieForFindUserInfo(request, response);
+
         return "find-username";
     }
 
@@ -71,7 +65,9 @@ public class UserViewController {
     }
 
     @GetMapping("/find-password")
-    public String findPassword() {
+    public String findPassword(HttpServletRequest request, HttpServletResponse response) {
+        userService.deleteExistingCookieForFindUserInfo(request, response);
+
         return "find-password";
     }
 

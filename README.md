@@ -6,7 +6,7 @@
 - [기술 스택](#기술-스택-)
 - [Browser Support](#browser-support-)
 - [Information Architecture](#information-architecture-)
-- [구현 기능](#구현-기능-)
+- [구현 기능](#핵심-구현-기능-)
 - [화면 구성](#화면-구성-)
 
 ## 프로젝트 소개 👐🏻

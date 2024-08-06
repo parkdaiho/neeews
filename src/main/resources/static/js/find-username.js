@@ -1,4 +1,6 @@
 function sendCodeForUsername() {
+    loading();
+
     let codeArea = document.getElementById("find-user-info-code");
     let email = document.getElementById("email");
 
@@ -13,6 +15,8 @@ function sendCodeForUsername() {
     })
         .then(response => {
             if(response.ok) {
+                loading();
+
                 email.setAttribute("readonly", "readonly");
                 codeArea.style.display = "";
 
@@ -22,6 +26,7 @@ function sendCodeForUsername() {
                 let authBtn = document.getElementById("find-username-auth-btn");
                 authBtn.style.display = "";
             } else {
+                loading();
                 alert("Check email");
             }
         });
