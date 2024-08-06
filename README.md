@@ -193,7 +193,7 @@
 
 - 이미지 업로드(미리보기)
 
-<img width="1205" alt="image" src="https://github.com/user-attachments/assets/b8781df6-f5e5-4c2a-b3d0-1561113a3bff">
+<img width="1210" alt="image" src="https://github.com/user-attachments/assets/bd79b0fd-5307-4d12-a13e-605ed6292ad4">
 
 ### 게시물 뷰
 
