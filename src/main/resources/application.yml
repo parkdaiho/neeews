@@ -19,16 +19,16 @@ spring:
       client:
         registration:
           google:
-            client-id: 880757649782-0vcbqh5hc19f9k4j70973b6sel7erlgv.apps.googleusercontent.com
-            client-secret: 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
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             scope:
               - email
               - profile
             redirect-uri: http://localhost:8080/login/oauth2/code/google
 
           naver:
-            client-id: k34ydk_bzPIigWfPcpd7
-            client-secret: GMPdnxaSK7
+            client-id: ${NAVER_CLIENT_ID}
+            client-secret: ${NAVER_CLIENT_SECRET}
             scope:
               - email
               - name
@@ -59,7 +59,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: eogh7204@gmail.com
-    password: szvzqclypviejody
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -98,8 +98,8 @@ naver:
     news-search-path: "/v1/search/news.json"
     client-id-header-name: X-Naver-Client-Id
     client-secret-header-name: X-Naver-Client-Secret
-    client-id: TrzDaXTuUiYAOi86zd2J
-    client-secret: UfhYGFUS0o
+    client-id: ${NAVER_SEARCH_CLIENT_ID}
+    client-secret: ${NAVER_SEARCH_CLIENT_SECRET}
     display: 10 # pagination-news-items-per-page
 
 file:
