@@ -40,6 +40,7 @@
 
 ## Information Architecture 🕸️
 
+<img width="1551" alt="image" src="https://github.com/user-attachments/assets/87d448eb-ed5b-47e4-b9a3-2fe1608d9cdb">
 
 ## 핵심 구현 기능 🔥
 
@@ -72,8 +73,9 @@
 - 한 개의 이메일로 중복가입은 불가능하며, 메일로 보내진 회원가입 코드 인증까지 완료해야 회원가입이 완료됩니다.
 - 소셜 로그인 인증을 통해 최초 회원가입을 하는 경우, 이메일 인증을 제외한 과정을 모두 수행해야 합니다.
 - 아이디, 비밀번호를 통한 로그인 시에 아이디 저장을 할 수 있습니다.
-- 아이디를 잊어버린 경우, 인증한 메일을 이용한 코드 인증을 통해 아이디를 찾을 수 있습니다.
-- 비밀번호를 잊어버린 경우, 아이디와 인증한 메일을 이용한 코드 인증을 통해 새로운 비밀번호로 변경할 수 있습니다.
+- 로그인 시에 필요한 아이디, 비밀번호를 잊어버린 경우 메일을 이용한 코드 인증을 통해 찾을 수 있습니다. 
+  - 아이디를 잊어버린 경우, 인증한 메일을 이용한 코드 인증을 통해 아이디를 찾을 수 있습니다.
+  - 비밀번호를 잊어버린 경우, 아이디와 인증한 메일을 이용한 코드 인증을 통해 새로운 비밀번호로 변경할 수 있습니다.
 - 회원은 모두 각자의 마이페이지가 있고, 하위 메뉴에서 정보 수정, 내가 쓴 게시물, 댓글 확인, 회원 탈퇴 페이지를 불러올 수 있습니다.
 - 매니저는 관리자를 통해 임명되며, 관리자, 매니저는 앞서 설명한 마이페이지에 회원 목록을 확인할 수 있습니다.
   - 관리자는 회원 목록 페이지를 통해 매니저를 임명할 수 있습니다.
@@ -246,3 +248,19 @@
 
 <img width="873" alt="image" src="https://github.com/user-attachments/assets/bfd4a70e-984f-4688-948c-008d9b66ad90">
 
+### 아이디, 비밀번호 찾기
+
+- 초기화면
+
+<img width="1203" alt="image" src="https://github.com/user-attachments/assets/3dc4b05c-7619-43e1-8a4e-f387c26f1020">
+
+- 아이디 찾기
+
+<img width="1209" alt="image" src="https://github.com/user-attachments/assets/e79302e9-dc50-4307-974f-82b74532cb10">
+<img width="1216" alt="image" src="https://github.com/user-attachments/assets/0ae63342-613f-4205-ad86-3a7f7c3fff8e">
+
+- 비밀번호 찾기
+
+<img width="1205" alt="image" src="https://github.com/user-attachments/assets/5cc83afe-091e-498c-bd82-fb1fd01e1160">
+<img width="1224" alt="image" src="https://github.com/user-attachments/assets/9ae051d8-f097-4364-b2fe-a700a87d937b">
+<img width="1211" alt="image" src="https://github.com/user-attachments/assets/059dfacd-fb85-460e-a8a0-55a8864f3166">
