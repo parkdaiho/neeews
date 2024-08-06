@@ -120,7 +120,7 @@ function changePassword() {
         showValidCheckMessage(passwordValidCheckMessage, passwordConfirmFailMessage);
     } else {
         confirmPasswordValidFlag.value = Check.CHECKED;
-        showValidCheckMessage(passwordValidCheckMessage, validPasswordMessage);
+        passwordValidCheckMessage.style.display = "none";
     }
 }
 

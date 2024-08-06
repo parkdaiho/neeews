@@ -12,7 +12,7 @@
 </header>
 <main>
 	<section class="page-info-area">
-		<h1>FIND USER INFORMATION</h1>
+		<h1>FIND-USER-INFORMATION</h1>
 		<p>You can find your username or password this page.</p>
 	</section>
 	<section class="find-user-info-page" id="find-user-info-page">

@@ -1728,16 +1728,24 @@ main {
     font-size: 2.0rem;
 }
 
-.find-username-result p {
-    display: inline-block;
-    width: 60%;
+.find-user-info-result {
+    width: 70%;
     padding: 10px;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 30px auto;
 }
 
-.find-username-result-btn-area {
-    width: 60%;
+.find-user-info-result-btn-area {
+    width: 70%;
     display: flex;
-    justify-content: end;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.find-user-info-result-btn-area button {
+    width: 20%;
+    font-size: 2.2rem;
 }
 
 .found-username {
