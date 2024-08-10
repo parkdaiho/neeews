@@ -122,7 +122,7 @@ public class WebSecurityConfig {
 
     @Bean
     public LogoutCustomHandler logoutCustomHandler() {
-        return new LogoutCustomHandler(jwtProperties);
+        return new LogoutCustomHandler(jwtProperties, tokenService);
     }
 
     @Bean

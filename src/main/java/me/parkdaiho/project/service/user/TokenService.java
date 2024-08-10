@@ -168,4 +168,10 @@ public class TokenService {
 
         return user.getRole();
     }
+
+    public void invalidateToken(String refreshToken) {
+        Token token = findByRefresToken(refreshToken);
+
+        token.invalidate();
+    }
 }

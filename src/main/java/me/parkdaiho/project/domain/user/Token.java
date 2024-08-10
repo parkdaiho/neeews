@@ -3,8 +3,6 @@ package me.parkdaiho.project.domain.user;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.ConnectionBuilder;
-
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
@@ -47,10 +45,8 @@ public class Token {
         return this;
     }
 
-    public Token deleteToken() {
+    public void invalidate() {
         this.accessToken = "";
         this.refreshToken = "";
-
-        return this;
     }
 }

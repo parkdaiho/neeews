@@ -7,7 +7,6 @@ import me.parkdaiho.project.domain.article.Clipping;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
-import java.util.UUID;
 
 @Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -104,7 +103,7 @@ public class User extends BaseEntity {
         this.email = invalidationField();
         this.role = Role.WITHDRAWN;
 
-        this.token.deleteToken();
+        this.token.invalidate();
 
         this.isEnabled = false;
     }

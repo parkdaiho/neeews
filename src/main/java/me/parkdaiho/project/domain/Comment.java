@@ -32,7 +32,7 @@ public class Comment extends BaseEntity implements Pollable, IncludingComments {
     private Post post;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "noitce_id")
+    @JoinColumn(name = "notice_id")
     private Notice notice;
 
     @ManyToOne(fetch = FetchType.EAGER)

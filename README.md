@@ -21,7 +21,7 @@
 
 ## 기술 스택 💻
 - Java 17 
-- Spring Boot (3.0.2)
+- Spring Boot 
     - jpa
     - security 
     - mail
@@ -254,13 +254,22 @@
 
 <img width="1203" alt="image" src="https://github.com/user-attachments/assets/3dc4b05c-7619-43e1-8a4e-f387c26f1020">
 
-- 아이디 찾기
+- 아이디 찾기 인증
 
 <img width="1209" alt="image" src="https://github.com/user-attachments/assets/e79302e9-dc50-4307-974f-82b74532cb10">
+
+- 아이디 찾기 결과
+
 <img width="1216" alt="image" src="https://github.com/user-attachments/assets/0ae63342-613f-4205-ad86-3a7f7c3fff8e">
 
-- 비밀번호 찾기
+- 비밀번호 찾기 인증
 
 <img width="1205" alt="image" src="https://github.com/user-attachments/assets/5cc83afe-091e-498c-bd82-fb1fd01e1160">
+
+- 비밀번호 변경 화면
+ 
 <img width="1224" alt="image" src="https://github.com/user-attachments/assets/9ae051d8-f097-4364-b2fe-a700a87d937b">
+ 
+- 비밀번호 변경 결과
+
 <img width="1211" alt="image" src="https://github.com/user-attachments/assets/059dfacd-fb85-460e-a8a0-55a8864f3166">

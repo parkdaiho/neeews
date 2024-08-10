@@ -19,7 +19,12 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Sign up authentication code");
-        message.setText("Authentication-code is: " + code);
+
+        String text = """
+                Authentication-code is "%s".
+                Please input this code and sign-up.
+                """.formatted(code);
+        message.setText(text);
 
         emailSender.send(message);
 
@@ -33,7 +38,12 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Find username authentication code");
-        message.setText("Authentication-code is: " + code);
+
+        String text = """
+                Authentication-code is "%s".
+                Please input this code and find your id.
+                """.formatted(code);
+        message.setText(text);
 
         emailSender.send(message);
 
@@ -47,7 +57,12 @@ public class EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setSubject("Find password authentication code");
-        message.setText("Authentication-code is: " + code);
+
+        String text = """
+                Authentication-code is "%s".
+                Please input this code and find your password.
+                """.formatted(code);
+        message.setText(text);
 
         emailSender.send(message);
 
