@@ -1,3 +1,8 @@
+// const body = document.querySelector('body');
+// const changeThemeBtn = document.querySelector('#change-theme-btn');
+//
+// changeThemeBtn.onclick = () => body.classList.toggle('dark');
+
 function storeAccessToken(token) {
     if(token) {
         localStorage.setItem("access_token", token);

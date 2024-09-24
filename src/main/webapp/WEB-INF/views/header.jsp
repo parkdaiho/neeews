@@ -36,6 +36,7 @@
 		</c:choose>
 	</ul>
 </div>
+<%-- <button id="change-theme-btn">change-theme</button> --%>
 
 <script src="/js/header.js"></script>
 <script src="/js/application.js"></script>

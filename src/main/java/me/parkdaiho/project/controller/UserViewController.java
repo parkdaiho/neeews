@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @Controller
 public class UserViewController {
@@ -35,6 +37,13 @@ public class UserViewController {
         model.addAttribute("username", username);
 
         return "login";
+    }
+
+    @GetMapping("/login/{path}")
+    public void oauthLogin(@PathVariable String path, HttpServletResponse response) throws IOException {
+        String url = "/oauth2/authorization/" + path;
+
+        response.sendRedirect(url);
     }
 
     @GetMapping("/sign-up")

@@ -41,6 +41,12 @@ select {
     color: #717176;
 }
 
+.dark {
+    background-color: #222;
+    color: #eee;
+    border-color: #eee;
+}
+
 /* button */
 
 .add {
