@@ -114,162 +114,102 @@
 
 - 로그인 상태가 아닐 때
 
-<img width="1220" alt="image" src="https://github.com/user-attachments/assets/2f47229a-103a-41c8-bf18-32eb71e541d6">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/fba27a34-802e-46b5-bd84-ba9ff196da8b" />
 
 - 로그인 상태일 때
 
-<img width="1220" alt="image" src="https://github.com/user-attachments/assets/60328900-dc19-4eca-80c4-f210917ba117">
-
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/48e1369a-dcc9-4d22-ace9-796a6f1edbc2" />
 
 ### 인덱스 페이지
 
-<img width="1220" alt="image" src="https://github.com/user-attachments/assets/56ca68a2-20f9-4aad-9ba2-eeca81996c5d">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/d81fc603-e026-40db-b62c-e233cefd3651" />
 
 - 기사 또는 게시물 검색 영역
 
-<img width="1110" alt="image" src="https://github.com/user-attachments/assets/67da3e22-d466-43ac-8e1b-1afdba7ba5d9">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/5512b9e3-a401-4540-8a08-4a0cb88a12fd" />
 
 - 특정 기준(조회수, 인기순, 댓글순)에 따른 상위 기사, 게시물 영역
 
-<img width="1220" alt="image" src="https://github.com/user-attachments/assets/82676a9c-a8eb-413f-8706-6dbfaa5be6ae">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/9de97dda-40d8-42e0-941f-5224f30ec95b" />
 
 ### 검색한 기사 목록
 
-<img width="1208" alt="image" src="https://github.com/user-attachments/assets/615c1aa6-8e4d-44e5-8835-611a2c63da2d">
-
-- 페이지 소개 및 기사 검색 영역
-
-<img width="1199" alt="image" src="https://github.com/user-attachments/assets/de3bcebe-9d3d-466c-83a6-e3b8a390e860">
-
-- 기사 목록
-
-<img width="1204" alt="image" src="https://github.com/user-attachments/assets/ed5f6cfd-55be-41b3-97d0-c6486a781898">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/76211107-f092-445b-b94a-d5d55ec89e9f" />
 
 ### 기사 뷰
 
 - 기사 내용
 
-<img width="1210" alt="image" src="https://github.com/user-attachments/assets/7bc77da1-edf9-4488-9596-f13473e0eb82">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/60488763-d5a6-4588-9dde-931b0a4b3754" />
 
 - 기사 관련 버튼(좋아요, 싫어요, 기사 관련 게시물 작성하기, 기사와 관련된 게시물 목록)
 
-<img width="1202" alt="image" src="https://github.com/user-attachments/assets/a3bbb500-89a3-4c46-aef7-a8f5ce353e1b">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/729ad0df-b7b6-4431-bd48-aebe645344f8" />
 
 - 댓글
 
-<img width="1181" alt="image" src="https://github.com/user-attachments/assets/c67ac18e-d6b9-4dd9-ac40-94eea6844f9c">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/dfef93e8-7e28-4b83-ab7c-a314483600ee" />
 
 ### 특정 기준(조회수, 인기순, 댓글순)에 따른 상위 기사 목록
 
-<img width="1220" alt="image" src="https://github.com/user-attachments/assets/571f826f-16ba-4019-a50a-7cc97910a47e">
-
-- 페이지 소개 및 기사 검색 영역
-
-<img width="1200" alt="image" src="https://github.com/user-attachments/assets/af0a1c16-090b-46ef-8563-5418309bbef4">
-
-- 상위 기사 목록
-
-<img width="1210" alt="image" src="https://github.com/user-attachments/assets/938cbfeb-cf00-44a8-8899-5029a256a659">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/af1e7499-c025-4287-abce-0a6f42f8469c" />
 
 ### 스크랩 기사 목록
 
-<img width="1219" alt="image" src="https://github.com/user-attachments/assets/058ebfff-331c-41c0-b910-99d5800c3d48">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/a57c1ebc-8678-489d-8326-b43c08e567f7" />
 
 ### 커뮤니티 게시물 목록
 
-<img width="1220" alt="image" src="https://github.com/user-attachments/assets/cf9fbf5e-45a6-4219-9720-5d9fc23c8ea9">
-
-- 페이지 소개 및 게시물 검색 영역
-
-<img width="1211" alt="image" src="https://github.com/user-attachments/assets/15953f41-52f0-4015-8817-814d2aa27525">
-
-- 게시물 목록 영역
-
-<img width="1214" alt="image" src="https://github.com/user-attachments/assets/c83a8aa2-75fa-45a2-818e-d849b62f3787">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/ae04effe-6e6a-47bd-9b6f-0f8eb73302b0" />
 
 ### 게시물 작성
 
-<img width="1203" alt="image" src="https://github.com/user-attachments/assets/6d1a933d-94cb-4318-9355-9a28ad40b96d">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/96d0856a-8c33-4055-a17e-0b94f218ea84" />
 
 - 이미지 업로드(미리보기)
 
-<img width="1210" alt="image" src="https://github.com/user-attachments/assets/bd79b0fd-5307-4d12-a13e-605ed6292ad4">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/ea78a072-8ed5-47cf-a8ca-435c8c526e8c" />
 
 ### 게시물 뷰
 
-<img width="1211" alt="image" src="https://github.com/user-attachments/assets/e2eeb74e-d62e-4ffa-adb5-cffbd7d33359">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/faebda7d-f95b-4bfc-a799-c64622e44db8" />
 
 ### 공지사항 목록
 
-<img width="1226" alt="image" src="https://github.com/user-attachments/assets/9b483e5d-d386-46dd-a77c-e8fe087760c6">
-
-- 페이지 소개 및 공지사항 검색 영역
-
-<img width="1203" alt="image" src="https://github.com/user-attachments/assets/53f8ff38-7e51-4278-a5ef-3f0a29aa6d99">
-
-- 공지사항 목록 영역
-
-<img width="1210" alt="image" src="https://github.com/user-attachments/assets/f32d1a0f-7d28-46ae-872c-b227c52c2dee">
-
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/5f62f409-d486-4031-92d0-847e31d7e484" />
 
 ### 마이페이지
 
-<img width="1219" alt="image" src="https://github.com/user-attachments/assets/22d1c26c-08fa-4bc4-9096-b083eca5e944">
-
-- 마이페이지 메뉴 영역
-
-<img width="276" alt="image" src="https://github.com/user-attachments/assets/cdeb7f6c-05f4-474f-96bb-0280e801982b">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/d9ad9a2c-56bc-49e9-9b57-d5022facfa2f" />
 
 - 회원 정보 수정 메뉴
 
-<img width="965" alt="image" src="https://github.com/user-attachments/assets/9185db8f-0491-4e9b-96ff-91f8b19356fc">
+<img width="900" alt="image" src="https://github.com/user-attachments/assets/2f3b49d5-d3b6-4541-993f-7d5d8f6824de" />
 
 - 회원 목록 메뉴(관리자, 매니저)
 
-<img width="978" alt="image" src="https://github.com/user-attachments/assets/23b91404-8cad-488f-8cad-0944f2956710">
+<img width="971" alt="image" src="https://github.com/user-attachments/assets/5bb2bca1-cb49-4a9c-bb7a-a40c386be71c" />
 
 - 내가 쓴 게시물 메뉴
 
-<img width="976" alt="image" src="https://github.com/user-attachments/assets/6f79487c-0289-4853-ada6-3fb92c1185c1">
+<img width="958" alt="image" src="https://github.com/user-attachments/assets/271fceef-b682-406e-b635-a2f24a682d7a" />
 
 - 내가 쓴 댓글 메뉴
 
-<img width="966" alt="image" src="https://github.com/user-attachments/assets/a61abdb5-650a-4505-a717-edccc849ea63">
+<img width="957" alt="image" src="https://github.com/user-attachments/assets/802a1fe0-ff0b-404f-86a7-d4b45977f7b0" />
 
 - 회원 탈퇴
 
-<img width="968" alt="image" src="https://github.com/user-attachments/assets/85ed830a-be37-4e56-a328-e0de3db3ff4c">
+<img width="953" alt="image" src="https://github.com/user-attachments/assets/c8f3af06-94b4-4f8c-b312-98bc46a956b4" />
 
 ### 로그인
 
-<img width="761" alt="image" src="https://github.com/user-attachments/assets/93b21275-6600-4af8-a2f2-49843cc4fe35">
+<img width="752" alt="image" src="https://github.com/user-attachments/assets/94013b79-e2a3-48df-a407-7ff0c912c7b4" />
 
 ### 회원가입
 
-<img width="873" alt="image" src="https://github.com/user-attachments/assets/bfd4a70e-984f-4688-948c-008d9b66ad90">
+<img width="865" alt="image" src="https://github.com/user-attachments/assets/385f4f46-a9fa-40bc-b36a-ad6a4be39e60" />
 
 ### 아이디, 비밀번호 찾기
 
-- 초기화면
-
-<img width="1203" alt="image" src="https://github.com/user-attachments/assets/3dc4b05c-7619-43e1-8a4e-f387c26f1020">
-
-- 아이디 찾기 인증
-
-<img width="1209" alt="image" src="https://github.com/user-attachments/assets/e79302e9-dc50-4307-974f-82b74532cb10">
-
-- 아이디 찾기 결과
-
-<img width="1216" alt="image" src="https://github.com/user-attachments/assets/0ae63342-613f-4205-ad86-3a7f7c3fff8e">
-
-- 비밀번호 찾기 인증
-
-<img width="1205" alt="image" src="https://github.com/user-attachments/assets/5cc83afe-091e-498c-bd82-fb1fd01e1160">
-
-- 비밀번호 변경 화면
- 
-<img width="1224" alt="image" src="https://github.com/user-attachments/assets/9ae051d8-f097-4364-b2fe-a700a87d937b">
- 
-- 비밀번호 변경 결과
-
-<img width="1211" alt="image" src="https://github.com/user-attachments/assets/059dfacd-fb85-460e-a8a0-55a8864f3166">
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/442302cc-6ca0-43d9-ba3c-de39ac60851f" />
