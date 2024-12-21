@@ -21,6 +21,8 @@ if (token) {
     localStorage.setItem("access_token", token);
 }
 
+let clicked = false;
+
 // sign-up, member-info
 const usernameRegex = /^[a-z0-9]{5,20}$/;
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%!&*_+=-])[a-zA-Z0-9@#$%!&*_+=-]{8,20}$/;

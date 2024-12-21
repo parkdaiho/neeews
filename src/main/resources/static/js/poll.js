@@ -1,5 +1,3 @@
-let clicked = false;
-
 function poll(id, flag) {
     if(clicked) return false;
     clicked = true;

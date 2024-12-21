@@ -1,4 +1,3 @@
-let clicked = false;
 function addComment() {
     if(clicked) return false;
     clicked = true;
