@@ -40,7 +40,7 @@
 
 ## Information Architecture 🕸️
 
-<img width="1551" alt="image" src="https://github.com/user-attachments/assets/87d448eb-ed5b-47e4-b9a3-2fe1608d9cdb">
+<img width="1520" alt="image" src="https://github.com/user-attachments/assets/49d3bd06-7488-4c6e-ab02-3a1a71b03a49" />
 
 ## 핵심 구현 기능 🔥
 
