@@ -1,5 +1,3 @@
-let clicked = false;
-
 function writePost() {
     if(clicked) return false;
 

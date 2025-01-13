@@ -12,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Article extends BaseEntity implements Pollable, IncludingComments {
+public class Article extends BaseEntity implements Pollable, Commentable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @Table(name = "comments")
 @Entity
-public class Comment extends BaseEntity implements Pollable, IncludingComments {
+public class Comment extends BaseEntity implements Pollable, Commentable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

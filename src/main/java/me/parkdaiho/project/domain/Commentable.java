@@ -2,7 +2,7 @@ package me.parkdaiho.project.domain;
 
 import java.util.List;
 
-public interface IncludingComments {
+public interface Commentable {
 
     List<Comment> getComments();
     Long getCommentsSize();

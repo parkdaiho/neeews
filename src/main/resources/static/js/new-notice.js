@@ -1,5 +1,3 @@
-let clicked = false;
-
 function writeNotice() {
     if(clicked) return false;
 

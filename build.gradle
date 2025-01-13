@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-web') // 웹 관련 기능을 제공
+    implementation('org.springframework.boot:spring-boot-starter-web') // Spring MVC Restful 웹 관련 기능을 제공
     implementation('org.springframework.boot:spring-boot-starter-data-jpa') // 스프링 데이터 JPA
     implementation('org.springframework.boot:spring-boot-starter-security') // 스프링 시큐리티를 사용하기 위한 스타터
     implementation('org.springframework.boot:spring-boot-starter-validation')
